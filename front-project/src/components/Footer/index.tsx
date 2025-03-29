@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
     <FooterWrapper>
       <div className="footerAllWrap">
         <div className="footerWrap">
-          <div className="snsWrap">
+          <div className="footersnsWrap">
             <a href="https://www.instagram.com">
               <span>INSTAGRAM</span>
               <i className="fa-brands fa-square-instagram"></i>
@@ -32,14 +32,14 @@ const Footer: React.FC = () => {
           </div>
           <div className="companyWrap1">
             <p>
-              ㈜BAKEZY | 사업자등록번호: 229-111-222211 | 공동대표: 김은주
-              손한별
+              ㈜PUPPY CUPID | 사업자등록번호: 229-111-111111 | 공동대표: 김은주,
+              최승연, 최유진
               <br />
               서울특별시 강남구 테헤란로
             </p>
           </div>
           <div className="companyWrap2">
-            <p>©BAKEZY</p>
+            <p>©PUPPY CUPID</p>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import { ThemeProvider } from "styled-components";
 import theme from "../styles/theme";
 import { AppProps } from "next/app";
