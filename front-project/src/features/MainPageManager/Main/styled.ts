@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const MainStyled = styled.div`
   &.main-wrap {
-    background-color: red;
+    background-color: ${({ theme }) => theme.colors.mainPurple};
     .main-title {
       font-size: 20px;
     }
