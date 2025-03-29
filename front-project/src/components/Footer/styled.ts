@@ -10,18 +10,18 @@ export const FooterWrapper = styled.footer`
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: #333;
-    color: white;
+    background-color: #232323;
+    color: rgb(201, 201, 201);
   }
 
   .footerWrap {
-    padding-top: 30px;
-    padding-bottom: 10px;
+    padding-top: 50px;
+    padding-bottom: 50px;
     height: 100%;
     width: 100%;
   }
   .footersnsWrap {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .footersnsWrap a {
@@ -32,8 +32,9 @@ export const FooterWrapper = styled.footer`
 
   .footerCompanyWrap1,
   .footerCompanyWrap2 {
-    font-size: 12px;
+    font-size: 10px;
     margin-top: 10px;
+    color: #8f8f8f;
   }
 
   .footersnsWrap a i {
@@ -54,4 +55,8 @@ export const FooterWrapper = styled.footer`
       font-size: 10px;
     }
   }
+`;
+
+export const FooterPadding = styled.footer`
+  padding: 0px 100px;
 `;
