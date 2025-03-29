@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   const router = useRouter();
-  const isLoginPage = router.pathname === "/MainPageManager/Login";
+  const isLoginPage = router.pathname === "/login";
 
   if (!isClient) return null;
 
