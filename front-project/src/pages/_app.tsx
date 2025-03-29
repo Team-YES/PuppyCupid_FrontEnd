@@ -6,11 +6,19 @@ import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useEffect, useState } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
 
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const router = useRouter();
   const isLoginPage = router.pathname === "/MainPageManager/Login";
+
+  if (!isClient) return null;
 
   return (
     <>

@@ -10,6 +10,8 @@ export const FooterWrapper = styled.footer`
     justify-content: center;
     align-items: center;
     text-align: center;
+    background-color: #333;
+    color: white;
   }
 
   .footerWrap {
@@ -28,8 +30,8 @@ export const FooterWrapper = styled.footer`
     color: inherit;
   }
 
-  .companyWrap1,
-  .companyWrap2 {
+  .footerCompanyWrap1,
+  .footerCompanyWrap2 {
     font-size: 12px;
     margin-top: 10px;
   }
@@ -47,8 +49,8 @@ export const FooterWrapper = styled.footer`
       display: inline-block;
       font-size: 15px;
     }
-    .companyWrap1,
-    .companyWrap2 {
+    .footerCompanyWrap1,
+    .footerCompanyWrap2 {
       font-size: 10px;
     }
   }

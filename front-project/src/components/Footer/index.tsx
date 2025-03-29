@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
               <i className="fa-solid fa-envelope"></i>
             </a>
           </div>
-          <div className="companyWrap1">
+          <div className="footerCompanyWrap1">
             <p>
               ㈜PUPPY CUPID | 사업자등록번호: 229-111-111111 | 공동대표: 김은주,
               최승연, 최유진
@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
               서울특별시 강남구 테헤란로
             </p>
           </div>
-          <div className="companyWrap2">
+          <div className="footerCompanyWrap2">
             <p>©PUPPY CUPID</p>
           </div>
         </div>
