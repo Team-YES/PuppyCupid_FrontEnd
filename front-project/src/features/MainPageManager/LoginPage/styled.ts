@@ -3,7 +3,29 @@ import styled from "styled-components";
 export const LoginPageStyled = styled.div`
   max-width: 430px;
   margin: 0 auto;
-  
+
+  .heartbeat {
+    fill: #ccb6fd;
+    transform-origin: center;
+    animation: beat 1s infinite ease-in-out;
+  }
+
+  @keyframes beat {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.2);
+    }
+    50% {
+      transform: scale(0.8);
+    }
+    75% {
+      transform: scale(1.05);
+    }
+  }
+
   .Loginpage_main_container {
     padding: 24px;
     border: 1px solid #ddd;
@@ -46,7 +68,7 @@ export const LoginPageStyled = styled.div`
       width: 30px;
       height: 30px;
       margin-left: 10px;
-      background: url('/btnG_naver_login_icon.png') no-repeat center;
+      background: url("/btnG_naver_login_icon.png") no-repeat center;
       background-size: 30px;
       top: 9px;
       left: 2px;
@@ -59,7 +81,7 @@ export const LoginPageStyled = styled.div`
     /* width: 410.222px; */
     height: 48.222px;
     padding: 13px 20px;
-    background-color: #FEE500;
+    background-color: #fee500;
     color: #000000;
     font-size: 16px;
     font-weight: 700;
@@ -75,7 +97,7 @@ export const LoginPageStyled = styled.div`
       width: 30px;
       height: 30px;
       margin-left: 10px;
-      background-image: url('/icon-kakao.svg');
+      background-image: url("/icon-kakao.svg");
       background-size: 19px;
       background-repeat: no-repeat;
       top: 15px;
@@ -87,12 +109,12 @@ export const LoginPageStyled = styled.div`
     position: relative;
     width: 100%;
     padding: 13px 20px;
-    color: #1F1F1F;
+    color: #1f1f1f;
     font-size: 16px;
     font-weight: 700;
     border: thin solid #888;
     box-shadow: 1px 1px 1px grey;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-radius: 12px;
     cursor: pointer;
     margin-top: 10px;
@@ -104,7 +126,7 @@ export const LoginPageStyled = styled.div`
       width: 30px;
       height: 30px;
       margin-left: 10px;
-      background-image: url('/google-logo.png');
+      background-image: url("/google-logo.png");
       background-size: 19px;
       background-repeat: no-repeat;
       top: 14px;
