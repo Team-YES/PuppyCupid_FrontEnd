@@ -5,6 +5,7 @@ export const MainStyled = styled.div`
     /* background-color: ${({ theme }) => theme.colors.mainPurple}; */
     height: 100%;
     padding-bottom: 50px;
+    z-index: 10;
 
     @media (max-width: 1024px) {
     }

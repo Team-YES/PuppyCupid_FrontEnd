@@ -7,7 +7,6 @@ const Header = () => {
 
   const handleScroll = () => {
     if (window.scrollY > 50) {
-      // 스크롤 50px 이상 내려가면
       setIsScrolled(true);
     } else {
       setIsScrolled(false);

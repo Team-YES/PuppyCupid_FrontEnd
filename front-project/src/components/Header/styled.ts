@@ -75,10 +75,10 @@ export const RightMenu = styled.a`
   }
   .header_menu_text {
     position: absolute;
-    left: -50px;
+    left: 15px;
     font-size: 10px;
     letter-spacing: 1px;
-    top: 50%;
+    top: 120%;
     margin-top: -5px;
     text-align: right;
     color: black;
@@ -90,6 +90,12 @@ export const RightMenu = styled.a`
     transform: scaleX(1);
     left: 20px;
     height: 3.5px;
+  }
+  @media (max-width: 1024px) {
+    .header_menu_text {
+      left: -50px;
+      top: 50%;
+    }
   }
 `;
 
@@ -120,8 +126,8 @@ export const Nav = styled.nav`
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정 배경 */
-    z-index: 9998; /* 오버레이가 메뉴바 아래에 위치 */
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
     transition: opacity 0.3s ease;
   }
 
