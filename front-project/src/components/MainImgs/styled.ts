@@ -15,6 +15,14 @@ export const MainImgsWrapper = styled.div`
     font-size: 14px;
     grid-template-columns: repeat(2, 1fr);
     position: relative;
+
+    &:hover {
+      cursor: url("/cursor-hover1.png"), auto;
+    }
+    /* 클릭 시 커서 변경 */
+    &.clicked {
+      cursor: url("/cursor-clicked1.png"), auto;
+    }
   }
 
   .MainImgs_card {

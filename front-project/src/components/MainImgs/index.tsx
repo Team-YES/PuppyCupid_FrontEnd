@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { MainImgsPadding, MainImgsWrapper } from "./styled";
 
 interface MainImgsProps {
@@ -7,10 +7,24 @@ interface MainImgsProps {
 }
 
 const MainImgs = ({ titles, images }: MainImgsProps) => {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleMouseDown = () => {
+    setIsClicked(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsClicked(false);
+  };
+
   return (
     <MainImgsPadding>
       <MainImgsWrapper>
-        <div className="MainImgs_AllWrap">
+        <div
+          className={`MainImgs_AllWrap ${isClicked ? "clicked" : ""}`}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+        >
           {titles.map((title, index) => (
             <div key={index} className="MainImgs_card">
               <div className="MainImgs_title">{title}</div>

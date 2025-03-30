@@ -39,7 +39,7 @@ const Header = ({
           <Logo>
             <div className="header_logoimg_wrap">
               <img
-                src={isScrolled ? "/linelogo.png" : "/logopractice2.png"}
+                src={isScrolled ? "/logo1.png" : "/logopractice4.png"}
                 alt="puppycupid logo"
               />
             </div>
