@@ -6,7 +6,8 @@ export const MainStyled = styled.div`
     height: 100%;
     padding-bottom: 50px;
     z-index: 10;
-
+    padding-top: 130px;
+    z-index: 1000;
     @media (max-width: 1024px) {
     }
   }

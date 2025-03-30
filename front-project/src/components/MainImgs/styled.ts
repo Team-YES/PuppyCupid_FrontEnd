@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const MainImgsWrapper = styled.div`
+  position: static;
+
   .MainImgs_AllWrap {
     background-color: white;
     min-height: 100px;
@@ -12,11 +14,13 @@ export const MainImgsWrapper = styled.div`
     display: grid;
     font-size: 14px;
     grid-template-columns: repeat(2, 1fr);
+    position: relative;
   }
 
   .MainImgs_card {
     width: 100%;
     position: relative;
+    z-index: 10;
   }
   .MainImgs_title {
     position: absolute;

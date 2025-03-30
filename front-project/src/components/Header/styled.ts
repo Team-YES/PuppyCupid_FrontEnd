@@ -8,6 +8,14 @@ export const HeaderWrapper = styled.header`
   background-color: white;
   height: 130px;
 
+  @media (min-width: 1025px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+  }
+
   .header_logo {
     display: flex;
     justify-content: space-between;
@@ -128,6 +136,47 @@ export const RightMenu = styled.a`
       top: 50%;
     }
   }
+  @media (min-width: 1025px) {
+    .header_right_wrap {
+      width: 35px;
+      height: auto;
+      border: 1px black solid;
+      padding: 25px;
+      position: relative;
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      cursor: pointer;
+    }
+    .header_btn_line1 {
+      top: 16px;
+      width: 35%;
+      left: 15px;
+      height: 3px;
+    }
+    .header_btn_line2 {
+      top: 23px;
+      width: 35%;
+      height: 3px;
+      left: 15px;
+      transform: scaleX(0.55);
+      transform-origin: left;
+      transition: width 0.3s ease, height 0.3s ease, transform 0.3s ease;
+    }
+    .header_btn_line3 {
+      top: 30px;
+      width: 35%;
+      height: 3px;
+      left: 15px;
+    }
+    /* 호버 시 길이 변경 */
+    .header_right_wrap:hover .header_btn_line2 {
+      width: 35%;
+      transform: scaleX(1);
+      left: 15px;
+      height: 3.5px;
+    }
+  }
 `;
 
 // 헤더 메뉴바
@@ -151,6 +200,11 @@ export const Nav = styled.nav`
     box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
     z-index: 9999;
   }
+  /* @media (min-width: 1025px;) {
+    .header_rightnav_content {
+      z-index: 9999;
+    }
+  } */
   .header_overLay {
     position: fixed;
     top: 0;
@@ -161,7 +215,10 @@ export const Nav = styled.nav`
     z-index: 9998;
     transition: opacity 0.3s ease;
   }
-
+  .header_rightnav_wrap {
+    position: relative; /* 새 stacking context 생성 */
+    z-index: 9999; /* 헤더와 같은 stacking context로 이동 */
+  }
   &.open .header_rightnav_content {
     right: 0;
   }
