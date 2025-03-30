@@ -1,17 +1,12 @@
 import styled from "styled-components";
 
 export const MainStyled = styled.div`
-  &.main-wrap {
-    background-color: ${({ theme }) => theme.colors.mainPurple};
-    .main-title {
-      font-size: 20px;
-    }
-    @media (max-width: 1024px) {
-      background-color: black;
+  &.main_wrap {
+    /* background-color: ${({ theme }) => theme.colors.mainPurple}; */
+    height: 100%;
+    padding-bottom: 50px;
 
-      .main-title {
-        font-size: 12px;
-      }
+    @media (max-width: 1024px) {
     }
   }
 `;

@@ -65,6 +65,7 @@ export const RightMenu = styled.a`
     left: 20px;
     transform: scaleX(0.55);
     transform-origin: left;
+    transition: width 0.3s ease, height 0.3s ease, transform 0.3s ease;
   }
   .header_btn_line3 {
     top: 37px;
@@ -82,26 +83,50 @@ export const RightMenu = styled.a`
     text-align: right;
     color: black;
   }
+
+  /* 호버 시 길이 변경 */
+  .header_right_wrap:hover .header_btn_line2 {
+    width: 35%;
+    transform: scaleX(1);
+    left: 20px;
+    height: 3.5px;
+  }
 `;
 
 // 헤더 메뉴바
 export const Nav = styled.nav`
+  /* 오버레이 */
   .header_rightnav_topWrap {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
+    padding: 30px;
     box-sizing: border-box;
   }
   .header_rightnav_content {
     position: fixed;
     top: 0;
-    right: 0px;
+    right: -45vw;
     width: 45vw;
     height: 100vh;
     background: white;
     transition: right 0.3s ease-in-out;
     box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+  }
+  .header_overLay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정 배경 */
+    z-index: 9998; /* 오버레이가 메뉴바 아래에 위치 */
+    transition: opacity 0.3s ease;
+  }
+
+  &.open .header_rightnav_content {
+    right: 0;
   }
 
   /* 아이콘 */
@@ -112,6 +137,7 @@ export const Nav = styled.nav`
 
   .header_userfindicon i {
     padding-right: 20px;
+    cursor: pointer;
   }
 
   /* 닫기 버튼 */
@@ -122,9 +148,10 @@ export const Nav = styled.nav`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    width: 15%;
+    padding: 5px;
+    width: 13%;
     aspect-ratio: 1/1;
+    cursor: pointer;
   }
 
   .header_rightnav_closebtnWrap span {

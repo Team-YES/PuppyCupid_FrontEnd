@@ -48,6 +48,14 @@ a {
 }
 .app_content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 메인 페이지 높이 조절 */
+.app_content > .main_wrap {
+  flex: 1;
+  min-height: 500px;
 }
 
 .app_footer {

@@ -58,5 +58,5 @@ export const FooterWrapper = styled.footer`
 `;
 
 export const FooterPadding = styled.footer`
-  padding: 0px 100px;
+  padding: 0px 120px;
 `;

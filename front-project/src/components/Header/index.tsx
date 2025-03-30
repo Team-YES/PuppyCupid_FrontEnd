@@ -1,7 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { HeaderWrapper, Logo, Mid, RightMenu, Nav } from "./styled";
 
 const Header = () => {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      // 스크롤 50px 이상 내려가면
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+
+  const openNav = () => {
+    setIsNavOpen(true);
+  };
+
+  const closeNav = () => {
+    setIsNavOpen(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <HeaderWrapper>
       <div className="header_logo">
@@ -17,7 +42,7 @@ const Header = () => {
             CUPID
           </div>
         </Mid>
-        <RightMenu>
+        <RightMenu onClick={openNav} className={isNavOpen ? "open" : ""}>
           <div className="header_right_wrap">
             <span className="header_btn_line1"></span>
             <span className="header_btn_line2"></span>
@@ -26,9 +51,10 @@ const Header = () => {
           </div>
         </RightMenu>
       </div>
-      <Nav>
+      <Nav className={isNavOpen ? "open" : ""}>
+        {/* 메뉴바 열림 윗부분 */}
+        {isNavOpen && <div className="header_overLay" onClick={closeNav}></div>}
         <div className="header_rightnav_content">
-          {/* 메뉴바 열림 윗부분 */}
           <div className="header_rightnav_topWrap">
             <div className="header_userfindicon">
               <i
@@ -40,7 +66,8 @@ const Header = () => {
                 style={{ color: "#000000" }}
               ></i>
             </div>
-            <div className="header_rightnav_closebtnWrap">
+            {/* 닫기 버튼 */}
+            <div className="header_rightnav_closebtnWrap" onClick={closeNav}>
               <span className="header_rightnav_closebtn">
                 <i className="fa-solid fa-xmark"></i>
               </span>
