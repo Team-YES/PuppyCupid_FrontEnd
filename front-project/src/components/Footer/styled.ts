@@ -48,11 +48,11 @@ export const FooterWrapper = styled.footer`
 
     .footer_snsWrap a i {
       display: inline-block;
-      font-size: 15px;
+      font-size: 14px;
     }
     .footer_CompanyWrap1,
     .footer_CompanyWrap2 {
-      font-size: 10px;
+      font-size: 9px;
     }
   }
 `;
