@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isClient, setIsClient] = useState(false);
-
+  const [isScrolled, setIsScrolled] = useState(false);
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -24,9 +24,15 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <div className="app_wrapper">
       <ThemeProvider theme={theme}>
-        {!isLoginPage && !isAdminPage && <Header />}
+        {!isLoginPage && !isAdminPage && (
+          <Header isScrolled={isScrolled} setIsScrolled={setIsScrolled} />
+        )}
         <div className="app_content">
-          <Component {...pageProps} />
+          <Component
+            {...pageProps}
+            isScrolled={isScrolled}
+            setIsScrolled={setIsScrolled}
+          />
         </div>
         <div className="app_footer">
           {!isLoginPage && !isAdminPage && <Footer />}

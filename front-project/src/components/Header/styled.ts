@@ -6,8 +6,64 @@ export const HeaderWrapper = styled.header`
   align-items: center;
   padding: 25px;
   background-color: white;
-  height: 130px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 
+  /* 스크롤에 따른 헤더 CSS 변경 */
+  &.scrolled {
+    height: 65px;
+    .header_mid_wrap {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .header_right_wrap {
+      border: none;
+    }
+    .header_menu_text {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+  @media (max-width: 1024px) {
+    z-index: 20;
+  }
+
+  @media (min-width: 1025px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+    &.scrolled {
+      .header_logoimg_wrap {
+        width: 45px;
+        margin-left: 10px;
+      }
+    }
+  }
+  @media (max-width: 1024px) {
+    &.scrolled {
+      height: 65px;
+      transition: height 0.3s ease-in-out;
+      .header_logoimg_wrap {
+        width: 45px;
+        overflow: hidden;
+        margin-left: 15px;
+        transition: height 0.3s ease-in-out;
+      }
+      .header_right_wrap {
+        border: none;
+      }
+      .header_menu_text {
+        opacity: 0;
+        visibility: hidden;
+        transition: height 0.3s ease-in-out;
+      }
+    }
+    z-index: 20;
+  }
   .header_logo {
     display: flex;
     justify-content: space-between;
@@ -128,6 +184,57 @@ export const RightMenu = styled.a`
       top: 50%;
     }
   }
+  @media (min-width: 1025px) {
+    .header_right_wrap {
+      width: 35px;
+      height: auto;
+      border: 1px black solid;
+      padding: 25px;
+      position: relative;
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      cursor: pointer;
+    }
+    .header_btn_line1 {
+      top: 16px;
+      width: 35%;
+      height: 3px;
+      left: 15px;
+    }
+    .header_btn_line2 {
+      top: 23px;
+      width: 35%;
+      height: 3px;
+      left: 15px;
+      transform: scaleX(0.55);
+      transform-origin: left;
+      transition: width 0.3s ease, height 0.3s ease, transform 0.3s ease;
+    }
+    .header_btn_line3 {
+      top: 30px;
+      width: 35%;
+      height: 3px;
+      left: 15px;
+    }
+    /* 호버 시 길이 변경 */
+    .header_right_wrap:hover .header_btn_line2 {
+      width: 35%;
+      transform: scaleX(1);
+      left: 15px;
+      height: 3.5px;
+    }
+    .header_menu_text {
+      position: absolute;
+      left: 10px;
+      font-size: 10px;
+      letter-spacing: 1px;
+      top: 120%;
+      margin-top: -5px;
+      text-align: right;
+      color: black;
+    }
+  }
 `;
 
 // 헤더 메뉴바
@@ -150,7 +257,15 @@ export const Nav = styled.nav`
     transition: right 0.3s ease-in-out;
     box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
     z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
+  /* @media (min-width: 1025px;) {
+    .header_rightnav_content {
+      z-index: 9999;
+    }
+  } */
   .header_overLay {
     position: fixed;
     top: 0;
@@ -161,7 +276,10 @@ export const Nav = styled.nav`
     z-index: 9998;
     transition: opacity 0.3s ease;
   }
-
+  .header_rightnav_wrap {
+    position: relative;
+    z-index: 9999;
+  }
   &.open .header_rightnav_content {
     right: 0;
   }
@@ -176,6 +294,18 @@ export const Nav = styled.nav`
     padding-right: 20px;
     cursor: pointer;
   }
+  /* right menu bar */
+  .header_rightnav_midWrap {
+    padding: 30px 30px 30px 45px;
+    .RightMenubar_title {
+      cursor: pointer;
+      padding-bottom: 20px;
+      font-size: 20px;
+      &:hover {
+        color: ${({ theme }) => theme.colors.pointPurple};
+      }
+    }
+  }
 
   /* 닫기 버튼 */
   .header_rightnav_closebtnWrap {
@@ -186,12 +316,25 @@ export const Nav = styled.nav`
     justify-content: center;
     align-items: center;
     padding: 5px;
-    width: 13%;
+    width: 55px;
     aspect-ratio: 1/1;
     cursor: pointer;
   }
 
   .header_rightnav_closebtnWrap span {
     margin: 0;
+  }
+
+  .header_logout_btn {
+    font-size: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: right;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    cursor: pointer;
+    &:hover {
+      color: ${({ theme }) => theme.colors.pointPurple};
+    }
   }
 `;
