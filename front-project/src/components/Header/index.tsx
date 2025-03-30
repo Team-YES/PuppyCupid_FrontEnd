@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { HeaderWrapper, Logo, Mid, RightMenu, Nav } from "./styled";
 import RightMenubar from "../../assets/RightMenubar";
+import { useRouter } from "next/router";
 
 const Header = ({
   isScrolled,
@@ -9,6 +10,7 @@ const Header = ({
   isScrolled: boolean;
   setIsScrolled: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const router = useRouter();
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const handleScroll = () => {
@@ -32,12 +34,20 @@ const Header = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleLogoClick = () => {
+    router.push("/");
+  };
+
+  const handleLoginClick = () => {
+    router.push("/login");
+  };
+
   return (
     <>
       <HeaderWrapper className={isScrolled ? "scrolled" : ""}>
         <div className="header_logo">
           <Logo>
-            <div className="header_logoimg_wrap">
+            <div className="header_logoimg_wrap" onClick={handleLogoClick}>
               <img
                 src={isScrolled ? "/logo1.png" : "/logopractice4.png"}
                 alt="puppycupid logo"
@@ -45,7 +55,7 @@ const Header = ({
             </div>
           </Logo>
           <Mid>
-            <div className="header_mid_wrap">
+            <div className="header_mid_wrap" onClick={handleLogoClick}>
               PUPPY
               <svg
                 width="20"
@@ -85,10 +95,14 @@ const Header = ({
             <div>
               <div className="header_rightnav_topWrap">
                 <div className="header_userfindicon">
+                  {/* 유저 아이콘 */}
                   <i
                     className="fa-regular fa-user"
                     style={{ color: "#000000" }}
+                    onClick={handleLoginClick}
                   ></i>
+
+                  {/* 찾기 아이콘 */}
                   <i
                     className="fa-solid fa-magnifying-glass"
                     style={{ color: "#000000" }}
