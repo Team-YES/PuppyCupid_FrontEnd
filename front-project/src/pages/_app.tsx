@@ -17,17 +17,20 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const router = useRouter();
   const isLoginPage = router.pathname === "/login";
+  const isAdminPage = router.pathname === "/admin";
 
   if (!isClient) return null;
 
   return (
     <div className="app_wrapper">
       <ThemeProvider theme={theme}>
-        {!isLoginPage && <Header />}
+        {!isLoginPage && !isAdminPage && <Header />}
         <div className="app_content">
           <Component {...pageProps} />
         </div>
-        <div className="app_footer">{!isLoginPage && <Footer />}</div>
+        <div className="app_footer">
+          {!isLoginPage && !isAdminPage && <Footer />}
+        </div>
       </ThemeProvider>
     </div>
   );

@@ -37,7 +37,23 @@ const Header = () => {
         <Mid>
           <div className="header_mid_wrap">
             PUPPY
-            {/* <img src="/logopractice2.png" alt="puppycupid logo" /> */}
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 40 40"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                className="header_heartbeat"
+                d="M20 35
+        C 11 28, 6 20, 10 12
+        C 14 6, 19 10, 20 16
+        C 22 10, 28 8, 31 11
+        C 36 21, 28 28, 20 35 Z"
+                stroke="#444"
+                stroke-width="2.5"
+              />
+            </svg>
             CUPID
           </div>
         </Mid>
