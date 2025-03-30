@@ -7,14 +7,37 @@ export const HeaderWrapper = styled.header`
   padding: 25px;
   background-color: white;
   height: 130px;
+
   .header_logo {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
   }
+
+  .header_heartbeat {
+    fill: #ccb6fd;
+    transform-origin: center;
+    animation: beat 1s infinite ease-in-out;
+  }
+
+  @keyframes beat {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.2);
+    }
+    50% {
+      transform: scale(0.8);
+    }
+    75% {
+      transform: scale(1.05);
+    }
+  }
 `;
-// 헤더 로고고
+// 헤더 로고
 export const Logo = styled.div`
   .header_logoimg_wrap {
     width: 80px;
@@ -31,6 +54,14 @@ export const Mid = styled.nav`
   font-size: 13px;
   letter-spacing: 2px;
   font-weight: bold;
+  .header_mid_wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      margin: 0px 5px;
+    }
+  }
 `;
 
 // 헤더 오른쪽
