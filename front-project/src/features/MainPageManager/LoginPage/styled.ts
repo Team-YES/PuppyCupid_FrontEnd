@@ -4,28 +4,6 @@ export const LoginPageStyled = styled.div`
   max-width: 430px;
   margin: 0 auto;
 
-  .heartbeat {
-    fill: #ccb6fd;
-    transform-origin: center;
-    animation: beat 1s infinite ease-in-out;
-  }
-
-  @keyframes beat {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    25% {
-      transform: scale(1.2);
-    }
-    50% {
-      transform: scale(0.8);
-    }
-    75% {
-      transform: scale(1.05);
-    }
-  }
-
   .Loginpage_main_container {
     padding: 24px;
     border: 1px solid #ddd;
@@ -41,7 +19,7 @@ export const LoginPageStyled = styled.div`
   }
 
   .Loginpage_logo_container {
-    width: 100px;
+    width: 79px;
   }
 
   .Loginpage_logo_container img {
