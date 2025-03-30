@@ -21,12 +21,14 @@ export default function App({ Component, pageProps }: AppProps) {
   if (!isClient) return null;
 
   return (
-    <>
+    <div className="app_wrapper">
       <ThemeProvider theme={theme}>
         {!isLoginPage && <Header />}
-        <Component {...pageProps} />
-        {!isLoginPage && <Footer />}
+        <div className="app_content">
+          <Component {...pageProps} />
+        </div>
+        <div className="app_footer">{!isLoginPage && <Footer />}</div>
       </ThemeProvider>
-    </>
+    </div>
   );
 }

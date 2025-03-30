@@ -3,12 +3,29 @@ import { clsx } from "clsx";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-const Main = () => {
-  const router = useRouter();
+import MainImgs from "../../../components/MainImgs";
 
+const titles = [
+  "산책메이트",
+  "전체 게시물 보기",
+  "로그인하기",
+  "채팅하기",
+  "결제 안내 ",
+  "내 정보 보기",
+];
+const images = [
+  "mainImg1.gif",
+  "mainImg2.webp",
+  "mainImg3.webp",
+  "mainImg4.webp",
+  "mainImg5.jpg",
+  "mainImg6.jpg",
+];
+
+const Main = () => {
   return (
-    <MainStyled className={clsx("main-wrap")}>
-      <div className="main-title">메인페이지</div>
+    <MainStyled className={clsx("main_wrap")}>
+      <MainImgs titles={titles} images={images} />
     </MainStyled>
   );
 };
