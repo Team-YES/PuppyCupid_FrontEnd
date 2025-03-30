@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const FooterWrapper = styled.footer`
-  .footerAllWrap {
+  .footer_AllWrap {
     background-color: white;
     min-height: 100px;
     border-top: solid 1px black;
@@ -14,44 +14,44 @@ export const FooterWrapper = styled.footer`
     color: rgb(201, 201, 201);
   }
 
-  .footerWrap {
+  .footer_Wrap {
     padding-top: 50px;
     padding-bottom: 50px;
     height: 100%;
     width: 100%;
   }
-  .footersnsWrap {
+  .footer_snsWrap {
     font-size: 12px;
   }
 
-  .footersnsWrap a {
+  .footer_snsWrap a {
     margin-left: 10px;
     text-decoration: none;
     color: inherit;
   }
 
-  .footerCompanyWrap1,
-  .footerCompanyWrap2 {
+  .footer_CompanyWrap1,
+  .footer_CompanyWrap2 {
     font-size: 10px;
     margin-top: 10px;
     color: #8f8f8f;
   }
 
-  .footersnsWrap a i {
+  .footer_snsWrap a i {
     display: none;
   }
   /* 반응형 CSS */
   @media (max-width: 768px) {
-    .footersnsWrap a span {
+    .footer_snsWrap a span {
       display: none;
     }
 
-    .footersnsWrap a i {
+    .footer_snsWrap a i {
       display: inline-block;
       font-size: 15px;
     }
-    .footerCompanyWrap1,
-    .footerCompanyWrap2 {
+    .footer_CompanyWrap1,
+    .footer_CompanyWrap2 {
       font-size: 10px;
     }
   }

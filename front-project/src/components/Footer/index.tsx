@@ -1,13 +1,13 @@
 import React from "react";
 import { FooterPadding, FooterWrapper } from "./styled";
 
-const Footer: React.FC = () => {
+const Footer = () => {
   return (
     <FooterPadding>
       <FooterWrapper>
-        <div className="footerAllWrap">
-          <div className="footerWrap">
-            <div className="footersnsWrap">
+        <div className="footer_AllWrap">
+          <div className="footer_Wrap">
+            <div className="footer_snsWrap">
               <a href="https://www.instagram.com">
                 <span>INSTAGRAM</span>
                 <i className="fa-brands fa-square-instagram"></i>
@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
                 <i className="fa-solid fa-envelope"></i>
               </a>
             </div>
-            <div className="footerCompanyWrap1">
+            <div className="footer_CompanyWrap1">
               <p>
                 ㈜PUPPY CUPID | 사업자등록번호: 229-111-111111 | 공동대표:
                 김은주, 최승연, 최유진
@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
                 주소: 서울특별시 강남구 테헤란로
               </p>
             </div>
-            <div className="footerCompanyWrap2">
+            <div className="footer_CompanyWrap2">
               <p>© PUPPY CUPID</p>
             </div>
           </div>

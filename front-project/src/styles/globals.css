@@ -14,12 +14,17 @@
   box-sizing: border-box;
 }
 
-body, h1, h2, h3, p {
+body,
+h1,
+h2,
+h3,
+p {
   margin: 0;
   padding: 0;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
   padding: 0;
 }
@@ -33,4 +38,18 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+/* 헤더 푸터 본문 : 푸터 하단 정렬 css */
+.app_wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.app_content {
+  flex: 1;
+}
+
+.app_footer {
+  margin-top: auto;
 }
