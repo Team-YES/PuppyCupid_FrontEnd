@@ -59,4 +59,7 @@ export const FooterWrapper = styled.footer`
 
 export const FooterPadding = styled.footer`
   padding: 0px 120px;
+  @media (max-width: 1024px) {
+    padding: 0px 20px;
+  }
 `;
