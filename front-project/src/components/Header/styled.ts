@@ -51,8 +51,6 @@ export const HeaderWrapper = styled.header`
         width: 45px;
         overflow: hidden;
         margin-left: 15px;
-        opacity: 0;
-        visibility: hidden;
         transition: height 0.3s ease-in-out;
       }
       .header_right_wrap {
