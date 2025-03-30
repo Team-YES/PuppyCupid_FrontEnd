@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { HeaderWrapper, Logo, Mid, RightMenu, Nav } from "./styled";
+import RightMenubar from "../../assets/RightMenubar";
 
 const Header = ({
   isScrolled,
@@ -81,26 +82,47 @@ const Header = ({
         {isNavOpen && <div className="header_overLay" onClick={closeNav}></div>}
         <div className="header_rightnav_wrap">
           <div className="header_rightnav_content">
-            <div className="header_rightnav_topWrap">
-              <div className="header_userfindicon">
-                <i
-                  className="fa-regular fa-user"
-                  style={{ color: "#000000" }}
-                ></i>
-                <i
-                  className="fa-solid fa-magnifying-glass"
-                  style={{ color: "#000000" }}
-                ></i>
+            <div>
+              <div className="header_rightnav_topWrap">
+                <div className="header_userfindicon">
+                  <i
+                    className="fa-regular fa-user"
+                    style={{ color: "#000000" }}
+                  ></i>
+                  <i
+                    className="fa-solid fa-magnifying-glass"
+                    style={{ color: "#000000" }}
+                  ></i>
+                </div>
+                {/* 닫기 버튼 */}
+                <div
+                  className="header_rightnav_closebtnWrap"
+                  onClick={closeNav}
+                >
+                  <span className="header_rightnav_closebtn">
+                    <i className="fa-solid fa-xmark"></i>
+                  </span>
+                </div>
               </div>
-              {/* 닫기 버튼 */}
-              <div className="header_rightnav_closebtnWrap" onClick={closeNav}>
-                <span className="header_rightnav_closebtn">
-                  <i className="fa-solid fa-xmark"></i>
-                </span>
+              {/* 메뉴바 열림 중간 메뉴 이동 버튼들 */}
+              <div className="header_rightnav_midWrap">
+                <RightMenubar
+                  titles={[
+                    "산책 메이트 찾기",
+                    "전체 게시물 보기",
+                    "채팅하기",
+                    "결제하기",
+                  ]}
+                  paths={[
+                    "/find-walking-mate",
+                    "/all-posts",
+                    "/chat",
+                    "/payment",
+                  ]}
+                ></RightMenubar>
               </div>
             </div>
-            {/* 메뉴바 열림 중간 메뉴 이동 버튼들 */}
-            <div className="header_rightnav_midWrap"></div>
+            <div className="header_logout_btn">로그아웃</div>
           </div>
         </div>
       </Nav>

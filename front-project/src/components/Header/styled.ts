@@ -15,13 +15,15 @@ export const HeaderWrapper = styled.header`
   &.scrolled {
     height: 65px;
     .header_mid_wrap {
-      display: none;
+      opacity: 0;
+      visibility: hidden;
     }
     .header_right_wrap {
       border: none;
     }
     .header_menu_text {
-      display: none;
+      opacity: 0;
+      visibility: hidden;
     }
   }
   @media (max-width: 1024px) {
@@ -44,10 +46,22 @@ export const HeaderWrapper = styled.header`
   @media (max-width: 1024px) {
     &.scrolled {
       height: 65px;
+      transition: height 0.3s ease-in-out;
       .header_logoimg_wrap {
         width: 45px;
         overflow: hidden;
         margin-left: 15px;
+        opacity: 0;
+        visibility: hidden;
+        transition: height 0.3s ease-in-out;
+      }
+      .header_right_wrap {
+        border: none;
+      }
+      .header_menu_text {
+        opacity: 0;
+        visibility: hidden;
+        transition: height 0.3s ease-in-out;
       }
     }
     z-index: 20;
@@ -245,6 +259,9 @@ export const Nav = styled.nav`
     transition: right 0.3s ease-in-out;
     box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
     z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   /* @media (min-width: 1025px;) {
     .header_rightnav_content {
@@ -262,8 +279,8 @@ export const Nav = styled.nav`
     transition: opacity 0.3s ease;
   }
   .header_rightnav_wrap {
-    position: relative; /* 새 stacking context 생성 */
-    z-index: 9999; /* 헤더와 같은 stacking context로 이동 */
+    position: relative;
+    z-index: 9999;
   }
   &.open .header_rightnav_content {
     right: 0;
@@ -279,6 +296,18 @@ export const Nav = styled.nav`
     padding-right: 20px;
     cursor: pointer;
   }
+  /* right menu bar */
+  .header_rightnav_midWrap {
+    padding: 30px 30px 30px 45px;
+    .RightMenubar_title {
+      cursor: pointer;
+      padding-bottom: 20px;
+      font-size: 20px;
+      &:hover {
+        color: ${({ theme }) => theme.colors.pointPurple};
+      }
+    }
+  }
 
   /* 닫기 버튼 */
   .header_rightnav_closebtnWrap {
@@ -289,12 +318,25 @@ export const Nav = styled.nav`
     justify-content: center;
     align-items: center;
     padding: 5px;
-    width: 13%;
+    width: 55px;
     aspect-ratio: 1/1;
     cursor: pointer;
   }
 
   .header_rightnav_closebtnWrap span {
     margin: 0;
+  }
+
+  .header_logout_btn {
+    font-size: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: right;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    cursor: pointer;
+    &:hover {
+      color: ${({ theme }) => theme.colors.pointPurple};
+    }
   }
 `;
