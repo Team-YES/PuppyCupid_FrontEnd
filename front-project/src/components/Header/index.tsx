@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { HeaderWrapper, Logo, Mid, RightMenu, Nav } from "./styled";
 
-const Header = () => {
+const Header = ({
+  isScrolled,
+  setIsScrolled,
+}: {
+  isScrolled: boolean;
+  setIsScrolled: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
 
   const handleScroll = () => {
     if (window.scrollY > 50) {
@@ -28,11 +33,14 @@ const Header = () => {
 
   return (
     <>
-      <HeaderWrapper>
+      <HeaderWrapper className={isScrolled ? "scrolled" : ""}>
         <div className="header_logo">
           <Logo>
             <div className="header_logoimg_wrap">
-              <img src="/logopractice2.png" alt="puppycupid logo" />
+              <img
+                src={isScrolled ? "/linelogo.png" : "/logopractice2.png"}
+                alt="puppycupid logo"
+              />
             </div>
           </Logo>
           <Mid>
@@ -52,7 +60,7 @@ const Header = () => {
         C 22 10, 28 8, 31 11
         C 36 21, 28 28, 20 35 Z"
                   stroke="#444"
-                  stroke-width="2.5"
+                  strokeWidth="2.5"
                 />
               </svg>
               CUPID

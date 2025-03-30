@@ -6,7 +6,27 @@ export const HeaderWrapper = styled.header`
   align-items: center;
   padding: 25px;
   background-color: white;
-  height: 130px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  /* 스크롤에 따른 헤더 CSS 변경 */
+  &.scrolled {
+    height: 65px;
+    .header_mid_wrap {
+      display: none;
+    }
+    .header_right_wrap {
+      border: none;
+    }
+    .header_menu_text {
+      display: none;
+    }
+  }
+  @media (max-width: 1024px) {
+    z-index: 20;
+  }
 
   @media (min-width: 1025px) {
     position: fixed;
@@ -14,8 +34,24 @@ export const HeaderWrapper = styled.header`
     left: 0;
     width: 100%;
     z-index: 5;
+    &.scrolled {
+      .header_logoimg_wrap {
+        width: 45px;
+        margin-left: 10px;
+      }
+    }
   }
-
+  @media (max-width: 1024px) {
+    &.scrolled {
+      height: 65px;
+      .header_logoimg_wrap {
+        width: 45px;
+        overflow: hidden;
+        margin-left: 15px;
+      }
+    }
+    z-index: 20;
+  }
   .header_logo {
     display: flex;
     justify-content: space-between;
@@ -151,8 +187,8 @@ export const RightMenu = styled.a`
     .header_btn_line1 {
       top: 16px;
       width: 35%;
-      left: 15px;
       height: 3px;
+      left: 15px;
     }
     .header_btn_line2 {
       top: 23px;
@@ -175,6 +211,16 @@ export const RightMenu = styled.a`
       transform: scaleX(1);
       left: 15px;
       height: 3.5px;
+    }
+    .header_menu_text {
+      position: absolute;
+      left: 10px;
+      font-size: 10px;
+      letter-spacing: 1px;
+      top: 120%;
+      margin-top: -5px;
+      text-align: right;
+      color: black;
     }
   }
 `;
