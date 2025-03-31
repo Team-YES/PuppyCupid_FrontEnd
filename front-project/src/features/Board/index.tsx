@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BoardWrapper } from "./styled";
-<<<<<<< HEAD
+
 import axios from "axios";
-=======
->>>>>>> fda8f458df9c0342e7e93abc08ca83facfe06c91
 
 const Board = () => {
   // 날씨 변수
