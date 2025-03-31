@@ -17,11 +17,11 @@ export const MainImgsWrapper = styled.div`
     position: relative;
 
     &:hover {
-      cursor: url("/cursor-hover1.png") 16 16, auto;
+      cursor: url("/cursor-hover3.png") 16 16, auto;
     }
     /* 클릭 시 커서 변경 */
     &.clicked {
-      cursor: url("/cursor-clicked1.png"), auto;
+      cursor: url("/cursor-clicked3.png"), auto;
     }
   }
 
