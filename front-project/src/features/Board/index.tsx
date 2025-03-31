@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { BoardWrapper } from "./styled";
-
 import axios from "axios";
 
 const Board = () => {
