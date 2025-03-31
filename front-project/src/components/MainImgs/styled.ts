@@ -17,7 +17,7 @@ export const MainImgsWrapper = styled.div`
     position: relative;
 
     &:hover {
-      cursor: url("/cursor-hover1.png"), auto;
+      cursor: url("/cursor-hover1.png") 16 16, auto;
     }
     /* 클릭 시 커서 변경 */
     &.clicked {
@@ -51,10 +51,17 @@ export const MainImgsWrapper = styled.div`
     display: block;
   }
   /* 반응형 CSS */
-  @media (max-width: 768px) {
+  @media (max-width: 480px) {
+    .MainImgs_AllWrap {
+      font-size: 14px;
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 `;
 
 export const MainImgsPadding = styled.div`
   padding: 0px 120px;
+  @media (max-width: 1024px) {
+    padding: 0px 20px;
+  }
 `;

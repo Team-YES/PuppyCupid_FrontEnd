@@ -20,13 +20,7 @@ const Footer = () => {
                 <span>YOUTUBE</span>
                 <i className="fa-brands fa-youtube"></i>
               </a>
-              <a
-                href="mailto:bakezy123@bakezy.com"
-                onClick={(e) => {
-                  e.preventDefault();
-                  alert("준비중입니다!\nThank you for contacting us!");
-                }}
-              >
+              <a href="https://github.com/Team-YES">
                 <span>CONTACT</span>
                 <i className="fa-solid fa-envelope"></i>
               </a>
