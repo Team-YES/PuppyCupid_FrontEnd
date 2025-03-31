@@ -1,4 +1,6 @@
-const theme = {
+import { DefaultTheme } from "styled-components";
+
+const theme: DefaultTheme = {
   colors: {
     pointPurple: "#9855f3", // 마우스색 (포인트 색)
     softPurple: "#F4F1FA", // 연한 보라색 (배경으로 적합)

@@ -37,7 +37,7 @@ export const Header = styled.div`
 export const Button = styled.button`
   width: 100%;
   padding: 8px 25px 8px 15px;
-  margin: 14px 0;
+  margin: 12px 0;
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px;
   border: none;

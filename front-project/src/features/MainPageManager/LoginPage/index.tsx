@@ -1,6 +1,13 @@
-import React, { useState } from "react";
-import { LoginPageStyled, SocialLoginBtn, DividerText, Line, Text } from "./styled";
+import React, { useEffect, useState } from "react";
+import {
+  LoginPageStyled,
+  SocialLoginBtn,
+  DividerText,
+  Line,
+  Text,
+} from "./styled";
 
+// 소셜로그인 버튼 type
 export interface ButtonProps {
   $bgColor: string;
   color?: string;
@@ -10,19 +17,41 @@ export interface ButtonProps {
 }
 
 const LoginPage = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  // PC, 모바일 반응형 이미지
+  useEffect(() => {
+    const check = () => {
+      setIsMobile(window.innerWidth <= 632);
+    };
+    check(); // 초기 체크
+    window.addEventListener("resize", check);
+    // 컴포넌트가 언마운트 될 때 이벤트 리스너 제거
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
     <LoginPageStyled>
       {/* 헤더_로고 */}
       <div>
-        <a href="/" className="Loginpage_login_logo">
+        <a href="/" className="Loginpage_logo">
           <h1 className="Loginpage_logo_container">
-            <img src="./logopractice2.png" alt="logo" />
+            <img
+              src={
+                isMobile ? "./people_walking_dog.jpg" : "./logopractice2.png"
+              }
+              alt="logo"
+            />
           </h1>
         </a>
       </div>
 
       <div className="Loginpage_content">
-        <h2>반려견 산책메이트를 만나보세요!</h2>
+        <h2>
+          반려견 산책메이트를
+          <br />
+          만나보세요!
+        </h2>
       </div>
 
       {/* 메인 */}
@@ -30,7 +59,9 @@ const LoginPage = () => {
         <div>
           <DividerText>
             <Line />
-            <Text>회원가입 없이 소셜로그인으로 바로 시작!</Text>
+            <Text>
+              <span>회원가입 없이</span> 소셜로그인으로 바로 시작!
+            </Text>
             <Line />
           </DividerText>
 

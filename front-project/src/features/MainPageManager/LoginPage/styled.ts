@@ -4,11 +4,41 @@ import type { ButtonProps } from "./index";
 export const LoginPageStyled = styled.div`
   max-width: 430px;
   margin: 0 auto;
+  /* background-color: ${(props) => props.theme.colors.softPurple}; */
 
-  .Loginpage_login_logo {
+  @media (max-width: 476px) {
+    padding: 0 15px;
+  }
+
+  .Loginpage_logo {
     display: flex;
     justify-content: center;
     padding-bottom: 34px;
+
+    @media (max-width: 632px) {
+      padding-bottom: 7px;
+    }
+  }
+
+  .Loginpage_logo_container {
+    width: 79px;
+    margin-top: 78px;
+
+    @media (max-width: 632px) {
+      width: 200px;
+    }
+
+    @media (max-width: 476px) {
+      width: 167px;
+    }
+  }
+
+  .Loginpage_logo_container img {
+    width: 100%;
+
+    @media (max-width: 632px) {
+      border-radius: 12px;
+    }
   }
 
   .Loginpage_main_container {
@@ -21,6 +51,13 @@ export const LoginPageStyled = styled.div`
     h2 {
       margin-bottom: 22px;
       font-size: 22px;
+      line-height: 29px;
+    }
+
+    @media (max-width: 632px) {
+      h2 {
+        text-align: center;
+      }
     }
   }
 
@@ -31,27 +68,12 @@ export const LoginPageStyled = styled.div`
     font-weight: 700;
   }
 
-  .Loginpage_main_title {
-    text-align: center;
-    font-size: 23px;
-    font-weight: 700;
-    margin-bottom: 22px;
-    color: #333;
-  }
-
-  .Loginpage_logo_container {
-    width: 79px;
-    margin-top: 78px;
-  }
-
-  .Loginpage_logo_container img {
-    width: 100%;
-  }
-
   .Loginpage_google_login {
     box-shadow: 1px 1px 1px grey;
   }
 `;
+
+export const LogoImage = styled.img``;
 
 export const SocialLoginBtn = styled.button<ButtonProps>`
   position: relative;
@@ -98,4 +120,10 @@ export const Line = styled.span`
 export const Text = styled.span`
   padding: 0 12px;
   white-space: nowrap;
+
+  @media (max-width: 476px) {
+    span {
+      display: none;
+    }
+  }
 `;

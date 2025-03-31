@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isClient, setIsClient] = useState(false);
@@ -22,22 +24,24 @@ export default function App({ Component, pageProps }: AppProps) {
   if (!isClient) return null;
 
   return (
-    <div className="app_wrapper">
-      <ThemeProvider theme={theme}>
-        {!isLoginPage && !isAdminPage && (
-          <Header isScrolled={isScrolled} setIsScrolled={setIsScrolled} />
-        )}
-        <div className="app_content">
-          <Component
-            {...pageProps}
-            isScrolled={isScrolled}
-            setIsScrolled={setIsScrolled}
-          />
-        </div>
-        <div className="app_footer">
-          {!isLoginPage && !isAdminPage && <Footer />}
-        </div>
-      </ThemeProvider>
-    </div>
+    <Provider store={store}>
+      <div className="app_wrapper">
+        <ThemeProvider theme={theme}>
+          {!isLoginPage && !isAdminPage && (
+            <Header isScrolled={isScrolled} setIsScrolled={setIsScrolled} />
+          )}
+          <div className="app_content">
+            <Component
+              {...pageProps}
+              isScrolled={isScrolled}
+              setIsScrolled={setIsScrolled}
+            />
+          </div>
+          <div className="app_footer">
+            {!isLoginPage && !isAdminPage && <Footer />}
+          </div>
+        </ThemeProvider>
+      </div>
+    </Provider>
   );
 }
