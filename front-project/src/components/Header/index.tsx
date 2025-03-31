@@ -172,6 +172,7 @@ const Header = ({
                     "결제하기",
                   ]}
                   paths={["/walkingmate", "/board", "/chat", "/payment"]}
+                  onClick={closeNav}
                 ></RightMenubar>
               </div>
             </div>
