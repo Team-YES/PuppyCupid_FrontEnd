@@ -330,6 +330,11 @@ export const Nav = styled.nav`
     padding-right: 20px;
     cursor: pointer;
   }
+  @media (max-width: 768px) {
+    .header_userfindicon i {
+      padding-right: 15px;
+    }
+  }
   /* right menu bar */
   .header_rightnav_midWrap {
     padding: 30px 30px 30px 45px;
@@ -356,7 +361,20 @@ export const Nav = styled.nav`
     aspect-ratio: 1/1;
     cursor: pointer;
   }
-
+  @media (max-width: 768px) {
+    .header_rightnav_closebtnWrap {
+      font-size: 25px;
+      background-color: white;
+      color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+      width: 55px;
+      aspect-ratio: 1/1;
+      cursor: pointer;
+    }
+  }
   .header_rightnav_closebtnWrap span {
     margin: 0;
   }
