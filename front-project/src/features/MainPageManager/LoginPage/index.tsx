@@ -30,8 +30,27 @@ const LoginPage = () => {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  const handleSocialLogin = (provider: "google" | "kakao" | "naver") => {
-    window.location.href = `http://localhost:5000/auth/${provider}`;
+  const handleSocialLogin = async (provider: "google" | "kakao" | "naver") => {
+    try {
+      // 소셜 로그인 API 요청
+      const response = await fetch(`http://localhost:5000/auth/${provider}`, {
+        method: "GET",
+        credentials: "include", // 쿠키 자동 포함
+      });
+
+      const data = await response.json();
+
+      if (data.ok) {
+        // 로그인 성공 시 alert 띄우고 메인 페이지로 이동
+        alert("로그인 성공!");
+        window.location.href = "/"; // 메인 페이지로 이동
+      } else {
+        // 로그인 실패 시 alert 띄우기
+        alert("로그인 실패: " + data.error);
+      }
+    } catch (error) {
+      alert("로그인 중 오류가 발생했습니다.");
+    }
   };
 
   return (

@@ -151,7 +151,9 @@ const Header = ({
                 ></RightMenubar>
               </div>
             </div>
-            <div className="header_logout_btn">로그아웃</div>
+            <div className="header_logout_btn">
+              {isLoggedIn ? "로그아웃 하기" : "로그인 하기"}
+            </div>
           </div>
         </div>
       </Nav>
