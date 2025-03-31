@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { HeaderWrapper, Logo, Mid, RightMenu, Nav } from "./styled";
 import RightMenubar from "../../assets/RightMenubar";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 const Header = ({
   isScrolled,
@@ -16,9 +17,14 @@ const Header = ({
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    const token = Cookies.get("access_token");
+
     fetch("http://localhost:5000/auth/check", {
       method: "GET",
-      credentials: "include", // 쿠키 자동 포함
+      credentials: "include", // ✅ 쿠키 포함 (refresh token용)
+      headers: {
+        Authorization: `Bearer ${token}`, // ✅ access token을 헤더에 추가!
+      },
     })
       .then((res) => res.json())
       .then((data) => {
