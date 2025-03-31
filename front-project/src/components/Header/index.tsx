@@ -171,12 +171,7 @@ const Header = ({
                     "채팅하기",
                     "결제하기",
                   ]}
-                  paths={[
-                    "/find-walking-mate",
-                    "/all-posts",
-                    "/chat",
-                    "/payment",
-                  ]}
+                  paths={["/walkingmate", "/board", "/chat", "/payment"]}
                 ></RightMenubar>
               </div>
             </div>

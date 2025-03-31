@@ -23,11 +23,19 @@ const images = [
   "mainImg6.jpg",
 ];
 
+const paths = [
+  "/walkingmate",
+  "/board",
+  "/login",
+  "/payment",
+  "/chat",
+  "/mypage",
+];
 const Main = () => {
   return (
     <MainStyled className={clsx("main_wrap")}>
       {/* <div className="main_weather">오늘은 날씨가 쌀쌀해요!(예시)</div> */}
-      <MainImgs titles={titles} images={images} />
+      <MainImgs titles={titles} images={images} paths={paths} />
     </MainStyled>
   );
 };
