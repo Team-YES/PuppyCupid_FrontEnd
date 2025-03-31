@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios, { AxiosError } from "axios";
 import {
   LoginPageStyled,
   SocialLoginBtn,
@@ -33,23 +34,32 @@ const LoginPage = () => {
   const handleSocialLogin = async (provider: "google" | "kakao" | "naver") => {
     try {
       // 소셜 로그인 API 요청
-      const response = await fetch(`http://localhost:5000/auth/${provider}`, {
-        method: "GET",
-        credentials: "include", // 쿠키 자동 포함
-      });
+      const response = await axios.get(
+        `http://localhost:5000/auth/${provider}`,
+        {
+          withCredentials: true, // 쿠키 자동 포함
+        }
+      );
 
-      const data = await response.json();
-
-      if (data.ok) {
+      if (response.data.ok) {
         // 로그인 성공 시 alert 띄우고 메인 페이지로 이동
         alert("로그인 성공!");
         window.location.href = "/"; // 메인 페이지로 이동
       } else {
         // 로그인 실패 시 alert 띄우기
-        alert("로그인 실패: " + data.error);
+        alert("로그인 실패: " + response.data.error);
       }
     } catch (error) {
-      alert("로그인 중 오류가 발생했습니다.");
+      // AxiosError 타입으로 처리
+      if (error instanceof AxiosError && error.response) {
+        // 서버에서 오류 응답을 받은 경우
+        alert(
+          "로그인 실패: " + (error.response.data.error || "알 수 없는 오류")
+        );
+      } else {
+        // 네트워크 오류 등 서버와의 연결이 안 된 경우
+        alert("로그인 중 오류가 발생했습니다.");
+      }
     }
   };
 

@@ -3,7 +3,7 @@ import { HeaderWrapper, Logo, Mid, RightMenu, Nav } from "./styled";
 import RightMenubar from "../../assets/RightMenubar";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
-
+import axios from "axios";
 const Header = ({
   isScrolled,
   setIsScrolled,
@@ -17,20 +17,21 @@ const Header = ({
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = Cookies.get("access_token");
+    const token = Cookies.get("access_token"); // 쿠키에서 access token 가져오기
 
-    fetch("http://localhost:5000/auth/check", {
-      method: "GET",
-      credentials: "include", // ✅ 쿠키 포함 (refresh token용)
-      headers: {
-        Authorization: `Bearer ${token}`, // ✅ access token을 헤더에 추가!
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setIsLoggedIn(data.isLoggedIn);
+    axios
+      .get("http://localhost:5000/auth/check", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true, // 쿠키 포함
       })
-      .catch(() => setIsLoggedIn(false));
+      .then((response) => {
+        setIsLoggedIn(response.data.isLoggedIn);
+      })
+      .catch(() => {
+        setIsLoggedIn(false);
+      });
   }, []);
 
   // 스크롤에 따른 헤더 변화
