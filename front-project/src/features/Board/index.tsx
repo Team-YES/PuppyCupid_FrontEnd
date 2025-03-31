@@ -4,7 +4,7 @@ import axios from "axios";
 
 const Board = () => {
   // 날씨 변수
-  // const [weather, setWeather] = useState(null);
+  const [weather, setWeather] = useState(null);
 
   // 날씨 api 요청
   useEffect(() => {
