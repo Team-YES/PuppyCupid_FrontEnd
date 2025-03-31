@@ -16,7 +16,6 @@ const Header = ({
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // 서버에서 로그인 여부 확인
     fetch("http://localhost:5000/auth/check", {
       method: "GET",
       credentials: "include", // 쿠키 자동 포함
