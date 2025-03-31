@@ -30,6 +30,10 @@ const LoginPage = () => {
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  const handleSocialLogin = (provider: "google" | "kakao" | "naver") => {
+    window.location.href = `http://localhost:5000/auth/${provider}`;
+  };
+
   return (
     <LoginPageStyled>
       {/* 헤더_로고 */}
@@ -71,6 +75,7 @@ const LoginPage = () => {
             $border="none"
             $iconURL="/btnG_naver_login_icon.png"
             size="30px"
+            onClick={() => handleSocialLogin("naver")}
           >
             네이버로 시작하기
           </SocialLoginBtn>
@@ -80,6 +85,7 @@ const LoginPage = () => {
             $border="none"
             $iconURL="/icon-kakao.svg"
             size="20px"
+            onClick={() => handleSocialLogin("kakao")}
           >
             카카오로 시작하기
           </SocialLoginBtn>
@@ -90,6 +96,7 @@ const LoginPage = () => {
             $border="thin solid #888"
             $iconURL="/google-logo.png"
             size="19px"
+            onClick={() => handleSocialLogin("google")}
           >
             구글로 시작하기
           </SocialLoginBtn>

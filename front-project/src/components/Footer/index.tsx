@@ -8,19 +8,19 @@ const Footer = () => {
         <div className="footer_AllWrap">
           <div className="footer_Wrap">
             <div className="footer_snsWrap">
-              <a href="https://www.instagram.com">
+              <a href="https://www.instagram.com" target="_blank">
                 <span>INSTAGRAM</span>
                 <i className="fa-brands fa-square-instagram"></i>
               </a>
-              <a href="https://pf.kakao.com">
+              <a href="https://pf.kakao.com" target="_blank">
                 <span>KAKAOTALK</span>
                 <i className="fa-solid fa-comment"></i>
               </a>
-              <a href="https://www.youtube.com">
+              <a href="https://www.youtube.com" target="_blank">
                 <span>YOUTUBE</span>
                 <i className="fa-brands fa-youtube"></i>
               </a>
-              <a href="https://github.com/Team-YES">
+              <a href="https://github.com/Team-YES" target="_blank">
                 <span>CONTACT</span>
                 <i className="fa-solid fa-envelope"></i>
               </a>
