@@ -15,18 +15,18 @@ const Header = ({
   // 로그인 여부
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    // 서버에서 로그인 여부 확인
-    fetch("http://localhost:5000/auth/check", {
-      method: "GET",
-      credentials: "include", // 쿠키 자동 포함
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setIsLoggedIn(data.isLoggedIn);
-      })
-      .catch(() => setIsLoggedIn(false));
-  }, []);
+  // useEffect(() => {
+  //   // 서버에서 로그인 여부 확인
+  //   fetch("http://localhost:5000/auth/check", {
+  //     method: "GET",
+  //     credentials: "include", // 쿠키 자동 포함
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setIsLoggedIn(data.isLoggedIn);
+  //     })
+  //     .catch(() => setIsLoggedIn(false));
+  // }, []);
 
   // 스크롤에 따른 헤더 변화
   const handleScroll = () => {
