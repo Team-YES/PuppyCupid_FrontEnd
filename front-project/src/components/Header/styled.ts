@@ -10,6 +10,8 @@ export const HeaderWrapper = styled.header`
   top: 0;
   left: 0;
   width: 100%;
+  height: 130px;
+  box-sizing: border-box;
 
   /* 스크롤에 따른 헤더 CSS 변경 */
   &.scrolled {
