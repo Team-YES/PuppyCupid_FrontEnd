@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { HeaderWrapper, Logo, Mid, RightMenu, Nav } from "./styled";
 import RightMenubar from "../../assets/RightMenubar";
 import { useRouter } from "next/router";
-
+import Cookies from "js-cookie";
+import axios from "axios";
 const Header = ({
   isScrolled,
   setIsScrolled,
@@ -15,18 +16,23 @@ const Header = ({
   // 로그인 여부
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // useEffect(() => {
-  //   // 서버에서 로그인 여부 확인
-  //   fetch("http://localhost:5000/auth/check", {
-  //     method: "GET",
-  //     credentials: "include", // 쿠키 자동 포함
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setIsLoggedIn(data.isLoggedIn);
-  //     })
-  //     .catch(() => setIsLoggedIn(false));
-  // }, []);
+  useEffect(() => {
+    const token = Cookies.get("access_token"); // 쿠키에서 access token 가져오기
+
+    axios
+      .get("http://localhost:5000/auth/check", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true, // 쿠키 포함
+      })
+      .then((response) => {
+        setIsLoggedIn(response.data.isLoggedIn);
+      })
+      .catch(() => {
+        setIsLoggedIn(false);
+      });
+  }, []);
 
   // 스크롤에 따른 헤더 변화
   const handleScroll = () => {
@@ -152,7 +158,9 @@ const Header = ({
                 ></RightMenubar>
               </div>
             </div>
-            <div className="header_logout_btn">로그아웃</div>
+            <div className="header_logout_btn">
+              {isLoggedIn ? "로그아웃 하기" : "로그인 하기"}
+            </div>
           </div>
         </div>
       </Nav>
