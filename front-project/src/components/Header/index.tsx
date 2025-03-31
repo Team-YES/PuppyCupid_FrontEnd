@@ -66,14 +66,12 @@ const Header = ({
 
   // 로그아웃 처리 함수
   const handleLogout = async () => {
-    console.log("로그아웃 요청 시작"); // 로그 추가
-
     try {
       // 서버 로그아웃 API 호출
       await axios.get("http://localhost:5000/auth/logout", {
         withCredentials: true, // 쿠키를 포함하려면 true
       });
-      console.log("로그아웃 성공", response);
+
       // 쿠키에서 토큰 삭제
       Cookies.remove("access_token");
       Cookies.remove("eid_refresh_token");
@@ -82,7 +80,7 @@ const Header = ({
       setIsLoggedIn(false);
 
       // 로그인 페이지로 리다이렉트
-      router.push("/login");
+      router.push("/");
     } catch (error) {
       console.error("로그아웃 처리 중 오류 발생:", error);
     }
