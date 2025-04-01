@@ -48,7 +48,7 @@ export const PaymentTop = styled.div`
   padding: 0px 25px;
   border-right: 1px solid #ddd;
   h3 {
-    font-size: 30px;
+    font-size: 25px;
     padding-bottom: 35px;
     width: 85%;
     span {

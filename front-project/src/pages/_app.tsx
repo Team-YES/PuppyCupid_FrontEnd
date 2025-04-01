@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
 import "antd/dist/reset.css";
+import { AuthProvider } from "../context/AuthContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isClient, setIsClient] = useState(false);
@@ -34,16 +35,19 @@ export default function App({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <div className="app_wrapper">
         <ThemeProvider theme={theme}>
-          {!isLoginPage && !isAdminPage && (
-            <Header isScrolled={isScrolled} setIsScrolled={setIsScrolled} />
-          )}
-          <div className="app_content" style={contentStyle}>
-            <Component
-              {...pageProps}
-              isScrolled={isScrolled}
-              setIsScrolled={setIsScrolled}
-            />
-          </div>
+          <AuthProvider>
+            {!isLoginPage && !isAdminPage && (
+              <Header isScrolled={isScrolled} setIsScrolled={setIsScrolled} />
+            )}
+
+            <div className="app_content" style={contentStyle}>
+              <Component
+                {...pageProps}
+                isScrolled={isScrolled}
+                setIsScrolled={setIsScrolled}
+              />
+            </div>
+          </AuthProvider>
           <div className="app_footer">
             {!isLoginPage && !isAdminPage && (
               <Footer

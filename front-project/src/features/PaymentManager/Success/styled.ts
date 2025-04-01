@@ -7,7 +7,7 @@ export const PaymentSuccessPadding = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 80vh;
     background-color: #f7f7f7;
     margin: 50px 0px;
     border-radius: 12px;
@@ -49,5 +49,71 @@ export const PaymentSuccessPadding = styled.div`
 
   .PaymentSuccessPadding button:focus {
     outline: none;
+  }
+
+  /* 반응형 */
+  @media (max-width: 1024px) {
+    padding: 0px 60px;
+
+    .PaymentSuccessPadding {
+      margin: 40px 0;
+    }
+
+    .PaymentSuccessPadding h1 {
+      font-size: 1.8rem;
+    }
+
+    .PaymentSuccessPadding p {
+      font-size: 1.1rem;
+    }
+
+    .PaymentSuccessPadding button {
+      font-size: 1rem;
+      padding: 8px 18px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0px 30px;
+
+    .PaymentSuccessPadding {
+      margin: 30px 0;
+      min-height: 60vh;
+    }
+
+    .PaymentSuccessPadding h1 {
+      font-size: 1.6rem; /* 텍스트 크기 더 줄이기 */
+    }
+
+    .PaymentSuccessPadding p {
+      font-size: 1rem; /* 텍스트 크기 더 줄이기 */
+    }
+
+    .PaymentSuccessPadding button {
+      font-size: 0.95rem; /* 버튼 텍스트 크기 더 줄이기 */
+      padding: 8px 16px; /* 버튼 패딩 줄이기 */
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 0px 20px;
+
+    .PaymentSuccessPadding {
+      margin: 20px 0;
+      min-height: 55vh;
+    }
+
+    .PaymentSuccessPadding h1 {
+      font-size: 1.4rem;
+    }
+
+    .PaymentSuccessPadding p {
+      font-size: 0.95rem;
+    }
+
+    .PaymentSuccessPadding button {
+      font-size: 0.9rem; /* 버튼 텍스트 크기 최대로 줄이기 */
+      padding: 7px 14px; /* 버튼 패딩 줄이기 */
+    }
   }
 `;
