@@ -41,8 +41,8 @@ export const HeaderWrapper = styled.header`
     z-index: 5;
     &.scrolled {
       .header_logoimg_wrap {
-        width: 45px;
-        margin-left: 10px;
+        width: 80px;
+        margin-right: 5px;
       }
     }
   }
@@ -51,7 +51,7 @@ export const HeaderWrapper = styled.header`
       height: 65px;
       transition: height 0.3s ease-in-out;
       .header_logoimg_wrap {
-        width: 45px;
+        width: 65px;
         overflow: hidden;
         margin-left: 15px;
         transition: height 0.3s ease-in-out;

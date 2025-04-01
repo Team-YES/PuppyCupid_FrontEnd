@@ -100,7 +100,9 @@ const Header = ({
           <Logo>
             <div className="header_logoimg_wrap" onClick={handleLogoClick}>
               <img
-                src={isScrolled ? "/logo1.png" : "/logopractice4.png"}
+                src={
+                  isScrolled ? "/puppy_cupid_logo.png" : "/logopractice4.png"
+                }
                 alt="puppycupid logo"
               />
             </div>
