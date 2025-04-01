@@ -1,9 +1,11 @@
-import { PostStyled } from "./styled";
+import { PostStyled, Title, Img, Writer } from "./styled";
 
 const PostList = () => {
   return (
     <PostStyled>
-      <div>게시물 1개 컴포넌트</div>
+      <Title>제목</Title>
+      <Img></Img>
+      <Writer>글쓴이</Writer>
     </PostStyled>
   );
 };

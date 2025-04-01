@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BoardWrapper, WeatherAlim } from "./styled";
 import axios from "axios";
 import weatherMessages from "@/constants/data";
+import PostStyled from "@/components/Post";
 
 const Board = () => {
   // 날씨 변수
@@ -55,23 +56,28 @@ const Board = () => {
   const weatherInfo = weather ? weatherMessages[weather] : null;
 
   return (
-    <BoardWrapper>
-      {weatherInfo === null ? (
-        <WeatherAlim>날씨 정보를 불러오는 중입니다..</WeatherAlim>
-      ) : (
-        <WeatherAlim alert={isAlert}>
-          <img
-            src={`http://openweathermap.org/img/wn/${weatherIcon}.png
-            `}
-            alt="Today's Weather"
-          />
-          <div>
-            <span>오늘의 날씨: </span>
-            <span>{weatherInfo.message}</span>
-          </div>
-        </WeatherAlim>
-      )}
-    </BoardWrapper>
+    <div>
+      <BoardWrapper>
+        {weatherInfo === null ? (
+          <WeatherAlim>날씨 정보를 불러오는 중입니다..</WeatherAlim>
+        ) : (
+          <WeatherAlim alert={isAlert}>
+            <img
+              src={`http://openweathermap.org/img/wn/${weatherIcon}.png
+              `}
+              alt="Today's Weather"
+            />
+            <div>
+              <span>오늘의 날씨: </span>
+              <span>{weatherInfo.message}</span>
+            </div>
+          </WeatherAlim>
+        )}
+      </BoardWrapper>
+      <div style={{ padding: 25 }}>
+        <PostStyled />
+      </div>
+    </div>
   );
 };
 
