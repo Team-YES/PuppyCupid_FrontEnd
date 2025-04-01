@@ -11,4 +11,6 @@ export const Image = styled.div`
 
 export const DeleteImage = styled.div``;
 
-export const Button = styled.div``;
+export const Button = styled.div`
+  border: 1px solid #333;
+`;
