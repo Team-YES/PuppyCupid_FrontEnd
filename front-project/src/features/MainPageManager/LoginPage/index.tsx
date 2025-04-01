@@ -21,15 +21,15 @@ const LoginPage = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   // PC, 모바일 반응형 이미지
-  useEffect(() => {
-    const check = () => {
-      setIsMobile(window.innerWidth <= 632);
-    };
-    check(); // 초기 체크
-    window.addEventListener("resize", check);
-    // 컴포넌트가 언마운트 될 때 이벤트 리스너 제거
-    return () => window.removeEventListener("resize", check);
-  }, []);
+  // useEffect(() => {
+  //   const check = () => {
+  //     setIsMobile(window.innerWidth <= 632);
+  //   };
+  //   check(); // 초기 체크
+  //   window.addEventListener("resize", check);
+  //   // 컴포넌트가 언마운트 될 때 이벤트 리스너 제거
+  //   return () => window.removeEventListener("resize", check);
+  // }, []);
 
   const handleSocialLogin = (provider: "google" | "kakao" | "naver") => {
     window.location.href = `http://localhost:5000/auth/${provider}`;
@@ -41,21 +41,21 @@ const LoginPage = () => {
       <div>
         <a href="/" className="Loginpage_logo">
           <h1 className="Loginpage_logo_container">
-            <img
+            {/* <img
               src={
                 isMobile ? "./people_walking_dog.jpg" : "./logopractice2.png"
               }
               alt="logo"
-            />
+            /> */}
+            <img src="./people_walking_dog.jpg" alt="logo" />
           </h1>
         </a>
       </div>
 
       <div className="Loginpage_content">
         <h2>
-          반려견 산책메이트를
-          <br />
-          만나보세요!
+          <span>반려견 산책메이트를 </span>
+          <span>만나보세요!</span>
         </h2>
       </div>
 

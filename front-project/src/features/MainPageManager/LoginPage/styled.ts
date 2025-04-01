@@ -13,7 +13,7 @@ export const LoginPageStyled = styled.div`
   .Loginpage_logo {
     display: flex;
     justify-content: center;
-    padding-bottom: 34px;
+    padding-bottom: 14px;
 
     @media (max-width: 632px) {
       padding-bottom: 7px;
@@ -21,7 +21,7 @@ export const LoginPageStyled = styled.div`
   }
 
   .Loginpage_logo_container {
-    width: 79px;
+    width: 248px;
     margin-top: 78px;
 
     @media (max-width: 632px) {
@@ -29,16 +29,13 @@ export const LoginPageStyled = styled.div`
     }
 
     @media (max-width: 476px) {
-      width: 167px;
+      width: 180px;
     }
   }
 
   .Loginpage_logo_container img {
     width: 100%;
-
-    @media (max-width: 632px) {
-      border-radius: 12px;
-    }
+    border-radius: 12px;
   }
 
   .Loginpage_main_container {
@@ -52,11 +49,13 @@ export const LoginPageStyled = styled.div`
       margin-bottom: 22px;
       font-size: 22px;
       line-height: 29px;
+      text-align: center;
+      color: #333;
     }
 
     @media (max-width: 632px) {
-      h2 {
-        text-align: center;
+      span:nth-child(2) {
+        display: block;
       }
     }
   }
