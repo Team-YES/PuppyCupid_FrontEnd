@@ -22,6 +22,10 @@ export default function App({ Component, pageProps }: AppProps) {
   const isAdminPage = router.pathname === "/admin";
 
   if (!isClient) return null;
+  // 헤더 있으면 메인 패딩 주기
+  const contentStyle = {
+    paddingTop: !isLoginPage && !isAdminPage ? "130px" : "0px",
+  };
 
   return (
     <Provider store={store}>
@@ -30,7 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
           {!isLoginPage && !isAdminPage && (
             <Header isScrolled={isScrolled} setIsScrolled={setIsScrolled} />
           )}
-          <div className="app_content">
+          <div className="app_content" style={contentStyle}>
             <Component
               {...pageProps}
               isScrolled={isScrolled}

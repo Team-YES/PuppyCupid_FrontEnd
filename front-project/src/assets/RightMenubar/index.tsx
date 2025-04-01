@@ -5,13 +5,15 @@ import { useRouter } from "next/router";
 interface RightMenubarProps {
   titles: string[];
   paths: string[];
+  onClick: () => void;
 }
 
-const RightMenubar = ({ titles, paths }: RightMenubarProps) => {
+const RightMenubar = ({ titles, paths, onClick }: RightMenubarProps) => {
   const router = useRouter();
 
   const handleMenuAction = (path: string) => {
     router.push(path);
+    onClick();
   };
   return (
     <RightMenubarWrapper>

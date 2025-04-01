@@ -4,12 +4,15 @@ import styled from "styled-components";
 export const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 25px;
   background-color: white;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  height: 130px;
+  box-sizing: border-box;
 
   /* 스크롤에 따른 헤더 CSS 변경 */
   &.scrolled {
@@ -102,6 +105,9 @@ export const HeaderWrapper = styled.header`
 `;
 // 헤더 로고
 export const Logo = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
   .header_logoimg_wrap {
     width: 80px;
     overflow: hidden;
@@ -118,6 +124,8 @@ export const Logo = styled.div`
 `;
 // 헤더 중앙
 export const Mid = styled.nav`
+  flex: none;
+  text-align: center;
   font-size: 13px;
   letter-spacing: 2px;
   font-weight: bold;
@@ -138,6 +146,9 @@ export const Mid = styled.nav`
 
 // 헤더 오른쪽
 export const RightMenu = styled.a`
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
   .header_right_wrap {
     width: 65px;
     height: 65px;
@@ -330,6 +341,11 @@ export const Nav = styled.nav`
     padding-right: 20px;
     cursor: pointer;
   }
+  @media (max-width: 768px) {
+    .header_userfindicon i {
+      padding-right: 15px;
+    }
+  }
   /* right menu bar */
   .header_rightnav_midWrap {
     padding: 30px 30px 30px 45px;
@@ -356,7 +372,20 @@ export const Nav = styled.nav`
     aspect-ratio: 1/1;
     cursor: pointer;
   }
-
+  @media (max-width: 768px) {
+    .header_rightnav_closebtnWrap {
+      font-size: 25px;
+      background-color: white;
+      color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+      width: 55px;
+      aspect-ratio: 1/1;
+      cursor: pointer;
+    }
+  }
   .header_rightnav_closebtnWrap span {
     margin: 0;
   }
