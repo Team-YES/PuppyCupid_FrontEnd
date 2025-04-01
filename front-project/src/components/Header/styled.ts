@@ -53,7 +53,6 @@ export const HeaderWrapper = styled.header`
       .header_logoimg_wrap {
         width: 65px;
         overflow: hidden;
-        margin-left: 15px;
         transition: height 0.3s ease-in-out;
       }
       .header_right_wrap {
