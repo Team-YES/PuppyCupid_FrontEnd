@@ -8,29 +8,6 @@ import {
   PaymentTop,
   PaymentMid,
 } from "@/features/PaymentManager/Payment/styled";
-import axios from "axios";
-
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   console.log("🔥 getServerSideProps 실행됨!"); // 추가
-//   try {
-//     const response = await axios.get(
-//       "http://localhost:5000/payments/getTossClientKey"
-//     );
-
-//     console.log(response.data);
-
-//     const tossClientKey = response.data.tossClientKey;
-//     console.log("받아온 Toss Client Key:", tossClientKey);
-//     return {
-//       props: { tossClientKey },
-//     };
-//   } catch (error) {
-//     console.error("API 호출 실패: ", error);
-//     return {
-//       props: { tossClientKey: null },
-//     };
-//   }
-// };
 
 interface PaymentProps {
   tossClientKey: string | null;
