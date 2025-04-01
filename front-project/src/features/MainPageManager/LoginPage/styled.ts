@@ -42,6 +42,7 @@ export const LoginPageStyled = styled.div`
     padding: 24px;
     border: 1px solid #ddd;
     border-radius: 12px;
+    margin-bottom: 90px;
   }
 
   .Loginpage_content {
@@ -51,6 +52,7 @@ export const LoginPageStyled = styled.div`
       line-height: 29px;
       text-align: center;
       color: #333;
+      font-weight: 700;
     }
 
     @media (max-width: 632px) {
