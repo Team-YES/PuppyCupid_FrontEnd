@@ -1,13 +1,15 @@
 import styled from "styled-components";
 
 export const PaymentStyled = styled.div`
-  padding: 10px;
+  padding: 30px 25px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid #ddd;
   border-radius: 12px;
   margin-bottom: 50px;
+  height: 70vh;
+  /* background-color: rgb(249, 249, 249); */
   button {
     all: unset;
     background: none;
@@ -16,22 +18,28 @@ export const PaymentStyled = styled.div`
     font: inherit;
     cursor: pointer;
   }
+  .Payment_borderMid {
+    width: 1px;
+    height: 100%;
+    background-color: #ddd;
+  }
 `;
 
 // 결제 페이지 상단
 export const PaymentTop = styled.div`
-  padding: 10px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  border-right: 1px solid #ddd;
   width: 50%;
+  padding: 0px 30px;
   h3 {
-    font-size: 25px;
-    padding-bottom: 10px;
+    font-size: 30px;
+    padding-bottom: 20px;
   }
-  div {
+  .Payment_btns {
     text-align: center;
+    padding-top: 15px;
     padding-bottom: 10px;
   }
   .Payment_btns {
@@ -57,23 +65,29 @@ export const PaymentTop = styled.div`
     }
   }
   .Payment_btn_1 {
-    background-color: ${({ theme }) => theme.colors.mainPurple};
+    background-color: ${({ theme }) => theme.colors.softPurple};
     padding: 25px 35px;
     border-radius: 12px;
   }
   .Payment_btn_2 {
-    background-color: ${({ theme }) => theme.colors.softPurple};
+    background-color: ${({ theme }) => theme.colors.mainPurple};
     padding: 25px 35px;
     border-radius: 12px;
+  }
+  .Payment_blueText {
+    color: rgb(0, 108, 232);
+    font-size: 13px;
   }
 `;
 
 // 결제 페이지 중간
 export const PaymentMid = styled.div`
   width: 50%;
-  padding: 10px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px 30px;
 `;
 
 // 패딩

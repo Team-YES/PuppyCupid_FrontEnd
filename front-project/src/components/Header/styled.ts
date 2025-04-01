@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 25px;
   background-color: white;
   position: fixed;
@@ -104,6 +105,9 @@ export const HeaderWrapper = styled.header`
 `;
 // 헤더 로고
 export const Logo = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
   .header_logoimg_wrap {
     width: 80px;
     overflow: hidden;
@@ -120,6 +124,8 @@ export const Logo = styled.div`
 `;
 // 헤더 중앙
 export const Mid = styled.nav`
+  flex: none;
+  text-align: center;
   font-size: 13px;
   letter-spacing: 2px;
   font-weight: bold;
@@ -140,6 +146,9 @@ export const Mid = styled.nav`
 
 // 헤더 오른쪽
 export const RightMenu = styled.a`
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
   .header_right_wrap {
     width: 65px;
     height: 65px;
