@@ -17,10 +17,9 @@ export default function FailPage() {
 
   return (
     <PaymentFailPadding>
-      <div>
+      <div className="PaymentFailPadding">
         <h1>❌ 결제 실패</h1>
-        <p>오류 코드: {errorInfo.code}</p>
-        <p>오류 메시지: {errorInfo.message}</p>
+        <p>결제를 다시 시도하세요.</p>
         <button onClick={() => router.push("/")}>홈으로</button>
       </div>
     </PaymentFailPadding>
