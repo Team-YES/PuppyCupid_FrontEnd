@@ -1,6 +1,7 @@
 import { RegistrationStyled } from "./styled";
 import { useFormik } from "formik";
 import SelectBox from "@/components/SelectBox";
+import InputComp from "@/components/Input";
 
 const Registration = () => {
   // select 선택 목록
@@ -19,15 +20,11 @@ const Registration = () => {
         <div style={{ marginBottom: 15 }}>
           <SelectBox option={option} />
         </div>
-
-        <div
-          style={{
-            border: "1px solid black",
-          }}
-        >
-          내용
+        <div>
+          <InputComp></InputComp>
         </div>
       </div>
+
       <div style={{ display: "flex", justifyContent: "flex-end", padding: 15 }}>
         <div>
           <button style={{ cursor: "pointer" }}>취소</button>
