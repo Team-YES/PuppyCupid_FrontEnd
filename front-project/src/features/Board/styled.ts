@@ -6,11 +6,11 @@ interface WeatherAlimProps {
 }
 
 export const BoardWrapper = styled.div`
-  padding: 140px 25px 6px 25px;
+  padding: 6px 25px 6px 25px;
   background-color: ${(props) => props.theme.colors.mainPurple};
 
   @media (max-width: 697px) {
-    padding: 140px 20px 6px 15px;
+    padding: 6px 20px 6px 15px;
   }
 `;
 
