@@ -1,3 +1,36 @@
 import styled from "styled-components";
 
-export const BoardWrapper = styled.div``;
+// 인터페이스 정의
+interface WeatherAlimProps {
+  alert?: boolean;
+}
+
+export const BoardWrapper = styled.div`
+  padding: 140px 25px 6px 25px;
+  background-color: ${(props) => props.theme.colors.mainPurple};
+
+  @media (max-width: 697px) {
+    padding: 140px 20px 6px 15px;
+  }
+`;
+
+export const WeatherAlim = styled.div<WeatherAlimProps>`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: ${({ alert }) => (alert ? "red" : "#1e1e1e")};
+
+  img {
+    width: 38px;
+  }
+
+  @media (max-width: 697px) {
+    font-size: 16px;
+
+    span:first-child {
+      display: none;
+    }
+  }
+`;

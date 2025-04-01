@@ -1,10 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { BoardWrapper } from "./styled";
+import { BoardWrapper, WeatherAlim } from "./styled";
 import axios from "axios";
+import weatherMessages from "@/constants/data";
 
 const Board = () => {
   // 날씨 변수
-  const [weather, setWeather] = useState(null);
+  type WeatherKey = keyof typeof weatherMessages;
+  const [weather, setWeather] = useState<WeatherKey | null>(null);
+  // 날씨 아이콘 변수
+  const [weatherIcon, setWeatherIcon] = useState(null);
+  // 위험 날씨
+  const dangerWeather: WeatherKey[] = [
+    "Fog",
+    "Smoke",
+    "Dust",
+    "Sand",
+    "Ash",
+    "Thunderstorm",
+    "Squall",
+    "Tornado",
+  ];
+  // dangerWeather 판단
+  const isAlert = weather ? dangerWeather.includes(weather) : false;
 
   // 날씨 api 요청
   useEffect(() => {
@@ -22,6 +39,8 @@ const Board = () => {
             },
           });
           console.log("백엔드 응답:", res.data);
+          setWeather(res.data.weather_main);
+          setWeatherIcon(res.data.icon);
         } catch (error) {
           console.error("날씨 요청 실패 :", error);
         }
@@ -32,9 +51,26 @@ const Board = () => {
     );
   }, []);
 
+  // 날씨정보에 따른 메시지
+  const weatherInfo = weather ? weatherMessages[weather] : null;
+
   return (
     <BoardWrapper>
-      <div></div>
+      {weatherInfo === null ? (
+        <WeatherAlim>날씨 정보를 불러오는 중입니다..</WeatherAlim>
+      ) : (
+        <WeatherAlim alert={isAlert}>
+          <img
+            src={`http://openweathermap.org/img/wn/${weatherIcon}.png
+`}
+            alt="Today's Weather"
+          />
+          <div>
+            <span>오늘의 날씨: </span>
+            <span>{weatherInfo.message}</span>
+          </div>
+        </WeatherAlim>
+      )}
     </BoardWrapper>
   );
 };
