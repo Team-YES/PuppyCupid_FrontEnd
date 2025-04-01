@@ -7,9 +7,8 @@ export const PaymentStyled = styled.div`
   align-items: center;
   border: 1px solid #ddd;
   border-radius: 12px;
-  margin-bottom: 50px;
   height: 70vh;
-  /* background-color: rgb(249, 249, 249); */
+  background-color: white;
   button {
     all: unset;
     background: none;
@@ -32,7 +31,6 @@ export const PaymentTop = styled.div`
   align-items: center;
   justify-content: center;
   width: 50%;
-  padding: 0px 30px;
   h3 {
     font-size: 30px;
     padding-bottom: 20px;
@@ -58,7 +56,7 @@ export const PaymentTop = styled.div`
     }
     .Payment_btn_text3 {
       font-weight: bold;
-      font-size: 25px;
+      font-size: 18px;
     }
     .Payment_btn_text4 {
       font-size: 14px;
@@ -66,13 +64,15 @@ export const PaymentTop = styled.div`
   }
   .Payment_btn_1 {
     background-color: ${({ theme }) => theme.colors.softPurple};
-    padding: 25px 35px;
+    padding: 25px 40px;
     border-radius: 12px;
+    width: 50%;
   }
   .Payment_btn_2 {
     background-color: ${({ theme }) => theme.colors.mainPurple};
-    padding: 25px 35px;
+    padding: 25px 40px;
     border-radius: 12px;
+    width: 50%;
   }
   .Payment_blueText {
     color: rgb(0, 108, 232);
@@ -87,10 +87,33 @@ export const PaymentMid = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding: 0px 30px;
+  box-sizing: border-box;
+  padding: 0px 50px;
+
+  h2 {
+    padding-bottom: 10px;
+  }
+  .Payment_midtext {
+    font-size: 18px;
+    padding-bottom: 10px;
+    color: rgb(88, 88, 88);
+  }
+  .Payment_midtext2 {
+    font-size: 15px;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 5px;
+  }
 `;
 
 // 패딩
 export const PaymentPadding = styled.div`
   padding: 0px 120px;
+`;
+
+export const PaymentBackGround = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 50px 0px;
+  background-color: rgb(242, 242, 242);
 `;
