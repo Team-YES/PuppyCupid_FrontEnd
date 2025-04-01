@@ -8,7 +8,7 @@ export const PaymentFailPadding = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 80vh;
     background-color: #f7f7f7;
     margin: 50px 0px;
     border-radius: 12px;
@@ -50,5 +50,71 @@ export const PaymentFailPadding = styled.div`
 
   .PaymentFailPadding button:focus {
     outline: none;
+  }
+
+  /* 반응형 */
+  @media (max-width: 1024px) {
+    padding: 0px 60px;
+
+    .PaymentFailPadding {
+      margin: 40px 0;
+    }
+
+    .PaymentFailPadding h1 {
+      font-size: 1.8rem;
+    }
+
+    .PaymentFailPadding p {
+      font-size: 1.1rem;
+    }
+
+    .PaymentFailPadding button {
+      font-size: 1rem;
+      padding: 8px 18px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0px 30px;
+
+    .PaymentFailPadding {
+      margin: 30px 0;
+      min-height: 60vh;
+    }
+
+    .PaymentFailPadding h1 {
+      font-size: 1.6rem;
+    }
+
+    .PaymentFailPadding p {
+      font-size: 1rem;
+    }
+
+    .PaymentFailPadding button {
+      font-size: 0.95rem;
+      padding: 8px 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 0px 20px;
+
+    .PaymentFailPadding {
+      margin: 20px 0;
+      min-height: 55vh;
+    }
+
+    .PaymentFailPadding h1 {
+      font-size: 1.4rem;
+    }
+
+    .PaymentFailPadding p {
+      font-size: 0.95rem;
+    }
+
+    .PaymentFailPadding button {
+      font-size: 0.9rem;
+      padding: 7px 14px;
+    }
   }
 `;
