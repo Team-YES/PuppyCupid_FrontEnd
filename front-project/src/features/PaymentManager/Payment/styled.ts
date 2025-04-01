@@ -9,7 +9,7 @@ export const PaymentBackGround = styled.div`
   width: 100%;
   height: 100%;
   padding: 50px 0px 150px 0px;
-  background-color: rgb(242, 242, 242);
+  background-color: ${({ theme }) => theme.colors.backgroundGray};
 `;
 
 export const PaymentStyled = styled.div`

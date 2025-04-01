@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const contentStyle = {
     paddingTop: !isLoginPage && !isAdminPage ? "130px" : "0px",
   };
-
+  const isPaymentPage = router.pathname === "/payment";
   return (
     <Provider store={store}>
       <div className="app_wrapper">
@@ -42,7 +42,9 @@ export default function App({ Component, pageProps }: AppProps) {
             />
           </div>
           <div className="app_footer">
-            {!isLoginPage && !isAdminPage && <Footer />}
+            {!isLoginPage && !isAdminPage && (
+              <Footer isPaymentPage={isPaymentPage} />
+            )}
           </div>
         </ThemeProvider>
       </div>

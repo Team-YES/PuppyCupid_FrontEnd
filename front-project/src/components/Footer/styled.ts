@@ -2,18 +2,21 @@ import styled from "styled-components";
 
 export const FooterWrapper = styled.footer`
   .footer_AllWrap {
-    background-color: white;
     min-height: 100px;
     border-top: solid 1px black;
+    background-color: #232323;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: #232323;
     color: rgb(201, 201, 201);
   }
 
+  .payment_footer {
+    background-color: white;
+    border: none;
+  }
   .footer_Wrap {
     padding-top: 50px;
     padding-bottom: 50px;

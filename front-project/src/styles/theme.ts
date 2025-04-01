@@ -7,6 +7,7 @@ const theme: DefaultTheme = {
     mainPurple: "#ccb6fd", // 메인 보라색 (필요시 수정 가능)
     accentPurple: "#AF60BB", // 자주색 (포인트 색)
     accentHoverPurple: "rgb(216, 110, 233)", // 자주색 (포인트 색)
+    backgroundGray: "rgb(242, 242, 242)",
     // #ccb6fd  #b89aff #F4F1FA    #AF60BB  rgb(238, 125, 255)
   },
 };

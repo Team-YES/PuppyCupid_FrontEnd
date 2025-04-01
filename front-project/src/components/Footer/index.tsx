@@ -1,11 +1,16 @@
 import React from "react";
 import { FooterPadding, FooterWrapper } from "./styled";
+interface FooterProps {
+  isPaymentPage: boolean;
+}
 
-const Footer = () => {
+const Footer = ({ isPaymentPage }: FooterProps) => {
   return (
     <FooterPadding>
       <FooterWrapper>
-        <div className="footer_AllWrap">
+        <div
+          className={`footer_AllWrap ${isPaymentPage ? "payment_footer" : ""}`}
+        >
           <div className="footer_Wrap">
             <div className="footer_snsWrap">
               <a href="https://www.instagram.com" target="_blank">
