@@ -10,7 +10,7 @@ export const MyPageStyled = styled.div`
     display: flex;
     justify-content: space-between;
     gap: 10px;
-    padding: 30px 30px;
+    padding: 75px 30px;
   }
 `;
 
