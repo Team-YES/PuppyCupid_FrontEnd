@@ -9,11 +9,15 @@ import {
   PaymentMid,
 } from "@/features/PaymentManager/Payment/styled";
 import axios from "axios";
+
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const response = await axios.get(
       "http://localhost:5000/payments/getTossClientKey"
     );
+
+    console.log(response.data);
+
     const tossClientKey = response.data.tossClientKey;
 
     return {

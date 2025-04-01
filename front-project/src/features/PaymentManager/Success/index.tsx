@@ -11,7 +11,7 @@ export default function SuccessPage() {
     // 결제 완료 후 서버에 결제 상태 확인 요청을 보낼 수 있음
     if (orderId && amount && status) {
       axios
-        .post("http://localhost:5000/api/verifyPayment", {
+        .post("http://localhost:5000/payments", {
           orderId,
           amount,
           status,
