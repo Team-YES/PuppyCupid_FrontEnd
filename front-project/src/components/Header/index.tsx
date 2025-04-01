@@ -180,8 +180,15 @@ const Header = ({
                     "전체 게시물 보기",
                     "채팅하기",
                     "결제하기",
+                    "문의하기",
                   ]}
-                  paths={["/walkingmate", "/board", "/chat", "/payment"]}
+                  paths={[
+                    "/walkingmate",
+                    "/board",
+                    "/chat",
+                    "/payment",
+                    "/payment",
+                  ]}
                   onClick={closeNav}
                 ></RightMenubar>
               </div>

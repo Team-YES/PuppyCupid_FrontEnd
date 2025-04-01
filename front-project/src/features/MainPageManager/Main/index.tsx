@@ -8,10 +8,9 @@ import MainImgs from "../../../components/MainImgs";
 const titles = [
   "산책메이트",
   "전체 게시물 보기",
-  "로그인하기",
+  "게시물 작성하기",
   "결제 안내 ",
   "채팅하기",
-
   "내 정보 보기",
 ];
 const images = [
