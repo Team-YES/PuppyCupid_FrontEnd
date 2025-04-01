@@ -40,32 +40,34 @@ const PaymentPage = ({ tossClientKey }: PaymentProps) => {
         <PaymentStyled>
           <PaymentTop>
             <h3>
-              🐾 파워 유저권으로
-              <br /> 우리 아이에게 더 많은 친구를!
+              <span>🐾 파워 유저권으로 </span>
+              <span>우리 아이에게 더 많은 친구를!</span>
             </h3>
-            <div>반려동물과 함께하는 행복한 만남, 지금 시작하세요!🐶</div>
-            <div>
-              <div className="Payment_btns">
-                <button
-                  onClick={() => handlePayment(3900)}
-                  className="Payment_btn_1"
-                >
-                  <p className="Payment_btn_text1">한 달 유저권</p>
-                  <p className="Payment_btn_text2">4,900원</p>
-                  <p className="Payment_btn_text3">3,900원</p>
-                  <p className="Payment_btn_text4">(부가세 포함)</p>
-                </button>
-                <button
-                  onClick={() => handlePayment(29000)}
-                  className="Payment_btn_2"
-                >
-                  <p className="Payment_btn_text1">연간 유저권</p>
-                  <p className="Payment_btn_text2">58,800원</p>
-                  <p className="Payment_btn_text3">29,000원</p>
-                  <p className="Payment_btn_text4">(부가세 포함)</p>
-                </button>
-              </div>
+            <div className="Payment_blackText">
+              반려동물과 함께하는 행복한 만남, 지금 시작하세요!🐶
             </div>
+
+            <div className="Payment_btns">
+              <button
+                onClick={() => handlePayment(3900)}
+                className="Payment_btn_1"
+              >
+                <p className="Payment_btn_text1">한 달 유저권</p>
+                <p className="Payment_btn_text2">4,900원</p>
+                <p className="Payment_btn_text3">3,900원</p>
+                <p className="Payment_btn_text4">(부가세 포함)</p>
+              </button>
+              <button
+                onClick={() => handlePayment(29000)}
+                className="Payment_btn_2"
+              >
+                <p className="Payment_btn_text1">연간 유저권</p>
+                <p className="Payment_btn_text2">58,800원</p>
+                <p className="Payment_btn_text3">29,000원</p>
+                <p className="Payment_btn_text4">(부가세 포함)</p>
+              </button>
+            </div>
+
             <div className="Payment_blueText">
               🎉 프로모션 할인 중! 지금 가입하면 더 저렴한 가격에 이용할 수
               있어요!
