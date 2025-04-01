@@ -8,21 +8,23 @@ type OptionType = {
 };
 
 interface Props {
+  name: string;
+  value: string;
   option: OptionType[];
+  onChange: (value: string) => void;
 }
 
-const SelectBox = ({ option }: Props) => {
+const SelectBox = ({ name, value, option, onChange }: Props) => {
   const [selected, setSelected] = useState("walk");
 
   return (
     <SelectStyled>
       <Select
+        value={value}
         defaultValue={"산책메이트"}
         style={{ width: "100%" }}
         options={option}
-        onChange={(value) => {
-          setSelected(value);
-        }}
+        onChange={onChange}
       />
     </SelectStyled>
   );

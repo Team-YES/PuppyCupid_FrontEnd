@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
-export const RegistrationStyled = styled.div`
+// Button 컴포넌트 사용 시 variant 명시
+interface ButtonProps {
+  variant?: "default" | "confirm" | "danger";
+}
+
+export const RegistrationStyled = styled.form`
   width: 100%;
   border: 1px solid #333;
 `;
@@ -11,6 +16,27 @@ export const Image = styled.div`
 
 export const DeleteImage = styled.div``;
 
-export const Button = styled.div`
+export const Button = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== "variant",
+})<ButtonProps>`
   border: 1px solid #333;
+  border-radius: 6px;
+  padding: 6px 19px;
+  color: ${({ variant }) => (variant === "default" ? "#333" : "#fff")};
+  background-color: ${({ variant }) =>
+    variant === "confirm"
+      ? "#007bff"
+      : variant === "danger"
+      ? "#dc3545"
+      : "#fff"};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ variant }) =>
+      variant === "confirm"
+        ? "#0056b3"
+        : variant === "danger"
+        ? "#c82333"
+        : "#e6e6e6"};
+  }
 `;
