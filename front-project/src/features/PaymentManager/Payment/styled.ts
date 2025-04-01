@@ -51,6 +51,7 @@ export const PaymentTop = styled.div`
     font-size: 25px;
     padding-bottom: 35px;
     width: 85%;
+    font-weight: bold;
     span {
       display: block;
     }
