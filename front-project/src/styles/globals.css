@@ -71,3 +71,14 @@ a {
 .app_footer {
   margin-top: auto;
 }
+
+/* antd Select 커스텀 */
+.ant-select-selector {
+  border: 1px solid #333 !important;
+  border-radius: 0px !important;
+
+  &:focus,
+  &.ant-select-focused {
+    box-shadow: 0 0 0 2px #ff7a45 !important;
+  }
+}

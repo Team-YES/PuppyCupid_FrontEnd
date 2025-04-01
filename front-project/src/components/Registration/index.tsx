@@ -1,14 +1,14 @@
 import { RegistrationStyled } from "./styled";
-import { Select } from "antd";
-// import { useFormik } from "formik";
+import { useFormik } from "formik";
+import SelectBox from "@/components/SelectBox";
 
 const Registration = () => {
+  // select 선택 목록
   const option = [
-    { value: "red", label: "산책메이트" },
-    { value: "yellow", label: "자유게시판" },
-    { value: "blue", label: "유기견 임시보호 / 입양" },
+    { value: "walk", label: "산책메이트" },
+    { value: "free", label: "자유게시판" },
+    { value: "adopt", label: "유기견 임시보호 / 입양" },
   ];
-  console.log(option);
 
   return (
     <RegistrationStyled>
@@ -16,19 +16,10 @@ const Registration = () => {
         <img src="./cute_cat.jpg" alt="임시" style={{ width: "100%" }} />
       </div>
       <div style={{ padding: 15 }}>
-        <div
-          style={{
-            border: "1px solid black",
-            marginBottom: 15,
-          }}
-        >
-          카테고리
+        <div style={{ marginBottom: 15 }}>
+          <SelectBox option={option} />
         </div>
-        {/* <Select
-          defaultValue={"산책메이트"}
-          style={{ width: "100%" }}
-          options={option}
-        /> */}
+
         <div
           style={{
             border: "1px solid black",
