@@ -77,8 +77,20 @@ a {
   border: 1px solid #333 !important;
   border-radius: 0px !important;
 
-  &:focus,
-  &.ant-select-focused {
-    box-shadow: 0 0 0 2px #ff7a45 !important;
+  &:focus-within {
+    box-shadow: 0 0 4px 2px #e9dffe !important;
+  }
+}
+
+/* antd Input 커스텀 */
+.ant-input-outlined {
+  border-radius: 0px !important;
+  border: 1px solid #333 !important;
+
+  &:hover {
+    border-color: #333 !important;
+  }
+  &:focus-within {
+    box-shadow: 0 0 4px 2px #e9dffe !important;
   }
 }

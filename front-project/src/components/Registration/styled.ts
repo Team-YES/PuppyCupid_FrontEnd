@@ -11,8 +11,4 @@ export const Image = styled.div`
 
 export const DeleteImage = styled.div``;
 
-export const Category = styled.div``;
-
-export const Content = styled.div``;
-
-export const Btn = styled.div``;
+export const Button = styled.div``;
