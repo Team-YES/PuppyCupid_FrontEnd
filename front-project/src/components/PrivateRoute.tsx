@@ -21,7 +21,7 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
   }, [isLoggedIn, router]);
 
   if (!isLoggedIn) {
-    return null; // 로그인되지 않았을 경우 아무것도 렌더링하지 않음
+    return <div>로딩 중...</div>; // 로그인되지 않았을 경우 아무것도 렌더링하지 않음
   }
 
   return <>{children}</>; // 로그인된 경우 자식 컴포넌트 렌더링
