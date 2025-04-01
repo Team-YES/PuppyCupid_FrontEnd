@@ -51,6 +51,7 @@ export const PaymentTop = styled.div`
     font-size: 25px;
     padding-bottom: 35px;
     width: 85%;
+    font-weight: bold;
     span {
       display: block;
     }
@@ -69,18 +70,22 @@ export const PaymentTop = styled.div`
     .Payment_btn_text1 {
       font-weight: bold;
       font-size: 15px;
+      margin: 6px 0px;
     }
     .Payment_btn_text2 {
       font-size: 13px;
       text-decoration: line-through;
       color: gray;
+      margin: 6px 0px;
     }
     .Payment_btn_text3 {
       font-weight: bold;
       font-size: 18px;
+      margin: 6px 0px;
     }
     .Payment_btn_text4 {
       font-size: 14px;
+      margin: 6px 0px;
     }
   }
   .Payment_btn_1 {

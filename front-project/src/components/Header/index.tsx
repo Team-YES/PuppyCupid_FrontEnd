@@ -64,6 +64,10 @@ const Header = ({
     router.push("/login");
   };
 
+  const handleMyPageClick = () => {
+    router.push("/mypage");
+  };
+
   // 로그아웃 처리 함수
   // const handleLogout = async () => {
   //   try {
@@ -146,7 +150,10 @@ const Header = ({
                   <i
                     className="fa-regular fa-user"
                     style={{ color: "#000000" }}
-                    onClick={handleLoginClick}
+                    onClick={() => {
+                      closeNav();
+                      handleMyPageClick();
+                    }}
                   ></i>
 
                   {/* 찾기 아이콘 */}
@@ -173,8 +180,15 @@ const Header = ({
                     "전체 게시물 보기",
                     "채팅하기",
                     "결제하기",
+                    "문의하기",
                   ]}
-                  paths={["/walkingmate", "/board", "/chat", "/payment"]}
+                  paths={[
+                    "/walkingmate",
+                    "/board",
+                    "/chat",
+                    "/payment",
+                    "/payment",
+                  ]}
                   onClick={closeNav}
                 ></RightMenubar>
               </div>
