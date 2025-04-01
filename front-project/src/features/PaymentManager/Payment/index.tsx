@@ -13,7 +13,6 @@ interface PaymentProps {
   tossClientKey: string | null;
 }
 const PaymentPage = ({ tossClientKey }: PaymentProps) => {
-  console.log("넘어온 tossClientKey:", tossClientKey);
   const handlePayment = async (amount: number) => {
     if (!tossClientKey) {
       console.error("Toss client key가 없습니다.");

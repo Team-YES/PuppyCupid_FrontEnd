@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { HeaderWrapper, Logo, Mid, RightMenu, Nav } from "./styled";
+import { useAuth } from "../../context/AuthContext";
 import RightMenubar from "../../assets/RightMenubar";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import axios from "axios";
+import PrivateRoute from "../../components/PrivateRoute";
 const Header = ({
   isScrolled,
   setIsScrolled,
@@ -14,22 +16,23 @@ const Header = ({
   const router = useRouter();
   const [isNavOpen, setIsNavOpen] = useState(false);
   // 로그인 여부
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, logout } = useAuth(); // AuthContext에서 isLoggedIn과 logout 함수 가져오기
 
-  useEffect(() => {
-    const token = Cookies.get("access_token"); // 쿠키에서 access token 가져오기
+  // useEffect(() => {
+  //   const token = Cookies.get("access_token"); // 쿠키에서 access token 가져오기
 
-    axios
-      .get("http://localhost:5000/auth/check", {
-        withCredentials: true, // 쿠키 포함
-      })
-      .then((response) => {
-        setIsLoggedIn(response.data.isLoggedIn);
-      })
-      .catch(() => {
-        setIsLoggedIn(false);
-      });
-  }, []);
+  //   axios
+  //     .get("http://localhost:5000/auth/check", {
+  //       withCredentials: true, // 쿠키 포함
+  //     })
+  //     .then((response) => {
+  //       setIsLoggedIn(response.data.isLoggedIn);
+  //     })
+  //     .catch(() => {
+  //       setIsLoggedIn(false);
+  //     });
+  // }, []);
 
   // 스크롤에 따른 헤더 변화
   const handleScroll = () => {
@@ -62,23 +65,30 @@ const Header = ({
   };
 
   // 로그아웃 처리 함수
-  const handleLogout = async () => {
-    try {
-      // 서버 로그아웃 API 호출
-      await axios.get("http://localhost:5000/auth/logout", {
-        withCredentials: true, // 쿠키를 포함하려면 true
-      });
-
-      // 로그인 상태를 false로 설정
-      setIsLoggedIn(false);
-
-      // 로그인 페이지로 리다이렉트
-      router.push("/");
-    } catch (error) {
-      console.error("로그아웃 처리 중 오류 발생:", error);
-    }
+  // const handleLogout = async () => {
+  //   try {
+  //     // 서버 로그아웃 API 호출
+  //     await axios.get("http://localhost:5000/auth/logout", {
+  //       withCredentials: true, // 쿠키를 포함하려면 true
+  //     });
+  //     // 로그인 상태를 false로 설정
+  //     setIsLoggedIn(false);
+  //     // 로그인 페이지로 리다이렉트
+  //     router.push("/");
+  //   } catch (error) {
+  //     console.error("로그아웃 처리 중 오류 발생:", error);
+  //   }
+  // };
+  const handleLogout = () => {
+    logout(); // AuthContext에서 제공하는 logout 함수 호출
+    router.push("/"); // 로그아웃 후 홈으로 리다이렉트
   };
-
+  // useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     // 로그인 상태가 아니면 결제 페이지로 이동 못하도록 리다이렉트
+  //     router.push("/"); // 홈 페이지로 리다이렉트 (혹은 로그인 페이지)
+  //   }
+  // }, [isLoggedIn]);
   return (
     <>
       <HeaderWrapper className={isScrolled ? "scrolled" : ""}>
@@ -171,7 +181,10 @@ const Header = ({
             </div>
             <div
               className="header_logout_btn"
-              onClick={isLoggedIn ? handleLogout : handleLoginClick}
+              onClick={() => {
+                closeNav();
+                isLoggedIn ? handleLogout() : handleLoginClick();
+              }}
             >
               {isLoggedIn ? "로그아웃 하기" : "로그인 하기"}
             </div>

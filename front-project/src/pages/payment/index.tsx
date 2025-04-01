@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import PaymentPage from "@/features/PaymentManager/Payment";
 import axios from "axios";
-
+import PrivateRoute from "../../components/PrivateRoute";
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const response = await axios.get(
@@ -16,7 +16,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 const Payment = ({ tossClientKey }: { tossClientKey: string | null }) => {
-  return <PaymentPage tossClientKey={tossClientKey} />;
+  return (
+    <PrivateRoute>
+      <PaymentPage tossClientKey={tossClientKey} />
+    </PrivateRoute>
+  );
 };
 
 export default Payment;
