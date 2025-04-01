@@ -11,7 +11,7 @@ import axios from "axios";
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const response = await axios.get(
-      "http://localhost:5000/api/getTossClientKey"
+      "http://localhost:5000/payments/getTossClientKey"
     );
     const tossClientKey = response.data.tossClientKey;
 
