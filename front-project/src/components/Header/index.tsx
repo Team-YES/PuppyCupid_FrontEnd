@@ -21,9 +21,6 @@ const Header = ({
 
     axios
       .get("http://localhost:5000/auth/check", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
         withCredentials: true, // 쿠키 포함
       })
       .then((response) => {
@@ -71,10 +68,6 @@ const Header = ({
       await axios.get("http://localhost:5000/auth/logout", {
         withCredentials: true, // 쿠키를 포함하려면 true
       });
-
-      // 쿠키에서 토큰 삭제
-      Cookies.remove("access_token");
-      Cookies.remove("eid_refresh_token");
 
       // 로그인 상태를 false로 설정
       setIsLoggedIn(false);
