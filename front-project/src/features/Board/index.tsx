@@ -62,7 +62,7 @@ const Board = () => {
         <WeatherAlim alert={isAlert}>
           <img
             src={`http://openweathermap.org/img/wn/${weatherIcon}.png
-`}
+            `}
             alt="Today's Weather"
           />
           <div>
