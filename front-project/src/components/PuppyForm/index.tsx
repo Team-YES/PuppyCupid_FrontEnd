@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup"; // Yup을 사용한 유효성 검사
 import { personalities } from "@/constants/personalities";
@@ -6,6 +6,7 @@ import { mbtiOptions } from "@/constants/mbtiOptions";
 import { formLabels } from "@/constants/formLabels";
 import { PuppyFormStyle } from "./styled";
 
+const defaultImage = "/puppy_profile.png";
 // 폼 상태 타입 정의
 interface FormValues {
   puppyName: string;
@@ -13,6 +14,7 @@ interface FormValues {
   puppyBreed: string;
   puppyPersonality: string[];
   puppyMbti: string;
+  puppyImage: File | null;
 }
 
 // 유효성 검사 스키마
@@ -22,9 +24,12 @@ const validationSchema = Yup.object({
   puppyBreed: Yup.string().required("품종을 입력해주세요."),
   puppyPersonality: Yup.array().min(1, "성격을 선택해주세요."),
   puppyMbti: Yup.string().required("MBTI를 선택해주세요."),
+  puppyImage: Yup.mixed().required("이미지를 업로드해주세요."),
 });
 
 const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
+  const [imagePreview, setImagePreview] = useState<string | null>(defaultImage);
+
   // Formik 설정
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -33,6 +38,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
       puppyBreed: "",
       puppyPersonality: [],
       puppyMbti: "",
+      puppyImage: null,
     },
     validationSchema: validationSchema, // 유효성 검사 추가
     onSubmit: (values) => {
@@ -59,12 +65,44 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
     }
   };
 
+  // 이미지 파일 처리
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+      formik.setFieldValue("puppyImage", file);
+    }
+  };
   return (
     <PuppyFormStyle>
       <form onSubmit={formik.handleSubmit}>
         <div className="PuppyForm_closeBtn" onClick={closeModal}>
           <i className="fa-solid fa-xmark"></i>
         </div>
+        {/* 이미지 미리보기 */}
+        <div className="PuppyForm_form_imgs">
+          <div className="PuppyForm_preview_div">
+            <img
+              src={imagePreview || defaultImage}
+              alt="Puppy Profile Preview"
+            />
+          </div>
+        </div>
+        {/* 이미지 업로드 */}
+        <div>
+          <label>프로필 사진 업로드: </label>
+          <br />
+          <input type="file" accept="image/*" onChange={handleImageChange} />
+          {formik.errors.puppyImage && formik.touched.puppyImage && (
+            <div>{formik.errors.puppyImage}</div>
+          )}
+        </div>
+
+        {/* 이름 인풋 */}
         <div>
           <label>{formLabels.puppyName}</label>
           <input
