@@ -48,9 +48,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
         formData.append("name", values.puppyName);
         formData.append("age", values.puppyAge);
         formData.append("breed", values.puppyBreed);
-        values.puppyPersonality.forEach((personality) =>
-          formData.append("personality", personality)
-        );
+        formData.append("personality", values.puppyPersonality.join(","));
         formData.append("mbti", values.puppyMbti);
         if (values.puppyImage) {
           formData.append("image", values.puppyImage);
