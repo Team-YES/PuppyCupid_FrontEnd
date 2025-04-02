@@ -21,7 +21,7 @@ const Registration = () => {
   // 이미지, select, checkbox모두 가능
   const userFormik = useFormik({
     initialValues: {
-      image: null,
+      images: [] as File[],
       category: "walk",
       title: "",
       content: "",
@@ -40,9 +40,11 @@ const Registration = () => {
     onSubmit: async (values) => {
       console.log(values);
       const formData = new FormData();
-      if (values.image) {
-        formData.append("image", values.image);
-      }
+
+      values.images.forEach((img) => {
+        formData.append("images", img);
+      });
+
       formData.append("category", values.category);
       formData.append("content", values.content);
       console.log(formData);
@@ -67,26 +69,71 @@ const Registration = () => {
         <input
           id="Registration_image_upload"
           style={{ display: "none" }}
-          type="file"
           name="image"
+          type="file"
+          multiple
           accept="image/*"
           onChange={(e) => {
-            const file = e.currentTarget.files?.[0];
-            if (file) {
-              userFormik.setFieldValue("image", file);
+            const files = Array.from(e.currentTarget.files || []);
+            const current = userFormik.values.images || [];
+
+            // 최대 10장 제한
+            const combined = [...current, ...files];
+
+            if (combined.length > 10) {
+              alert("사진은 최대 10장까지만 등록 가능합니다.");
             }
+
+            const limited = combined.slice(0, 10);
+
+            userFormik.setFieldValue("images", limited);
           }}
         />
       </div>
-      {userFormik.values.image && (
-        <div style={{ width: "100%" }}>
-          <img
-            src={URL.createObjectURL(userFormik.values.image)}
-            alt="미리보기"
-            style={{ width: "100%", padding: 15, borderRadius: 10 }}
-          />
-        </div>
-      )}
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {Array.isArray(userFormik.values.images) &&
+          userFormik.values.images.map((img, i) => (
+            <div
+              key={i}
+              style={{
+                position: "relative",
+                width: 190,
+                height: "auto",
+                borderRadius: 8,
+                margin: 15,
+              }}
+            >
+              <img
+                src={URL.createObjectURL(img)}
+                alt={`이미지 미리보기${i + 1}`}
+                style={{ width: "100%", borderRadius: 8 }}
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  const updated = userFormik.values.images.filter(
+                    (_, idx) => idx !== i
+                  );
+                  userFormik.setFieldValue("images", updated);
+                }}
+                style={{
+                  position: "absolute",
+                  top: 2,
+                  right: 2,
+                  background: "rgba(0,0,0,0.5)",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "50%",
+                  width: 24,
+                  height: 24,
+                  cursor: "pointer",
+                }}
+              >
+                ×
+              </button>
+            </div>
+          ))}
+      </div>
 
       <div style={{ padding: 15 }}>
         <div style={{ marginBottom: 15 }}>
@@ -95,6 +142,15 @@ const Registration = () => {
             value={userFormik.values.category}
             option={option}
             onChange={(val) => userFormik.setFieldValue("category", val)}
+          />
+        </div>
+        <div style={{ marginBottom: 15 }}>
+          {/* 제목 */}
+          <TextAreaComp
+            name="title"
+            value={userFormik.values.title}
+            onChange={userFormik.handleChange}
+            onBlur={userFormik.handleBlur}
           />
         </div>
         <div>
