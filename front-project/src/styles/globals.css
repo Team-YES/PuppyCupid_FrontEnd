@@ -76,6 +76,7 @@ a {
 .ant-select-selector {
   border: 1px solid #333 !important;
   border-radius: 8px !important;
+  font-family: "Pretendard-Regular", sans-serif;
 
   &:focus-within {
     box-shadow: 0 0 4px 2px #e9dffe !important;
@@ -84,6 +85,7 @@ a {
 
 /* antd Input 커스텀 */
 .ant-input-outlined {
+  font-family: "Pretendard-Regular", sans-serif;
   border-radius: 8px !important;
   border: 1px solid #333 !important;
 

@@ -42,11 +42,18 @@ export const Button = styled.button.withConfig({
 `;
 
 export const ImgLabel = styled.label`
+  width: 72px;
   display: block;
   border: 2px solid #ccc;
-  border-radius: 12px;
-  padding: 40px;
+  border-radius: 10px;
+  padding: 15px;
   text-align: center;
   cursor: pointer;
-  background-color: #f9f9f9;
+  background-color: ${(props) => props.theme.colors.softPurple};
+`;
+
+export const ErrorMessage = styled.div`
+  margin-top: 6px;
+  font-size: 14px;
+  color: red;
 `;
