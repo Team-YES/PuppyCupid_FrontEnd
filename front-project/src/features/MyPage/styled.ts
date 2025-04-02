@@ -27,6 +27,11 @@ export const MyPageStyled = styled.div`
       padding: 25px 10px 25px 10px;
     }
   }
+  @media (max-width: 486px) {
+    .MyPage_top_wrap {
+      display: block;
+    }
+  }
 `;
 
 // 마이페이지 왼쪽 위
@@ -51,7 +56,14 @@ export const MyPageLeft = styled.div`
     object-fit: cover;
   }
   @media (max-width: 768px) {
-    width: 40%;
+    width: 50%;
+    .MyPage_left_profileImg {
+      width: 150px;
+      height: 150px;
+    }
+  }
+  @media (max-width: 486px) {
+    width: 100%;
     .MyPage_left_profileImg {
       width: 100px;
       height: 100px;
@@ -110,9 +122,16 @@ export const MyPageRight = styled.div`
       display: block;
     }
   }
-  @media (max-width: 468px) {
+  @media (max-width: 486px) {
+    width: 100%;
+    .MyPage_right_namebtns {
+      display: block;
+      text-align: center;
+    }
     .MyPage_right_namebtns .MyPage_profile_nickname {
       font-size: 15px;
+      width: 100%;
+      padding: 20px 0px;
     }
   }
 `;

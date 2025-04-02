@@ -31,4 +31,10 @@ export const MypostCountWrapper = styled.div`
     padding-left: 5px;
     padding-right: 5px;
   }
+  @media (max-width: 486px) {
+    .MypostCount_AllWrap {
+      justify-content: center;
+      align-items: center;
+    }
+  }
 `;
