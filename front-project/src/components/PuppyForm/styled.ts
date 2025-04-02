@@ -20,6 +20,28 @@ export const PuppyFormStyle = styled.div`
       color: black;
     }
   }
+
+  .PuppyForm_preview_div {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 50px;
+  }
+  .PuppyForm_form_imgs {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .PuppyForm_preview_div img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
+  }
   /* 폼 전체 스타일 */
   form {
     display: flex;
@@ -34,6 +56,7 @@ export const PuppyFormStyle = styled.div`
     overflow-y: auto;
     padding-right: 12px;
   }
+
   form::-webkit-scrollbar {
     width: 10px;
   }

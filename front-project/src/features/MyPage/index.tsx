@@ -49,7 +49,7 @@ const MyPage = () => {
         <div className="MyPage_top_wrap">
           <MyPageLeft>
             <div className="MyPage_left_profileImg">
-              <img src="/cute_cat.jpg" alt="profile img"></img>
+              <img src="/puppy_profile.png" alt="profile img"></img>
             </div>
           </MyPageLeft>
           <MyPageRight>
@@ -59,12 +59,14 @@ const MyPage = () => {
                 <div className="MyPage_profile_nickname">
                   이메일 or nickname
                 </div>
-                <div className="MyPage_profile_btns">프로필 편집</div>
-                <div
-                  className="MyPage_profile_btns"
-                  onClick={handlePuppyEditClick}
-                >
-                  강아지 프로필 편집
+                <div className="MyPage_profile_editbtns">
+                  <div className="MyPage_profile_btns">프로필 편집</div>
+                  <div
+                    className="MyPage_profile_btns"
+                    onClick={handlePuppyEditClick}
+                  >
+                    강아지 프로필 편집
+                  </div>
                 </div>
               </div>
               {/* 게시물 팔로워 팔로우 */}

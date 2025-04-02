@@ -3,6 +3,9 @@ import styled from "styled-components";
 // 마이페이지 전체 패딩
 export const MyPagePadding = styled.div`
   padding: 0px 120px;
+  @media (max-width: 1024px) {
+    padding: 0px 20px;
+  }
 `;
 
 // 전체 감싼 부분
@@ -18,6 +21,11 @@ export const MyPageStyled = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 75px 30px;
+  }
+  @media (max-width: 768px) {
+    .MyPage_top_wrap {
+      padding: 25px 10px 25px 10px;
+    }
   }
 `;
 
@@ -41,6 +49,13 @@ export const MyPageLeft = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  @media (max-width: 768px) {
+    width: 40%;
+    .MyPage_left_profileImg {
+      width: 100px;
+      height: 100px;
+    }
   }
 `;
 
@@ -67,7 +82,37 @@ export const MyPageRight = styled.div`
     .MyPage_profile_nickname {
       margin-right: 15px;
       font-size: 23px;
-      text-align: center;
+      width: 25%;
+    }
+  }
+  .MyPage_profile_editbtns {
+    display: flex;
+  }
+  @media (max-width: 1024px) {
+    .MyPage_right_namebtns .MyPage_profile_btns {
+      font-size: 12px;
+    }
+  }
+  @media (max-width: 768px) {
+    width: 55%;
+    .MyPage_right_namebtns .MyPage_profile_btns {
+      font-size: 12px;
+      margin-bottom: 10px;
+      padding: 8px 10px;
+      height: 20px;
+    }
+    .MyPage_right_namebtns .MyPage_profile_nickname {
+      width: 28%;
+      margin-right: 20px;
+      font-size: 18px;
+    }
+    .MyPage_profile_editbtns {
+      display: block;
+    }
+  }
+  @media (max-width: 468px) {
+    .MyPage_right_namebtns .MyPage_profile_nickname {
+      font-size: 15px;
     }
   }
 `;
@@ -85,5 +130,11 @@ export const MyPageBottom = styled.div`
   }
   .MyPage_board_titles div i {
     margin-right: 8px;
+  }
+  @media (max-width: 480px) {
+    .MyPage_board_titles {
+      gap: 20px;
+      font-size: 13px;
+    }
   }
 `;
