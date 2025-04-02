@@ -15,19 +15,28 @@ interface Puppy {
   name: string;
   breed: string;
   personality: string;
+  age: number;
   mbti: string;
 }
 
+interface UserData {
+  email: string;
+  postsCount: number;
+  followersCount: number;
+  followingCount: number;
+  puppy: Puppy;
+}
 const MyPage = () => {
   const [isPuppyModalVisible, setIsPuppyModalVisible] = useState(false);
   const [isPersonModalVisible, setIsPersonModalVisible] = useState(false);
-
+  const [userData, setUserData] = useState<UserData | null>(null);
   const titles = ["게시물", "팔로워", "팔로우"];
   const count = [10, 5, 20]; //(임시 : 서버에 요청해서 가져올 것)
   const puppies: Puppy[] = [
     {
       name: "바둑이",
       breed: "골든 리트리버",
+      age: 0,
       personality: "활발함",
       mbti: "ENTP",
     },

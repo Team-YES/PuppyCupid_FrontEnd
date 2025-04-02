@@ -6,11 +6,13 @@ interface Puppy {
   breed: string;
   personality: string;
   mbti: string;
+  age: number;
 }
 
 interface PuppyProfileProps {
   puppyprofile: Puppy[];
 }
+
 const PuppyProfile = ({ puppyprofile }: PuppyProfileProps) => {
   return (
     <PuppyProfileWrapper>
@@ -22,6 +24,9 @@ const PuppyProfile = ({ puppyprofile }: PuppyProfileProps) => {
             </div>
             <div className="PuppyProfile_puppybreed PuppyProfile_text">
               <span>견종:</span> {puppy.breed}
+            </div>
+            <div className="PuppyProfile_puppyage PuppyProfile_text">
+              <span>나이:</span> {puppy.age}살
             </div>
             <div className="PuppyProfile_puppypersonality PuppyProfile_text">
               <span>성격:</span> {puppy.personality}

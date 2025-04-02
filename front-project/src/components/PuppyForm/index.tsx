@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup"; // Yup을 사용한 유효성 검사
@@ -14,7 +15,7 @@ interface FormValues {
   puppyBreed: string;
   puppyPersonality: string[];
   puppyMbti: string;
-  puppyImage: string | null;
+  puppyImage: File | null;
 }
 
 // 유효성 검사 스키마
@@ -41,9 +42,38 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
       puppyImage: null,
     },
     validationSchema: validationSchema, // 유효성 검사 추가
-    onSubmit: (values) => {
-      console.log(values);
-      closeModal(); // 제출 후 모달 닫기
+    onSubmit: async (values) => {
+      try {
+        const formData = new FormData();
+        formData.append("name", values.puppyName);
+        formData.append("age", values.puppyAge);
+        formData.append("breed", values.puppyBreed);
+        values.puppyPersonality.forEach((personality) =>
+          formData.append("personality", personality)
+        );
+        formData.append("mbti", values.puppyMbti);
+        if (values.puppyImage) {
+          formData.append("image", values.puppyImage);
+        }
+
+        const response = await axios.post(
+          "http://localhost:5000/dogs/register",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            withCredentials: true, // 쿠키 포함 (로그인 인증용)
+          }
+        );
+
+        console.log("강아지 등록 성공:", response.data);
+        alert("강아지 등록이 완료되었습니다!");
+        closeModal();
+      } catch (error) {
+        console.error("강아지 등록 실패:", error);
+        alert("강아지 등록에 실패했습니다.");
+      }
     },
   });
 
