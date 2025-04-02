@@ -74,13 +74,22 @@ const Registration = () => {
       formData.append("title", values.title);
       formData.append("category", values.category);
       formData.append("content", values.content);
-      console.log(formData);
+
+      for (const [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
 
       // 게시글 등록 axios 요청
       try {
         const res = await axios.post(
           "http://localhost:5000/posts/form",
-          formData
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            withCredentials: true,
+          }
         );
         console.log("게시물 등록 성공 응답: ", res.data);
 
