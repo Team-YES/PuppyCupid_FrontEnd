@@ -28,14 +28,12 @@ const PostList = () => {
           <img
             style={{
               width: "100%",
-              height: 300,
+              height: 450,
               marginBottom: 10,
             }}
             src="/cute_cat.jpg"
           />
         </div>
-      </div>
-      <div>
         <div className="Post_iconContainer">
           {MypageTitles.map((item, i) => (
             <div key={i} className="Post_icon">
@@ -43,6 +41,8 @@ const PostList = () => {
             </div>
           ))}
         </div>
+      </div>
+      <div>
         <div>
           <MarginBtmDiv>좋아요 {like}개</MarginBtmDiv>
           <MarginBtmDiv>
@@ -51,8 +51,6 @@ const PostList = () => {
             나섰지만, 버스는 이미 떠나버린 뒤였다. 결국 택시를 타고 회사에
             도착했지만, 지각은 피할 수 없었다.
           </MarginBtmDiv>
-          <MarginBtmDiv>댓글 작성</MarginBtmDiv>
-          <MarginBtmDiv>댓글 더보기</MarginBtmDiv>
         </div>
       </div>
     </PostStyled>

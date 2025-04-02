@@ -11,6 +11,7 @@ export const PostStyled = styled.div`
   padding: 12px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
   width: 100%;
+  display: flex;
 
   .Post_iconContainer {
     display: flex;
