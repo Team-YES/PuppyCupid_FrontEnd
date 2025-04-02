@@ -45,8 +45,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // 서버에서 로그인 상태를 확인하는 함수
   const checkLogin = async () => {
     try {
-      const token = Cookies.get("access_token"); // 쿠키에서 토큰을 가져옵니다.
-      if (!token) {
+      const token = Cookies.get("access_token");
+      const tempToken = Cookies.get("temp_access_token"); // 쿠키에서 토큰을 가져옵니다.
+      if (!token && tempToken) {
+        router.push("/phone");
         setIsLoggedIn(false);
         setUser(null);
         return;
@@ -80,7 +82,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       await axios.get("http://localhost:5000/auth/logout", {
         withCredentials: true,
       });
-      Cookies.remove("access_token"); // 쿠키에서 토큰 삭제
+      // Cookies.remove("access_token"); // 쿠키에서 토큰 삭제
       setIsLoggedIn(false);
     } catch (error) {
       console.error("로그아웃 오류:", error);
