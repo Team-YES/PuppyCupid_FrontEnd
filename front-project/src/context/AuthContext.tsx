@@ -7,9 +7,21 @@ import React, {
 } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { useRouter } from "next/router";
+
+type UserInfo = {
+  id: number;
+  email: string;
+  role: string;
+  phoneNumber: string | null;
+  nickname: string | null;
+  gender: string | null;
+  isPhoneVerified: boolean;
+};
 
 type AuthContextType = {
   isLoggedIn: boolean;
+  user: UserInfo | null;
   checkLogin: () => void;
   login: () => void;
   logout: () => void;
@@ -27,6 +39,8 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<UserInfo | null>(null);
+  const router = useRouter();
 
   // 서버에서 로그인 상태를 확인하는 함수
   const checkLogin = async () => {
@@ -34,6 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const token = Cookies.get("access_token"); // 쿠키에서 토큰을 가져옵니다.
       if (!token) {
         setIsLoggedIn(false);
+        setUser(null);
         return;
       }
 
@@ -42,9 +57,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         withCredentials: true, // 쿠키를 포함시켜서 요청
       });
 
-      setIsLoggedIn(response.data.isLoggedIn);
+      if (response.data.isLoggedIn) {
+        setIsLoggedIn(true);
+        setUser(response.data.user);
+
+        if (!response.data.user.phoneNumber && router.pathname !== "/phone") {
+          router.push("/phone");
+        }
+      } else {
+        setIsLoggedIn(false);
+        setUser(null);
+      }
     } catch (error) {
       setIsLoggedIn(false);
+      setUser(null);
     }
   };
 
@@ -68,7 +94,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, checkLogin, login: () => {}, logout }}
+      value={{ isLoggedIn, user, checkLogin, login: () => {}, logout }}
     >
       {children}
     </AuthContext.Provider>
