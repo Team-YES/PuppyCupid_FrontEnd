@@ -1,4 +1,4 @@
-import { RegistrationStyled, Button } from "./styled";
+import { RegistrationStyled, Button, ImgLabel } from "./styled";
 import { useFormik } from "formik";
 import SelectBox from "@/components/SelectBox";
 import TextAreaComp from "@/components/TextAreaComp";
@@ -21,7 +21,9 @@ const Registration = () => {
   // 이미지, select, checkbox모두 가능
   const userFormik = useFormik({
     initialValues: {
-      category: "",
+      image: null,
+      category: "walk",
+      title: "",
       content: "",
     },
     validate: (values) => {
@@ -37,13 +39,20 @@ const Registration = () => {
     },
     onSubmit: async (values) => {
       console.log(values);
+      const formData = new FormData();
+      if (values.image) {
+        formData.append("image", values.image);
+      }
+      formData.append("category", values.category);
+      formData.append("content", values.content);
+      console.log(formData);
 
       // 게시글 등록 axios 요청
-      // await axios.post("주소", values);
+      // await axios.post("/url", formData);
       // router.push('/board');
 
       notification.success({
-        message: "등록 성공!",
+        message: "게시글 등록성공!",
       });
       // userFormik.resetForm(); // input값 reset
     },
@@ -53,9 +62,32 @@ const Registration = () => {
 
   return (
     <RegistrationStyled onSubmit={userFormik.handleSubmit}>
-      <div style={{ width: "100%" }}>
-        <img src="./cute_cat.jpg" alt="임시" style={{ width: "100%" }} />
+      <div style={{ padding: 15 }}>
+        <ImgLabel htmlFor="Registration_image_upload">이미지 업로드</ImgLabel>
+        <input
+          id="Registration_image_upload"
+          style={{ display: "none" }}
+          type="file"
+          name="image"
+          accept="image/*"
+          onChange={(e) => {
+            const file = e.currentTarget.files?.[0];
+            if (file) {
+              userFormik.setFieldValue("image", file);
+            }
+          }}
+        />
       </div>
+      {userFormik.values.image && (
+        <div style={{ width: "100%" }}>
+          <img
+            src={URL.createObjectURL(userFormik.values.image)}
+            alt="미리보기"
+            style={{ width: "100%", padding: 15, borderRadius: 10 }}
+          />
+        </div>
+      )}
+
       <div style={{ padding: 15 }}>
         <div style={{ marginBottom: 15 }}>
           <SelectBox
@@ -82,7 +114,7 @@ const Registration = () => {
 
       <div style={{ display: "flex", justifyContent: "flex-end", padding: 15 }}>
         <div>
-          {/* 수정예정 : 전체게시물로 이동 */}
+          {/* 수정예정 : 전체게시물url로 이동 */}
           <Button
             variant={"default"}
             onClick={() => {

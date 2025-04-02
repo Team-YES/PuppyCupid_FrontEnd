@@ -40,3 +40,13 @@ export const Button = styled.button.withConfig({
         : "#e6e6e6"};
   }
 `;
+
+export const ImgLabel = styled.label`
+  display: block;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #f9f9f9;
+`;

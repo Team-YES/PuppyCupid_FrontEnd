@@ -75,7 +75,7 @@ a {
 /* antd Select 커스텀 */
 .ant-select-selector {
   border: 1px solid #333 !important;
-  border-radius: 10px !important;
+  border-radius: 8px !important;
 
   &:focus-within {
     box-shadow: 0 0 4px 2px #e9dffe !important;
