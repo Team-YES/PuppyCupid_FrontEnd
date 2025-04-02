@@ -56,11 +56,7 @@ export const PuppyFormStyle = styled.div`
     overflow-y: auto;
     padding-right: 12px;
   }
-  /* .PuppyForm_form_imgs div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  } */
+
   form::-webkit-scrollbar {
     width: 10px;
   }

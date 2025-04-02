@@ -132,6 +132,7 @@ export const Mid = styled.nav`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     svg {
       margin: 0px 5px;
     }
