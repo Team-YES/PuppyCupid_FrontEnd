@@ -8,18 +8,13 @@ type Props = {
 };
 
 export const PostStyled = styled.div`
-  padding: 25px;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
   width: 100%;
 
   .Post_iconContainer {
     display: flex;
-    margin-bottom: 20px;
-  }
-
-  .Post_icon {
-    margin-right: 10px;
-    width: 20px;
+    margin-bottom: 15px;
   }
 `;
 
@@ -32,6 +27,12 @@ export const Img = styled.div`
   border-radius: 50%;
 `;
 
-export const Writer = styled.div`
-  /* font-size: 14px; */
+export const PostIcon = styled.i`
+  font-size: 20px;
+  color: #333;
+  margin-right: 15px;
+`;
+
+export const MarginBtmDiv = styled.div`
+  margin-bottom: 10px;
 `;
