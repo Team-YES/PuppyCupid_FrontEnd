@@ -79,7 +79,7 @@ const Registration = () => {
         console.log(key, value);
       }
 
-      // 게시글 등록 axios 요청
+      // 게시글 등록 axios 요청(파일업로드용 헤더, 인증 쿠키)
       try {
         const res = await axios.post(
           "http://localhost:5000/posts/form",
@@ -93,10 +93,11 @@ const Registration = () => {
         );
         console.log("게시물 등록 성공 응답: ", res.data);
 
-        notification.success({
-          message: "게시글 등록성공!",
-        });
-        // router.push('/board');
+        alert("게시물을 등록하였습니다.");
+        // notification.success({
+        //   message: "게시글 등록성공!",
+        // });
+        router.push("/board");
       } catch (error) {
         console.error("게시물 등록 에러: ", error);
       }
