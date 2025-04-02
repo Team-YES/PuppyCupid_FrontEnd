@@ -2,6 +2,7 @@ import { RegistrationStyled, Button, ImgLabel } from "./styled";
 import { useFormik } from "formik";
 import SelectBox from "@/components/SelectBox";
 import TextAreaComp from "@/components/TextAreaComp";
+import InputComp from "../InputComp";
 import { useRouter } from "next/router";
 import { notification } from "antd";
 import axios from "axios";
@@ -44,7 +45,7 @@ const Registration = () => {
       values.images.forEach((img) => {
         formData.append("images", img);
       });
-
+      formData.append("title", values.title);
       formData.append("category", values.category);
       formData.append("content", values.content);
       console.log(formData);
@@ -146,7 +147,7 @@ const Registration = () => {
         </div>
         <div style={{ marginBottom: 15 }}>
           {/* 제목 */}
-          <TextAreaComp
+          <InputComp
             name="title"
             value={userFormik.values.title}
             onChange={userFormik.handleChange}
