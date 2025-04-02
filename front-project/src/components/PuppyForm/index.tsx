@@ -15,6 +15,7 @@ interface FormValues {
   puppyBreed: string;
   puppyPersonality: string[];
   puppyMbti: string;
+  puppyGender: string;
   puppyImage: File | null;
 }
 
@@ -25,9 +26,9 @@ const validationSchema = Yup.object({
   puppyBreed: Yup.string().required("품종을 입력해주세요."),
   puppyPersonality: Yup.array().min(1, "성격을 선택해주세요."),
   puppyMbti: Yup.string().required("MBTI를 선택해주세요."),
+  puppyGender: Yup.string().required("성별을 선택해주세요."),
   puppyImage: Yup.mixed().required("이미지를 업로드해주세요."),
 });
-
 const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(defaultImage);
 
@@ -39,9 +40,10 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
       puppyBreed: "",
       puppyPersonality: [],
       puppyMbti: "",
+      puppyGender: "", // ✅ 초기값 추가
       puppyImage: null,
     },
-    validationSchema: validationSchema, // 유효성 검사 추가
+    validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
         const formData = new FormData();
@@ -50,6 +52,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
         formData.append("breed", values.puppyBreed);
         formData.append("personality", values.puppyPersonality.join(","));
         formData.append("mbti", values.puppyMbti);
+        formData.append("gender", values.puppyGender);
         if (values.puppyImage) {
           formData.append("image", values.puppyImage);
         }
@@ -142,7 +145,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
             <div>{formik.errors.puppyName}</div>
           )}
         </div>
-
+        {/* 나이 */}
         <div>
           <label>{formLabels.puppyAge}</label>
           <input
@@ -155,7 +158,50 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
             <div>{formik.errors.puppyAge}</div>
           )}
         </div>
+        {/* 중성화 */}
+        <div>
+          <label>{formLabels.puppyGender}</label>
+          <div>
+            <input
+              type="radio"
+              name="puppyGender"
+              value="male"
+              checked={formik.values.puppyGender === "male"}
+              onChange={formik.handleChange}
+            />
+            <label>수컷</label>
 
+            <input
+              type="radio"
+              name="puppyGender"
+              value="male_neutered"
+              checked={formik.values.puppyGender === "male_neutered"}
+              onChange={formik.handleChange}
+            />
+            <label>수컷(중성화)</label>
+
+            <input
+              type="radio"
+              name="puppyGender"
+              value="female"
+              checked={formik.values.puppyGender === "female"}
+              onChange={formik.handleChange}
+            />
+            <label>암컷</label>
+
+            <input
+              type="radio"
+              name="puppyGender"
+              value="female_neutered"
+              checked={formik.values.puppyGender === "female_neutered"}
+              onChange={formik.handleChange}
+            />
+            <label>암컷(중성화)</label>
+          </div>
+          {formik.errors.puppyGender && formik.touched.puppyGender && (
+            <div>{formik.errors.puppyGender}</div>
+          )}
+        </div>
         <div>
           <label>{formLabels.puppyBreed}</label>
           <input
@@ -168,7 +214,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
             <div>{formik.errors.puppyBreed}</div>
           )}
         </div>
-
+        {/* 성격 */}
         <div>
           <label>{formLabels.puppyPersonality}</label>
           {personalities.map((personality) => (

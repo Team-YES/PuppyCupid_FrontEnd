@@ -5,4 +5,5 @@ export const formLabels = {
   puppyPersonality: "성격:",
   puppyMbti: "멍BTI:",
   submitButton: "등록/수정",
+  puppyGender: "강아지 성별",
 };
