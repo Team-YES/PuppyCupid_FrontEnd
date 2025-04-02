@@ -63,7 +63,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
             headers: {
               "Content-Type": "multipart/form-data",
             },
-            withCredentials: true, // 쿠키 포함 (로그인 인증용)
+            withCredentials: true,
           }
         );
 
@@ -103,7 +103,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
       };
       reader.readAsDataURL(file);
 
-      formik.setFieldValue("puppyImage", file); // 🔥 file.name이 아니라 file 객체 저장
+      formik.setFieldValue("puppyImage", file);
     }
   };
   return (

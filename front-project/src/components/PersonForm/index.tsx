@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { PersonFormStyle } from "./styled";
 
 interface FormValues {
   personNickName: string;
-  personPhone: string; // 🔥 반드시 string 타입이어야 함
+  personPhone: string;
 }
 
 const validationSchema = Yup.object({
@@ -18,17 +19,54 @@ const validationSchema = Yup.object({
 });
 
 const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
+  const [initialValues, setInitialValues] = useState<FormValues | null>(null);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/users/info", {
+          withCredentials: true, // 쿠키 포함 (로그인 유지)
+        });
+        setInitialValues({
+          personNickName: response.data.nickName,
+          personPhone: response.data.phone,
+        });
+      } catch (error) {
+        console.error("유저 정보를 불러오는 데 실패했습니다.", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
   const formik = useFormik<FormValues>({
     initialValues: {
       personNickName: "",
-      personPhone: "", // 🔥 초기값을 string으로 설정
+      personPhone: "",
     },
     validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
-      closeModal();
+    onSubmit: async (values) => {
+      try {
+        await axios.put(
+          "http://localhost:5000/users/update",
+          {
+            nickName: values.personNickName,
+            phone: values.personPhone,
+          },
+          { withCredentials: true }
+        );
+        alert("정보가 수정되었습니다.");
+        closeModal();
+      } catch (error) {
+        console.error("유저 정보 수정 실패:", error);
+        alert("수정에 실패했습니다.");
+      }
     },
   });
+
+  if (!initialValues) {
+    return <div>로딩 중...</div>;
+  }
 
   return (
     <PersonFormStyle>
