@@ -64,8 +64,6 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
       );
     }
   };
-
-  // 이미지 파일 처리
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
@@ -75,8 +73,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
       };
       reader.readAsDataURL(file);
 
-      // 🔥 Formik에는 file.name을 저장 (Yup 유효성 검사를 위해)
-      formik.setFieldValue("puppyImage", file.name);
+      formik.setFieldValue("puppyImage", file); // 🔥 file.name이 아니라 file 객체 저장
     }
   };
   return (
