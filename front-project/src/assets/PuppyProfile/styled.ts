@@ -27,4 +27,14 @@ export const PuppyProfileWrapper = styled.div`
     padding-left: 5px;
     padding-right: 5px;
   }
+  @media (max-width: 486px) {
+    .PuppyProfile_card {
+      text-align: left;
+      margin-left: 30px;
+      margin-top: 30px;
+      .PuppyProfile_text span {
+        padding-right: 10px;
+      }
+    }
+  }
 `;
