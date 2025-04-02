@@ -14,7 +14,7 @@ interface FormValues {
   puppyBreed: string;
   puppyPersonality: string[];
   puppyMbti: string;
-  puppyImage: File | null;
+  puppyImage: string | null;
 }
 
 // 유효성 검사 스키마
@@ -74,7 +74,9 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
         setImagePreview(reader.result as string);
       };
       reader.readAsDataURL(file);
-      formik.setFieldValue("puppyImage", file);
+
+      // 🔥 Formik에는 file.name을 저장 (Yup 유효성 검사를 위해)
+      formik.setFieldValue("puppyImage", file.name);
     }
   };
   return (

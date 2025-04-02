@@ -28,9 +28,8 @@ export default function App({ Component, pageProps }: AppProps) {
   const contentStyle = {
     paddingTop: !isLoginPage && !isAdminPage ? "130px" : "0px",
   };
-  const isPaymentPage = router.pathname === "/payment";
-  const isPaymentSuccessPage = router.pathname === "/payment/success";
-  const isPaymentFailPage = router.pathname === "/payment/fail";
+
+  const isNotMainPage = router.pathname !== "/";
   return (
     <Provider store={store}>
       <div className="app_wrapper">
@@ -50,11 +49,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </AuthProvider>
           <div className="app_footer">
             {!isLoginPage && !isAdminPage && (
-              <Footer
-                isPaymentPage={isPaymentPage}
-                isPaymentSuccessPage={isPaymentSuccessPage}
-                isPaymentFailPage={isPaymentFailPage}
-              />
+              <Footer isNotMainPage={isNotMainPage} />
             )}
           </div>
         </ThemeProvider>

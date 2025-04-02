@@ -2,25 +2,15 @@ import React from "react";
 import { FooterPadding, FooterWrapper } from "./styled";
 
 interface FooterProps {
-  isPaymentPage: boolean;
-  isPaymentSuccessPage: boolean;
-  isPaymentFailPage: boolean;
+  isNotMainPage: boolean;
 }
 
-const Footer = ({
-  isPaymentPage,
-  isPaymentSuccessPage,
-  isPaymentFailPage,
-}: FooterProps) => {
+const Footer = ({ isNotMainPage }: FooterProps) => {
   return (
     <FooterPadding>
       <FooterWrapper>
         <div
-          className={`footer_AllWrap ${
-            isPaymentPage || isPaymentSuccessPage || isPaymentFailPage
-              ? "payment_footer"
-              : ""
-          }`}
+          className={`footer_AllWrap ${isNotMainPage ? "payment_footer" : ""}`}
         >
           <div className="footer_Wrap">
             <div className="footer_snsWrap">
