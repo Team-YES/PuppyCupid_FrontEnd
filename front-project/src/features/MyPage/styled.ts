@@ -15,6 +15,7 @@ export const MyPageStyled = styled.div`
   width: 100%;
   min-height: 100vh;
   margin-bottom: 50px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 
   /* 프로필 상단 부분 */
   .MyPage_top_wrap {

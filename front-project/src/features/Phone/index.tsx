@@ -47,15 +47,10 @@ const Phone = () => {
 
   return (
     <PhonePadding>
-      <form
-        onSubmit={formik.handleSubmit}
-        className="flex flex-col gap-4 p-4 border rounded-lg max-w-md mx-auto"
-      >
+      <form onSubmit={formik.handleSubmit} className="Phone_form">
         {/* 전화번호 입력 */}
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium">
-            전화번호
-          </label>
+          <label htmlFor="phone">전화번호</label>
           <input
             id="phone"
             name="phone"
@@ -63,7 +58,6 @@ const Phone = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.phone}
-            className="w-full px-3 py-2 border rounded"
           />
           {formik.touched.phone && formik.errors.phone ? (
             <p className="text-red-500 text-sm">{formik.errors.phone}</p>
@@ -72,7 +66,7 @@ const Phone = () => {
 
         {/* 성별 선택 */}
         <div>
-          <label htmlFor="gender" className="block text-sm font-medium">
+          <label htmlFor="gender" className="Phone_gender_label">
             성별
           </label>
           <select
@@ -81,14 +75,13 @@ const Phone = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.gender}
-            className="w-full px-3 py-2 border rounded"
           >
             <option value="">선택하세요</option>
             <option value="male">남성</option>
             <option value="female">여성</option>
           </select>
           {formik.touched.gender && formik.errors.gender ? (
-            <p className="text-red-500 text-sm">{formik.errors.gender}</p>
+            <p className="">{formik.errors.gender}</p>
           ) : null}
         </div>
 

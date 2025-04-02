@@ -9,6 +9,7 @@ import {
 import Mypostcount from "../../assets/Mypostcount";
 import PuppyProfile from "../../assets/PuppyProfile";
 import PuppyForm from "../../components/PuppyForm";
+import PersonForm from "../../components/PersonForm";
 
 interface Puppy {
   name: string;
@@ -19,6 +20,7 @@ interface Puppy {
 
 const MyPage = () => {
   const [isPuppyModalVisible, setIsPuppyModalVisible] = useState(false);
+  const [isPersonModalVisible, setIsPersonModalVisible] = useState(false);
 
   const titles = ["게시물", "팔로워", "팔로우"];
   const count = [10, 5, 20]; //(임시 : 서버에 요청해서 가져올 것)
@@ -39,10 +41,18 @@ const MyPage = () => {
   const handlePuppyEditClick = () => {
     setIsPuppyModalVisible(true);
   };
+  const handlePersonEditClick = () => {
+    setIsPersonModalVisible(true);
+  };
 
-  const handleCloseModal = () => {
+  const handleClosePuppyModal = () => {
     setIsPuppyModalVisible(false);
   };
+
+  const handleClosePersonModal = () => {
+    setIsPersonModalVisible(false);
+  };
+
   return (
     <MyPagePadding>
       <MyPageStyled>
@@ -60,7 +70,12 @@ const MyPage = () => {
                   이메일 or nickname
                 </div>
                 <div className="MyPage_profile_editbtns">
-                  <div className="MyPage_profile_btns">프로필 편집</div>
+                  <div
+                    className="MyPage_profile_btns"
+                    onClick={handlePersonEditClick}
+                  >
+                    프로필 편집
+                  </div>
                   <div
                     className="MyPage_profile_btns"
                     onClick={handlePuppyEditClick}
@@ -90,7 +105,15 @@ const MyPage = () => {
           <div>
             {isPuppyModalVisible && (
               <div>
-                <PuppyForm closeModal={handleCloseModal} />
+                <PuppyForm closeModal={handleClosePuppyModal} />
+              </div>
+            )}
+          </div>
+          {/* 개인 정보 모달 */}
+          <div>
+            {isPersonModalVisible && (
+              <div>
+                <PersonForm closeModal={handleClosePersonModal} />
               </div>
             )}
           </div>
