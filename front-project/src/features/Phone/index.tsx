@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { PhonePadding } from "./styled";
+import axios from "axios";
 
 const Phone = () => {
   const formik = useFormik({
@@ -18,9 +19,29 @@ const Phone = () => {
         .min(2, "닉네임은 최소 2자 이상이어야 합니다.")
         .required("닉네임을 입력하세요."),
     }),
-    onSubmit: (values) => {
-      console.log("입력된 값:", values);
-      alert("폼이 제출되었습니다!");
+    onSubmit: async (values) => {
+      try {
+        const res = await axios.post(
+          "http://localhost:5000/auth/update-phone",
+          {
+            phone: values.phone,
+            gender: values.gender,
+            nickname: values.nickname,
+          },
+          { withCredentials: true }
+        );
+
+        if (res.data.ok) {
+          alert("전화번호 등록 완료!");
+          window.location.href = "/";
+        }
+      } catch (err: any) {
+        if (err.response?.status === 409) {
+          alert(err.response.data.error || "이미 사용 중인 전화번호입니다.");
+        } else {
+          alert("등록 중 오류가 발생했습니다.");
+        }
+      }
     },
   });
 

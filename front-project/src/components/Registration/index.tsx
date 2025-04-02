@@ -1,4 +1,4 @@
-import { RegistrationStyled, Button, ImgLabel } from "./styled";
+import { RegistrationStyled, Button, ImgLabel, ErrorMessage } from "./styled";
 import { useFormik } from "formik";
 import SelectBox from "@/components/SelectBox";
 import TextAreaComp from "@/components/TextAreaComp";
@@ -6,8 +6,19 @@ import InputComp from "../InputComp";
 import { useRouter } from "next/router";
 import { notification } from "antd";
 import axios from "axios";
+import { useState } from "react";
+
+// interface FormValues {
+//   images: File[];
+//   category: string;
+//   title: string;
+//   content: string;
+// }
 
 const Registration = () => {
+  // 사진 개수
+  const [count, setCount] = useState(0);
+
   // select 선택 목록
   const option = [
     { value: "walk", label: "산책메이트" },
@@ -22,14 +33,29 @@ const Registration = () => {
   // 이미지, select, checkbox모두 가능
   const userFormik = useFormik({
     initialValues: {
-      images: [] as File[],
+      images: [],
       category: "walk",
       title: "",
       content: "",
     },
     validate: (values) => {
-      const errors: { content?: string } = {};
+      const errors: {
+        content?: string;
+        title?: string;
+        images?: string;
+      } = {};
 
+      // 이미지 유효성 검사
+      if (values.images.length === 0) {
+        errors.images = "이미지를 첨부해주세요.";
+      }
+
+      // 제목 유효성 검사
+      if (!values.title?.trim()) {
+        errors.title = "제목을 입력해주세요";
+      }
+
+      // 내용 유효성 검사
       if (!values.content?.trim()) {
         errors.content = "내용을 입력해주세요.";
       } else if (values.content.length > 1000) {
@@ -51,13 +77,20 @@ const Registration = () => {
       console.log(formData);
 
       // 게시글 등록 axios 요청
-      // await axios.post("/url", formData);
-      // router.push('/board');
+      try {
+        const res = await axios.post(
+          "http://localhost:5000/posts/form",
+          formData
+        );
+        console.log("게시물 등록 성공 응답: ", res.data);
 
-      notification.success({
-        message: "게시글 등록성공!",
-      });
-      // userFormik.resetForm(); // input값 reset
+        notification.success({
+          message: "게시글 등록성공!",
+        });
+        // router.push('/board');
+      } catch (error) {
+        console.error("게시물 등록 에러: ", error);
+      }
     },
   });
   // console.log(userFormik.values);
@@ -66,7 +99,13 @@ const Registration = () => {
   return (
     <RegistrationStyled onSubmit={userFormik.handleSubmit}>
       <div style={{ padding: 15 }}>
-        <ImgLabel htmlFor="Registration_image_upload">이미지 업로드</ImgLabel>
+        <ImgLabel htmlFor="Registration_image_upload">
+          <i
+            style={{ color: "#9855f3" }}
+            className="fa-solid fa-camera-retro"
+          ></i>
+          <div style={{ fontSize: 14 }}>{count}/10</div>
+        </ImgLabel>
         <input
           id="Registration_image_upload"
           style={{ display: "none" }}
@@ -88,6 +127,9 @@ const Registration = () => {
             const limited = combined.slice(0, 10);
 
             userFormik.setFieldValue("images", limited);
+
+            // count 업데이트
+            setCount(limited.length);
           }}
         />
       </div>
@@ -116,6 +158,8 @@ const Registration = () => {
                     (_, idx) => idx !== i
                   );
                   userFormik.setFieldValue("images", updated);
+                  // 사진 개수 수정
+                  setCount(updated.length);
                 }}
                 style={{
                   position: "absolute",
@@ -145,8 +189,7 @@ const Registration = () => {
             onChange={(val) => userFormik.setFieldValue("category", val)}
           />
         </div>
-        <div style={{ marginBottom: 15 }}>
-          {/* 제목 */}
+        <div>
           <InputComp
             name="title"
             value={userFormik.values.title}
@@ -154,7 +197,10 @@ const Registration = () => {
             onBlur={userFormik.handleBlur}
           />
         </div>
-        <div>
+        {userFormik.touched.title && userFormik.errors.title && (
+          <ErrorMessage>{userFormik.errors.title}</ErrorMessage>
+        )}
+        <div style={{ marginTop: 15 }}>
           <TextAreaComp
             name="content"
             value={userFormik.values.content}
@@ -163,9 +209,10 @@ const Registration = () => {
           />
         </div>
         {userFormik.touched.content && userFormik.errors.content && (
-          <div style={{ color: "red", marginTop: 6, fontSize: 14 }}>
-            {userFormik.errors.content}
-          </div>
+          <ErrorMessage>{userFormik.errors.content}</ErrorMessage>
+        )}
+        {userFormik.touched.images && userFormik.errors.images && (
+          <ErrorMessage>{userFormik.errors.images}</ErrorMessage>
         )}
       </div>
 
@@ -175,7 +222,7 @@ const Registration = () => {
           <Button
             variant={"default"}
             onClick={() => {
-              router.push("/post_registration");
+              router.push("/board");
             }}
           >
             취소

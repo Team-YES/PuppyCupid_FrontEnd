@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BoardWrapper, WeatherAlim } from "./styled";
 import axios from "axios";
 import weatherMessages from "@/constants/data";
-import PostStyled from "@/components/Post";
+import PostComp from "@/components/Post";
 
 const Board = () => {
   // 날씨 변수
@@ -75,7 +75,7 @@ const Board = () => {
         )}
       </BoardWrapper>
       <div style={{ padding: 25 }}>
-        <PostStyled />
+        <PostComp />
       </div>
     </div>
   );
