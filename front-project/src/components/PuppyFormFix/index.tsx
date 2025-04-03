@@ -20,35 +20,44 @@ interface FormValues {
 }
 
 // 유효성 검사 스키마
-const validationSchema = Yup.object({
-  puppyName: Yup.string().required("이름을 입력해주세요."),
-  puppyAge: Yup.string().required("나이를 입력해주세요."),
-  puppyBreed: Yup.string().required("품종을 입력해주세요."),
-  puppyPersonality: Yup.array().min(1, "성격을 선택해주세요."),
-  puppyMbti: Yup.string().required("MBTI를 선택해주세요."),
-  puppyGender: Yup.string().required("성별을 선택해주세요."),
-  puppyImage: Yup.mixed()
-    .nullable() // `null` 값 허용
-    .test("image-required", "이미지를 업로드해주세요.", function (value) {
-      const { puppy } = this.parent; // 기존 강아지 정보 가져오기
-      if (!puppy?.image && !value) return false; // 기존 이미지도 없고 새 이미지도 없으면 에러
-      return true; // 기존 이미지가 있거나 새 이미지가 있으면 통과
-    }),
-});
+// const validationSchema = Yup.object({
+//   puppyName: Yup.string().required("이름을 입력해주세요."),
+//   puppyAge: Yup.string().required("나이를 입력해주세요."),
+//   puppyBreed: Yup.string().required("품종을 입력해주세요."),
+//   puppyPersonality: Yup.array().min(1, "성격을 선택해주세요."),
+//   puppyMbti: Yup.string().required("MBTI를 선택해주세요."),
+//   puppyGender: Yup.string().required("성별을 선택해주세요."),
+// });
+
 const PuppyFormFix = ({
   puppy,
   closeModal,
+  updatePuppyData,
 }: {
   puppy: any;
   closeModal: () => void;
+  updatePuppyData: (updatedPuppy: any) => void;
 }) => {
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(
     puppy?.image ? `http://localhost:5000${puppy.image}` : defaultImage
   );
-  console.log(puppy, "puppy?");
+
   // 폼 변경 시 버튼 활성화
   const [isFormChanged, setIsFormChanged] = useState(false);
 
+  const validate = (values: FormValues) => {
+    const errors: Record<string, string> = {};
+    if (!values.puppyName) errors.puppyName = "이름을 입력해주세요.";
+    if (!values.puppyAge) errors.puppyAge = "나이를 입력해주세요.";
+    if (!values.puppyBreed) errors.puppyBreed = "품종을 입력해주세요.";
+    if (!values.puppyPersonality || values.puppyPersonality.length === 0) {
+      errors.puppyPersonality = "성격을 선택해주세요.";
+    }
+    if (!values.puppyMbti) errors.puppyMbti = "MBTI를 선택해주세요.";
+    if (!values.puppyGender) errors.puppyGender = "성별을 선택해주세요.";
+    return errors;
+  };
   // Formik 설정
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -61,22 +70,23 @@ const PuppyFormFix = ({
       puppyImage: null,
     },
     enableReinitialize: true,
-    validateOnChange: true,
-    validationSchema,
+    validate,
     onSubmit: async (values) => {
+      const personalityObject = values.puppyPersonality.reduce((acc, cur) => {
+        acc[cur] = true; // 선택된 성격을 키로 설정하고 true 값 부여
+        return acc;
+      }, {} as Record<string, boolean>);
       try {
         const formData = new FormData();
         formData.append("name", values.puppyName);
         formData.append("age", values.puppyAge);
         formData.append("breed", values.puppyBreed);
-        formData.append("personality", values.puppyPersonality.join(","));
+        formData.append("personality", JSON.stringify(personalityObject));
         formData.append("mbti", values.puppyMbti);
         formData.append("gender", values.puppyGender);
 
-        if (!values.puppyImage && puppy.image) {
-          formData.append("image", puppy.image);
-        }
-        console.log(puppy.id, "puppy.id");
+        formData.append("image", selectedImage ? selectedImage : puppy.image);
+
         console.log("🔥 보낼 데이터:", Object.fromEntries(formData.entries()));
         const response = await axios.post(
           `http://localhost:5000/dogs/update/${puppy.id}`, // 기존 강아지 ID 사용
@@ -88,10 +98,8 @@ const PuppyFormFix = ({
             withCredentials: true,
           }
         );
-        console.log(values, "asdsdfdsfasdf");
-
-        console.log("강아지 수정 성공:", response.data);
         alert("강아지 정보가 수정되었습니다!");
+        updatePuppyData(response.data.updatedDog);
         closeModal();
       } catch (error) {
         console.error("강아지 수정 실패:", error);
@@ -107,6 +115,7 @@ const PuppyFormFix = ({
       puppyImage: null,
     };
 
+    // 기존 데이터와 다르면 버튼 활성화 (이미지 변경 여부와 무관)
     setIsFormChanged(
       JSON.stringify(valuesWithoutFile) !==
         JSON.stringify(initialValuesWithoutFile)
@@ -139,20 +148,14 @@ const PuppyFormFix = ({
   };
   // 이미지 변경 처리
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null;
+    const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-
+      setSelectedImage(file);
+      setImagePreview(URL.createObjectURL(file));
       formik.setFieldValue("puppyImage", file);
-      formik.setTouched({ ...formik.touched, puppyImage: true });
       setIsFormChanged(true);
     }
   };
-
   return (
     <PuppyFormFixStyle>
       <form onSubmit={formik.handleSubmit}>

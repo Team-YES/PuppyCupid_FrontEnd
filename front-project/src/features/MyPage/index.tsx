@@ -96,7 +96,10 @@ const MyPage = () => {
   const handleClosePersonModal = () => {
     setIsPersonModalVisible(false);
   };
-
+  // 데이터 업데이트
+  const updatePuppyData = (updatedPuppy: Puppy) => {
+    setPuppy(updatedPuppy);
+  };
   // 게시물 데이터 요청 함수
   const handleFetchData = async (type: string) => {
     setSelectedType(type);
@@ -191,6 +194,7 @@ const MyPage = () => {
                 <PuppyFormFix
                   puppy={puppy}
                   closeModal={handleClosePuppyModal}
+                  updatePuppyData={updatePuppyData}
                 />
               ) : (
                 <PuppyForm closeModal={handleClosePuppyModal} />

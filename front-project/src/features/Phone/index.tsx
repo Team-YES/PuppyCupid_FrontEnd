@@ -47,71 +47,105 @@ const Phone = () => {
 
   return (
     <PhonePadding>
-      <form onSubmit={formik.handleSubmit} className="Phone_form">
-        {/* 전화번호 입력 */}
-        <div>
-          <label htmlFor="phone">전화번호</label>
-          <input
-            id="phone"
-            name="phone"
-            type="text"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.phone}
-          />
-          {formik.touched.phone && formik.errors.phone ? (
-            <p className="text-red-500 text-sm">{formik.errors.phone}</p>
-          ) : null}
+      <div className="Phone_plus_infoWrap">
+        <div className="Phone_info_Title">
+          <span>소셜 로그인 완료! 🎉</span>
+          <span>원활한 서비스 이용을 위해 추가 정보를 입력해주세요.</span>
         </div>
 
-        {/* 성별 선택 */}
-        <div>
-          <label htmlFor="gender" className="Phone_gender_label">
-            성별
-          </label>
-          <select
-            id="gender"
-            name="gender"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.gender}
-          >
-            <option value="">선택하세요</option>
-            <option value="male">남성</option>
-            <option value="female">여성</option>
-          </select>
-          {formik.touched.gender && formik.errors.gender ? (
-            <p className="">{formik.errors.gender}</p>
-          ) : null}
-        </div>
+        <form onSubmit={formik.handleSubmit} className="Phone_form">
+          <div className="Phone_form_wrap">
+            {/* 전화번호 입력 */}
+            <div className="Phone_label_allbox">
+              <label htmlFor="phone">전화번호</label>
+              <div className="Phone_input_box">
+                <input
+                  id="phone"
+                  name="phone"
+                  type="text"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.phone}
+                />
+                <small className="text-gray-500">
+                  전화번호는 10~11자리 숫자만 가능합니다.
+                </small>
+                <div className="Phone_error_messageWrap">
+                  {formik.touched.phone && formik.errors.phone ? (
+                    <p className="Phone_error_message">{formik.errors.phone}</p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
 
-        {/* 닉네임 입력 */}
-        <div>
-          <label htmlFor="nickname" className="block text-sm font-medium">
-            닉네임
-          </label>
-          <input
-            id="nickname"
-            name="nickname"
-            type="text"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.nickname}
-            className="w-full px-3 py-2 border rounded"
-          />
-          {formik.touched.nickname && formik.errors.nickname ? (
-            <p className="text-red-500 text-sm">{formik.errors.nickname}</p>
-          ) : null}
-        </div>
+            {/* 성별 선택 */}
+            <div className="Phone_label_allbox">
+              <label htmlFor="gender" className="Phone_gender_label">
+                성별
+              </label>
+              <div className="Phone_input_box">
+                <select
+                  id="gender"
+                  name="gender"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.gender}
+                >
+                  <option value="">선택하세요</option>
+                  <option value="male">남성</option>
+                  <option value="female">여성</option>
+                </select>
+                <small className="text-gray-500">성별을 선택해주세요.</small>
+                <div className="Phone_error_messageWrap">
+                  {formik.touched.gender && formik.errors.gender ? (
+                    <p className="Phone_error_message">
+                      {formik.errors.gender}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
 
-        {/* 제출 버튼 */}
-        <button
-          type="submit"
-          className="w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600"
-        >
-          제출
-        </button>
-      </form>
+            {/* 닉네임 입력 */}
+            <div className="Phone_label_allbox">
+              <label htmlFor="nickname" className="block text-sm font-medium">
+                닉네임
+              </label>
+              <div className="Phone_input_box">
+                <input
+                  id="nickname"
+                  name="nickname"
+                  type="text"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.nickname}
+                  className="w-full px-3 py-2 border rounded"
+                />
+                <small className="text-gray-500">
+                  닉네임은 최소 2자 이상 입력해야 합니다.
+                </small>
+                <div className="Phone_error_messageWrap">
+                  {formik.touched.nickname && formik.errors.nickname ? (
+                    <p className="Phone_error_message">
+                      {formik.errors.nickname}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+
+            {/* 제출 버튼 */}
+            <div className="Phone_btnWrap">
+              <button
+                type="submit"
+                className="w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600"
+              >
+                제출
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </PhonePadding>
   );
 };
