@@ -77,7 +77,8 @@ const PuppyFormFix = ({
           formData.append("image", puppy.image);
         }
         console.log(puppy.id, "puppy.id");
-        const response = await axios.put(
+        console.log("🔥 보낼 데이터:", Object.fromEntries(formData.entries()));
+        const response = await axios.post(
           `http://localhost:5000/dogs/update/${puppy.id}`, // 기존 강아지 ID 사용
           formData,
           {
@@ -99,9 +100,15 @@ const PuppyFormFix = ({
   });
   //
   useEffect(() => {
-    // 폼이 변경되었는지 확인
+    const valuesWithoutFile = { ...formik.values, puppyImage: null };
+    const initialValuesWithoutFile = {
+      ...formik.initialValues,
+      puppyImage: null,
+    };
+
     setIsFormChanged(
-      JSON.stringify(formik.values) !== JSON.stringify(formik.initialValues)
+      JSON.stringify(valuesWithoutFile) !==
+        JSON.stringify(initialValuesWithoutFile)
     );
   }, [formik.values]);
 

@@ -40,7 +40,7 @@ const PuppyProfile = ({ puppyprofile = [] }: PuppyProfileProps) => {
               <span>나이:</span> {puppy.age}살
             </div>
             <div className="PuppyProfile_puppyage PuppyProfile_text">
-              <span>성별:</span>{" "}
+              <span>성별:</span>
               {puppy?.gender ? formatGender(puppy.gender) : "정보 없음"}
             </div>
             <div className="PuppyProfile_puppypersonality PuppyProfile_text">
