@@ -4,7 +4,33 @@ import axios from "axios";
 import weatherMessages from "@/constants/data";
 import PostComp from "@/components/Post";
 
+// Props 타입 선언
+export type Post = {
+  id: number;
+  title: string;
+  category: string;
+  like_count: number;
+  content: string;
+  user: { nickname: string };
+  images: { image_url: string }[];
+};
+
 const Board = () => {
+  // 전체게시물 저장
+  const [posts, setPosts] = useState<Post[]>([]);
+  console.log("상위컴포", posts);
+
+  // 전체게시물 받아오기
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/posts")
+      .then((res) => {
+        // console.log(res.data);
+        setPosts(res.data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   // 날씨 변수
   type WeatherKey = keyof typeof weatherMessages;
   const [weather, setWeather] = useState<WeatherKey | null>(null);
@@ -30,7 +56,7 @@ const Board = () => {
       async (pos) => {
         const lat = pos.coords.latitude; // 위도
         const lon = pos.coords.longitude; // 경도
-        console.log("위도: ", lat, " 경도: ", lon);
+        // console.log("위도: ", lat, " 경도: ", lon);
 
         try {
           const res = await axios.get("http://localhost:5000/weather", {
@@ -39,7 +65,7 @@ const Board = () => {
               lon,
             },
           });
-          console.log("백엔드 응답:", res.data);
+          // console.log("백엔드 응답:", res.data);
           setWeather(res.data.weather_main);
           setWeatherIcon(res.data.icon);
         } catch (error) {
@@ -75,7 +101,10 @@ const Board = () => {
         )}
       </BoardWrapper>
       <div style={{ padding: 25 }}>
-        <PostComp />
+        {/* 전체 게시글 */}
+        {posts.map((item, i) => (
+          <PostComp key={i} posts={posts} />
+        ))}
       </div>
     </div>
   );

@@ -1,9 +1,24 @@
 import { useState } from "react";
-import { PostStyled, Title, Img, PostIcon, MarginBtmDiv } from "./styled";
+import {
+  PostStyled,
+  Title,
+  Img,
+  PostIcon,
+  MarginBtmDiv,
+  LeftContainer,
+  RightContainer,
+} from "./styled";
+import type { Post } from "@/features/Board";
 
-const PostList = () => {
+type Props = {
+  posts: Post[];
+};
+
+const PostList = ({ posts }: Props) => {
   // 좋아요 개수
   const [like, setLike] = useState(0);
+
+  console.log("하위 컴포", posts);
 
   // fontawesome 아이콘
   const MypageTitles = [
@@ -14,7 +29,10 @@ const PostList = () => {
 
   return (
     <PostStyled>
-      <div>
+      {posts.map((item, i) => (
+        <></>
+      ))}
+      <LeftContainer>
         <div
           style={{ display: "flex", alignItems: "center", marginBottom: 10 }}
         >
@@ -22,6 +40,9 @@ const PostList = () => {
           <div style={{ marginLeft: 10 }}>
             <div style={{ marginBottom: 3 }}>닉네임</div>
             <div style={{ fontSize: 13 }}>카테고리</div>
+          </div>
+          <div>
+            <i className="fa-solid fa-ellipsis-h"></i>
           </div>
         </div>
         <div>
@@ -34,6 +55,8 @@ const PostList = () => {
             src="/cute_cat.jpg"
           />
         </div>
+      </LeftContainer>
+      <RightContainer>
         <div className="Post_iconContainer">
           {MypageTitles.map((item, i) => (
             <div key={i} className="Post_icon">
@@ -41,8 +64,6 @@ const PostList = () => {
             </div>
           ))}
         </div>
-      </div>
-      <div>
         <div>
           <MarginBtmDiv>좋아요 {like}개</MarginBtmDiv>
           <MarginBtmDiv>
@@ -52,7 +73,7 @@ const PostList = () => {
             도착했지만, 지각은 피할 수 없었다.
           </MarginBtmDiv>
         </div>
-      </div>
+      </RightContainer>
     </PostStyled>
   );
 };

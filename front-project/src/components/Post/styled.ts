@@ -37,3 +37,10 @@ export const PostIcon = styled.i`
 export const MarginBtmDiv = styled.div`
   margin-bottom: 10px;
 `;
+
+export const LeftContainer = styled.div`
+  width: 50%;
+`;
+export const RightContainer = styled.div`
+  width: 50%;
+`;
