@@ -26,6 +26,8 @@ type Props = {
 };
 
 const PostList = ({ post }: Props) => {
+  // console.log("하위 컴포", post);
+
   // 좋아요 리듀서
   const dispatch = useDispatch<AppDispatch>();
   const likeStatus = useSelector(getLikeStatus);
@@ -33,7 +35,7 @@ const PostList = ({ post }: Props) => {
   // 좋아요 개수
   const [like, setLike] = useState(post.like_count);
   // 좋아요 여부
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(post.liked);
   // 좋아요 애니메이션
   const [animate, setAnimate] = useState(false);
 
@@ -53,8 +55,6 @@ const PostList = ({ post }: Props) => {
       setAnimate(liked);
     }
   };
-
-  // console.log("하위 컴포", post.id);
 
   // 수정, 삭제 모달
   const [showEdit, setShowEdit] = useState(false);
