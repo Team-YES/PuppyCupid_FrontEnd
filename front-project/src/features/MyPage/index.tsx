@@ -107,10 +107,17 @@ const MyPage = () => {
     setSelectedType(type);
     setLoading(true);
     try {
-      const response = await axios.get(`/dogs/${type}`, {
-        withCredentials: true, // ✅ 쿠키 인증 추가
+      const response = await axios.get("http://localhost:5000/users/mypage", {
+        withCredentials: true,
       });
-      setData(response.data);
+
+      if (response.data.ok) {
+        const { posts, liked, notifications } = response.data;
+
+        if (type === "posts") setData(posts);
+        else if (type === "liked") setData(liked);
+        else if (type === "notifications") setData(notifications);
+      }
     } catch (error) {
       console.error(`${type} 데이터를 가져오는 중 오류 발생:`, error);
     }
