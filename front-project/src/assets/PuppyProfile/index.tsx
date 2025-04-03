@@ -7,6 +7,7 @@ interface Puppy {
   personality: string;
   mbti: string;
   age: number;
+  gender: string;
 }
 
 interface PuppyProfileProps {
@@ -27,6 +28,9 @@ const PuppyProfile = ({ puppyprofile }: PuppyProfileProps) => {
             </div>
             <div className="PuppyProfile_puppyage PuppyProfile_text">
               <span>나이:</span> {puppy.age}살
+            </div>
+            <div className="PuppyProfile_puppyage PuppyProfile_text">
+              <span>성별:</span> {puppy.gender}
             </div>
             <div className="PuppyProfile_puppypersonality PuppyProfile_text">
               <span>성격:</span> {puppy.personality}

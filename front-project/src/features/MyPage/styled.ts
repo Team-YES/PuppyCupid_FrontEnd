@@ -142,14 +142,27 @@ export const MyPageBottom = styled.div`
   .MyPage_board_titles {
     display: flex;
     justify-content: center;
-    align-items: center;
+    padding: 0px;
+    align-items: stretch;
     border-top: 1px rgb(220, 220, 220) solid;
-    padding: 25px 0px;
     gap: 35px;
     color: gray;
   }
   .MyPage_board_titles div i {
     margin-right: 8px;
+  }
+  /* 클릭 시 css 효과 */
+  .MyPage_board_item {
+    cursor: pointer;
+    transition: font-weight 0.1s ease;
+    padding: 20px 0px;
+  }
+
+  .MyPage_board_item.selected {
+    font-weight: bold;
+    color: ${({ theme }) => theme.colors.pointPurple};
+    height: 100%;
+    border-top: 1px solid ${({ theme }) => theme.colors.pointPurple};
   }
   @media (max-width: 480px) {
     .MyPage_board_titles {

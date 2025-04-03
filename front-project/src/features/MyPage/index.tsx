@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   MyPagePadding,
   MyPageStyled,
@@ -17,6 +18,16 @@ interface Puppy {
   personality: string;
   age: number;
   mbti: string;
+  gender: string;
+  image: string;
+}
+interface PostData {
+  id: number;
+  title: string;
+  content: string;
+  likes: number;
+  comments: number;
+  imageUrl: string;
 }
 
 interface UserData {
@@ -30,6 +41,27 @@ const MyPage = () => {
   const [isPuppyModalVisible, setIsPuppyModalVisible] = useState(false);
   const [isPersonModalVisible, setIsPersonModalVisible] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [puppy, setPuppy] = useState<Puppy | null>(null);
+  const [data, setData] = useState<PostData[] | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [selectedType, setSelectedType] = useState<string | null>(null);
+
+  // 강아지 프로필 데이터 불러오기
+  useEffect(() => {
+    const fetchPuppyProfile = async () => {
+      try {
+        const response = await axios.get("/dogs/profile", {
+          withCredentials: true,
+        });
+        setPuppy(response.data);
+      } catch (error) {
+        console.error("강아지 데이터를 가져오는 중 오류 발생:", error);
+      }
+    };
+
+    fetchPuppyProfile();
+  }, []);
+
   const titles = ["게시물", "팔로워", "팔로우"];
   const count = [10, 5, 20]; //(임시 : 서버에 요청해서 가져올 것)
   const puppies: Puppy[] = [
@@ -39,14 +71,17 @@ const MyPage = () => {
       age: 0,
       personality: "활발함",
       mbti: "ENTP",
+      gender: "성별",
+      image: "/puppy_profile.png",
     },
   ]; //(임시 : 서버에 요청해서 가져올 것)
 
   const MypageTitles = [
-    { title: "작성한 게시물", icon: "fa-solid fa-border-all" },
-    { title: "좋아요 한 게시물", icon: "fa-regular fa-heart" },
-    { title: "알림 정보", icon: "fa-regular fa-bell" },
+    { title: "작성한 게시물", icon: "fa-solid fa-border-all", type: "posts" },
+    { title: "좋아요 한 게시물", icon: "fa-regular fa-heart", type: "liked" },
+    { title: "알림 정보", icon: "fa-regular fa-bell", type: "notifications" },
   ];
+
   const handlePuppyEditClick = () => {
     setIsPuppyModalVisible(true);
   };
@@ -62,13 +97,31 @@ const MyPage = () => {
     setIsPersonModalVisible(false);
   };
 
+  // 게시물 데이터 요청 함수
+  const handleFetchData = async (type: string) => {
+    setSelectedType(type);
+    setLoading(true);
+    try {
+      const response = await axios.get(`/dogs/${type}`, {
+        withCredentials: true, // ✅ 쿠키 인증 추가
+      });
+      setData(response.data);
+    } catch (error) {
+      console.error(`${type} 데이터를 가져오는 중 오류 발생:`, error);
+    }
+    setLoading(false);
+  };
+
   return (
     <MyPagePadding>
       <MyPageStyled>
         <div className="MyPage_top_wrap">
           <MyPageLeft>
             <div className="MyPage_left_profileImg">
-              <img src="/puppy_profile.png" alt="profile img"></img>
+              <img
+                src={puppy?.image || "/puppy_profile.png"}
+                alt="profile img"
+              ></img>
             </div>
           </MyPageLeft>
           <MyPageRight>
@@ -104,7 +157,13 @@ const MyPage = () => {
         <MyPageBottom>
           <div className="MyPage_board_titles">
             {MypageTitles.map((item, index) => (
-              <div key={index} className="MyPage_board_item">
+              <div
+                key={index}
+                className={`MyPage_board_item ${
+                  selectedType === item.type ? "selected" : "" // ✅ 선택된 버튼이면 클래스 추가
+                }`}
+                onClick={() => handleFetchData(item.type)}
+              >
                 <i className={item.icon}></i>
                 {item.title}
               </div>

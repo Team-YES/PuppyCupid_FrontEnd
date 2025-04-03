@@ -1,7 +1,6 @@
 import BoardPage from "@/features/Board";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
 const Board = () => {
   // 서버에서 보낸 게시물 담는 state
   // const [posts, setPosts] = useState([]);

@@ -40,7 +40,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
       puppyBreed: "",
       puppyPersonality: [],
       puppyMbti: "",
-      puppyGender: "", // ✅ 초기값 추가
+      puppyGender: "",
       puppyImage: null,
     },
     validationSchema: validationSchema,
