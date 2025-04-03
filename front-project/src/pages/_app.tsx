@@ -11,6 +11,9 @@ import { Provider } from "react-redux";
 import { store } from "@/store/store";
 import "antd/dist/reset.css";
 import { AuthProvider } from "../context/AuthContext";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isClient, setIsClient] = useState(false);
