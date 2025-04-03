@@ -23,7 +23,9 @@ const Board = () => {
   // 전체게시물 받아오기
   useEffect(() => {
     axios
-      .get("http://localhost:5000/posts")
+      .get("http://localhost:5000/posts", {
+        withCredentials: true,
+      })
       .then((res) => {
         // console.log(res.data);
         setPosts(res.data);

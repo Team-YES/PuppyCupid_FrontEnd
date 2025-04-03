@@ -23,16 +23,15 @@ export const AxiosGetLike = createAsyncThunk(
   "like/AxiosGetLike",
   async (url: string, { rejectWithValue }) => {
     try {
-      const token = getCookie("access_token");
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-type": "applicatioin/json",
-        },
-        withCredentials: true,
-      };
-      const res = await axios.post(url, {}, config);
-      return res.data.post;
+      const res = await axios.post(
+        url,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      // console.log(res.data);
+      return res.data;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || "Like 요청 실패");
     }

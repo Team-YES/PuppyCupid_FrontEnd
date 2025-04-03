@@ -35,7 +35,7 @@ const Registration = () => {
     initialValues: {
       images: [],
       category: "walk",
-      title: "",
+      // title: "",
       content: "",
     },
     validate: (values) => {
@@ -48,11 +48,6 @@ const Registration = () => {
       // 이미지 유효성 검사
       if (values.images.length === 0) {
         errors.images = "이미지를 첨부해주세요.";
-      }
-
-      // 제목 유효성 검사
-      if (!values.title?.trim()) {
-        errors.title = "제목을 입력해주세요";
       }
 
       // 내용 유효성 검사
@@ -71,7 +66,6 @@ const Registration = () => {
       values.images.forEach((img) => {
         formData.append("images", img);
       });
-      formData.append("title", values.title);
       formData.append("category", values.category);
       formData.append("content", values.content);
 
@@ -199,17 +193,17 @@ const Registration = () => {
             onChange={(val) => userFormik.setFieldValue("category", val)}
           />
         </div>
-        <div>
+        {/* <div>
           <InputComp
             name="title"
             value={userFormik.values.title}
             onChange={userFormik.handleChange}
             onBlur={userFormik.handleBlur}
           />
-        </div>
-        {userFormik.touched.title && userFormik.errors.title && (
+        </div> */}
+        {/* {userFormik.touched.title && userFormik.errors.title && (
           <ErrorMessage>{userFormik.errors.title}</ErrorMessage>
-        )}
+        )} */}
         <div style={{ marginTop: 15 }}>
           <TextAreaComp
             name="content"
