@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup"; // Yup을 사용한 유효성 검사
 import { personalities } from "@/constants/personalities";
@@ -29,21 +29,34 @@ const validationSchema = Yup.object({
   puppyGender: Yup.string().required("성별을 선택해주세요."),
   puppyImage: Yup.mixed().required("이미지를 업로드해주세요."),
 });
-const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
-  const [imagePreview, setImagePreview] = useState<string | null>(defaultImage);
+const PuppyForm = ({
+  puppy,
+  closeModal,
+}: {
+  puppy: any;
+  closeModal: () => void;
+}) => {
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    puppy?.dog.image ? `http://localhost:5000${puppy.dog.image}` : defaultImage
+  );
+
+  // 폼 변경 시 버튼 활성화
+  const [isFormChanged, setIsFormChanged] = useState(false);
 
   // Formik 설정
   const formik = useFormik<FormValues>({
     initialValues: {
-      puppyName: "",
-      puppyAge: "",
-      puppyBreed: "",
-      puppyPersonality: [],
-      puppyMbti: "",
-      puppyGender: "",
+      puppyName: puppy?.dog.name || "",
+      puppyAge: puppy?.dog.age || "",
+      puppyBreed: puppy?.dog.breed || "",
+      puppyPersonality: puppy?.dog.personality || [],
+      puppyMbti: puppy?.dog.mbti || "",
+      puppyGender: puppy?.dog.gender || "",
       puppyImage: null,
     },
-    validationSchema: validationSchema,
+    enableReinitialize: true,
+    validateOnChange: true,
+    validationSchema,
     onSubmit: async (values) => {
       try {
         const formData = new FormData();
@@ -53,10 +66,9 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
         formData.append("personality", values.puppyPersonality.join(","));
         formData.append("mbti", values.puppyMbti);
         formData.append("gender", values.puppyGender);
-        if (values.puppyImage) {
+        if (values.puppyImage && values.puppyImage instanceof File) {
           formData.append("image", values.puppyImage);
         }
-
         const response = await axios.post(
           "http://localhost:5000/dogs/register",
           formData,
@@ -77,7 +89,18 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
       }
     },
   });
+  //
+  useEffect(() => {
+    if (!formik.dirty) return;
+    setIsFormChanged(true);
+  }, [formik.values, formik.errors]);
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    formik.handleChange(e);
+    setIsFormChanged(true);
+  };
   // 성격 체크박스 변경 처리
   const handlePersonalityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
@@ -94,7 +117,9 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
         )
       );
     }
+    setIsFormChanged(true);
   };
+  // 이미지 변경 처리
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
@@ -105,8 +130,11 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
       reader.readAsDataURL(file);
 
       formik.setFieldValue("puppyImage", file);
+      formik.setTouched({ ...formik.touched, puppyImage: true });
+      setIsFormChanged(true);
     }
   };
+
   return (
     <PuppyFormStyle>
       <form onSubmit={formik.handleSubmit}>
@@ -139,7 +167,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
             type="text"
             name="puppyName"
             value={formik.values.puppyName}
-            onChange={formik.handleChange}
+            onChange={handleChange}
           />
           {formik.errors.puppyName && formik.touched.puppyName && (
             <div>{formik.errors.puppyName}</div>
@@ -152,7 +180,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
             type="text"
             name="puppyAge"
             value={formik.values.puppyAge}
-            onChange={formik.handleChange}
+            onChange={handleChange}
           />
           {formik.errors.puppyAge && formik.touched.puppyAge && (
             <div>{formik.errors.puppyAge}</div>
@@ -167,7 +195,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
               name="puppyGender"
               value="male"
               checked={formik.values.puppyGender === "male"}
-              onChange={formik.handleChange}
+              onChange={handleChange}
             />
             <label>수컷</label>
 
@@ -176,7 +204,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
               name="puppyGender"
               value="male_neutered"
               checked={formik.values.puppyGender === "male_neutered"}
-              onChange={formik.handleChange}
+              onChange={handleChange}
             />
             <label>수컷(중성화)</label>
 
@@ -185,7 +213,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
               name="puppyGender"
               value="female"
               checked={formik.values.puppyGender === "female"}
-              onChange={formik.handleChange}
+              onChange={handleChange}
             />
             <label>암컷</label>
 
@@ -194,7 +222,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
               name="puppyGender"
               value="female_neutered"
               checked={formik.values.puppyGender === "female_neutered"}
-              onChange={formik.handleChange}
+              onChange={handleChange}
             />
             <label>암컷(중성화)</label>
           </div>
@@ -208,7 +236,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
             type="text"
             name="puppyBreed"
             value={formik.values.puppyBreed}
-            onChange={formik.handleChange}
+            onChange={handleChange}
           />
           {formik.errors.puppyBreed && formik.touched.puppyBreed && (
             <div>{formik.errors.puppyBreed}</div>
@@ -224,7 +252,10 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
                 name="puppyPersonality"
                 value={personality}
                 checked={formik.values.puppyPersonality.includes(personality)}
-                onChange={handlePersonalityChange}
+                onChange={(event) => {
+                  handlePersonalityChange(event);
+                  handleChange(event);
+                }}
               />
               <label htmlFor={personality}>{personality}</label>
             </div>
@@ -240,7 +271,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
           <select
             name="puppyMbti"
             value={formik.values.puppyMbti}
-            onChange={formik.handleChange}
+            onChange={handleChange}
           >
             <option value="">선택하세요</option>
             {mbtiOptions.map((mbti) => (
@@ -255,7 +286,7 @@ const PuppyForm = ({ closeModal }: { closeModal: () => void }) => {
         </div>
 
         <div>
-          <button type="submit" disabled={!formik.isValid || !formik.dirty}>
+          <button type="submit" disabled={!isFormChanged}>
             {formLabels.submitButton}
           </button>
         </div>

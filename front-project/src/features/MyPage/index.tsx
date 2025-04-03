@@ -50,10 +50,15 @@ const MyPage = () => {
   useEffect(() => {
     const fetchPuppyProfile = async () => {
       try {
-        const response = await axios.get("/dogs/profile", {
+        const response = await axios.get("http://localhost:5000/dogs/profile", {
           withCredentials: true,
         });
-        setPuppy(response.data);
+        if (response.data.ok) {
+          setPuppy(response.data);
+        } else {
+          setPuppy(null);
+        }
+        console.log(response.data, "response.data?"); // 콘솔
       } catch (error) {
         console.error("강아지 데이터를 가져오는 중 오류 발생:", error);
       }
@@ -174,7 +179,7 @@ const MyPage = () => {
           <div>
             {isPuppyModalVisible && (
               <div>
-                <PuppyForm closeModal={handleClosePuppyModal} />
+                <PuppyForm puppy={puppy} closeModal={handleClosePuppyModal} />
               </div>
             )}
           </div>
