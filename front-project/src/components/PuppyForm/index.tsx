@@ -64,9 +64,6 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
         if (values.puppyImage && values.puppyImage instanceof File) {
           formData.append("image", values.puppyImage);
         }
-
-        console.log("🐶 보낼 데이터:", values);
-        console.log("📦 FormData 확인:", [...formData.entries()]);
         const response = await axios.post(
           "http://localhost:5000/dogs/register",
           formData,
@@ -78,7 +75,6 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
           }
         );
 
-        console.log("강아지 등록 성공:", response.data);
         alert("강아지 등록이 완료되었습니다!");
         closeModal();
       } catch (error) {
