@@ -1,9 +1,11 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import userReducer from "../reducers/userSlice";
+import getLikeReducer from "../reducers/getLikeSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    getLike: getLikeReducer,
   },
 });
 

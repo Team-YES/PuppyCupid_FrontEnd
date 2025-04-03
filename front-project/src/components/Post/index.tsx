@@ -12,12 +12,22 @@ import {
 import type { Post } from "@/features/Board";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  AxiosGetLike,
+  AxiosDeleteLike,
+  getLikeStatus,
+} from "@/reducers/getLikeSlice";
+import { AppDispatch } from "@/store/store";
 
 type Props = {
   post: Post;
 };
 
 const PostList = ({ post }: Props) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const likeStatus = useSelector(getLikeStatus);
+
   // 좋아요 개수
   const [like, setLike] = useState(post.like_count);
   // 좋아요 여부
@@ -26,9 +36,18 @@ const PostList = ({ post }: Props) => {
   const [animate, setAnimate] = useState(false);
   // 좋아요 클릭
   const handleLikeClick = () => {
-    setIsLiked((value) => !value);
+    // 정확한 주소 필요
+    const url = `http://localhost:5000/`;
+    isLiked ? dispatch(AxiosDeleteLike(url)) : dispatch(AxiosGetLike(url));
+
+    setIsLiked(!isLiked);
     setLike((value) => (isLiked ? value - 1 : value + 1));
-    setAnimate((value) => !value);
+    setAnimate(!animate);
+
+    // UI 테스트용
+    // setIsLiked((value) => !value);
+    // setLike((value) => (isLiked ? value - 1 : value + 1));
+    // setAnimate((value) => !value);
   };
 
   console.log("하위 컴포", post.images);
@@ -53,7 +72,7 @@ const PostList = ({ post }: Props) => {
           <div style={{ display: "flex", alignItems: "center" }}>
             <img
               style={{ width: 50, borderRadius: "50%" }}
-              src="cute_cat.jpg"
+              src="puppy_profile.png"
             />
             <div style={{ marginLeft: 10 }}>
               <div style={{ marginBottom: 3 }}>{post.user.nickName}</div>
