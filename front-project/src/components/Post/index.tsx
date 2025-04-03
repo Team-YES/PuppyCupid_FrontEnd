@@ -13,20 +13,16 @@ import type { Post } from "@/features/Board";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  AxiosGetLike,
-  AxiosDeleteLike,
-  getLikeStatus,
-} from "@/reducers/getLikeSlice";
+import { AxiosGetLike, getLikeStatus } from "@/reducers/getLikeSlice";
 import { AppDispatch } from "@/store/store";
-import { EditPostModalStyled } from "../EditPostModal/styled";
+import EditPostModal from "../EditPostModal";
 
 type Props = {
   post: Post;
 };
 
 const PostList = ({ post }: Props) => {
-  // console.log("하위 컴포", post);
+  console.log("하위 컴포", post.id);
 
   // 좋아요 리듀서
   const dispatch = useDispatch<AppDispatch>();
@@ -74,6 +70,7 @@ const PostList = ({ post }: Props) => {
             alignItems: "center",
             marginBottom: 10,
             justifyContent: "space-between",
+            position: "relative",
           }}
         >
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -96,11 +93,12 @@ const PostList = ({ post }: Props) => {
 
           <div
             style={{ marginRight: 10, cursor: "pointer", color: "#333" }}
-            onClick={() => setShowEdit(true)}
+            onClick={() => setShowEdit(!showEdit)}
           >
             <i className="fa-solid fa-ellipsis-h"></i>
           </div>
-          {/* {showEdit && <EditPostModalStyled />} */}
+          {/* 수정, 삭제 모달 */}
+          {showEdit && <EditPostModal postId={post.id} />}
         </div>
         <div>
           <Swiper
