@@ -7,57 +7,105 @@ import {
   MarginBtmDiv,
   LeftContainer,
   RightContainer,
+  LikeIcon,
 } from "./styled";
 import type { Post } from "@/features/Board";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
 
 type Props = {
-  posts: Post[];
+  post: Post;
 };
 
-const PostList = ({ posts }: Props) => {
+const PostList = ({ post }: Props) => {
   // 좋아요 개수
-  const [like, setLike] = useState(0);
+  const [like, setLike] = useState(post.like_count);
+  // 좋아요 여부
+  const [isLiked, setIsLiked] = useState(false);
+  // 좋아요 애니메이션
+  const [animate, setAnimate] = useState(false);
+  // 좋아요 클릭
+  const handleLikeClick = () => {
+    setIsLiked((value) => !value);
+    setLike((value) => (isLiked ? value - 1 : value + 1));
+    setAnimate((value) => !value);
+  };
 
-  console.log("하위 컴포", posts);
+  console.log("하위 컴포", post.images);
 
   // fontawesome 아이콘
   const MypageTitles = [
-    { icon: "fa-regular fa-heart" },
     { icon: "fa-regular fa-comment" },
     { icon: "fa-solid fa-share-nodes" },
   ];
 
   return (
     <PostStyled>
-      {posts.map((item, i) => (
-        <></>
-      ))}
       <LeftContainer>
         <div
-          style={{ display: "flex", alignItems: "center", marginBottom: 10 }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: 10,
+            justifyContent: "space-between",
+          }}
         >
-          <img style={{ width: 50, borderRadius: "50%" }} src="/cute_cat.jpg" />
-          <div style={{ marginLeft: 10 }}>
-            <div style={{ marginBottom: 3 }}>닉네임</div>
-            <div style={{ fontSize: 13 }}>카테고리</div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img
+              style={{ width: 50, borderRadius: "50%" }}
+              src="cute_cat.jpg"
+            />
+            <div style={{ marginLeft: 10 }}>
+              <div style={{ marginBottom: 3 }}>{post.user.nickName}</div>
+              <div style={{ fontSize: 13 }}>
+                {/* {post.category} */}
+                {post.category === "walk"
+                  ? "산책메이트"
+                  : post.category === "free"
+                  ? "자유게시판"
+                  : "유기견 임시보호 / 입양"}
+              </div>
+            </div>
           </div>
-          <div>
+
+          <div style={{ marginRight: 10, cursor: "pointer", color: "#333" }}>
             <i className="fa-solid fa-ellipsis-h"></i>
           </div>
         </div>
         <div>
-          <img
-            style={{
-              width: "100%",
-              height: 450,
-              marginBottom: 10,
-            }}
-            src="/cute_cat.jpg"
-          />
+          <Swiper
+            modules={[Navigation, Pagination]}
+            navigation
+            pagination={{ clickable: true }}
+            spaceBetween={10}
+            slidesPerView={1}
+            style={{ width: "100%", height: 350 }}
+          >
+            {post.images.map((img, i) => (
+              <SwiperSlide key={i}>
+                <img
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  src={`http://localhost:5000${img.image_url}`}
+                  alt={`post_image${img.id}`}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </LeftContainer>
+
       <RightContainer>
         <div className="Post_iconContainer">
+          <div className="Post_icon" onClick={handleLikeClick}>
+            <LikeIcon
+              className={isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart"}
+              style={{ color: isLiked ? "red" : "#333" }}
+              animate={animate}
+            />
+          </div>
           {MypageTitles.map((item, i) => (
             <div key={i} className="Post_icon">
               <PostIcon className={item.icon}></PostIcon>
@@ -66,12 +114,7 @@ const PostList = ({ posts }: Props) => {
         </div>
         <div>
           <MarginBtmDiv>좋아요 {like}개</MarginBtmDiv>
-          <MarginBtmDiv>
-            오늘 하루는 정말 정신없이 흘러갔다. 아침에 눈을 뜨자마자 알람 소리에
-            깜짝 놀라 시계를 보니 이미 늦어버렸다. 서둘러 준비하고 집을
-            나섰지만, 버스는 이미 떠나버린 뒤였다. 결국 택시를 타고 회사에
-            도착했지만, 지각은 피할 수 없었다.
-          </MarginBtmDiv>
+          <MarginBtmDiv>{post.content}</MarginBtmDiv>
         </div>
       </RightContainer>
     </PostStyled>

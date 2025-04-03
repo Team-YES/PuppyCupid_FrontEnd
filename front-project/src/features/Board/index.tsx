@@ -11,8 +11,8 @@ export type Post = {
   category: string;
   like_count: number;
   content: string;
-  user: { nickname: string };
-  images: { image_url: string }[];
+  user: { nickName: string };
+  images: { image_url: string; id: number }[];
 };
 
 const Board = () => {
@@ -102,8 +102,8 @@ const Board = () => {
       </BoardWrapper>
       <div style={{ padding: 25 }}>
         {/* 전체 게시글 */}
-        {posts.map((item, i) => (
-          <PostComp key={i} posts={posts} />
+        {posts.map((post, i) => (
+          <PostComp key={i} post={post} />
         ))}
       </div>
     </div>

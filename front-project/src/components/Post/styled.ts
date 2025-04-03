@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 type Props = {
   src: string;
@@ -12,6 +12,7 @@ export const PostStyled = styled.div`
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
   width: 100%;
   display: flex;
+  margin-bottom: 30px;
 
   .Post_iconContainer {
     display: flex;
@@ -43,4 +44,27 @@ export const LeftContainer = styled.div`
 `;
 export const RightContainer = styled.div`
   width: 50%;
+  padding: 15px;
+`;
+
+// 좋아요 애니메이션
+const pop = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
+export const LikeIcon = styled.i<{ animate: boolean }>`
+  color: ${(props) => (props.className?.includes("fa-heart") ? "red" : "#333")};
+  animation: ${(props) => (props.animate ? pop : "none")} 0.3s ease;
+  transition: color 0.2s ease;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 15px;
 `;
