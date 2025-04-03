@@ -10,6 +10,7 @@ export type Post = {
   title: string;
   category: string;
   like_count: number;
+  liked: boolean;
   content: string;
   user: { nickName: string };
   images: { image_url: string; id: number }[];
