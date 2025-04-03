@@ -83,6 +83,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         withCredentials: true,
       });
       // Cookies.remove("access_token"); // 쿠키에서 토큰 삭제
+      // Cookies.remove("eid_refresh_token"); // 쿠키에서 토큰 삭제
+
       setIsLoggedIn(false);
     } catch (error) {
       console.error("로그아웃 오류:", error);
