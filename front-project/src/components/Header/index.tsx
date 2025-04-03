@@ -85,7 +85,12 @@ const Header = ({
   // };
   const handleLogout = () => {
     logout(); // AuthContext에서 제공하는 logout 함수 호출
+    alert("로그아웃 되었습니다.");
     router.push("/"); // 로그아웃 후 홈으로 리다이렉트
+  };
+
+  const handleFind = () => {
+    router.push("/board");
   };
   // useEffect(() => {
   //   if (!isLoggedIn) {
@@ -162,6 +167,10 @@ const Header = ({
                   <i
                     className="fa-solid fa-magnifying-glass"
                     style={{ color: "#000000" }}
+                    onClick={() => {
+                      closeNav();
+                      handleFind();
+                    }}
                   ></i>
                 </div>
                 {/* 닫기 버튼 */}
