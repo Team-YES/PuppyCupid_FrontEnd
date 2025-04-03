@@ -145,7 +145,7 @@ export const MyPageBottom = styled.div`
     padding: 0px;
     align-items: stretch;
     border-top: 1px rgb(220, 220, 220) solid;
-    gap: 35px;
+    gap: 25px;
     color: gray;
   }
   .MyPage_board_titles div i {
@@ -155,7 +155,7 @@ export const MyPageBottom = styled.div`
   .MyPage_board_item {
     cursor: pointer;
     transition: font-weight 0.1s ease;
-    padding: 20px 0px;
+    padding: 20px 10px;
   }
 
   .MyPage_board_item.selected {
@@ -166,8 +166,8 @@ export const MyPageBottom = styled.div`
   }
   @media (max-width: 480px) {
     .MyPage_board_titles {
-      gap: 20px;
-      font-size: 13px;
+      gap: 10px;
+      font-size: 12px;
     }
   }
 `;

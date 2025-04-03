@@ -53,14 +53,12 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
         const response = await axios.get("http://localhost:5000/users/info", {
           withCredentials: true,
         });
-        console.log(response.data, "response.data");
+
         formik.setValues({
-          personNickName: response.data.nickName || "",
-          personPhone: response.data.phone || "",
+          personNickName: response.data.user.nickName || "",
+          personPhone: response.data.user.phone || "",
         });
-        setTimeout(() => {
-          console.log("🛠️ formik values:", formik.values); // ✅ 상태 업데이트 확인
-        }, 500);
+
         setLoading(false);
       } catch (error) {
         console.error("유저 정보를 불러오는 데 실패했습니다.", error);
@@ -70,7 +68,7 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
     };
 
     fetchUserInfo();
-  }, []);
+  }, [formik.setValues]);
 
   if (loading) {
     return <div>로딩 중...</div>;

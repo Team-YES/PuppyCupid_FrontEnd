@@ -153,14 +153,14 @@ const MyPage = () => {
             </div>
           </MyPageRight>
         </div>
-        {/* 하단 게시글 모음 */}
+        {/* 하단 게시글 메뉴바 */}
         <MyPageBottom>
           <div className="MyPage_board_titles">
             {MypageTitles.map((item, index) => (
               <div
                 key={index}
                 className={`MyPage_board_item ${
-                  selectedType === item.type ? "selected" : "" // ✅ 선택된 버튼이면 클래스 추가
+                  selectedType === item.type ? "selected" : ""
                 }`}
                 onClick={() => handleFetchData(item.type)}
               >
@@ -169,6 +169,7 @@ const MyPage = () => {
               </div>
             ))}
           </div>
+          {/* 하단 게시글, 좋아요, 알림 정보 */}
           {/* 강아지 정보 모달 */}
           <div>
             {isPuppyModalVisible && (
