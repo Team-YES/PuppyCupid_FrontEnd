@@ -18,9 +18,9 @@ interface PuppyProfileProps {
 // 중성화 여부
 const formatGender = (gender: string) => {
   if (gender === "male_neutered") return "수컷 (중성화 여부: O)";
-  if (gender === "male_intact") return "수컷 (중성화 여부: X)";
+  if (gender === "male") return "수컷 (중성화 여부: X)";
   if (gender === "female_neutered") return "암컷 (중성화 여부: O)";
-  if (gender === "female_intact") return "암컷 (중성화 여부: X)";
+  if (gender === "female") return "암컷 (중성화 여부: X)";
   return "알 수 없음";
 };
 
