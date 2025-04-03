@@ -33,6 +33,7 @@ export const PostIcon = styled.i`
   font-size: 20px;
   color: #333;
   margin-right: 15px;
+  cursor: pointer;
 `;
 
 export const MarginBtmDiv = styled.div`
@@ -60,7 +61,9 @@ const pop = keyframes`
   }
 `;
 
-export const LikeIcon = styled.i<{ animate: boolean }>`
+export const LikeIcon = styled.i.withConfig({
+  shouldForwardProp: (prop) => prop !== "animate",
+})<{ animate: boolean }>`
   color: ${(props) => (props.className?.includes("fa-heart") ? "red" : "#333")};
   animation: ${(props) => (props.animate ? pop : "none")} 0.3s ease;
   transition: color 0.2s ease;

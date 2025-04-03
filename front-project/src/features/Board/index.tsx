@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BoardWrapper, WeatherAlim } from "./styled";
 import axios from "axios";
-import weatherMessages from "@/constants/data";
+import weatherMessages from "@/constants/weatherData";
 import PostComp from "@/components/Post";
 
 // Props 타입 선언
