@@ -1,20 +1,36 @@
-import { RegistrationStyled, Button, ImgLabel, ErrorMessage } from "./styled";
-import { useFormik } from "formik";
-import SelectBox from "@/components/SelectBox";
-import TextAreaComp from "@/components/TextAreaComp";
-import { useRouter } from "next/router";
-import { notification } from "antd";
 import axios from "axios";
-import { useState } from "react";
+import {
+  RegistrationStyled,
+  Button,
+  ImgLabel,
+  ErrorMessage,
+} from "@/components/Registration/styled";
+import { useFormik } from "formik";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import SelectBox from "../SelectBox";
+import TextAreaComp from "../TextAreaComp";
 
-// interface FormValues {
-//   images: File[];
-//   category: string;
-//   title: string;
-//   content: string;
-// }
+const EditPost = () => {
+  const router = useRouter();
 
-const Registration = () => {
+  const { id } = router.query;
+  // console.log(id);
+
+  const [post, setPost] = useState([]);
+
+  // 서버에 해당 게시물 데이터 요청
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/posts/${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   // 사진 개수
   const [count, setCount] = useState(0);
 
@@ -25,11 +41,7 @@ const Registration = () => {
     { value: "adopt", label: "유기견 임시보호 / 입양" },
   ];
 
-  // 페이지 이동
-  const router = useRouter();
-
-  // 게시물 저장
-  // 이미지, select, checkbox모두 가능
+  // 게시물 수정
   const userFormik = useFormik({
     initialValues: {
       images: [],
@@ -96,11 +108,10 @@ const Registration = () => {
       }
     },
   });
-  // console.log(userFormik.values);
-  // console.log(userFormik.touched.content);
 
   return (
     <RegistrationStyled onSubmit={userFormik.handleSubmit}>
+      <div>게시글 수정</div>
       <div style={{ padding: 15 }}>
         <ImgLabel htmlFor="Registration_image_upload">
           <i
@@ -234,4 +245,4 @@ const Registration = () => {
   );
 };
 
-export default Registration;
+export default EditPost;
