@@ -29,16 +29,12 @@ const validationSchema = Yup.object({
   puppyGender: Yup.string().required("성별을 선택해주세요."),
   puppyImage: Yup.mixed().required("이미지를 업로드해주세요."),
 });
-const PuppyForm = ({
-  puppy,
-  closeModal,
-}: {
-  puppy: any;
+interface PuppyFormProps {
   closeModal: () => void;
-}) => {
-  const [imagePreview, setImagePreview] = useState<string | null>(
-    puppy?.image ? `http://localhost:5000${puppy.image}` : defaultImage
-  );
+}
+
+const PuppyForm = ({ closeModal }: PuppyFormProps) => {
+  const [imagePreview, setImagePreview] = useState<string>(defaultImage);
 
   // 폼 변경 시 버튼 활성화
   const [isFormChanged, setIsFormChanged] = useState(false);
@@ -46,15 +42,14 @@ const PuppyForm = ({
   // Formik 설정
   const formik = useFormik<FormValues>({
     initialValues: {
-      puppyName: puppy?.name || "",
-      puppyAge: puppy?.age || "",
-      puppyBreed: puppy?.breed || "",
-      puppyPersonality: puppy?.personality || [],
-      puppyMbti: puppy?.mbti || "",
-      puppyGender: puppy?.gender || "",
+      puppyName: "",
+      puppyAge: "",
+      puppyBreed: "",
+      puppyPersonality: [],
+      puppyMbti: "",
+      puppyGender: "",
       puppyImage: null,
     },
-    enableReinitialize: true,
     validateOnChange: true,
     validationSchema,
     onSubmit: async (values) => {
@@ -69,6 +64,9 @@ const PuppyForm = ({
         if (values.puppyImage && values.puppyImage instanceof File) {
           formData.append("image", values.puppyImage);
         }
+
+        console.log("🐶 보낼 데이터:", values);
+        console.log("📦 FormData 확인:", [...formData.entries()]);
         const response = await axios.post(
           "http://localhost:5000/dogs/register",
           formData,
@@ -286,7 +284,7 @@ const PuppyForm = ({
         </div>
 
         <div>
-          <button type="submit" disabled={!isFormChanged}>
+          <button type="submit" disabled={!isFormChanged || !formik.isValid}>
             {formLabels.submitButton}
           </button>
         </div>

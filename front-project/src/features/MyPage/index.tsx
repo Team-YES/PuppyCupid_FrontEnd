@@ -17,7 +17,7 @@ interface Puppy {
   name: string;
   breed: string;
   personality: string;
-  age: number;
+  age: string;
   mbti: string;
   gender: string;
   image: string;
@@ -183,13 +183,19 @@ const MyPage = () => {
             <PostList data={data} />
           </div>
           {/* 강아지 정보 모달 */}
-          <div>
-            {isPuppyModalVisible && (
-              <div>
-                <PuppyForm puppy={puppy} closeModal={handleClosePuppyModal} />
-              </div>
-            )}
-          </div>
+          {isPuppyModalVisible && (
+            <div>
+              {/* {puppy ? (
+                <PuppyFormFix
+                  puppy={puppy}
+                  closeModal={handleClosePuppyModal}
+                />
+              ) : ( */}
+              <PuppyForm closeModal={handleClosePuppyModal} />
+              {/* )} */}
+            </div>
+          )}
+
           {/* 개인 정보 모달 */}
           <div>
             {isPersonModalVisible && (

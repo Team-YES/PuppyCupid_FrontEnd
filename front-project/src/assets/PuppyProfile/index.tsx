@@ -5,7 +5,7 @@ interface Puppy {
   name: string;
   breed: string;
   personality: string;
-  age: number;
+  age: string;
   mbti: string;
   gender: string;
   image: string;
@@ -24,8 +24,8 @@ const formatGender = (gender: string) => {
   return "알 수 없음";
 };
 
-const PuppyProfile = ({ puppyprofile }: PuppyProfileProps) => {
-  console.log(puppyprofile);
+const PuppyProfile = ({ puppyprofile = [] }: PuppyProfileProps) => {
+  console.log(puppyprofile, "puppyprofile");
   return (
     <PuppyProfileWrapper>
       <div className="PuppyProfile_AllWrap">
