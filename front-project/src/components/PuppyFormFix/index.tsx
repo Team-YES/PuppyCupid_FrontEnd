@@ -88,6 +88,7 @@ const PuppyFormFix = ({
             withCredentials: true,
           }
         );
+        console.log(values, "asdsdfdsfasdf");
 
         console.log("강아지 수정 성공:", response.data);
         alert("강아지 정보가 수정되었습니다!");
