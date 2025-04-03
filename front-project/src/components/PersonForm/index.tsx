@@ -19,31 +19,14 @@ const validationSchema = Yup.object({
 });
 
 const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
-  const [initialValues, setInitialValues] = useState<FormValues | null>(null);
-
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/users/info", {
-          withCredentials: true, // 쿠키 포함 (로그인 유지)
-        });
-        setInitialValues({
-          personNickName: response.data.nickName,
-          personPhone: response.data.phone,
-        });
-      } catch (error) {
-        console.error("유저 정보를 불러오는 데 실패했습니다.", error);
-      }
-    };
-
-    fetchUserInfo();
-  }, []);
+  const [loading, setLoading] = useState(true);
 
   const formik = useFormik<FormValues>({
     initialValues: {
       personNickName: "",
       personPhone: "",
     },
+    enableReinitialize: true,
     validationSchema,
     onSubmit: async (values) => {
       try {
@@ -64,7 +47,32 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
     },
   });
 
-  if (!initialValues) {
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/users/info", {
+          withCredentials: true,
+        });
+        console.log(response.data, "response.data");
+        formik.setValues({
+          personNickName: response.data.nickName || "",
+          personPhone: response.data.phone || "",
+        });
+        setTimeout(() => {
+          console.log("🛠️ formik values:", formik.values); // ✅ 상태 업데이트 확인
+        }, 500);
+        setLoading(false);
+      } catch (error) {
+        console.error("유저 정보를 불러오는 데 실패했습니다.", error);
+
+        setLoading(false);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
+  if (loading) {
     return <div>로딩 중...</div>;
   }
 
