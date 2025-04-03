@@ -19,12 +19,14 @@ import {
   getLikeStatus,
 } from "@/reducers/getLikeSlice";
 import { AppDispatch } from "@/store/store";
+import { EditPostModalStyled } from "../EditPostModal/styled";
 
 type Props = {
   post: Post;
 };
 
 const PostList = ({ post }: Props) => {
+  // 좋아요 리듀서
   const dispatch = useDispatch<AppDispatch>();
   const likeStatus = useSelector(getLikeStatus);
 
@@ -34,23 +36,28 @@ const PostList = ({ post }: Props) => {
   const [isLiked, setIsLiked] = useState(false);
   // 좋아요 애니메이션
   const [animate, setAnimate] = useState(false);
-  // 좋아요 클릭
-  const handleLikeClick = () => {
-    // 정확한 주소 필요
-    const url = `http://localhost:5000/`;
-    isLiked ? dispatch(AxiosDeleteLike(url)) : dispatch(AxiosGetLike(url));
 
-    setIsLiked(!isLiked);
-    setLike((value) => (isLiked ? value - 1 : value + 1));
-    setAnimate(!animate);
+  // 좋아요 요청
+  const handleLikeClick = async () => {
+    const url = `http://localhost:5000/interactions/like/${post.id}`;
 
-    // UI 테스트용
-    // setIsLiked((value) => !value);
-    // setLike((value) => (isLiked ? value - 1 : value + 1));
-    // setAnimate((value) => !value);
+    const result = await dispatch(AxiosGetLike(url));
+
+    console.log("좋아요 응답 : ", result.payload);
+
+    if (AxiosGetLike.fulfilled.match(result)) {
+      const { liked, likeCount } = result.payload;
+
+      setIsLiked(liked);
+      setLike(likeCount);
+      setAnimate(liked);
+    }
   };
 
-  console.log("하위 컴포", post.images);
+  // console.log("하위 컴포", post.id);
+
+  // 수정, 삭제 모달
+  const [showEdit, setShowEdit] = useState(false);
 
   // fontawesome 아이콘
   const MypageTitles = [
@@ -87,9 +94,13 @@ const PostList = ({ post }: Props) => {
             </div>
           </div>
 
-          <div style={{ marginRight: 10, cursor: "pointer", color: "#333" }}>
+          <div
+            style={{ marginRight: 10, cursor: "pointer", color: "#333" }}
+            onClick={() => setShowEdit(true)}
+          >
             <i className="fa-solid fa-ellipsis-h"></i>
           </div>
+          {/* {showEdit && <EditPostModalStyled />} */}
         </div>
         <div>
           <Swiper
