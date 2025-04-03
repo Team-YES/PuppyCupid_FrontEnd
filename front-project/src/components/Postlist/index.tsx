@@ -1,44 +1,55 @@
 import React from "react";
+import { PersonFormStyle } from "./styled";
 
 interface PostData {
   id: number;
   title: string;
-  likes: number;
+  content: string;
+  like_count: number;
   comments: number;
-  imageUrl: string;
+  main_image_url: string;
 }
 
 interface PostListProps {
   data: PostData[] | null;
-  loading: boolean;
 }
 
-const PostList: React.FC<PostListProps> = ({ data, loading }) => {
+const PostList: React.FC<PostListProps> = ({ data }) => {
+  console.log(data, "data?");
   return (
-    <div className="MyPage_board_content">
-      {loading ? (
-        <p>데이터 불러오는 중...</p>
-      ) : data && data.length > 0 ? (
-        <div className="MyPage_grid">
-          {data.map((post) => (
-            <div key={post.id} className="MyPage_post">
+    <PersonFormStyle>
+      <div className="PostList_board_content">
+        <div className="PostList_grid">
+          {(data ?? []).map((post) => (
+            <div key={post.id} className="PostList_post">
               <img
-                src={post.imageUrl || "/default-image.jpg"}
-                alt={post.title}
+                src={
+                  post.main_image_url
+                    ? `http://localhost:5000${post.main_image_url}`
+                    : "/puppy_profile.png"
+                }
+                alt={
+                  post.content.length > 10
+                    ? post.content.slice(0, 10) + "..."
+                    : post.content
+                }
               />
-              <div className="MyPage_post_info">
-                <h4>{post.title}</h4>
+              <div className="PostList_post_info">
                 <p>
-                  ❤️ {post.likes} | 💬 {post.comments}
+                  <span>
+                    <i className="fa-solid fa-heart"></i> {post.like_count}
+                  </span>
+                  <span>
+                    <i className="fa-solid fa-comment"></i>
+                    {post.comments}
+                  </span>
                 </p>
               </div>
             </div>
           ))}
         </div>
-      ) : (
-        <p>표시할 데이터가 없습니다.</p>
-      )}
-    </div>
+      </div>
+    </PersonFormStyle>
   );
 };
 

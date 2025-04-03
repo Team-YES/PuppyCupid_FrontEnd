@@ -5,16 +5,27 @@ interface Puppy {
   name: string;
   breed: string;
   personality: string;
-  mbti: string;
   age: number;
+  mbti: string;
   gender: string;
+  image: string;
 }
 
 interface PuppyProfileProps {
   puppyprofile: Puppy[];
 }
 
+// 중성화 여부
+const formatGender = (gender: string) => {
+  if (gender === "male_neutered") return "수컷 (중성화 여부: O)";
+  if (gender === "male_intact") return "수컷 (중성화 여부: X)";
+  if (gender === "female_neutered") return "암컷 (중성화 여부: O)";
+  if (gender === "female_intact") return "암컷 (중성화 여부: X)";
+  return "알 수 없음";
+};
+
 const PuppyProfile = ({ puppyprofile }: PuppyProfileProps) => {
+  console.log(puppyprofile);
   return (
     <PuppyProfileWrapper>
       <div className="PuppyProfile_AllWrap">
@@ -30,7 +41,8 @@ const PuppyProfile = ({ puppyprofile }: PuppyProfileProps) => {
               <span>나이:</span> {puppy.age}살
             </div>
             <div className="PuppyProfile_puppyage PuppyProfile_text">
-              <span>성별:</span> {puppy.gender}
+              <span>성별:</span>{" "}
+              {puppy?.gender ? formatGender(puppy.gender) : "정보 없음"}
             </div>
             <div className="PuppyProfile_puppypersonality PuppyProfile_text">
               <span>성격:</span> {puppy.personality}
