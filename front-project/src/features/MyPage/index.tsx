@@ -11,6 +11,7 @@ import Mypostcount from "../../assets/Mypostcount";
 import PuppyProfile from "../../assets/PuppyProfile";
 import PuppyForm from "../../components/PuppyForm";
 import PersonForm from "../../components/PersonForm";
+import PostList from "../../components/PostList";
 
 interface Puppy {
   name: string;
@@ -25,9 +26,9 @@ interface PostData {
   id: number;
   title: string;
   content: string;
-  likes: number;
+  like_count: number;
   comments: number;
-  imageUrl: string;
+  main_image_url: string;
 }
 
 interface UserData {
@@ -44,7 +45,11 @@ const MyPage = () => {
   const [puppy, setPuppy] = useState<Puppy | null>(null);
   const [data, setData] = useState<PostData[] | null>(null);
   const [loading, setLoading] = useState(false);
-  const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [selectedType, setSelectedType] = useState<string>("posts");
+
+  useEffect(() => {
+    handleFetchData("posts");
+  }, []);
 
   // 강아지 프로필 데이터 불러오기
   useEffect(() => {
@@ -54,11 +59,10 @@ const MyPage = () => {
           withCredentials: true,
         });
         if (response.data.ok) {
-          setPuppy(response.data);
+          setPuppy(response.data.dog);
         } else {
           setPuppy(null);
         }
-        console.log(response.data, "response.data?"); // 콘솔
       } catch (error) {
         console.error("강아지 데이터를 가져오는 중 오류 발생:", error);
       }
@@ -69,17 +73,6 @@ const MyPage = () => {
 
   const titles = ["게시물", "팔로워", "팔로우"];
   const count = [10, 5, 20]; //(임시 : 서버에 요청해서 가져올 것)
-  const puppies: Puppy[] = [
-    {
-      name: "바둑이",
-      breed: "골든 리트리버",
-      age: 0,
-      personality: "활발함",
-      mbti: "ENTP",
-      gender: "성별",
-      image: "/puppy_profile.png",
-    },
-  ]; //(임시 : 서버에 요청해서 가져올 것)
 
   const MypageTitles = [
     { title: "작성한 게시물", icon: "fa-solid fa-border-all", type: "posts" },
@@ -113,7 +106,7 @@ const MyPage = () => {
 
       if (response.data.ok) {
         const { posts, liked, notifications } = response.data;
-
+        console.log(response.data, "da???");
         if (type === "posts") setData(posts);
         else if (type === "liked") setData(liked);
         else if (type === "notifications") setData(notifications);
@@ -131,7 +124,11 @@ const MyPage = () => {
           <MyPageLeft>
             <div className="MyPage_left_profileImg">
               <img
-                src={puppy?.image || "/puppy_profile.png"}
+                src={
+                  puppy?.image
+                    ? `http://localhost:5000${puppy.image}`
+                    : "/puppy_profile.png"
+                }
                 alt="profile img"
               ></img>
             </div>
@@ -141,7 +138,7 @@ const MyPage = () => {
               {/* 이메일 프로필 편집 버튼 */}
               <div className="MyPage_right_namebtns">
                 <div className="MyPage_profile_nickname">
-                  이메일 or nickname
+                  유저 이메일 or nickname
                 </div>
                 <div className="MyPage_profile_editbtns">
                   <div
@@ -161,7 +158,7 @@ const MyPage = () => {
               {/* 게시물 팔로워 팔로우 */}
               <Mypostcount titles={titles} count={count}></Mypostcount>
               {/* 강아지 정보 */}
-              <PuppyProfile puppyprofile={puppies} />
+              <PuppyProfile puppyprofile={puppy ? [puppy] : []} />
             </div>
           </MyPageRight>
         </div>
@@ -182,6 +179,9 @@ const MyPage = () => {
             ))}
           </div>
           {/* 하단 게시글, 좋아요, 알림 정보 */}
+          <div>
+            <PostList data={data} />
+          </div>
           {/* 강아지 정보 모달 */}
           <div>
             {isPuppyModalVisible && (

@@ -37,7 +37,7 @@ const PuppyForm = ({
   closeModal: () => void;
 }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(
-    puppy?.dog.image ? `http://localhost:5000${puppy.dog.image}` : defaultImage
+    puppy?.image ? `http://localhost:5000${puppy.image}` : defaultImage
   );
 
   // 폼 변경 시 버튼 활성화
@@ -46,12 +46,12 @@ const PuppyForm = ({
   // Formik 설정
   const formik = useFormik<FormValues>({
     initialValues: {
-      puppyName: puppy?.dog.name || "",
-      puppyAge: puppy?.dog.age || "",
-      puppyBreed: puppy?.dog.breed || "",
-      puppyPersonality: puppy?.dog.personality || [],
-      puppyMbti: puppy?.dog.mbti || "",
-      puppyGender: puppy?.dog.gender || "",
+      puppyName: puppy?.name || "",
+      puppyAge: puppy?.age || "",
+      puppyBreed: puppy?.breed || "",
+      puppyPersonality: puppy?.personality || [],
+      puppyMbti: puppy?.mbti || "",
+      puppyGender: puppy?.gender || "",
       puppyImage: null,
     },
     enableReinitialize: true,

@@ -138,6 +138,7 @@ export const MyPageRight = styled.div`
 `;
 // 마이페이지 하단 게시물 모음
 export const MyPageBottom = styled.div`
+  padding: 0px 55px 15px 55px;
   /* 게시물 상단 메뉴 이름 */
   .MyPage_board_titles {
     display: flex;
