@@ -5,7 +5,7 @@ import * as Yup from "yup"; // Yup을 사용한 유효성 검사
 import { personalities } from "@/constants/personalities";
 import { mbtiOptions } from "@/constants/mbtiOptions";
 import { formLabels } from "@/constants/formLabels";
-import { PuppyFormStyle } from "./styled";
+import { PuppyFormFixStyle } from "./styled";
 
 const defaultImage = "/puppy_profile.png";
 // 폼 상태 타입 정의
@@ -27,29 +27,40 @@ const validationSchema = Yup.object({
   puppyPersonality: Yup.array().min(1, "성격을 선택해주세요."),
   puppyMbti: Yup.string().required("MBTI를 선택해주세요."),
   puppyGender: Yup.string().required("성별을 선택해주세요."),
-  puppyImage: Yup.mixed().required("이미지를 업로드해주세요."),
+  puppyImage: Yup.mixed()
+    .nullable() // `null` 값 허용
+    .test("image-required", "이미지를 업로드해주세요.", function (value) {
+      const { puppy } = this.parent; // 기존 강아지 정보 가져오기
+      if (!puppy?.image && !value) return false; // 기존 이미지도 없고 새 이미지도 없으면 에러
+      return true; // 기존 이미지가 있거나 새 이미지가 있으면 통과
+    }),
 });
-interface PuppyFormProps {
+const PuppyFormFix = ({
+  puppy,
+  closeModal,
+}: {
+  puppy: any;
   closeModal: () => void;
-}
-
-const PuppyForm = ({ closeModal }: PuppyFormProps) => {
-  const [imagePreview, setImagePreview] = useState<string>(defaultImage);
-
+}) => {
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    puppy?.image ? `http://localhost:5000${puppy.image}` : defaultImage
+  );
+  console.log(puppy, "puppy?");
   // 폼 변경 시 버튼 활성화
   const [isFormChanged, setIsFormChanged] = useState(false);
 
   // Formik 설정
   const formik = useFormik<FormValues>({
     initialValues: {
-      puppyName: "",
-      puppyAge: "",
-      puppyBreed: "",
-      puppyPersonality: [],
-      puppyMbti: "",
-      puppyGender: "",
+      puppyName: puppy?.name || "",
+      puppyAge: puppy?.age || "",
+      puppyBreed: puppy?.breed || "",
+      puppyPersonality: puppy?.personality || [],
+      puppyMbti: puppy?.mbti || "",
+      puppyGender: puppy?.gender || "",
       puppyImage: null,
     },
+    enableReinitialize: true,
     validateOnChange: true,
     validationSchema,
     onSubmit: async (values) => {
@@ -61,11 +72,14 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
         formData.append("personality", values.puppyPersonality.join(","));
         formData.append("mbti", values.puppyMbti);
         formData.append("gender", values.puppyGender);
-        if (values.puppyImage && values.puppyImage instanceof File) {
-          formData.append("image", values.puppyImage);
+
+        if (!values.puppyImage && puppy.image) {
+          formData.append("image", puppy.image);
         }
+        console.log(puppy.id, "puppy.id");
+        console.log("🔥 보낼 데이터:", Object.fromEntries(formData.entries()));
         const response = await axios.post(
-          "http://localhost:5000/dogs/register",
+          `http://localhost:5000/dogs/update/${puppy.id}`, // 기존 강아지 ID 사용
           formData,
           {
             headers: {
@@ -75,19 +89,28 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
           }
         );
 
-        alert("강아지 등록이 완료되었습니다!");
+        console.log("강아지 수정 성공:", response.data);
+        alert("강아지 정보가 수정되었습니다!");
         closeModal();
       } catch (error) {
-        console.error("강아지 등록 실패:", error);
-        alert("강아지 등록에 실패했습니다.");
+        console.error("강아지 수정 실패:", error);
+        alert("강아지 정보 수정에 실패했습니다.");
       }
     },
   });
   //
   useEffect(() => {
-    if (!formik.dirty) return;
-    setIsFormChanged(true);
-  }, [formik.values, formik.errors]);
+    const valuesWithoutFile = { ...formik.values, puppyImage: null };
+    const initialValuesWithoutFile = {
+      ...formik.initialValues,
+      puppyImage: null,
+    };
+
+    setIsFormChanged(
+      JSON.stringify(valuesWithoutFile) !==
+        JSON.stringify(initialValuesWithoutFile)
+    );
+  }, [formik.values]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -130,14 +153,14 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
   };
 
   return (
-    <PuppyFormStyle>
+    <PuppyFormFixStyle>
       <form onSubmit={formik.handleSubmit}>
-        <div className="PuppyForm_closeBtn" onClick={closeModal}>
+        <div className="PuppyFormfix_closeBtn" onClick={closeModal}>
           <i className="fa-solid fa-xmark"></i>
         </div>
         {/* 이미지 미리보기 */}
-        <div className="PuppyForm_form_imgs">
-          <div className="PuppyForm_preview_div">
+        <div className="PuppyFormfix_form_imgs">
+          <div className="PuppyFormfix_preview_div">
             <img
               src={imagePreview || defaultImage}
               alt="Puppy Profile Preview"
@@ -280,13 +303,13 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
         </div>
 
         <div>
-          <button type="submit" disabled={!isFormChanged || !formik.isValid}>
+          <button type="submit" disabled={!isFormChanged}>
             {formLabels.submitButton}
           </button>
         </div>
       </form>
-    </PuppyFormStyle>
+    </PuppyFormFixStyle>
   );
 };
 
-export default PuppyForm;
+export default PuppyFormFix;

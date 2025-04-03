@@ -12,15 +12,17 @@ import PuppyProfile from "../../assets/PuppyProfile";
 import PuppyForm from "../../components/PuppyForm";
 import PersonForm from "../../components/PersonForm";
 import PostList from "../../components/PostList";
+import PuppyFormFix from "../../components/PuppyFormFix";
 
 interface Puppy {
   name: string;
   breed: string;
   personality: string;
-  age: number;
+  age: string;
   mbti: string;
   gender: string;
   image: string;
+  id: string;
 }
 interface PostData {
   id: number;
@@ -106,7 +108,7 @@ const MyPage = () => {
 
       if (response.data.ok) {
         const { posts, liked, notifications } = response.data;
-        console.log(response.data, "da???");
+
         if (type === "posts") setData(posts);
         else if (type === "liked") setData(liked);
         else if (type === "notifications") setData(notifications);
@@ -183,13 +185,19 @@ const MyPage = () => {
             <PostList data={data} />
           </div>
           {/* 강아지 정보 모달 */}
-          <div>
-            {isPuppyModalVisible && (
-              <div>
-                <PuppyForm puppy={puppy} closeModal={handleClosePuppyModal} />
-              </div>
-            )}
-          </div>
+          {isPuppyModalVisible && (
+            <div>
+              {puppy ? (
+                <PuppyFormFix
+                  puppy={puppy}
+                  closeModal={handleClosePuppyModal}
+                />
+              ) : (
+                <PuppyForm closeModal={handleClosePuppyModal} />
+              )}
+            </div>
+          )}
+
           {/* 개인 정보 모달 */}
           <div>
             {isPersonModalVisible && (
