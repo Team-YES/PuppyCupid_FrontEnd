@@ -91,8 +91,8 @@ const PuppyFormFix = ({
         );
         alert("강아지 정보가 수정되었습니다!");
         updatePuppyData(response.data);
-        console.log(response.data, "response.data"); //콘솔
         closeModal();
+        window.location.reload();
       } catch (error) {
         console.error("강아지 수정 실패:", error);
         alert("강아지 정보 수정에 실패했습니다.");
@@ -101,61 +101,18 @@ const PuppyFormFix = ({
   });
   //
   useEffect(() => {
-    const valuesWithoutFile = { ...formik.values, puppyImage: null };
-    const initialValuesWithoutFile = {
-      ...formik.initialValues,
-      puppyImage: null,
-    };
+    // 이미지 변경 여부와 상관없이 다른 값이 바뀌면 true
+    const valuesChanged =
+      JSON.stringify({ ...formik.values, puppyImage: null }) !==
+      JSON.stringify({ ...formik.initialValues, puppyImage: null });
 
-    // 기존 데이터와 다르면 버튼 활성화 (이미지 변경 여부와 무관)
-    setIsFormChanged(
-      JSON.stringify(valuesWithoutFile) !==
-        JSON.stringify(initialValuesWithoutFile)
-    );
-  }, [formik.values]);
+    // 또는 이미지가 변경됐는지만 체크
+    const imageChanged = selectedImage !== null;
 
-  // const handleChange = (
-  //   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  // ) => {
-  //   const { name, value } = e.target;
-  //   formik.setFieldValue(name, value); // 상태를 직접 업데이트
-  //   setIsFormChanged(true);
-  // };
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    formik.handleChange(e);
-    setIsFormChanged(true); // 값이 변경되면 버튼 활성화
-  };
-  // 성격 체크박스 변경 처리
-  // const handlePersonalityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value, checked } = e.target;
-  //   if (checked) {
-  //     formik.setFieldValue("puppyPersonality", [
-  //       ...formik.values.puppyPersonality,
-  //       value,
-  //     ]);
-  //   } else {
-  //     formik.setFieldValue(
-  //       "puppyPersonality",
-  //       formik.values.puppyPersonality.filter(
-  //         (personality) => personality !== value
-  //       )
-  //     );
-  //   }
-  //   setIsFormChanged(true);
-  // };
-  // const handlePersonalityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value, checked } = e.target;
-  //   const newPersonality = checked
-  //     ? [...formik.values.puppyPersonality, value]
-  //     : formik.values.puppyPersonality.filter(
-  //         (personality) => personality !== value
-  //       );
+    // 둘 중 하나라도 바뀌면 버튼 활성화
+    setIsFormChanged(valuesChanged || imageChanged);
+  }, [formik.values, selectedImage]);
 
-  //   formik.setFieldValue("puppyPersonality", newPersonality);
-  //   setIsFormChanged(true); // 값이 변경되면 버튼 활성화
-  // };
   const handlePersonalityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
     const newPersonality = checked
@@ -217,7 +174,7 @@ const PuppyFormFix = ({
             type="text"
             name="puppyName"
             value={formik.values.puppyName}
-            onChange={handleChange}
+            onChange={formik.handleChange}
           />
           {formik.errors.puppyName && formik.touched.puppyName && (
             <div>{formik.errors.puppyName}</div>
@@ -230,7 +187,7 @@ const PuppyFormFix = ({
             type="text"
             name="puppyAge"
             value={formik.values.puppyAge}
-            onChange={handleChange}
+            onChange={formik.handleChange}
           />
           {formik.errors.puppyAge && formik.touched.puppyAge && (
             <div>{formik.errors.puppyAge}</div>
@@ -245,7 +202,7 @@ const PuppyFormFix = ({
               name="puppyGender"
               value="male"
               checked={formik.values.puppyGender === "male"}
-              onChange={handleChange}
+              onChange={formik.handleChange}
             />
             <label>수컷</label>
 
@@ -254,7 +211,7 @@ const PuppyFormFix = ({
               name="puppyGender"
               value="male_neutered"
               checked={formik.values.puppyGender === "male_neutered"}
-              onChange={handleChange}
+              onChange={formik.handleChange}
             />
             <label>수컷(중성화)</label>
 
@@ -263,7 +220,7 @@ const PuppyFormFix = ({
               name="puppyGender"
               value="female"
               checked={formik.values.puppyGender === "female"}
-              onChange={handleChange}
+              onChange={formik.handleChange}
             />
             <label>암컷</label>
 
@@ -272,7 +229,7 @@ const PuppyFormFix = ({
               name="puppyGender"
               value="female_neutered"
               checked={formik.values.puppyGender === "female_neutered"}
-              onChange={handleChange}
+              onChange={formik.handleChange}
             />
             <label>암컷(중성화)</label>
           </div>
@@ -286,7 +243,7 @@ const PuppyFormFix = ({
             type="text"
             name="puppyBreed"
             value={formik.values.puppyBreed}
-            onChange={handleChange}
+            onChange={formik.handleChange}
           />
           {formik.errors.puppyBreed && formik.touched.puppyBreed && (
             <div>{formik.errors.puppyBreed}</div>
@@ -304,7 +261,6 @@ const PuppyFormFix = ({
                 checked={formik.values.puppyPersonality.includes(personality)}
                 onChange={(event) => {
                   handlePersonalityChange(event);
-                  handleChange(event);
                 }}
               />
               <label htmlFor={personality}>{personality}</label>
@@ -321,7 +277,7 @@ const PuppyFormFix = ({
           <select
             name="puppyMbti"
             value={formik.values.puppyMbti}
-            onChange={handleChange}
+            onChange={formik.handleChange}
           >
             <option value="">선택하세요</option>
             {mbtiOptions.map((mbti) => (
