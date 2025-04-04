@@ -2,16 +2,15 @@ import axios from "axios";
 import {
   RegistrationStyled,
   Button,
-  ImgLabel,
   ErrorMessage,
 } from "@/components/Registration/styled";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import SelectBox from "../SelectBox";
 import TextAreaComp from "../TextAreaComp";
-import { post } from "node_modules/axios/index.cjs";
 import InputComp from "../InputComp";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
 
 type Post = {
   post: {
@@ -126,25 +125,31 @@ const EditPost = () => {
     <RegistrationStyled onSubmit={userFormik.handleSubmit}>
       <div>게시글 수정</div>
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-        {post?.post.images.map((img, i) => (
-          <div
-            key={i}
-            style={{
-              position: "relative",
-              width: 190,
-              height: "auto",
-              borderRadius: 8,
-              margin: 15,
-            }}
-          >
-            <img
-              src={`http://localhost:5000${img.image_url}`}
-              alt={`이미지 미리보기${i + 1}`}
-              style={{ width: "100%", borderRadius: 8 }}
-            />
-          </div>
-        ))}
+      <div style={{ padding: 15 }}>
+        <Swiper
+          modules={[Navigation, Pagination]}
+          navigation
+          pagination={{ clickable: true }}
+          spaceBetween={10}
+          slidesPerView={1}
+          style={{ width: "100%" }}
+        >
+          {post?.post.images.map((img, i) => (
+            <SwiperSlide
+              key={i}
+              style={{
+                position: "relative",
+                width: "100%",
+              }}
+            >
+              <img
+                src={`http://localhost:5000${img.image_url}`}
+                alt={`이미지 미리보기${i + 1}`}
+                style={{ width: "100%" }}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
 
       <div style={{ padding: 15 }}>
