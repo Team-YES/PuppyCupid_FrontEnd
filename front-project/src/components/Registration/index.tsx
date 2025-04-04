@@ -1,4 +1,10 @@
-import { RegistrationStyled, Button, ImgLabel, ErrorMessage } from "./styled";
+import {
+  RegistrationStyled,
+  Button,
+  ImgLabel,
+  ErrorMessage,
+  XBtn,
+} from "./styled";
 import { useFormik } from "formik";
 import SelectBox from "@/components/SelectBox";
 import TextAreaComp from "@/components/TextAreaComp";
@@ -72,7 +78,7 @@ const Registration = () => {
         console.log(key, value);
       }
 
-      // 게시글 등록 axios 요청(파일업로드용 헤더, 인증 쿠키)
+      // 게시글 등록 axios 요청(파일 업로드용 헤더, 인증 쿠키)
       try {
         const res = await axios.post(
           "http://localhost:5000/posts/form",
@@ -101,17 +107,13 @@ const Registration = () => {
 
   return (
     <RegistrationStyled onSubmit={userFormik.handleSubmit}>
-      <div style={{ padding: 15 }}>
-        <ImgLabel htmlFor="Registration_image_upload">
-          <i
-            style={{ color: "#9855f3" }}
-            className="fa-solid fa-camera-retro"
-          ></i>
-          <div style={{ fontSize: 14 }}>{count}/10</div>
+      <div className="Registration_LabelBox">
+        <ImgLabel htmlFor="img_upload">
+          <i className="fa-solid fa-camera-retro"></i>
+          <div className="Registration_count">{count}/10</div>
         </ImgLabel>
         <input
-          id="Registration_image_upload"
-          style={{ display: "none" }}
+          id="img_upload"
           name="image"
           type="file"
           multiple
@@ -126,9 +128,7 @@ const Registration = () => {
             if (combined.length > 10) {
               alert("사진은 최대 10장까지만 등록 가능합니다.");
             }
-
             const limited = combined.slice(0, 10);
-
             userFormik.setFieldValue("images", limited);
 
             // count 업데이트
@@ -136,25 +136,16 @@ const Registration = () => {
           }}
         />
       </div>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div className="Registration_ImagesContainer">
         {Array.isArray(userFormik.values.images) &&
           userFormik.values.images.map((img, i) => (
-            <div
-              key={i}
-              style={{
-                position: "relative",
-                width: 190,
-                height: "auto",
-                borderRadius: 8,
-                margin: 15,
-              }}
-            >
+            <div className="Registration_ImageBox" key={i}>
               <img
+                className="Registration_Img"
                 src={URL.createObjectURL(img)}
                 alt={`이미지 미리보기${i + 1}`}
-                style={{ width: "100%", borderRadius: 8 }}
               />
-              <button
+              <XBtn
                 type="button"
                 onClick={() => {
                   const updated = userFormik.values.images.filter(
@@ -164,21 +155,9 @@ const Registration = () => {
                   // 사진 개수 수정
                   setCount(updated.length);
                 }}
-                style={{
-                  position: "absolute",
-                  top: 2,
-                  right: 2,
-                  background: "rgba(0,0,0,0.5)",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "50%",
-                  width: 24,
-                  height: 24,
-                  cursor: "pointer",
-                }}
               >
                 ×
-              </button>
+              </XBtn>
             </div>
           ))}
       </div>
@@ -208,7 +187,7 @@ const Registration = () => {
         )}
       </div>
 
-      <div style={{ display: "flex", justifyContent: "flex-end", padding: 15 }}>
+      <div className="Registration_BtnBox">
         <div>
           {/* 수정예정 : 전체게시물url로 이동 */}
           <Button
@@ -221,11 +200,7 @@ const Registration = () => {
           </Button>
         </div>
         <div>
-          <Button
-            type="submit"
-            variant={"confirm"}
-            style={{ marginLeft: 14, backgroundColor: "blue" }}
-          >
+          <Button type="submit" variant={"confirm"}>
             등록
           </Button>
         </div>

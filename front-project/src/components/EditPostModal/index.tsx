@@ -3,30 +3,52 @@ import { useRouter } from "next/router";
 
 type Props = {
   postId: number;
+  userId: number;
 };
 
-const EditPostModal = ({ postId }: Props) => {
-  // 페이지 라우터
+const EditPostModal = ({ postId, userId }: Props) => {
   const router = useRouter();
 
-  console.log("EditPostModal : ", postId);
+  console.log("EditPostModal : ", postId, userId);
 
-  // 수정버튼 누르면 서버에 요청
+  // 현재 사이트를 보고 있는 유저의 아이디(임시)
+  const currentUserId = 1;
+
+  // 내 게시물 판단
+  const isMine = currentUserId === userId;
 
   return (
     <EditPostModalStyled>
-      <div>
-        <ModalBtn
-          onClick={() => {
-            router.push(`/post_edit/${postId}`);
-          }}
-        >
-          수정
-        </ModalBtn>
-      </div>
-      <div className="EditPostModal_m">
-        <ModalBtn>삭제</ModalBtn>
-      </div>
+      {isMine ? (
+        <>
+          <div>
+            <ModalBtn
+              onClick={() => {
+                router.push(`/post_edit/${postId}`);
+              }}
+            >
+              수정
+            </ModalBtn>
+          </div>
+          <div className="EditPostModal_m">
+            <ModalBtn>삭제</ModalBtn>
+          </div>
+        </>
+      ) : (
+        <>
+          <div>
+            <ModalBtn>채팅하기</ModalBtn>
+          </div>
+          <div>
+            <ModalBtn className="EditPostModal_m">팔로우</ModalBtn>
+          </div>
+          <div>
+            <ModalBtn className="EditPostModal_m" $danger>
+              신고하기
+            </ModalBtn>
+          </div>
+        </>
+      )}
     </EditPostModalStyled>
   );
 };

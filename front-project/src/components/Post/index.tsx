@@ -22,7 +22,7 @@ type Props = {
 };
 
 const PostList = ({ post }: Props) => {
-  console.log("하위 컴포", post.id);
+  console.log("하위 컴포", post);
 
   // 좋아요 리듀서
   const dispatch = useDispatch<AppDispatch>();
@@ -98,7 +98,7 @@ const PostList = ({ post }: Props) => {
             <i className="fa-solid fa-ellipsis-h"></i>
           </div>
           {/* 수정, 삭제 모달 */}
-          {showEdit && <EditPostModal postId={post.id} />}
+          {showEdit && <EditPostModal postId={post.id} userId={post.user.id} />}
         </div>
         <div>
           <Swiper
