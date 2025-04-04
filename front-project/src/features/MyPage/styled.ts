@@ -165,7 +165,11 @@ export const MyPageBottom = styled.div`
     height: 100%;
     border-top: 1px solid ${({ theme }) => theme.colors.pointPurple};
   }
+  @media (max-width: 768px) {
+    padding: 0px 15px 15px 15px;
+  }
   @media (max-width: 480px) {
+    padding: 0px 10px 15px 10px;
     .MyPage_board_titles {
       gap: 10px;
       font-size: 12px;

@@ -44,7 +44,12 @@ const PuppyProfile = ({ puppyprofile = [] }: PuppyProfileProps) => {
               {puppy?.gender ? formatGender(puppy.gender) : "정보 없음"}
             </div>
             <div className="PuppyProfile_puppypersonality PuppyProfile_text">
-              <span>성격:</span> {puppy.personality}
+              <span>성격:</span>
+              {puppy.personality && typeof puppy.personality === "string"
+                ? Object.keys(JSON.parse(puppy.personality))
+                    .filter((key) => JSON.parse(puppy.personality)[key])
+                    .join(", ")
+                : "정보 없음"}
             </div>
             <div className="PuppyProfile_puppymbti PuppyProfile_text">
               <span>멍BTI:</span> {puppy.mbti}

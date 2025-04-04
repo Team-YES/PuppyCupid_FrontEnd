@@ -15,7 +15,7 @@ export const EditPostModalStyled = styled.div`
   }
 `;
 
-export const ModalBtn = styled.button`
+export const ModalBtn = styled.button<{ $danger?: boolean }>`
   padding: 4px 12px;
   border-radius: 7px;
   border: 1px solid #ddd;
@@ -23,9 +23,10 @@ export const ModalBtn = styled.button`
   cursor: pointer;
   font-size: 14px;
   font-weight: 700;
-  color: #515151;
+  color: ${({ $danger }) => ($danger ? "red" : "#515151")};
+  width: 100%;
 
   &:hover {
-    background-color: #ebe2ff;
+    background-color: ${({ $danger }) => ($danger ? "#ffd1d1" : "#ebe2ff")};
   }
 `;

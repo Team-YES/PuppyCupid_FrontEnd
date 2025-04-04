@@ -1,3 +1,6 @@
+import { useDispatch } from "react-redux";
+import { setReduxUser, logoutUser } from "../reducers/userSlice";
+
 import React, {
   createContext,
   useContext,
@@ -8,13 +11,14 @@ import React, {
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { AppDispatch } from "../store/store";
 
 type UserInfo = {
   id: number;
   email: string;
   role: string;
   phoneNumber: string | null;
-  nickname: string | null;
+  nickName: string | null;
   gender: string | null;
   isPhoneVerified: boolean;
 };
@@ -41,7 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState<UserInfo | null>(null);
   const router = useRouter();
-
+  const dispatch = useDispatch<AppDispatch>();
   // 서버에서 로그인 상태를 확인하는 함수
   const checkLogin = async () => {
     try {
@@ -51,6 +55,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         router.push("/phone");
         setIsLoggedIn(false);
         setUser(null);
+        dispatch(logoutUser()); // 추가중
         return;
       }
 
@@ -61,18 +66,39 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       if (response.data.isLoggedIn) {
         setIsLoggedIn(true);
-        setUser(response.data.user);
+        console.log(response.data.user, "response.data.user??");
+        // setUser(response.data.user);
+        // console.log(response.data.user, "response.data.user???");
+        // dispatch(setUser(response.data.user as UserInfo));
 
-        if (!response.data.user.phoneNumber && router.pathname !== "/phone") {
+        const userData: UserInfo = {
+          id: response.data.user.id,
+          email: response.data.user.email,
+          role: response.data.user.role ?? "user",
+          phoneNumber:
+            response.data.user.phoneNumber ?? response.data.user.phone ?? null, // 서버에선 `phone`, Redux에선 `phoneNumber`
+          nickName: response.data.user.nickName ?? null,
+          gender: response.data.user.gender ?? null,
+          isPhoneVerified: response.data.user.isPhoneVerified ?? false,
+        };
+        setUser(userData);
+        dispatch(setReduxUser(userData));
+        if (
+          !userData.phoneNumber &&
+          userData.phoneNumber !== undefined &&
+          router.pathname !== "/phone"
+        ) {
           router.push("/phone");
         }
       } else {
         setIsLoggedIn(false);
         setUser(null);
+        dispatch(logoutUser());
       }
     } catch (error) {
       setIsLoggedIn(false);
       setUser(null);
+      dispatch(logoutUser());
     }
   };
 
@@ -86,6 +112,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       // Cookies.remove("eid_refresh_token"); // 쿠키에서 토큰 삭제
 
       setIsLoggedIn(false);
+      setUser(null); // 추가중
+      dispatch(logoutUser()); // 추가중
     } catch (error) {
       console.error("로그아웃 오류:", error);
     }
