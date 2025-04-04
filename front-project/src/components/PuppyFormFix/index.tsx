@@ -75,8 +75,9 @@ const PuppyFormFix = ({
         formData.append("mbti", values.puppyMbti);
         formData.append("gender", values.puppyGender);
 
-        formData.append("image", selectedImage ? selectedImage : puppy.image);
-
+        if (selectedImage) {
+          formData.append("image", selectedImage);
+        }
         console.log("🔥 보낼 데이터:", Object.fromEntries(formData.entries()));
         const response = await axios.post(
           `http://localhost:5000/dogs/update/${puppy.id}`, // 기존 강아지 ID 사용
