@@ -140,4 +140,19 @@ export const PersonFormStyle = styled.div`
     color: #a9a9a9;
     cursor: not-allowed;
   }
+  .Person_formbtn_Wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    div {
+      color: #ddd;
+      font-size: 13px;
+    }
+  }
+  .Person_formbtn_Wrap:hover {
+    div {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
 `;

@@ -2,8 +2,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { PhonePadding } from "./styled";
 import axios from "axios";
+import { useState } from "react";
 
 const Phone = () => {
+  const [nicknameCheckPassed, setNicknameCheckPassed] = useState(false);
+  const [nicknameCheckMessage, setNicknameCheckMessage] = useState("");
+
   const formik = useFormik({
     initialValues: {
       phone: "",
@@ -23,6 +27,11 @@ const Phone = () => {
         .required("닉네임을 입력하세요."),
     }),
     onSubmit: async (values) => {
+      if (!nicknameCheckPassed) {
+        alert("닉네임 중복검사를 완료해주세요.");
+        return;
+      }
+
       try {
         const res = await axios.post(
           "http://localhost:5000/auth/update-phone",
@@ -47,6 +56,42 @@ const Phone = () => {
       }
     },
   });
+
+  // 닉네임 변경 시 중복 검사 초기화
+  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    formik.handleChange(e);
+    setNicknameCheckPassed(false);
+    setNicknameCheckMessage("");
+  };
+
+  const handleNicknameCheck = async () => {
+    if (!formik.values.nickname || formik.values.nickname.length < 2) {
+      setNicknameCheckMessage("닉네임을 2자 이상 입력해주세요.");
+      setNicknameCheckPassed(false);
+      return;
+    }
+
+    try {
+      const res = await axios.get("http://localhost:5000/auth/nickName", {
+        params: { nickName: formik.values.nickname },
+        withCredentials: true,
+      });
+
+      if (res.data.ok) {
+        setNicknameCheckPassed(true);
+        setNicknameCheckMessage(res.data.message); // "사용 가능한 닉네임입니다."
+      } else {
+        setNicknameCheckPassed(false);
+        setNicknameCheckMessage(res.data.message); // "이미 사용 중인 닉네임입니다."
+      }
+    } catch (error: any) {
+      setNicknameCheckPassed(false);
+      setNicknameCheckMessage(
+        error?.response?.data?.error ||
+          "오류가 발생했습니다. 다시 시도해주세요."
+      );
+    }
+  };
 
   return (
     <PhonePadding>
@@ -75,13 +120,9 @@ const Phone = () => {
                 <small className="text-gray-500">
                   010으로 시작하는 10~11자리 숫자만 입력하세요. ("-" 제외)
                 </small>
-                <div className="Phone_error_messageWrap">
-                  {formik.touched.phone && formik.errors.phone ? (
-                    <p className="Phone_error_message">
-                      {formik.errors.phone ?? ""}
-                    </p>
-                  ) : null}
-                </div>
+                {formik.touched.phone && formik.errors.phone && (
+                  <p className="Phone_error_message">{formik.errors.phone}</p>
+                )}
               </div>
             </div>
 
@@ -103,13 +144,9 @@ const Phone = () => {
                   <option value="female">여성</option>
                 </select>
                 <small className="text-gray-500">성별을 선택해주세요.</small>
-                <div className="Phone_error_messageWrap">
-                  {formik.touched.gender && formik.errors.gender ? (
-                    <p className="Phone_error_message">
-                      {formik.errors.gender}
-                    </p>
-                  ) : null}
-                </div>
+                {formik.touched.gender && formik.errors.gender && (
+                  <p className="Phone_error_message">{formik.errors.gender}</p>
+                )}
               </div>
             </div>
 
@@ -123,27 +160,50 @@ const Phone = () => {
                   id="nickname"
                   name="nickname"
                   type="text"
-                  onChange={formik.handleChange}
+                  onChange={handleNicknameChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.nickname}
                   className="w-full px-3 py-2 border rounded"
                 />
+                <button
+                  type="button"
+                  onClick={handleNicknameCheck}
+                  className="Phone-button"
+                >
+                  닉네임 중복 검사
+                </button>
                 <small className="text-gray-500">
                   닉네임은 최소 2자 이상 입력해야 합니다.
                 </small>
-                <div className="Phone_error_messageWrap">
-                  {formik.touched.nickname && formik.errors.nickname ? (
-                    <p className="Phone_error_message">
-                      {formik.errors.nickname}
-                    </p>
-                  ) : null}
-                </div>
+
+                {nicknameCheckMessage && (
+                  <p
+                    style={{
+                      color: nicknameCheckPassed ? "green" : "red",
+                      fontSize: "0.875rem",
+                      marginTop: "4px",
+                    }}
+                  >
+                    {nicknameCheckMessage}
+                  </p>
+                )}
+                {formik.touched.nickname && formik.errors.nickname && (
+                  <p className="Phone_error_message">
+                    {formik.errors.nickname}
+                  </p>
+                )}
               </div>
             </div>
 
             {/* 제출 버튼 */}
             <div className="Phone_btnWrap">
-              <button type="submit" className="Phone-button">
+              <button
+                type="submit"
+                className="Phone-button"
+                disabled={
+                  !formik.values.nickname || formik.values.nickname.length < 2
+                }
+              >
                 제출
               </button>
             </div>
