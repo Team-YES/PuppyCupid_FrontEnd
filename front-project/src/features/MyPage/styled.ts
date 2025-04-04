@@ -42,8 +42,8 @@ export const MyPageLeft = styled.div`
   justify-content: center;
   align-items: center;
   .MyPage_left_profileImg {
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     overflow: hidden;
     display: flex;
@@ -59,8 +59,8 @@ export const MyPageLeft = styled.div`
   @media (max-width: 768px) {
     width: 50%;
     .MyPage_left_profileImg {
-      width: 150px;
-      height: 150px;
+      width: 160px;
+      height: 160px;
     }
   }
   @media (max-width: 486px) {
@@ -93,6 +93,7 @@ export const MyPageRight = styled.div`
       height: 20px;
     }
     .MyPage_profile_nickname {
+      font-weight: bold;
       margin-right: 15px;
       font-size: 23px;
       width: 25%;

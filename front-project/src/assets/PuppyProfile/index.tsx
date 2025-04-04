@@ -25,6 +25,7 @@ const formatGender = (gender: string) => {
 };
 
 const PuppyProfile = ({ puppyprofile = [] }: PuppyProfileProps) => {
+  console.log(puppyprofile, "????");
   return (
     <PuppyProfileWrapper>
       <div className="PuppyProfile_AllWrap">
@@ -45,10 +46,8 @@ const PuppyProfile = ({ puppyprofile = [] }: PuppyProfileProps) => {
             </div>
             <div className="PuppyProfile_puppypersonality PuppyProfile_text">
               <span>성격:</span>
-              {puppy.personality && typeof puppy.personality === "string"
-                ? Object.keys(JSON.parse(puppy.personality))
-                    .filter((key) => JSON.parse(puppy.personality)[key])
-                    .join(", ")
+              {Array.isArray(puppy.personality)
+                ? puppy.personality.join(", ")
                 : "정보 없음"}
             </div>
             <div className="PuppyProfile_puppymbti PuppyProfile_text">

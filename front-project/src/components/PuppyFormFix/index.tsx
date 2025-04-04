@@ -54,7 +54,7 @@ const PuppyFormFix = ({
       puppyName: puppy?.name || "",
       puppyAge: puppy?.age || "",
       puppyBreed: puppy?.breed || "",
-      puppyPersonality: puppy?.personality || [],
+      puppyPersonality: puppy?.personality ? JSON.parse(puppy.personality) : [],
       puppyMbti: puppy?.mbti || "",
       puppyGender: puppy?.gender || "",
       puppyImage: null,
@@ -62,16 +62,16 @@ const PuppyFormFix = ({
     enableReinitialize: true,
     validate,
     onSubmit: async (values) => {
-      const personalityObject = values.puppyPersonality.reduce((acc, cur) => {
-        acc[cur] = true; // 선택된 성격을 키로 설정하고 true 값 부여
-        return acc;
-      }, {} as Record<string, boolean>);
+      // const personalityObject = values.puppyPersonality.reduce((acc, cur) => {
+      //   acc[cur] = true; // 선택된 성격을 키로 설정하고 true 값 부여
+      //   return acc;
+      // }, {} as Record<string, boolean>);
       try {
         const formData = new FormData();
         formData.append("name", values.puppyName);
         formData.append("age", values.puppyAge);
         formData.append("breed", values.puppyBreed);
-        formData.append("personality", JSON.stringify(personalityObject));
+        formData.append("personality", JSON.stringify(values.puppyPersonality));
         formData.append("mbti", values.puppyMbti);
         formData.append("gender", values.puppyGender);
 
@@ -144,6 +144,17 @@ const PuppyFormFix = ({
   //   }
   //   setIsFormChanged(true);
   // };
+  // const handlePersonalityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { value, checked } = e.target;
+  //   const newPersonality = checked
+  //     ? [...formik.values.puppyPersonality, value]
+  //     : formik.values.puppyPersonality.filter(
+  //         (personality) => personality !== value
+  //       );
+
+  //   formik.setFieldValue("puppyPersonality", newPersonality);
+  //   setIsFormChanged(true); // 값이 변경되면 버튼 활성화
+  // };
   const handlePersonalityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
     const newPersonality = checked
@@ -151,9 +162,8 @@ const PuppyFormFix = ({
       : formik.values.puppyPersonality.filter(
           (personality) => personality !== value
         );
-
     formik.setFieldValue("puppyPersonality", newPersonality);
-    setIsFormChanged(true); // 값이 변경되면 버튼 활성화
+    setIsFormChanged(true);
   };
   // 이미지 변경 처리
   // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
