@@ -29,7 +29,7 @@ const Phone = () => {
           {
             phone: values.phone,
             gender: values.gender,
-            nickname: values.nickname,
+            nickName: values.nickname,
           },
           { withCredentials: true }
         );

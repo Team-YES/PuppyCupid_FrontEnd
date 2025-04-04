@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 import axios from "axios";
 import {
   MyPagePadding,
@@ -48,6 +50,7 @@ const MyPage = () => {
   const [data, setData] = useState<PostData[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [selectedType, setSelectedType] = useState<string>("posts");
+  const user = useSelector((state: RootState) => state.user.user);
 
   useEffect(() => {
     handleFetchData("posts");
@@ -143,7 +146,7 @@ const MyPage = () => {
               {/* 이메일 프로필 편집 버튼 */}
               <div className="MyPage_right_namebtns">
                 <div className="MyPage_profile_nickname">
-                  유저 이메일 or nickname
+                  {user ? user.nickName || user.email : "Guest"}
                 </div>
                 <div className="MyPage_profile_editbtns">
                   <div
