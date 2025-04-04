@@ -49,8 +49,10 @@ const Phone = () => {
     <PhonePadding>
       <div className="Phone_plus_infoWrap">
         <div className="Phone_info_Title">
-          <span>소셜 로그인 완료! 🎉</span>
-          <span>원활한 서비스 이용을 위해 추가 정보를 입력해주세요.</span>
+          <span className="Phone_info_Title_Main">소셜 로그인 완료! 🎉</span>
+          <span className="Phone_info_Title_Sub">
+            원활한 서비스 이용을 위해 추가 정보를 입력해주세요.
+          </span>
         </div>
 
         <form onSubmit={formik.handleSubmit} className="Phone_form">
@@ -136,10 +138,7 @@ const Phone = () => {
 
             {/* 제출 버튼 */}
             <div className="Phone_btnWrap">
-              <button
-                type="submit"
-                className="w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600"
-              >
+              <button type="submit" className="Phone-button">
                 제출
               </button>
             </div>
