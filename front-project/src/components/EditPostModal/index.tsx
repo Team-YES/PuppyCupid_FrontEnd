@@ -3,19 +3,23 @@ import { useRouter } from "next/router";
 
 type Props = {
   postId: number;
-  userId: number;
+  writerId: number;
+  loginUserId?: number;
 };
 
-const EditPostModal = ({ postId, userId }: Props) => {
+const EditPostModal = ({ postId, writerId, loginUserId }: Props) => {
   const router = useRouter();
 
-  console.log("EditPostModal : ", postId, userId);
+  console.log("EditPostModal : ", postId, writerId, loginUserId);
 
   // 현재 사이트를 보고 있는 유저의 아이디(임시)
-  const currentUserId = 1;
+  // const writerId = 2;
 
   // 내 게시물 판단
-  const isMine = currentUserId === userId;
+  const isMine = writerId === loginUserId;
+
+  // 삭제 요청
+  const handleDeletePost = () => {};
 
   return (
     <EditPostModalStyled>

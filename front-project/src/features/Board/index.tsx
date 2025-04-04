@@ -12,14 +12,25 @@ export type Post = {
   like_count: number;
   liked: boolean;
   content: string;
-  user: { nickName: string };
+  currentUser: number;
+  user: {
+    id: number;
+    nickName: string;
+  };
   images: { image_url: string; id: number }[];
+};
+
+export type CurrentUser = {
+  id: number;
 };
 
 const Board = () => {
   // 전체게시물 저장
   const [posts, setPosts] = useState<Post[]>([]);
+  const [loginUser, setLoginUser] = useState<CurrentUser | null>(null);
+
   console.log("상위컴포", posts);
+  console.log("로그인유저", loginUser);
 
   // 전체게시물 받아오기
   useEffect(() => {
@@ -28,8 +39,10 @@ const Board = () => {
         withCredentials: true,
       })
       .then((res) => {
-        // console.log(res.data);
-        setPosts(res.data);
+        // console.log("전체 게시물 데이터", res.data);
+        const { posts, currentUser } = res.data;
+        setPosts(posts);
+        setLoginUser(currentUser);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -106,7 +119,7 @@ const Board = () => {
       <div style={{ padding: 25 }}>
         {/* 전체 게시글 */}
         {posts.map((post, i) => (
-          <PostComp key={i} post={post} />
+          <PostComp key={i} post={post} loginUser={loginUser?.id} />
         ))}
       </div>
     </div>

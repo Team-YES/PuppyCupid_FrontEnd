@@ -8,7 +8,9 @@ const theme: DefaultTheme = {
     accentPurple: "#AF60BB", // 자주색 (포인트 색)
     accentHoverPurple: "rgb(216, 110, 233)", // 자주색 (포인트 색)
     backgroundGray: "rgb(242, 242, 242)",
+    inputPurple: "#ccb6fd",
     // #ccb6fd  #b89aff #F4F1FA    #AF60BB
+    // 0 0 5px rgba(152, 85, 243, 0.5);
   },
 };
 

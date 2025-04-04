@@ -19,10 +19,11 @@ import EditPostModal from "../EditPostModal";
 
 type Props = {
   post: Post;
+  loginUser?: number;
 };
 
-const PostList = ({ post }: Props) => {
-  console.log("하위 컴포", post);
+const PostList = ({ post, loginUser }: Props) => {
+  console.log("하위 컴포", post, loginUser);
 
   // 좋아요 리듀서
   const dispatch = useDispatch<AppDispatch>();
@@ -98,7 +99,13 @@ const PostList = ({ post }: Props) => {
             <i className="fa-solid fa-ellipsis-h"></i>
           </div>
           {/* 수정, 삭제 모달 */}
-          {showEdit && <EditPostModal postId={post.id} userId={post.user.id} />}
+          {showEdit && (
+            <EditPostModal
+              postId={post.id}
+              writerId={post.user.id}
+              loginUserId={loginUser}
+            />
+          )}
         </div>
         <div>
           <Swiper
