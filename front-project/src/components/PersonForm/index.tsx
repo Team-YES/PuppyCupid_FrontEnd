@@ -33,13 +33,14 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
         await axios.put(
           "http://localhost:5000/users/update",
           {
-            nickName: values.personNickName,
+            nickname: values.personNickName,
             phone: values.personPhone,
           },
           { withCredentials: true }
         );
         alert("정보가 수정되었습니다.");
         closeModal();
+        window.location.reload();
       } catch (error) {
         console.error("유저 정보 수정 실패:", error);
         alert("수정에 실패했습니다.");

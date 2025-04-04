@@ -12,7 +12,10 @@ const Phone = () => {
     },
     validationSchema: Yup.object({
       phone: Yup.string()
-        .matches(/^[0-9]{10,11}$/, "올바른 전화번호를 입력하세요.")
+        .matches(
+          /^010\d{7,8}$/,
+          "010으로 시작하는 10~11자리 숫자를 입력하세요."
+        )
         .required("전화번호를 입력하세요."),
       gender: Yup.string().required("성별을 선택하세요."),
       nickname: Yup.string()
@@ -26,7 +29,7 @@ const Phone = () => {
           {
             phone: values.phone,
             gender: values.gender,
-            nickname: values.nickname,
+            nickName: values.nickname,
           },
           { withCredentials: true }
         );
@@ -49,8 +52,10 @@ const Phone = () => {
     <PhonePadding>
       <div className="Phone_plus_infoWrap">
         <div className="Phone_info_Title">
-          <span>소셜 로그인 완료! 🎉</span>
-          <span>원활한 서비스 이용을 위해 추가 정보를 입력해주세요.</span>
+          <span className="Phone_info_Title_Main">소셜 로그인 완료! 🎉</span>
+          <span className="Phone_info_Title_Sub">
+            원활한 서비스 이용을 위해 추가 정보를 입력해주세요.
+          </span>
         </div>
 
         <form onSubmit={formik.handleSubmit} className="Phone_form">
@@ -68,11 +73,13 @@ const Phone = () => {
                   value={formik.values.phone}
                 />
                 <small className="text-gray-500">
-                  전화번호는 10~11자리 숫자만 가능합니다.
+                  010으로 시작하는 10~11자리 숫자만 입력하세요. ("-" 제외)
                 </small>
                 <div className="Phone_error_messageWrap">
                   {formik.touched.phone && formik.errors.phone ? (
-                    <p className="Phone_error_message">{formik.errors.phone}</p>
+                    <p className="Phone_error_message">
+                      {formik.errors.phone ?? ""}
+                    </p>
                   ) : null}
                 </div>
               </div>
@@ -136,10 +143,7 @@ const Phone = () => {
 
             {/* 제출 버튼 */}
             <div className="Phone_btnWrap">
-              <button
-                type="submit"
-                className="w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600"
-              >
+              <button type="submit" className="Phone-button">
                 제출
               </button>
             </div>

@@ -19,16 +19,6 @@ interface FormValues {
   puppyImage: File | null;
 }
 
-// 유효성 검사 스키마
-// const validationSchema = Yup.object({
-//   puppyName: Yup.string().required("이름을 입력해주세요."),
-//   puppyAge: Yup.string().required("나이를 입력해주세요."),
-//   puppyBreed: Yup.string().required("품종을 입력해주세요."),
-//   puppyPersonality: Yup.array().min(1, "성격을 선택해주세요."),
-//   puppyMbti: Yup.string().required("MBTI를 선택해주세요."),
-//   puppyGender: Yup.string().required("성별을 선택해주세요."),
-// });
-
 const PuppyFormFix = ({
   puppy,
   closeModal,
@@ -99,7 +89,8 @@ const PuppyFormFix = ({
           }
         );
         alert("강아지 정보가 수정되었습니다!");
-        updatePuppyData(response.data.updatedDog);
+        updatePuppyData(response.data);
+        console.log(response.data, "response.data"); //콘솔
         closeModal();
       } catch (error) {
         console.error("강아지 수정 실패:", error);
@@ -122,38 +113,65 @@ const PuppyFormFix = ({
     );
   }, [formik.values]);
 
+  // const handleChange = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  // ) => {
+  //   const { name, value } = e.target;
+  //   formik.setFieldValue(name, value); // 상태를 직접 업데이트
+  //   setIsFormChanged(true);
+  // };
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     formik.handleChange(e);
-    setIsFormChanged(true);
+    setIsFormChanged(true); // 값이 변경되면 버튼 활성화
   };
   // 성격 체크박스 변경 처리
+  // const handlePersonalityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { value, checked } = e.target;
+  //   if (checked) {
+  //     formik.setFieldValue("puppyPersonality", [
+  //       ...formik.values.puppyPersonality,
+  //       value,
+  //     ]);
+  //   } else {
+  //     formik.setFieldValue(
+  //       "puppyPersonality",
+  //       formik.values.puppyPersonality.filter(
+  //         (personality) => personality !== value
+  //       )
+  //     );
+  //   }
+  //   setIsFormChanged(true);
+  // };
   const handlePersonalityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
-    if (checked) {
-      formik.setFieldValue("puppyPersonality", [
-        ...formik.values.puppyPersonality,
-        value,
-      ]);
-    } else {
-      formik.setFieldValue(
-        "puppyPersonality",
-        formik.values.puppyPersonality.filter(
+    const newPersonality = checked
+      ? [...formik.values.puppyPersonality, value]
+      : formik.values.puppyPersonality.filter(
           (personality) => personality !== value
-        )
-      );
-    }
-    setIsFormChanged(true);
+        );
+
+    formik.setFieldValue("puppyPersonality", newPersonality);
+    setIsFormChanged(true); // 값이 변경되면 버튼 활성화
   };
   // 이미지 변경 처리
+  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     setSelectedImage(file);
+  //     setImagePreview(URL.createObjectURL(file));
+  //     formik.setFieldValue("puppyImage", file);
+  //     setIsFormChanged(true);
+  //   }
+  // };
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setSelectedImage(file);
       setImagePreview(URL.createObjectURL(file));
       formik.setFieldValue("puppyImage", file);
-      setIsFormChanged(true);
+      setIsFormChanged(true); // 이미지 변경 시에도 버튼 활성화
     }
   };
   return (

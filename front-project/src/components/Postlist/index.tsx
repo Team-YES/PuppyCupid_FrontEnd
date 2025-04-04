@@ -15,7 +15,6 @@ interface PostListProps {
 }
 
 const PostList: React.FC<PostListProps> = ({ data }) => {
-  console.log(data, "data?");
   return (
     <PersonFormStyle>
       <div className="PostList_board_content">
