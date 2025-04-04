@@ -4,11 +4,18 @@ import { Input } from "antd";
 interface Props {
   name: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  readOnly?: boolean;
 }
 
-const InputComp = ({ name, value, onChange, onBlur }: Props) => {
+const InputComp = ({
+  name,
+  value,
+  onChange,
+  onBlur,
+  readOnly = false,
+}: Props) => {
   return (
     <InputCompStyled>
       <Input
@@ -17,6 +24,7 @@ const InputComp = ({ name, value, onChange, onBlur }: Props) => {
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        readOnly={readOnly}
       />
     </InputCompStyled>
   );
