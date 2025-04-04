@@ -41,9 +41,16 @@ const EditPostModal = ({ postId, writerId, loginUserId }: Props) => {
       ) : (
         <>
           <div>
-            <ModalBtn>채팅하기</ModalBtn>
+            <ModalBtn
+              onClick={() => {
+                router.push("/chat");
+              }}
+            >
+              채팅하기
+            </ModalBtn>
           </div>
           <div>
+            {/* 팔로우 누르면 팔로우 취소 */}
             <ModalBtn className="EditPostModal_m">팔로우</ModalBtn>
           </div>
           <div>
