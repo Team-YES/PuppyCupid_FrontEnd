@@ -58,7 +58,8 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
         formData.append("name", values.puppyName);
         formData.append("age", values.puppyAge);
         formData.append("breed", values.puppyBreed);
-        formData.append("personality", values.puppyPersonality.join(","));
+        // formData.append("personality", values.puppyPersonality.join(","));
+        formData.append("personality", JSON.stringify(values.puppyPersonality));
         formData.append("mbti", values.puppyMbti);
         formData.append("gender", values.puppyGender);
         if (values.puppyImage && values.puppyImage instanceof File) {
@@ -97,6 +98,23 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
     setIsFormChanged(true);
   };
   // 성격 체크박스 변경 처리
+  // const handlePersonalityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { value, checked } = e.target;
+  //   if (checked) {
+  //     formik.setFieldValue("puppyPersonality", [
+  //       ...formik.values.puppyPersonality,
+  //       value,
+  //     ]);
+  //   } else {
+  //     formik.setFieldValue(
+  //       "puppyPersonality",
+  //       formik.values.puppyPersonality.filter(
+  //         (personality) => personality !== value
+  //       )
+  //     );
+  //   }
+  //   setIsFormChanged(true);
+  // };
   const handlePersonalityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
     if (checked) {

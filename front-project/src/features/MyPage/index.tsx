@@ -64,6 +64,7 @@ const MyPage = () => {
           withCredentials: true,
         });
         if (response.data.ok) {
+          console.log(response.data.dog, "dog");
           setPuppy(response.data.dog);
         } else {
           setPuppy(null);
