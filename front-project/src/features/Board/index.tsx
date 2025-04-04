@@ -3,6 +3,7 @@ import { BoardWrapper, WeatherAlim } from "./styled";
 import axios from "axios";
 import weatherMessages from "@/constants/weatherData";
 import PostComp from "@/components/Post";
+import Search from "@/components/Search";
 
 // Props 타입 선언
 export type Post = {
@@ -116,6 +117,9 @@ const Board = () => {
           </WeatherAlim>
         )}
       </BoardWrapper>
+      <div>
+        <Search />
+      </div>
       <div style={{ padding: 25 }}>
         {/* 전체 게시글 */}
         {posts.map((post, i) => (

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { EditPostModalStyled, ModalBtn } from "./styled";
 import { useRouter } from "next/router";
 
@@ -19,7 +20,25 @@ const EditPostModal = ({ postId, writerId, loginUserId }: Props) => {
   const isMine = writerId === loginUserId;
 
   // 삭제 요청
-  const handleDeletePost = () => {};
+  const handleDeletePost = async () => {
+    const confirmDelete = confirm("게시물을 삭제하시겠습니까?");
+
+    if (!confirmDelete) return;
+
+    try {
+      const res = await axios.delete(`http://localhost:5000/posts/${postId}`, {
+        withCredentials: true,
+      });
+      console.log("게시물 삭제 성공 응답: ", res.data);
+      // res.data : true
+
+      alert("게시물을 삭제하였습니다.");
+
+      router.reload();
+    } catch (error) {
+      console.error("게시물 삭제 에러: ", error);
+    }
+  };
 
   return (
     <EditPostModalStyled>
@@ -35,7 +54,7 @@ const EditPostModal = ({ postId, writerId, loginUserId }: Props) => {
             </ModalBtn>
           </div>
           <div className="EditPostModal_m">
-            <ModalBtn>삭제</ModalBtn>
+            <ModalBtn onClick={handleDeletePost}>삭제</ModalBtn>
           </div>
         </>
       ) : (

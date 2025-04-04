@@ -23,7 +23,6 @@ type Props = {
 };
 
 const PostList = ({ post, loginUser }: Props) => {
-  // 최적화 필요 - 스크롤 시 계속 콘솔찍힘
   console.log("하위 컴포", post, loginUser);
 
   // 좋아요 리듀서
