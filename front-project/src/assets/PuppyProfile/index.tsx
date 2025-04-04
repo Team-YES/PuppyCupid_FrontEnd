@@ -46,8 +46,8 @@ const PuppyProfile = ({ puppyprofile = [] }: PuppyProfileProps) => {
             </div>
             <div className="PuppyProfile_puppypersonality PuppyProfile_text">
               <span>성격:</span>
-              {Array.isArray(puppy.personality)
-                ? puppy.personality.join(", ")
+              {typeof puppy.personality === "string"
+                ? JSON.parse(puppy.personality).join(", ")
                 : "정보 없음"}
             </div>
             <div className="PuppyProfile_puppymbti PuppyProfile_text">
