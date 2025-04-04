@@ -30,7 +30,7 @@ const Board = () => {
   const [loginUser, setLoginUser] = useState<CurrentUser | null>(null);
 
   console.log("상위컴포", posts);
-  console.log("로그인유저", loginUser);
+  // console.log("로그인유저", loginUser);
 
   // 전체게시물 받아오기
   useEffect(() => {

@@ -100,24 +100,24 @@ const EditPost = () => {
       }
 
       // 게시글 수정 요청
-      // try {
-      //   const res = await axios.post(
-      //     "http://localhost:5000/posts/${post?.post.id}",
-      //     formData,
-      //     {
-      //       headers: {
-      //         "Content-Type": "multipart/form-data",
-      //       },
-      //       withCredentials: true,
-      //     }
-      //   );
-      //   console.log("게시물 수정 성공 응답: ", res.data);
+      try {
+        const res = await axios.post(
+          `http://localhost:5000/posts/${id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          }
+        );
+        console.log("게시물 수정 성공 응답: ", res.data);
 
-      //   alert("게시물을 수정하였습니다.");
-      //   router.push("/board");
-      // } catch (error) {
-      //   console.error("게시물 수정 에러: ", error);
-      // }
+        alert("게시물을 수정하였습니다.");
+        router.push("/board");
+      } catch (error) {
+        console.error("게시물 수정 에러: ", error);
+      }
     },
   });
 
