@@ -12,7 +12,10 @@ const Phone = () => {
     },
     validationSchema: Yup.object({
       phone: Yup.string()
-        .matches(/^[0-9]{10,11}$/, "올바른 전화번호를 입력하세요.")
+        .matches(
+          /^010\d{7,8}$/,
+          "010으로 시작하는 10~11자리 숫자를 입력하세요."
+        )
         .required("전화번호를 입력하세요."),
       gender: Yup.string().required("성별을 선택하세요."),
       nickname: Yup.string()
@@ -70,11 +73,13 @@ const Phone = () => {
                   value={formik.values.phone}
                 />
                 <small className="text-gray-500">
-                  전화번호는 10~11자리 숫자만 가능합니다.
+                  010으로 시작하는 10~11자리 숫자만 입력하세요. ("-" 제외)
                 </small>
                 <div className="Phone_error_messageWrap">
                   {formik.touched.phone && formik.errors.phone ? (
-                    <p className="Phone_error_message">{formik.errors.phone}</p>
+                    <p className="Phone_error_message">
+                      {formik.errors.phone ?? ""}
+                    </p>
                   ) : null}
                 </div>
               </div>

@@ -19,16 +19,6 @@ interface FormValues {
   puppyImage: File | null;
 }
 
-// 유효성 검사 스키마
-// const validationSchema = Yup.object({
-//   puppyName: Yup.string().required("이름을 입력해주세요."),
-//   puppyAge: Yup.string().required("나이를 입력해주세요."),
-//   puppyBreed: Yup.string().required("품종을 입력해주세요."),
-//   puppyPersonality: Yup.array().min(1, "성격을 선택해주세요."),
-//   puppyMbti: Yup.string().required("MBTI를 선택해주세요."),
-//   puppyGender: Yup.string().required("성별을 선택해주세요."),
-// });
-
 const PuppyFormFix = ({
   puppy,
   closeModal,
@@ -99,7 +89,8 @@ const PuppyFormFix = ({
           }
         );
         alert("강아지 정보가 수정되었습니다!");
-        updatePuppyData(response.data.updatedDog);
+        updatePuppyData(response.data);
+        console.log(response.data, "response.data"); //콘솔
         closeModal();
       } catch (error) {
         console.error("강아지 수정 실패:", error);

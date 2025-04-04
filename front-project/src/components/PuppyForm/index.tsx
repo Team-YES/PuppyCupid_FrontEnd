@@ -76,6 +76,7 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
         );
 
         alert("강아지 등록이 완료되었습니다!");
+
         closeModal();
       } catch (error) {
         console.error("강아지 등록 실패:", error);
