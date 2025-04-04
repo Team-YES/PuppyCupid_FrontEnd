@@ -28,8 +28,8 @@ const Board = () => {
         withCredentials: true,
       })
       .then((res) => {
-        // console.log(res.data);
-        setPosts(res.data);
+        console.log(res.data);
+        setPosts(res.data.posts);
       })
       .catch((err) => console.error(err));
   }, []);
