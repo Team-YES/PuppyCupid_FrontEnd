@@ -19,15 +19,15 @@ const ChatLeft = () => {
   return (
     <ChatLeftWrapper>
       <div className="ChatLeft_AllWrap">
-        왼쪽
+        <div className="ChatLeft_mydog_imgwrap">
+          <img
+            src={dogImage}
+            alt="puppy profile"
+            className="ChatLeft_puppyprofile"
+          />
+        </div>
         {/* 이미지 컴포넌트 만들기 */}
-        <div className="ChatLeft_mydog_imgwrap"></div>
         <div className="ChatLeft_otherdog_imgwrap"></div>
-        <img
-          src={dogImage}
-          alt="강아지 이미지"
-          style={{ width: "80px", height: "80px", borderRadius: "50%" }}
-        />
       </div>
     </ChatLeftWrapper>
   );

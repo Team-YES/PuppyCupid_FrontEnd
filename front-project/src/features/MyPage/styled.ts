@@ -49,6 +49,7 @@ export const MyPageLeft = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px #ddd solid;
   }
 
   .MyPage_left_profileImg img {
