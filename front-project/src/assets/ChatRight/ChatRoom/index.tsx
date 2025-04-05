@@ -3,6 +3,9 @@ import { ChatRoomWrapper } from "./styled";
 import { useState, useEffect, useRef, KeyboardEvent } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
+import { useClickOutside } from "@/hooks/useClickOutside";
 import { RootState } from "@/store/store";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
@@ -51,7 +54,9 @@ const ChatRoom = () => {
   const myId = useSelector((state: RootState) => state.user.user?.id);
   const [receiverNickName, setReceiverNickName] = useState("");
   const [input, setInput] = useState("");
-
+  // 이모티콘
+  const [showPicker, setShowPicker] = useState(false);
+  const pickerRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const parsedId = Number(
     Array.isArray(receiverId) ? receiverId[0] : receiverId
@@ -98,6 +103,14 @@ const ChatRoom = () => {
     }
   };
 
+  // 이모지 열기 함수
+  const handleEmoji = (emoji: any) => {
+    setInput((prevInput) => prevInput + emoji.native);
+  };
+
+  // 외부 클릭 시 이모지 창 닫기
+  useClickOutside(pickerRef, () => setShowPicker(false));
+
   return (
     <ChatRoomWrapper>
       <div className="ChatRoom_AllWrap">
@@ -117,7 +130,10 @@ const ChatRoom = () => {
         </div>
 
         <div className="ChatRoom_Chat_input">
-          <i className="fa-regular fa-face-smile-wink left-icon"></i>
+          <i
+            className="fa-regular fa-face-smile-wink left-icon"
+            onClick={() => setShowPicker(!showPicker)}
+          ></i>
           <input
             type="text"
             value={input}
@@ -127,6 +143,20 @@ const ChatRoom = () => {
           />
           <i className="fa-regular fa-heart right-icon"></i>
         </div>
+        {/* 이모티콘 선택기 표시 */}
+        {showPicker && (
+          <div
+            className="Comments_PickerBox"
+            ref={pickerRef}
+            style={{
+              position: "absolute",
+              bottom: "60px", // 화면 상단으로 조정 (필요시 변경)
+              zIndex: 9999,
+            }}
+          >
+            <Picker data={data} onEmojiSelect={handleEmoji} />
+          </div>
+        )}
       </div>
     </ChatRoomWrapper>
   );
