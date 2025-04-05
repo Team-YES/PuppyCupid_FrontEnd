@@ -1,8 +1,9 @@
 import React from "react";
 import { ChatOtherRoomWrapper } from "./styled";
+import { useRouter } from "next/router";
 
 type ChatUser = {
-  userId: number;
+  id: number;
   nickName: string;
   dogImage: string | null;
   lastMessage: string;
@@ -16,10 +17,11 @@ type ChatOtherRoomProps = {
 };
 
 const ChatOtherRoom = ({ user, openChat, setOpenChat }: ChatOtherRoomProps) => {
+  const router = useRouter();
+
   const handleToggleClick = () => {
     setOpenChat(true);
-    // 해당 유저와의 채팅방으로 이동
-    window.location.href = `/chat?receiverId=${user.userId}`;
+    router.push(`/chat?receiverId=${user.id}`);
   };
 
   return (

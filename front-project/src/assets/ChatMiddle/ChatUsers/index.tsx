@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 type ChatUser = {
-  userId: number;
+  id: number;
   nickName: string;
   dogImage: string | null;
   lastMessage: string;
@@ -39,6 +39,7 @@ const ChatUsers = ({ openChat, setOpenChat }: ChatProps) => {
 
     fetchChatUsers();
   }, []);
+
   return (
     // 채팅 가운데 컴포넌트
     <ChatUsersWrapper>
@@ -49,7 +50,7 @@ const ChatUsers = ({ openChat, setOpenChat }: ChatProps) => {
         <div className="ChatUsers_otherusers_room">
           {chatUsers.map((user) => (
             <ChatOtherRoom
-              key={user.userId}
+              key={user.id}
               user={user}
               openChat={openChat}
               setOpenChat={setOpenChat}

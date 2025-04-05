@@ -10,13 +10,14 @@ type ChatProps = {
 
 const ChatSend = ({ openChat, setOpenChat }: ChatProps) => {
   const router = useRouter();
-  const { userId } = router.query;
+  const { receiverId } = router.query;
 
   useEffect(() => {
-    if (userId) {
+    if (!router.isReady) return;
+    if (receiverId) {
       setOpenChat(true);
     }
-  }, [userId]);
+  }, [router.isReady, receiverId]);
 
   return (
     <ChatSendWrapper>

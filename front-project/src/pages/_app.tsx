@@ -14,6 +14,9 @@ import { AuthProvider } from "../context/AuthContext";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isClient, setIsClient] = useState(false);
@@ -35,29 +38,31 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const isNotMainPage = router.pathname !== "/";
   return (
-    <Provider store={store}>
-      <div className="app_wrapper">
-        <ThemeProvider theme={theme}>
-          <AuthProvider>
-            {!isLoginPage && !isAdminPage && !isChatPage && (
-              <Header isScrolled={isScrolled} setIsScrolled={setIsScrolled} />
-            )}
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <div className="app_wrapper">
+          <ThemeProvider theme={theme}>
+            <AuthProvider>
+              {!isLoginPage && !isAdminPage && !isChatPage && (
+                <Header isScrolled={isScrolled} setIsScrolled={setIsScrolled} />
+              )}
 
-            <div className="app_content" style={contentStyle}>
-              <Component
-                {...pageProps}
-                isScrolled={isScrolled}
-                setIsScrolled={setIsScrolled}
-              />
+              <div className="app_content" style={contentStyle}>
+                <Component
+                  {...pageProps}
+                  isScrolled={isScrolled}
+                  setIsScrolled={setIsScrolled}
+                />
+              </div>
+            </AuthProvider>
+            <div className="app_footer">
+              {!isLoginPage && !isAdminPage && !isChatPage && (
+                <Footer isNotMainPage={isNotMainPage} />
+              )}
             </div>
-          </AuthProvider>
-          <div className="app_footer">
-            {!isLoginPage && !isAdminPage && !isChatPage && (
-              <Footer isNotMainPage={isNotMainPage} />
-            )}
-          </div>
-        </ThemeProvider>
-      </div>
-    </Provider>
+          </ThemeProvider>
+        </div>
+      </Provider>
+    </QueryClientProvider>
   );
 }
