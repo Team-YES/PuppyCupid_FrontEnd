@@ -129,8 +129,7 @@ const Board = () => {
       </div>
       <div style={{ padding: 25 }}>
         {/* 전체 게시글 */}
-        {/* (searchResult.length > 0 ? searchResult : posts).map */}
-        {posts.map((post, i) => (
+        {(searchResult.length > 0 ? searchResult : posts).map((post, i) => (
           <PostComp key={i} post={post} loginUser={loginUser?.id} />
         ))}
       </div>

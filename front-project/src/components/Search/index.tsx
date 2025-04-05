@@ -14,10 +14,16 @@ const Search = ({ setSearchResult }: Props) => {
 
   // }, [query])
 
+  // 검색 기능
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const keyword = e.target.value;
-    setQuery(e.target.value);
-
+    setQuery(keyword);
+    // 입력이 비어있으면 검색 결과 초기화
+    if (keyword.trim() === "") {
+      setSearchResult([]);
+      return;
+    }
+    // 글자 수가 2이상일 때 검색 요청
     if (keyword.trim().length >= 2) {
       try {
         const res = await axios.get(`http://localhost:5000/posts/search`, {
