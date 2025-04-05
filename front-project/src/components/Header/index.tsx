@@ -164,7 +164,7 @@ const Header = ({
                     "/post_registration",
                     "/chat",
                     "/payment",
-                    "/payment",
+                    "/help",
                   ]}
                   onClick={closeNav}
                 ></RightMenubar>

@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
   if (!isClient) return null;
   // 헤더 있으면 메인 패딩 주기
   const contentStyle = {
-    paddingTop: !isLoginPage && !isAdminPage ? "130px" : "0px",
+    paddingTop: !isLoginPage && !isAdminPage && !isChatPage ? "130px" : "0px",
   };
 
   const isNotMainPage = router.pathname !== "/";
