@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { SearchStyled, SearchInput, SearchIconBox } from "./styled";
 import axios from "axios";
+import { Post } from "@/features/Board";
 
-const Search = () => {
+type Props = {
+  setSearchResult: (posts: Post[]) => void;
+};
+
+const Search = ({ setSearchResult }: Props) => {
   const [query, setQuery] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
 
   // useEffect(() => {
 
@@ -21,8 +25,10 @@ const Search = () => {
           withCredentials: true,
         });
         console.log("검색결과 : ", res.data);
+        const { ok, posts } = res.data;
+        setSearchResult(posts);
       } catch (error) {
-        console.error("검색 오류 : ", error);
+        console.error("검색오류 : ", error);
       }
     }
   };

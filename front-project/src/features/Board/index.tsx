@@ -28,9 +28,14 @@ export type CurrentUser = {
 const Board = () => {
   // 전체게시물 저장
   const [posts, setPosts] = useState<Post[]>([]);
+  // 현재 로그인한 유저의 아이디
   const [loginUser, setLoginUser] = useState<CurrentUser | null>(null);
+  // 검색된 포스트 저장
+  const [searchResult, setSearchResult] = useState<Post[]>([]);
 
-  console.log("상위컴포", posts);
+  console.log("검색결과: ", searchResult);
+
+  // console.log("상위컴포", posts);
   // console.log("로그인유저", loginUser);
 
   // 전체게시물 받아오기
@@ -100,6 +105,7 @@ const Board = () => {
 
   return (
     <div>
+      {/* 날씨정보 */}
       <BoardWrapper>
         {weatherInfo === null ? (
           <WeatherAlim>날씨 정보를 불러오는 중입니다..</WeatherAlim>
@@ -118,10 +124,12 @@ const Board = () => {
         )}
       </BoardWrapper>
       <div>
-        <Search />
+        {/* 검색 기능 */}
+        <Search setSearchResult={setSearchResult} />
       </div>
       <div style={{ padding: 25 }}>
         {/* 전체 게시글 */}
+        {/* (searchResult.length > 0 ? searchResult : posts).map */}
         {posts.map((post, i) => (
           <PostComp key={i} post={post} loginUser={loginUser?.id} />
         ))}

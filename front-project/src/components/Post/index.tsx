@@ -23,7 +23,7 @@ type Props = {
 };
 
 const PostList = ({ post, loginUser }: Props) => {
-  console.log("하위 컴포", post, loginUser);
+  // console.log("하위 컴포", post, loginUser);
 
   // 좋아요 리듀서
   const dispatch = useDispatch<AppDispatch>();
