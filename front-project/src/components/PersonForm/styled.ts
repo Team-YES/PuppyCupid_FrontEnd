@@ -12,6 +12,37 @@ export const PersonFormStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  .PersonForm_nickName_checkBox {
+    display: flex;
+    input {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-right: 10px;
+    }
+    button {
+      background: ${({ theme }) => theme.colors.accentPurple};
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background: ${({ theme }) => theme.colors.accentHoverPurple};
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      color: #666;
+    }
+  }
   .personForm_closeBtn {
     display: flex;
     justify-content: flex-end;
@@ -48,13 +79,12 @@ export const PersonFormStyle = styled.div`
     flex-direction: column;
     width: 100%;
     max-width: 600px;
-    padding: 20px;
+    padding: 50px 25px;
     background-color: #f9f9f9;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-height: 90vh;
     overflow-y: auto;
-    padding-right: 12px;
   }
 
   form::-webkit-scrollbar {
@@ -64,11 +94,6 @@ export const PersonFormStyle = styled.div`
   form::-webkit-scrollbar-thumb {
     background-color: ${({ theme }) => theme.colors.mainPurple};
     border-radius: 50px;
-  }
-
-  /* 각 입력 필드 스타일 */
-  div {
-    margin-bottom: 20px;
   }
 
   /* 레이블 스타일 */
@@ -81,8 +106,7 @@ export const PersonFormStyle = styled.div`
   }
 
   /* 텍스트 입력 필드 스타일 */
-  input[type="text"],
-  select {
+  .PersonForm_phoneinput {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -91,28 +115,8 @@ export const PersonFormStyle = styled.div`
     box-sizing: border-box;
   }
 
-  /* 체크박스 그룹 스타일 */
-  div > div {
-    margin-bottom: 10px;
-  }
-
-  input[type="checkbox"] {
-    margin-right: 10px;
-  }
-
-  label[for] {
-    font-size: 14px;
-    color: #666;
-  }
-
-  /* 선택 상자 (select) 스타일 */
-  select {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+  .PersonForm_oneWrap {
+    margin-bottom: 20px;
   }
 
   /* 제출 버튼 스타일 */
@@ -144,6 +148,7 @@ export const PersonFormStyle = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    padding: 0px 0px 0px 10px;
     div {
       color: #ddd;
       font-size: 13px;
@@ -154,5 +159,17 @@ export const PersonFormStyle = styled.div`
       text-decoration: underline;
       cursor: pointer;
     }
+  }
+  .PersonForm_textgray {
+    color: gray;
+    padding-left: 5px;
+  }
+  /* 에러 메시지 */
+  .PersonForm_errortext {
+    color: red;
+    margin-top: 4px;
+    height: 20px;
+    padding-left: 5px;
+    font-size: 12px;
   }
 `;

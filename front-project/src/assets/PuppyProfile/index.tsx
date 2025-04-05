@@ -17,11 +17,11 @@ interface PuppyProfileProps {
 
 // 중성화 여부
 const formatGender = (gender: string) => {
-  if (gender === "male_neutered") return "수컷 (중성화 여부: O)";
-  if (gender === "male") return "수컷 (중성화 여부: X)";
-  if (gender === "female_neutered") return "암컷 (중성화 여부: O)";
-  if (gender === "female") return "암컷 (중성화 여부: X)";
-  return "알 수 없음";
+  if (gender === "male_neutered") return " 수컷 (중성화 여부: O)";
+  if (gender === "male") return " 수컷 (중성화 여부: X)";
+  if (gender === "female_neutered") return " 암컷 (중성화 여부: O)";
+  if (gender === "female") return " 암컷 (중성화 여부: X)";
+  return " 알 수 없음";
 };
 
 const PuppyProfile = ({ puppyprofile = [] }: PuppyProfileProps) => {
@@ -45,7 +45,7 @@ const PuppyProfile = ({ puppyprofile = [] }: PuppyProfileProps) => {
               {puppy?.gender ? formatGender(puppy.gender) : "정보 없음"}
             </div>
             <div className="PuppyProfile_puppypersonality PuppyProfile_text">
-              <span>성격:</span>
+              <span>성격: </span>
               {typeof puppy.personality === "string"
                 ? JSON.parse(puppy.personality).join(", ")
                 : "정보 없음"}

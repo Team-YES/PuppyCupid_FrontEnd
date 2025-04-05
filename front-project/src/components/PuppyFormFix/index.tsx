@@ -39,7 +39,15 @@ const PuppyFormFix = ({
   const validate = (values: FormValues) => {
     const errors: Record<string, string> = {};
     if (!values.puppyName) errors.puppyName = "이름을 입력해주세요.";
-    if (!values.puppyAge) errors.puppyAge = "나이를 입력해주세요.";
+
+    if (!values.puppyAge) {
+      errors.puppyAge = "나이를 입력해주세요.";
+    } else if (!/^\d+$/.test(values.puppyAge)) {
+      errors.puppyAge = "숫자만 입력해주세요.";
+    } else if (Number(values.puppyAge) < 0 || Number(values.puppyAge) > 30) {
+      errors.puppyAge = "나이는 0에서 30 사이여야 합니다.";
+    }
+
     if (!values.puppyBreed) errors.puppyBreed = "품종을 입력해주세요.";
     if (!values.puppyPersonality || values.puppyPersonality.length === 0) {
       errors.puppyPersonality = "성격을 선택해주세요.";
@@ -123,16 +131,7 @@ const PuppyFormFix = ({
     formik.setFieldValue("puppyPersonality", newPersonality);
     setIsFormChanged(true);
   };
-  // 이미지 변경 처리
-  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     setSelectedImage(file);
-  //     setImagePreview(URL.createObjectURL(file));
-  //     formik.setFieldValue("puppyImage", file);
-  //     setIsFormChanged(true);
-  //   }
-  // };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -162,6 +161,7 @@ const PuppyFormFix = ({
           <label>프로필 사진 업로드: </label>
           <br />
           <input type="file" accept="image/*" onChange={handleImageChange} />
+
           {formik.errors.puppyImage && formik.touched.puppyImage && (
             <div>{formik.errors.puppyImage}</div>
           )}
@@ -189,49 +189,61 @@ const PuppyFormFix = ({
             value={formik.values.puppyAge}
             onChange={formik.handleChange}
           />
-          {formik.errors.puppyAge && formik.touched.puppyAge && (
-            <div>{formik.errors.puppyAge}</div>
+          <div className="PuppyForm_input_infoText">
+            강아지의 나이는 숫자로 입력해 주세요.(0 ~ 30)
+          </div>
+          {formik.touched.puppyAge && formik.errors.puppyAge && (
+            <div className="PuppyFormFix_age_errormessage">
+              {formik.errors.puppyAge}
+            </div>
           )}
         </div>
         {/* 중성화 */}
-        <div>
-          <label>{formLabels.puppyGender}</label>
+        <div className="PuppyFormFix_GenderRadioBox_Wrap">
+          <label className="PuppyFormFix_gender_label">
+            {formLabels.puppyGender}
+          </label>
           <div>
-            <input
-              type="radio"
-              name="puppyGender"
-              value="male"
-              checked={formik.values.puppyGender === "male"}
-              onChange={formik.handleChange}
-            />
-            <label>수컷</label>
-
-            <input
-              type="radio"
-              name="puppyGender"
-              value="male_neutered"
-              checked={formik.values.puppyGender === "male_neutered"}
-              onChange={formik.handleChange}
-            />
-            <label>수컷(중성화)</label>
-
-            <input
-              type="radio"
-              name="puppyGender"
-              value="female"
-              checked={formik.values.puppyGender === "female"}
-              onChange={formik.handleChange}
-            />
-            <label>암컷</label>
-
-            <input
-              type="radio"
-              name="puppyGender"
-              value="female_neutered"
-              checked={formik.values.puppyGender === "female_neutered"}
-              onChange={formik.handleChange}
-            />
-            <label>암컷(중성화)</label>
+            <label>
+              <input
+                type="radio"
+                name="puppyGender"
+                value="male"
+                checked={formik.values.puppyGender === "male"}
+                onChange={formik.handleChange}
+              />
+              수컷
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="puppyGender"
+                value="male_neutered"
+                checked={formik.values.puppyGender === "male_neutered"}
+                onChange={formik.handleChange}
+              />
+              수컷(중성화)
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="puppyGender"
+                value="female"
+                checked={formik.values.puppyGender === "female"}
+                onChange={formik.handleChange}
+              />
+              암컷
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="puppyGender"
+                value="female_neutered"
+                checked={formik.values.puppyGender === "female_neutered"}
+                onChange={formik.handleChange}
+              />
+              암컷(중성화)
+            </label>
           </div>
           {formik.errors.puppyGender && formik.touched.puppyGender && (
             <div>{formik.errors.puppyGender}</div>
@@ -292,7 +304,7 @@ const PuppyFormFix = ({
         </div>
 
         <div>
-          <button type="submit" disabled={!isFormChanged}>
+          <button type="submit" disabled={!isFormChanged || !formik.isValid}>
             {formLabels.submitButton}
           </button>
         </div>

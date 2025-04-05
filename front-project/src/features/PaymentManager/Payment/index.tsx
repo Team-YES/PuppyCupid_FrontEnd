@@ -30,6 +30,7 @@ const PaymentPage = ({ tossClientKey }: PaymentProps) => {
       });
     } catch (error) {
       console.error("결제 오류: ", error);
+      window.location.href = "/payment/fail";
     }
   };
 
