@@ -24,11 +24,11 @@ export const MypostCountWrapper = styled.div`
   }
   .MypostCount_count {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-left: 5px;
+    padding-left: 10px;
     padding-right: 5px;
   }
   @media (max-width: 486px) {

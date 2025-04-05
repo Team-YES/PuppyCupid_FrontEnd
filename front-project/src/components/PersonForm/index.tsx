@@ -11,10 +11,14 @@ interface FormValues {
 
 const validationSchema = Yup.object({
   personNickName: Yup.string()
+    .min(2, "닉네임은 최소 2자 이상이어야 합니다.")
     .max(10, "닉네임은 최대 10글자까지 가능합니다.")
     .required("이름을 입력해주세요."),
   personPhone: Yup.string()
-    .matches(/^\d{10,11}$/, "전화번호는 10~11자리 숫자여야 합니다.")
+    .matches(
+      /^010\d{7,8}$/,
+      "전화번호는 010으로 시작하는 10~11자리 숫자여야 합니다."
+    )
     .required("전화번호를 입력해주세요."),
 });
 
@@ -163,9 +167,9 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
         </div>
 
         {/* 닉네임 입력 */}
-        <div>
+        <div className="PersonForm_oneWrap">
           <label>닉네임: </label>
-          <div>
+          <div className="PersonForm_nickName_checkBox">
             <input
               type="text"
               name="personNickName"
@@ -173,12 +177,19 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            <button type="button" onClick={handleCheckNickname}>
+            <button
+              type="button"
+              onClick={handleCheckNickname}
+              disabled={
+                formik.values.personNickName.length < 2 ||
+                formik.values.personNickName.length > 10
+              }
+            >
               중복 검사
             </button>
           </div>
-          <small className="text-gray-500">
-            닉네임은 최소 2자 이상 입력해야 합니다.
+          <small className="PersonForm_textgray">
+            닉네임은 2자 이상 10자 이하로 입력해주세요.
           </small>
 
           {nicknameMessage && (
@@ -187,18 +198,21 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
                 color: nicknameValid ? "green" : "red",
                 fontSize: "0.875rem",
                 marginTop: "4px",
+                marginLeft: "5px",
               }}
             >
               {nicknameMessage}
             </div>
           )}
-          {formik.touched.personNickName && formik.errors.personNickName && (
-            <div className="error-text">{formik.errors.personNickName}</div>
-          )}
+          <div className="PersonForm_errortext">
+            {formik.touched.personNickName
+              ? formik.errors.personNickName || ""
+              : ""}
+          </div>
         </div>
 
         {/* 전화번호 입력 */}
-        <div>
+        <div className="PersonForm_oneWrap">
           <label>전화번호: </label>
           <input
             type="text"
@@ -206,10 +220,16 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
             value={formik.values.personPhone}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            className="PersonForm_phoneinput"
           />
-          {formik.touched.personPhone && formik.errors.personPhone && (
-            <div className="error-text">{formik.errors.personPhone}</div>
-          )}
+          <small className="PersonForm_textgray">
+            전화번호는 010으로 시작하는 10~11자리 숫자만 입력해주세요. ("-"
+            제외)
+          </small>
+
+          <div className="PersonForm_errortext">
+            {formik.touched.personPhone ? formik.errors.personPhone || "" : ""}
+          </div>
         </div>
 
         {/* 제출 버튼 */}

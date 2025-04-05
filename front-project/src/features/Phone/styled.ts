@@ -149,6 +149,9 @@ export const PhonePadding = styled.div`
     cursor: not-allowed;
     color: #666;
   }
+  .Phone_textgray {
+    color: gray;
+  }
   /* 반응형 */
   @media (max-width: 1024px) {
     padding: 0px 60px;

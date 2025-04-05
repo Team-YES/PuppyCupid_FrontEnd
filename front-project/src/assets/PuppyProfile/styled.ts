@@ -10,8 +10,9 @@ export const PuppyProfileWrapper = styled.div`
       padding-bottom: 10px;
     }
     .PuppyProfile_text span {
-      color: gray;
+      color: black;
       font-size: 16px;
+      font-weight: bold;
     }
   }
   .PuppyProfile_title {

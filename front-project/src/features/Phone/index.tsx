@@ -24,6 +24,7 @@ const Phone = () => {
       gender: Yup.string().required("성별을 선택하세요."),
       nickname: Yup.string()
         .min(2, "닉네임은 최소 2자 이상이어야 합니다.")
+        .max(10, "닉네임은 최대 10자까지 입력 가능합니다.")
         .required("닉네임을 입력하세요."),
     }),
     onSubmit: async (values) => {
@@ -117,7 +118,7 @@ const Phone = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.phone}
                 />
-                <small className="text-gray-500">
+                <small className="Phone_textgray">
                   010으로 시작하는 10~11자리 숫자만 입력하세요. ("-" 제외)
                 </small>
                 {formik.touched.phone && formik.errors.phone && (
@@ -143,7 +144,7 @@ const Phone = () => {
                   <option value="male">남성</option>
                   <option value="female">여성</option>
                 </select>
-                <small className="text-gray-500">성별을 선택해주세요.</small>
+                <small className="Phone_textgray">성별을 선택해주세요.</small>
                 {formik.touched.gender && formik.errors.gender && (
                   <p className="Phone_error_message">{formik.errors.gender}</p>
                 )}
@@ -161,6 +162,7 @@ const Phone = () => {
                     id="nickname"
                     name="nickname"
                     type="text"
+                    maxLength={10}
                     onChange={handleNicknameChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.nickname}
@@ -177,8 +179,8 @@ const Phone = () => {
                     </button>
                   </div>
                 </div>
-                <small className="text-gray-500">
-                  닉네임은 최소 2자 이상 입력해야 합니다.
+                <small className="Phone_textgray">
+                  닉네임은 2자 이상 10자 이하로 입력해주세요.
                 </small>
                 {nicknameCheckMessage && (
                   <p
