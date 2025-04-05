@@ -96,3 +96,27 @@ a {
     box-shadow: 0 0 4px 2px #e9dffe !important;
   }
 }
+
+/* swiper 커스텀 */
+.swiper-button-prev,
+.swiper-button-next {
+  width: 27px !important;
+  height: 27px !important;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.504);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: rgba(216, 216, 216, 0.797) !important;
+}
+
+.swiper-pagination-bullet {
+  background: rgb(255, 255, 255) !important;
+}

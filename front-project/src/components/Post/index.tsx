@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AxiosGetLike, getLikeStatus } from "@/reducers/getLikeSlice";
 import { AppDispatch } from "@/store/store";
 import EditPostModal from "../EditPostModal";
+import Comment from "../Comments";
 
 type Props = {
   post: Post;
@@ -65,24 +66,35 @@ const PostList = ({ post, loginUser }: Props) => {
   return (
     <PostStyled>
       <LeftContainer>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginBottom: 10,
-            justifyContent: "space-between",
-            position: "relative",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <img
-              style={{ width: 50, borderRadius: "50%" }}
-              src="puppy_profile.png"
-            />
-            <div style={{ marginLeft: 10 }}>
-              <div style={{ marginBottom: 3 }}>{post.user.nickName}</div>
-              <div style={{ fontSize: 13 }}>
-                {/* {post.category} */}
+        <div>
+          <Swiper
+            modules={[Navigation, Pagination]}
+            navigation
+            pagination={{ clickable: true }}
+            spaceBetween={10}
+            slidesPerView={1}
+            style={{ width: "100%", height: "500px" }}
+          >
+            {post.images.map((img, i) => (
+              <SwiperSlide key={i}>
+                <img
+                  className="Post_swiperImg"
+                  src={`http://localhost:5000${img.image_url}`}
+                  alt={`post_image${img.id}`}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </LeftContainer>
+
+      <RightContainer>
+        <div className="Post_RightBox">
+          <div className="Post_RightBox_userInfo">
+            <Img src="puppy_profile.png" />
+            <div className="Post_user">
+              <div className="Post_nickName">{post.user.nickName}</div>
+              <div className="Post_category">
                 {post.category === "walk"
                   ? "산책메이트"
                   : post.category === "free"
@@ -92,10 +104,7 @@ const PostList = ({ post, loginUser }: Props) => {
             </div>
           </div>
 
-          <div
-            style={{ marginRight: 10, cursor: "pointer", color: "#333" }}
-            onClick={() => setShowEdit(!showEdit)}
-          >
+          <div className="Post_menu" onClick={() => setShowEdit(!showEdit)}>
             <i className="fa-solid fa-ellipsis-h"></i>
           </div>
           {/* 수정, 삭제 모달 */}
@@ -107,32 +116,7 @@ const PostList = ({ post, loginUser }: Props) => {
             />
           )}
         </div>
-        <div>
-          <Swiper
-            modules={[Navigation, Pagination]}
-            navigation
-            pagination={{ clickable: true }}
-            spaceBetween={10}
-            slidesPerView={1}
-            style={{ width: "100%", height: 350 }}
-          >
-            {post.images.map((img, i) => (
-              <SwiperSlide key={i}>
-                <img
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                  }}
-                  src={`http://localhost:5000${img.image_url}`}
-                  alt={`post_image${img.id}`}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </LeftContainer>
 
-      <RightContainer>
         <div className="Post_iconContainer">
           <div className="Post_icon" onClick={handleLikeClick}>
             <LikeIcon
@@ -147,10 +131,11 @@ const PostList = ({ post, loginUser }: Props) => {
             </div>
           ))}
         </div>
-        <div>
+        <div className="Post_content">
           <MarginBtmDiv>좋아요 {like}개</MarginBtmDiv>
           <MarginBtmDiv>{post.content}</MarginBtmDiv>
         </div>
+        <Comment />
       </RightContainer>
     </PostStyled>
   );

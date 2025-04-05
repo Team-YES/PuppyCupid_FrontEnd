@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { SearchStyled, SearchInput, SearchIconBox } from "./styled";
+import {
+  SearchStyled,
+  SearchInput,
+  SearchIconBox,
+  SearchOverlay,
+} from "./styled";
 import axios from "axios";
 import { Post } from "@/features/Board";
 
@@ -8,11 +13,10 @@ type Props = {
 };
 
 const Search = ({ setSearchResult }: Props) => {
+  // 검색 키워드 저장
   const [query, setQuery] = useState("");
-
-  // useEffect(() => {
-
-  // }, [query])
+  // 돋보기 버튼 클릭 시 화면 변경
+  const [showOverlay, setShowOverlay] = useState(false);
 
   // 검색 기능
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,16 +45,18 @@ const Search = ({ setSearchResult }: Props) => {
 
   return (
     <SearchStyled>
-      <div>
+      <div style={{ position: "relative" }}>
+        <SearchIconBox>
+          <i className="fa-solid fa-magnifying-glass"></i>
+        </SearchIconBox>
         <SearchInput
           type="text"
           value={query}
           onChange={(e) => handleSearch(e)}
+          placeholder="게시물 검색"
         />
       </div>
-      <SearchIconBox>
-        <i className="fa-solid fa-magnifying-glass"></i>
-      </SearchIconBox>
+      {showOverlay && <SearchOverlay />}
     </SearchStyled>
   );
 };

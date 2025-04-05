@@ -8,16 +8,11 @@ type Props = {
 };
 
 export const PostStyled = styled.div`
-  padding: 12px;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
   width: 100%;
   display: flex;
-  margin-bottom: 30px;
-
-  .Post_iconContainer {
-    display: flex;
-    margin-bottom: 15px;
-  }
+  margin-bottom: 48px;
+  border-radius: 4px;
 `;
 
 export const Title = styled.div`
@@ -25,8 +20,9 @@ export const Title = styled.div`
   font-weight: 700;
 `;
 
-export const Img = styled.div`
+export const Img = styled.img`
   border-radius: 50%;
+  width: 50px;
 `;
 
 export const PostIcon = styled.i`
@@ -42,10 +38,60 @@ export const MarginBtmDiv = styled.div`
 
 export const LeftContainer = styled.div`
   width: 50%;
+
+  .Post_swiperImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
 `;
 export const RightContainer = styled.div`
   width: 50%;
-  padding: 15px;
+  /* padding: 15px; */
+
+  .Post_RightBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 8px 15px;
+    border-bottom: 1px solid rgb(239, 239, 239);
+  }
+
+  .Post_RightBox_userInfo {
+    display: flex;
+    align-items: center;
+  }
+
+  .Post_user {
+    margin-left: 12px;
+  }
+
+  .Post_nickName {
+    margin-bottom: 3px;
+    font-weight: 700;
+  }
+
+  .Post_category {
+    font-size: 12px;
+  }
+
+  .Post_menu {
+    margin-right: 10px;
+    cursor: pointer;
+    color: #333;
+  }
+
+  .Post_iconContainer {
+    display: flex;
+    padding: 13px 15px;
+  }
+
+  .Post_content {
+    padding: 0 15px;
+  }
 `;
 
 // 좋아요 애니메이션

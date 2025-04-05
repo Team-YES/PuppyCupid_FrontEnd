@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BoardWrapper, WeatherAlim } from "./styled";
+import { WeatherWrapper, WeatherAlim, AllPostsWrap } from "./styled";
 import axios from "axios";
 import weatherMessages from "@/constants/weatherData";
 import PostComp from "@/components/Post";
@@ -106,7 +106,7 @@ const Board = () => {
   return (
     <div>
       {/* 날씨정보 */}
-      <BoardWrapper>
+      <WeatherWrapper>
         {weatherInfo === null ? (
           <WeatherAlim>날씨 정보를 불러오는 중입니다..</WeatherAlim>
         ) : (
@@ -122,17 +122,17 @@ const Board = () => {
             </div>
           </WeatherAlim>
         )}
-      </BoardWrapper>
-      <div>
+      </WeatherWrapper>
+      <div style={{ position: "relative" }}>
         {/* 검색 기능 */}
         <Search setSearchResult={setSearchResult} />
       </div>
-      <div style={{ padding: 25 }}>
+      <AllPostsWrap>
         {/* 전체 게시글 */}
         {(searchResult.length > 0 ? searchResult : posts).map((post, i) => (
           <PostComp key={i} post={post} loginUser={loginUser?.id} />
         ))}
-      </div>
+      </AllPostsWrap>
     </div>
   );
 };

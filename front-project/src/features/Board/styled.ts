@@ -5,7 +5,13 @@ interface WeatherAlimProps {
   alert?: boolean;
 }
 
-export const BoardWrapper = styled.div`
+export const AllPostsWrap = styled.div`
+  padding: 25px;
+  max-width: 975px;
+  margin: 0 auto;
+`;
+
+export const WeatherWrapper = styled.div`
   padding: 6px 25px 6px 25px;
   background-color: ${(props) => props.theme.colors.backgroundGray};
 
@@ -22,7 +28,7 @@ export const WeatherAlim = styled.div.withConfig({
   justify-content: center;
   align-items: center;
   font-size: 19px;
-  color: ${({ alert }) => (alert ? "red" : "#1e1e1e")};
+  color: ${({ alert }) => (alert ? "#dd0000" : "#1e1e1e")};
 
   img {
     width: 38px;
