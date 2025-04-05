@@ -155,5 +155,17 @@ export const PuppyFormFixStyle = styled.div`
     font-size: 16px;
     color: #333;
   }
+  .PuppyFormFix_age_errormessage {
+    color: red;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-left: 5px;
+  }
+  .PuppyForm_input_infoText {
+    color: gray;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-left: 5px;
+  }
 `;
 export const ModalWrapper = styled.div``;

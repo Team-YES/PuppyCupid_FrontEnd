@@ -82,6 +82,7 @@ export const PuppyFormStyle = styled.div`
 
   /* 텍스트 입력 필드 스타일 */
   input[type="text"],
+  input[type="number"],
   select {
     width: 100%;
     padding: 10px;
@@ -140,17 +141,31 @@ export const PuppyFormStyle = styled.div`
     color: #a9a9a9;
     cursor: not-allowed;
   }
-  .PuppyForm_GenderRadioBox_Wrap {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
   .PuppyForm_GenderRadioBox_Wrap label {
     display: flex;
     align-items: center;
-    padding-left: 10px !important;
+    padding-bottom: 10px;
     font-size: 14px;
+    color: #666;
+    input {
+      margin-right: 10px;
+    }
+  }
+  .PuppyForm_GenderRadioBox_Wrap .PuppyForm_gender_label {
+    font-size: 16px;
+    color: #333;
+  }
+  .PuppyForm_input_infoText {
+    font-size: 14px;
+    color: gray;
+    padding-top: 10px;
+    padding-left: 5px;
+  }
+  .PuppyForm_personal_infoText {
+    font-size: 14px;
+    color: gray;
+    /* padding-left: 5px; */
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
 `;
-export const ModalWrapper = styled.div``;
