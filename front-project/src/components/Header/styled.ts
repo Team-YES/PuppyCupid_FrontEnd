@@ -116,6 +116,7 @@ export const Logo = styled.div`
     cursor: pointer;
   }
   .header_logoimg_wrap img {
+    padding-right: 7px;
     width: 100%;
     object-fit: contain;
     height: auto;
