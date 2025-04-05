@@ -3,17 +3,18 @@ import { ChatLeftWrapper } from "./styled";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { fetchMyDog } from "@/reducers/dogSlice";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
 
 const ChatLeft = () => {
   const dog = useSelector((state: RootState) => state.dog.dog);
-  const dogImage = dog?.image ? dog.image : "/puppy_profile.png";
-  const dispatch = useDispatch();
+  const baseURL = "http://localhost:5000";
+  const dogImage = dog?.image ? `${baseURL}${dog.image}` : "/puppy_profile.png";
+  const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchMyDog());
-  // }, []);
+  useEffect(() => {
+    dispatch(fetchMyDog());
+  }, []);
 
   return (
     <ChatLeftWrapper>
