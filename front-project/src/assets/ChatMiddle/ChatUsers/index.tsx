@@ -16,6 +16,7 @@ const ChatUsers = ({ openChat, setOpenChat }: ChatProps) => {
       <div className="ChatUsers_userName">
         <div>{nickName ?? " "}</div>
       </div>
+      <div></div>
     </ChatUsersWrapper>
   );
 };

@@ -1,7 +1,7 @@
 import { ChatStyled } from "./styled";
 import ChatLeft from "../../assets/ChatLeft";
-import ChatUsers from "../../assets/ChatUsers";
-import ChatSend from "../../assets/ChatSend";
+import ChatUsers from "../../assets/ChatMiddle/ChatUsers";
+import ChatSend from "../../assets/ChatRight/ChatSend";
 import { useState } from "react";
 
 const Chat = () => {
