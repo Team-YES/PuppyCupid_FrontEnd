@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   PostStyled,
   Title,
@@ -17,7 +17,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { useDispatch, useSelector } from "react-redux";
 import { AxiosGetLike, getLikeStatus } from "@/reducers/getLikeSlice";
-import { AppDispatch } from "@/store/store";
+import { fetchMyDog } from "@/reducers/dogSlice";
+import { RootState, AppDispatch } from "@/store/store";
 import EditPostModal from "../EditPostModal";
 import Comment from "../Comments";
 import { format, differenceInDays, parseISO } from "date-fns";
@@ -28,7 +29,7 @@ type Props = {
 };
 
 const PostList = ({ post, loginUser }: Props) => {
-  console.log("하위 컴포", post.created_at);
+  console.log("하위 컴포", post);
 
   // 좋아요 리듀서
   const dispatch = useDispatch<AppDispatch>();
@@ -80,6 +81,13 @@ const PostList = ({ post, loginUser }: Props) => {
     }
   };
 
+  // 강아지 정보 - 이미지
+  useEffect(() => {
+    dispatch(fetchMyDog());
+  }, [dispatch]);
+
+  const dogImg = useSelector((state: RootState) => state.dog.dog?.image);
+
   return (
     <PostStyled>
       <LeftContainer>
@@ -108,7 +116,7 @@ const PostList = ({ post, loginUser }: Props) => {
       <RightContainer>
         <div className="Post_RightBox">
           <div className="Post_RightBox_userInfo">
-            <Img src="puppy_profile.png" />
+            <Img src={`http://localhost:5000${dogImg}`} />
             <div className="Post_user">
               <div className="Post_nickName">{post.user.nickName}</div>
               <div className="Post_category">

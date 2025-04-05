@@ -4,6 +4,9 @@ import axios from "axios";
 import weatherMessages from "@/constants/weatherData";
 import PostComp from "@/components/Post";
 import Search from "@/components/Search";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllPosts } from "@/reducers/getAllPostsSlice";
+import { AppDispatch, RootState } from "@/store/store";
 
 // Props 타입 선언
 export type Post = {
@@ -27,39 +30,27 @@ export type CurrentUser = {
 };
 
 const Board = () => {
-  // 전체게시물 저장
-  const [posts, setPosts] = useState<Post[]>([]);
-  // 현재 로그인한 유저의 아이디
-  const [loginUser, setLoginUser] = useState<CurrentUser | null>(null);
-  // 검색된 포스트 저장
-  const [searchResult, setSearchResult] = useState<Post[]>([]);
-
-  console.log("검색결과: ", searchResult);
-
-  // console.log("상위컴포", posts);
-  // console.log("로그인유저", loginUser);
-
-  // 전체게시물 받아오기
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/posts", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        // console.log("전체 게시물 데이터", res.data);
-        const { posts, currentUser } = res.data;
-        setPosts(posts);
-        setLoginUser(currentUser);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
-  // 날씨 변수
+  // 1. 타입 선언
   type WeatherKey = keyof typeof weatherMessages;
+
+  // 2. 상태 정의
+  // 전체게시물
+  const [posts, setPosts] = useState<Post[]>([]);
+  // 현재 로그인한 유저
+  const [loginUser, setLoginUser] = useState<CurrentUser | null>(null);
+  // 검색된 게시물
+  const [searchResult, setSearchResult] = useState<Post[]>([]);
+  // 날씨
   const [weather, setWeather] = useState<WeatherKey | null>(null);
-  // 날씨 아이콘 변수
   const [weatherIcon, setWeatherIcon] = useState(null);
-  // 위험 날씨
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  // 3. 데이터 가져오기
+  const data = useSelector((state: RootState) => state.posts.posts);
+  const dataUser = useSelector((state: RootState) => state.posts.currentUser);
+
+  // 4. 위험 날씨 판단용 상수
   const dangerWeather: WeatherKey[] = [
     "Fog",
     "Smoke",
@@ -70,10 +61,24 @@ const Board = () => {
     "Squall",
     "Tornado",
   ];
-  // dangerWeather 판단
   const isAlert = weather ? dangerWeather.includes(weather) : false;
 
-  // 날씨 api 요청
+  // console.log("검색결과: ", searchResult);
+  // console.log("상위컴포", posts);
+  // console.log("로그인유저", loginUser);
+
+  // 5. 전체 게시글 요청
+  useEffect(() => {
+    dispatch(fetchAllPosts());
+  }, [dispatch]);
+
+  // 6. Redux 데이터 -> 로컬 상태로 저장
+  useEffect(() => {
+    if (data.length > 0) setPosts(data);
+    if (dataUser) setLoginUser(dataUser);
+  }, [data, dataUser]);
+
+  // 7. 날씨 정보 요청
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
@@ -101,7 +106,7 @@ const Board = () => {
     );
   }, []);
 
-  // 날씨정보에 따른 메시지
+  // 8. 날씨 메시지 매핑
   const weatherInfo = weather ? weatherMessages[weather] : null;
 
   return (
@@ -124,12 +129,14 @@ const Board = () => {
           </WeatherAlim>
         )}
       </WeatherWrapper>
+
+      {/* 검색 기능 */}
       <div style={{ position: "relative" }}>
-        {/* 검색 기능 */}
         <Search setSearchResult={setSearchResult} />
       </div>
+
+      {/* 전체 게시글 */}
       <AllPostsWrap>
-        {/* 전체 게시글 */}
         {(searchResult.length > 0 ? searchResult : posts).map((post, i) => (
           <PostComp key={i} post={post} loginUser={loginUser?.id} />
         ))}
