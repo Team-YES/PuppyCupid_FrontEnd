@@ -55,8 +55,8 @@ const EditPostModal = ({ postId, writerId, loginUserId }: Props) => {
       );
 
       console.log("채팅 생성 성공!", res.data);
-      alert("채팅을 시작합니다!");
-      window.location.href = "/chat";
+
+      window.location.href = `/chat?userId=${receiverId}`;
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
         console.error("채팅 요청 실패:", error.response?.data || error.message);

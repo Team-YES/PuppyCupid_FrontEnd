@@ -1,24 +1,37 @@
 import React from "react";
 import { ChatOtherRoomWrapper } from "./styled";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
 
-type ChatProps = {
+type ChatUser = {
+  userId: number;
+  nickName: string;
+  lastMessage: string;
+  lastMessageTime: string;
+};
+
+type ChatOtherRoomProps = {
+  user: ChatUser;
   openChat: boolean;
   setOpenChat: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ChatOtherRoom = ({ openChat, setOpenChat }: ChatProps) => {
-  // 채팅방마다로 수정 필요(임시)
+const ChatOtherRoom = ({ user, openChat, setOpenChat }: ChatOtherRoomProps) => {
   const handleToggleClick = () => {
-    setOpenChat((prev) => !prev);
+    setOpenChat(true);
+    // 해당 유저와의 채팅방으로 이동
+    window.location.href = `/chat?receiverId=${user.userId}`;
   };
 
   return (
-    // 채팅 가운데 컴포넌트
     <ChatOtherRoomWrapper>
       <div className="ChatOtherRoom_userName" onClick={handleToggleClick}>
-        아직 데이터 안넣음(임시 버튼)
+        <div className="nickname">{user.nickName}</div>
+        <div className="lastMessage">{user.lastMessage}</div>
+        <div className="lastTime">
+          {new Date(user.lastMessageTime).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </div>
       </div>
     </ChatOtherRoomWrapper>
   );

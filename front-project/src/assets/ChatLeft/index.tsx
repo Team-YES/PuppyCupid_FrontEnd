@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 
 const ChatLeft = () => {
   const router = useRouter();
-
   const dog = useSelector((state: RootState) => state.dog.dog);
   const baseURL = "http://localhost:5000";
   const dogImage = dog?.image ? `${baseURL}${dog.image}` : "/puppy_profile.png";
