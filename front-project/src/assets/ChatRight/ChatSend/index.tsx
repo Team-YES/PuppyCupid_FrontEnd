@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ChatSendWrapper, ChatSendNone, ChatSendTrue } from "./styled";
 import ChatRoom from "../ChatRoom";
+import { useRouter } from "next/router";
+
 type ChatProps = {
   openChat: boolean;
   setOpenChat: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const ChatSend = ({ openChat, setOpenChat }: ChatProps) => {
+  const router = useRouter();
+  const { userId } = router.query;
+
+  useEffect(() => {
+    if (userId) {
+      setOpenChat(true);
+    }
+  }, [userId]);
+
   return (
     <ChatSendWrapper>
       <div className="ChatSend_AllWrap">
