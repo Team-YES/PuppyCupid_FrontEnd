@@ -334,8 +334,9 @@ export const Nav = styled.nav`
 
   /* 아이콘 */
   .header_userfindicon {
-    font-size: 20px;
+    font-size: 30px;
     padding: 0px 15px;
+    padding-top: 8px;
   }
 
   .header_userfindicon i {
@@ -352,8 +353,8 @@ export const Nav = styled.nav`
     padding: 30px 30px 30px 45px;
     .RightMenubar_title {
       cursor: pointer;
-      padding-bottom: 20px;
-      font-size: 20px;
+      padding-bottom: 25px;
+      font-size: 25px;
       &:hover {
         color: ${({ theme }) => theme.colors.pointPurple};
       }
@@ -386,13 +387,20 @@ export const Nav = styled.nav`
       aspect-ratio: 1/1;
       cursor: pointer;
     }
+    .header_rightnav_midWrap {
+      .RightMenubar_title {
+        cursor: pointer;
+        padding-bottom: 25px;
+        font-size: 20px;
+      }
+    }
   }
   .header_rightnav_closebtnWrap span {
     margin: 0;
   }
 
   .header_logout_btn {
-    font-size: 15px;
+    font-size: 20px;
     font-weight: bold;
     display: flex;
     justify-content: right;
@@ -401,6 +409,15 @@ export const Nav = styled.nav`
     cursor: pointer;
     &:hover {
       color: ${({ theme }) => theme.colors.pointPurple};
+    }
+  }
+  @media (max-width: 768px) {
+    .header_logout_btn {
+      font-size: 15px;
+    }
+    .header_userfindicon {
+      font-size: 20px;
+      padding-top: 3px;
     }
   }
 `;

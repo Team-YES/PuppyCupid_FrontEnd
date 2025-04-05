@@ -25,6 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const isLoginPage = router.pathname === "/login";
   const isAdminPage = router.pathname === "/admin";
+  const isChatPage = router.pathname === "/chat";
 
   if (!isClient) return null;
   // 헤더 있으면 메인 패딩 주기
@@ -38,7 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <div className="app_wrapper">
         <ThemeProvider theme={theme}>
           <AuthProvider>
-            {!isLoginPage && !isAdminPage && (
+            {!isLoginPage && !isAdminPage && !isChatPage && (
               <Header isScrolled={isScrolled} setIsScrolled={setIsScrolled} />
             )}
 
@@ -51,7 +52,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </div>
           </AuthProvider>
           <div className="app_footer">
-            {!isLoginPage && !isAdminPage && (
+            {!isLoginPage && !isAdminPage && !isChatPage && (
               <Footer isNotMainPage={isNotMainPage} />
             )}
           </div>

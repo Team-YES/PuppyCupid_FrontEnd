@@ -16,7 +16,7 @@ const Header = ({
   const router = useRouter();
   const [isNavOpen, setIsNavOpen] = useState(false);
   // 로그인 여부
-  const { isLoggedIn, logout } = useAuth(); // AuthContext에서 isLoggedIn과 logout 함수 가져오기
+  const { isLoggedIn, logout } = useAuth();
 
   // 스크롤에 따른 헤더 변화
   const handleScroll = () => {
@@ -153,6 +153,7 @@ const Header = ({
                   titles={[
                     "산책 메이트 찾기",
                     "전체 게시물 보기",
+                    "게시물 작성하기",
                     "채팅하기",
                     "결제하기",
                     "문의하기",
@@ -160,6 +161,7 @@ const Header = ({
                   paths={[
                     "/walkingmate",
                     "/board",
+                    "/post_registration",
                     "/chat",
                     "/payment",
                     "/payment",

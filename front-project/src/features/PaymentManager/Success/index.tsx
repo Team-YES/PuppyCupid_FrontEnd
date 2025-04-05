@@ -50,7 +50,7 @@ export default function SuccessPage() {
     <PaymentSuccessPadding>
       <div className="PaymentSuccessPadding">
         <h1>🎉 {getPaymentMessage(Number(amount))}</h1>
-        <p>주문 ID: {orderId}</p>
+        <p>주문 번호: {orderId}</p>
         <p>결제 금액: {amount}원</p>
         <button onClick={() => router.push("/")}>홈으로</button>
       </div>
