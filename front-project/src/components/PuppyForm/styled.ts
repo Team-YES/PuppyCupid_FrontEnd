@@ -140,5 +140,17 @@ export const PuppyFormStyle = styled.div`
     color: #a9a9a9;
     cursor: not-allowed;
   }
+  .PuppyForm_GenderRadioBox_Wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .PuppyForm_GenderRadioBox_Wrap label {
+    display: flex;
+    align-items: center;
+    padding-left: 10px !important;
+    font-size: 14px;
+  }
 `;
 export const ModalWrapper = styled.div``;

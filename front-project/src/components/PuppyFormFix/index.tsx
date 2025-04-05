@@ -123,16 +123,7 @@ const PuppyFormFix = ({
     formik.setFieldValue("puppyPersonality", newPersonality);
     setIsFormChanged(true);
   };
-  // 이미지 변경 처리
-  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     setSelectedImage(file);
-  //     setImagePreview(URL.createObjectURL(file));
-  //     formik.setFieldValue("puppyImage", file);
-  //     setIsFormChanged(true);
-  //   }
-  // };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -194,44 +185,51 @@ const PuppyFormFix = ({
           )}
         </div>
         {/* 중성화 */}
-        <div>
-          <label>{formLabels.puppyGender}</label>
+        <div className="PuppyFormFix_GenderRadioBox_Wrap">
+          <label className="PuppyFormFix_gender_label">
+            {formLabels.puppyGender}
+          </label>
           <div>
-            <input
-              type="radio"
-              name="puppyGender"
-              value="male"
-              checked={formik.values.puppyGender === "male"}
-              onChange={formik.handleChange}
-            />
-            <label>수컷</label>
-
-            <input
-              type="radio"
-              name="puppyGender"
-              value="male_neutered"
-              checked={formik.values.puppyGender === "male_neutered"}
-              onChange={formik.handleChange}
-            />
-            <label>수컷(중성화)</label>
-
-            <input
-              type="radio"
-              name="puppyGender"
-              value="female"
-              checked={formik.values.puppyGender === "female"}
-              onChange={formik.handleChange}
-            />
-            <label>암컷</label>
-
-            <input
-              type="radio"
-              name="puppyGender"
-              value="female_neutered"
-              checked={formik.values.puppyGender === "female_neutered"}
-              onChange={formik.handleChange}
-            />
-            <label>암컷(중성화)</label>
+            <label>
+              <input
+                type="radio"
+                name="puppyGender"
+                value="male"
+                checked={formik.values.puppyGender === "male"}
+                onChange={formik.handleChange}
+              />
+              수컷
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="puppyGender"
+                value="male_neutered"
+                checked={formik.values.puppyGender === "male_neutered"}
+                onChange={formik.handleChange}
+              />
+              수컷(중성화)
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="puppyGender"
+                value="female"
+                checked={formik.values.puppyGender === "female"}
+                onChange={formik.handleChange}
+              />
+              암컷
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="puppyGender"
+                value="female_neutered"
+                checked={formik.values.puppyGender === "female_neutered"}
+                onChange={formik.handleChange}
+              />
+              암컷(중성화)
+            </label>
           </div>
           {formik.errors.puppyGender && formik.touched.puppyGender && (
             <div>{formik.errors.puppyGender}</div>

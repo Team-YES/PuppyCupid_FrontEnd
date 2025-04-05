@@ -97,24 +97,7 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
     formik.handleChange(e);
     setIsFormChanged(true);
   };
-  // 성격 체크박스 변경 처리
-  // const handlePersonalityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value, checked } = e.target;
-  //   if (checked) {
-  //     formik.setFieldValue("puppyPersonality", [
-  //       ...formik.values.puppyPersonality,
-  //       value,
-  //     ]);
-  //   } else {
-  //     formik.setFieldValue(
-  //       "puppyPersonality",
-  //       formik.values.puppyPersonality.filter(
-  //         (personality) => personality !== value
-  //       )
-  //     );
-  //   }
-  //   setIsFormChanged(true);
-  // };
+
   const handlePersonalityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
     if (checked) {
@@ -199,10 +182,9 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
             <div>{formik.errors.puppyAge}</div>
           )}
         </div>
-        {/* 중성화 */}
-        <div>
-          <label>{formLabels.puppyGender}</label>
-          <div>
+        {/* 성별 - 중성화 */}
+        <div className="PuppyForm_GenderRadioBox_Wrap">
+          <label>
             <input
               type="radio"
               name="puppyGender"
@@ -210,8 +192,10 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
               checked={formik.values.puppyGender === "male"}
               onChange={handleChange}
             />
-            <label>수컷</label>
+            수컷
+          </label>
 
+          <label>
             <input
               type="radio"
               name="puppyGender"
@@ -219,8 +203,10 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
               checked={formik.values.puppyGender === "male_neutered"}
               onChange={handleChange}
             />
-            <label>수컷(중성화)</label>
+            수컷(중성화)
+          </label>
 
+          <label>
             <input
               type="radio"
               name="puppyGender"
@@ -228,8 +214,10 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
               checked={formik.values.puppyGender === "female"}
               onChange={handleChange}
             />
-            <label>암컷</label>
+            암컷
+          </label>
 
+          <label>
             <input
               type="radio"
               name="puppyGender"
@@ -237,23 +225,8 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
               checked={formik.values.puppyGender === "female_neutered"}
               onChange={handleChange}
             />
-            <label>암컷(중성화)</label>
-          </div>
-          {formik.errors.puppyGender && formik.touched.puppyGender && (
-            <div>{formik.errors.puppyGender}</div>
-          )}
-        </div>
-        <div>
-          <label>{formLabels.puppyBreed}</label>
-          <input
-            type="text"
-            name="puppyBreed"
-            value={formik.values.puppyBreed}
-            onChange={handleChange}
-          />
-          {formik.errors.puppyBreed && formik.touched.puppyBreed && (
-            <div>{formik.errors.puppyBreed}</div>
-          )}
+            암컷(중성화)
+          </label>
         </div>
         {/* 성격 */}
         <div>
