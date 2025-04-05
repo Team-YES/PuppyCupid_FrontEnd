@@ -52,6 +52,9 @@ export const PhonePadding = styled.div`
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    p {
+      padding-top: 5px;
+    }
     input,
     select {
       width: 100%;
@@ -67,9 +70,20 @@ export const PhonePadding = styled.div`
 
       &:focus {
         border-color: ${({ theme }) => theme.colors.mainPurple};
-        box-shadow: 0 0 5px rgba(152, 85, 243, 0.5);
+        box-shadow: 0 0 5px ${({ theme }) => theme.colors.inputPurple}80;
       }
     }
+    .Phone_nickName_inputSize {
+      width: calc(100% - 80px);
+    }
+    .Phone_nickName_checkBox {
+      display: flex;
+    }
+  }
+  /* .Phone_Check_inputbox {
+  } */
+  .Phone_nickName_checkBtn {
+    display: flex;
   }
   .Phone_form {
     width: 100%;
@@ -92,8 +106,8 @@ export const PhonePadding = styled.div`
     justify-content: flex-end;
   }
   .Phone-button {
-    width: 10%;
-    background: ${({ theme }) => theme.colors.mainPurple};
+    width: 15%;
+    background: ${({ theme }) => theme.colors.pointPurple};
     color: white;
     padding: 10px;
     border: none;
@@ -104,9 +118,36 @@ export const PhonePadding = styled.div`
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
   }
-
+  .Phone-button-check {
+    background: ${({ theme }) => theme.colors.accentPurple};
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    height: 38px;
+    width: 80px;
+    margin-left: 10px;
+  }
+  .Phone-button-check:hover {
+    background: ${({ theme }) => theme.colors.accentHoverPurple};
+  }
   .Phone-button:hover {
-    background: ${({ theme }) => theme.colors.pointPurple};
+    background: ${({ theme }) => theme.colors.mainPurple};
+  }
+  .Phone-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    color: #666;
+  }
+  .Phone-button-check:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    color: #666;
   }
   /* 반응형 */
   @media (max-width: 1024px) {

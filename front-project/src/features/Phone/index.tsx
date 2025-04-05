@@ -155,27 +155,31 @@ const Phone = () => {
               <label htmlFor="nickname" className="block text-sm font-medium">
                 닉네임
               </label>
-              <div className="Phone_input_box">
-                <input
-                  id="nickname"
-                  name="nickname"
-                  type="text"
-                  onChange={handleNicknameChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.nickname}
-                  className="w-full px-3 py-2 border rounded"
-                />
-                <button
-                  type="button"
-                  onClick={handleNicknameCheck}
-                  className="Phone-button"
-                >
-                  닉네임 중복 검사
-                </button>
+              <div className="Phone_input_box Phone_Check_inputbox">
+                <div className="Phone_nickName_checkBox">
+                  <input
+                    id="nickname"
+                    name="nickname"
+                    type="text"
+                    onChange={handleNicknameChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.nickname}
+                    className="Phone_nickName_inputSize"
+                  />{" "}
+                  <div className="Phone_nickName_checkBtn">
+                    <button
+                      type="button"
+                      onClick={handleNicknameCheck}
+                      className="Phone-button-check"
+                      disabled={formik.values.nickname.length < 2}
+                    >
+                      중복 검사
+                    </button>
+                  </div>
+                </div>
                 <small className="text-gray-500">
                   닉네임은 최소 2자 이상 입력해야 합니다.
                 </small>
-
                 {nicknameCheckMessage && (
                   <p
                     style={{
