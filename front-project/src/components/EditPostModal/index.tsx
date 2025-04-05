@@ -40,6 +40,33 @@ const EditPostModal = ({ postId, writerId, loginUserId }: Props) => {
     }
   };
 
+  // 채팅하기 페이지 이동
+  const handleChatRequest = async (receiverId: number) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/messages",
+        {
+          receiverId,
+          content: "채팅 신청합니다!",
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      console.log("채팅 생성 성공!", res.data);
+      alert("채팅을 시작합니다!");
+      window.location.href = "/chat";
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        console.error("채팅 요청 실패:", error.response?.data || error.message);
+      } else {
+        console.error("예상치 못한 에러:", error);
+      }
+      alert("채팅 요청에 실패했습니다.");
+    }
+  };
+
   return (
     <EditPostModalStyled>
       {isMine ? (
@@ -62,7 +89,9 @@ const EditPostModal = ({ postId, writerId, loginUserId }: Props) => {
           <div>
             <ModalBtn
               onClick={() => {
-                router.push("/chat");
+                if (writerId) {
+                  handleChatRequest(writerId);
+                }
               }}
             >
               채팅하기
