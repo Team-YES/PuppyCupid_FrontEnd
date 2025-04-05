@@ -4,6 +4,7 @@ import { ChatOtherRoomWrapper } from "./styled";
 type ChatUser = {
   userId: number;
   nickName: string;
+  dogImage: string | null;
   lastMessage: string;
   lastMessageTime: string;
 };
@@ -22,15 +23,24 @@ const ChatOtherRoom = ({ user, openChat, setOpenChat }: ChatOtherRoomProps) => {
   };
 
   return (
-    <ChatOtherRoomWrapper>
-      <div className="ChatOtherRoom_userName" onClick={handleToggleClick}>
-        <div className="nickname">{user.nickName}</div>
-        <div className="lastMessage">{user.lastMessage}</div>
-        <div className="lastTime">
-          {new Date(user.lastMessageTime).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
+    <ChatOtherRoomWrapper onClick={handleToggleClick}>
+      <div className="ChatOtherRoom_chat-room-item">
+        <img
+          src={user.dogImage || "/puppy_profile.png"}
+          alt="dog"
+          className="ChatOtherRoom_dog-image"
+        />
+        <div className="chat-info">
+          <div className="top-row">
+            <span className="nickname">{user.nickName}</span>
+            <span className="time">
+              {new Date(user.lastMessageTime).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </span>
+          </div>
+          <div className="last-message">{user.lastMessage}</div>
         </div>
       </div>
     </ChatOtherRoomWrapper>

@@ -9,10 +9,10 @@ import axios from "axios";
 type ChatUser = {
   userId: number;
   nickName: string;
+  dogImage: string | null;
   lastMessage: string;
   lastMessageTime: string;
 };
-
 type ChatProps = {
   openChat: boolean;
   setOpenChat: React.Dispatch<React.SetStateAction<boolean>>;
