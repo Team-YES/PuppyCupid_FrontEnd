@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ["antd"],
+  transpilePackages: ["antd", "emoji-mart"],
   experimental: {
     esmExternals: "loose",
   },
