@@ -14,6 +14,7 @@ export type Post = {
   liked: boolean;
   content: string;
   currentUser: number;
+  created_at: string;
   user: {
     id: number;
     nickName: string;

@@ -32,8 +32,21 @@ export const PostIcon = styled.i`
   cursor: pointer;
 `;
 
-export const MarginBtmDiv = styled.div`
-  margin-bottom: 10px;
+export const LikeCont = styled.div`
+  font-weight: 700;
+`;
+
+export const PostContent = styled.div`
+  padding: 15px;
+  flex: 1;
+`;
+
+export const DateDiv = styled.div`
+  color: rgb(115, 115, 115);
+  letter-spacing: 0.2px;
+  line-height: 26px;
+  font-size: 12px;
+  margin-bottom: 4px;
 `;
 
 export const LeftContainer = styled.div`
@@ -49,7 +62,8 @@ export const LeftContainer = styled.div`
 `;
 export const RightContainer = styled.div`
   width: 50%;
-  /* padding: 15px; */
+  display: flex;
+  flex-direction: column;
 
   .Post_RightBox {
     display: flex;
@@ -87,12 +101,15 @@ export const RightContainer = styled.div`
   .Post_iconContainer {
     display: flex;
     padding: 13px 15px;
+    border-top: 1px solid rgb(239, 239, 239);
   }
 
   .Post_content {
     padding: 0 15px;
   }
 `;
+
+export const FixedBox = styled.div``;
 
 // 좋아요 애니메이션
 const pop = keyframes`

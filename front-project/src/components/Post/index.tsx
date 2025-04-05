@@ -4,10 +4,13 @@ import {
   Title,
   Img,
   PostIcon,
-  MarginBtmDiv,
+  PostContent,
   LeftContainer,
   RightContainer,
   LikeIcon,
+  DateDiv,
+  LikeCont,
+  FixedBox,
 } from "./styled";
 import type { Post } from "@/features/Board";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -17,6 +20,7 @@ import { AxiosGetLike, getLikeStatus } from "@/reducers/getLikeSlice";
 import { AppDispatch } from "@/store/store";
 import EditPostModal from "../EditPostModal";
 import Comment from "../Comments";
+import { format, differenceInDays, parseISO } from "date-fns";
 
 type Props = {
   post: Post;
@@ -24,7 +28,7 @@ type Props = {
 };
 
 const PostList = ({ post, loginUser }: Props) => {
-  // console.log("하위 컴포", post, loginUser);
+  console.log("하위 컴포", post.created_at);
 
   // 좋아요 리듀서
   const dispatch = useDispatch<AppDispatch>();
@@ -62,6 +66,19 @@ const PostList = ({ post, loginUser }: Props) => {
     { icon: "fa-regular fa-comment" },
     { icon: "fa-solid fa-share-nodes" },
   ];
+
+  // 게시글 등록 날짜 표시
+  const formatPostDate = (dateString: string) => {
+    const now = new Date();
+    const date = parseISO(dateString);
+    const diffDays = differenceInDays(now, date);
+
+    if (diffDays <= 4) {
+      return `${diffDays === 0 ? "오늘" : `${diffDays}일 전`}`;
+    } else {
+      return format(date, "M월 d일");
+    }
+  };
 
   return (
     <PostStyled>
@@ -117,25 +134,31 @@ const PostList = ({ post, loginUser }: Props) => {
           )}
         </div>
 
-        <div className="Post_iconContainer">
-          <div className="Post_icon" onClick={handleLikeClick}>
-            <LikeIcon
-              className={isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart"}
-              style={{ color: isLiked ? "red" : "#333" }}
-              animate={animate}
-            />
-          </div>
-          {MypageTitles.map((item, i) => (
-            <div key={i} className="Post_icon">
-              <PostIcon className={item.icon}></PostIcon>
+        <PostContent>{post.content}</PostContent>
+        <FixedBox>
+          <div className="Post_iconContainer">
+            <div className="Post_icon" onClick={handleLikeClick}>
+              <LikeIcon
+                className={
+                  isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart"
+                }
+                style={{ color: isLiked ? "red" : "#333" }}
+                animate={animate}
+              />
             </div>
-          ))}
-        </div>
-        <div className="Post_content">
-          <MarginBtmDiv>좋아요 {like}개</MarginBtmDiv>
-          <MarginBtmDiv>{post.content}</MarginBtmDiv>
-        </div>
-        <Comment />
+            {MypageTitles.map((item, i) => (
+              <div key={i} className="Post_icon">
+                <PostIcon className={item.icon}></PostIcon>
+              </div>
+            ))}
+          </div>
+          <div className="Post_content">
+            <LikeCont>좋아요 {like}개</LikeCont>
+            <DateDiv>{formatPostDate(post.created_at)}</DateDiv>
+          </div>
+          {/* 댓글 */}
+          <Comment />
+        </FixedBox>
       </RightContainer>
     </PostStyled>
   );
