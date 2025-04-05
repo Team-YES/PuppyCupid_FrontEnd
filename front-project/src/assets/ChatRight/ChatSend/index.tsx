@@ -12,21 +12,21 @@ const ChatSend = ({ openChat, setOpenChat }: ChatProps) => {
       <div className="ChatSend_AllWrap">
         {/* openChat이 false일 때: 비어있을 때 */}
         {!openChat && (
-          <div className="ChatSend_None">
-            <ChatSendNone>
-              <div className="ChatSend_None_Text">
-                <i className="fa-solid fa-comments"></i>
-                <p>새로운 채팅을 시작해보세요!</p>
-              </div>
-            </ChatSendNone>
-          </div>
+          <ChatSendNone>
+            <div className="ChatSend_None_Text">
+              <i className="fa-solid fa-comments"></i>
+              <p>새로운 채팅을 시작해보세요!</p>
+            </div>
+          </ChatSendNone>
         )}
 
         {/* openChat이 true일 때: 채팅방 */}
         {openChat && (
           <div className="ChatSend_True">
             <ChatSendTrue>
-              <ChatRoom />
+              <div className="ChatSend_True_Wrap">
+                <ChatRoom />
+              </div>
             </ChatSendTrue>
           </div>
         )}

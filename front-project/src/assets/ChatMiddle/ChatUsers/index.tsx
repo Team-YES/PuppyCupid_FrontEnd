@@ -2,6 +2,7 @@ import React from "react";
 import { ChatUsersWrapper } from "./styled";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import ChatOtherRoom from "../ChatOtherRoom";
 
 type ChatProps = {
   openChat: boolean;
@@ -16,7 +17,11 @@ const ChatUsers = ({ openChat, setOpenChat }: ChatProps) => {
       <div className="ChatUsers_userName">
         <div>{nickName ?? " "}</div>
       </div>
-      <div></div>
+      <div>
+        <div className="ChatUsers_otherusers_room">
+          <ChatOtherRoom openChat={openChat} setOpenChat={setOpenChat} />
+        </div>
+      </div>
     </ChatUsersWrapper>
   );
 };

@@ -11,6 +11,7 @@ export const ChatLeftWrapper = styled.div`
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+    cursor: pointer;
   }
   .ChatLeft_puppyprofile {
     border: 1px #ddd solid;
