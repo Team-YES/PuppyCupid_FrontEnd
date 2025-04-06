@@ -132,14 +132,19 @@ const Registration = () => {
       </div>
 
       {/* 이미지 미리보기 슬라이드 */}
-      {/* <div style={{ padding: 15 }}> */}
       <ImageScrollContainer>
         <Swiper
           modules={[Navigation, Scrollbar]}
           scrollbar={{ el: ".swiper-scrollbar" }}
           spaceBetween={12}
-          slidesPerView={5}
+          slidesPerView={4}
           style={{ width: "100%", paddingRight: 22 }}
+          breakpoints={{
+            427: {
+              slidesPerView: 5,
+              spaceBetween: 12,
+            },
+          }}
         >
           {Array.isArray(userFormik.values.images) &&
             userFormik.values.images.map((img, i) => (
@@ -167,7 +172,6 @@ const Registration = () => {
             ))}
         </Swiper>
       </ImageScrollContainer>
-      {/* </div> */}
 
       {/* 카테고리 선택 & 본문 입력 */}
       <div style={{ padding: 15 }}>
@@ -179,7 +183,7 @@ const Registration = () => {
             onChange={(val) => userFormik.setFieldValue("category", val)}
           />
         </div>
-        <div style={{ marginTop: 15 }}>
+        <div className="Registration_Textbox">
           <TextAreaComp
             name="content"
             value={userFormik.values.content}
@@ -197,7 +201,7 @@ const Registration = () => {
         )}
       </div>
 
-      {/* 등록 / 취소 버튼 */}
+      {/* 등록, 취소 버튼 */}
       <div className="Registration_BtnBox">
         <Button
           variant={"default"}

@@ -3,6 +3,9 @@ import {
   RegistrationStyled,
   Button,
   ErrorMessage,
+  EditSwiperContainer,
+  ImageBox,
+  PreviewImg,
 } from "@/components/Registration/styled";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
@@ -113,7 +116,13 @@ const EditPost = () => {
         );
         console.log("게시물 수정 성공 응답: ", res.data);
 
-        alert("게시물을 수정하였습니다.");
+        const ok = confirm("게시물을 수정하시겠습니까?");
+        if (ok) {
+          alert("게시물을 수정하였습니다.");
+        } else {
+          return;
+        }
+
         router.push("/board");
       } catch (error) {
         console.error("게시물 수정 에러: ", error);
@@ -123,44 +132,44 @@ const EditPost = () => {
 
   return (
     <RegistrationStyled onSubmit={userFormik.handleSubmit}>
-      <div>게시글 수정</div>
-
-      <div style={{ padding: 15 }}>
+      {/* 이미지 보기 슬라이드 */}
+      <EditSwiperContainer>
         <Swiper
-          modules={[Navigation, Pagination]}
-          navigation
-          pagination={{ clickable: true }}
-          spaceBetween={10}
-          slidesPerView={1}
-          style={{ width: "100%" }}
+          modules={[Navigation]}
+          spaceBetween={12}
+          slidesPerView={4}
+          style={{ width: "100%", paddingRight: 22 }}
+          breakpoints={{
+            427: {
+              slidesPerView: 5,
+              spaceBetween: 12,
+            },
+          }}
         >
           {post?.post.images.map((img, i) => (
-            <SwiperSlide
-              key={i}
-              style={{
-                position: "relative",
-                width: "100%",
-              }}
-            >
-              <img
-                src={`http://localhost:5000${img.image_url}`}
-                alt={`이미지 미리보기${i + 1}`}
-                style={{ width: "100%" }}
-              />
+            <SwiperSlide key={i}>
+              <ImageBox>
+                <PreviewImg
+                  src={`http://localhost:5000${img.image_url}`}
+                  alt={`이미지 미리보기${i + 1}`}
+                  style={{ width: "100%" }}
+                />
+              </ImageBox>
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
+      </EditSwiperContainer>
 
+      {/* 카테고리 & 본문 수정 */}
       <div style={{ padding: 15 }}>
-        <div style={{ marginBottom: 15 }}>
+        <div style={{ marginBottom: 29 }}>
           <InputComp
             name="category"
             value={categoryMap[userFormik.values.category]}
             readOnly
           />
         </div>
-        <div style={{ marginTop: 15 }}>
+        <div className="Registration_Textbox">
           <TextAreaComp
             name="content"
             value={userFormik.values.content}
@@ -168,31 +177,30 @@ const EditPost = () => {
             onBlur={userFormik.handleBlur}
           />
         </div>
+
+        {/* 에러 메시지 */}
         {userFormik.touched.content && userFormik.errors.content && (
           <ErrorMessage>{userFormik.errors.content}</ErrorMessage>
         )}
       </div>
 
-      <div style={{ display: "flex", justifyContent: "flex-end", padding: 15 }}>
-        <div>
-          <Button
-            variant={"default"}
-            onClick={() => {
+      {/* 수정, 취소 버튼 */}
+      <div className="Registration_BtnBox">
+        <Button
+          variant={"default"}
+          onClick={() => {
+            const alarm = confirm("게시물 수정을 취소하시겠습니까?");
+            if (alarm) {
               router.push("/board");
-            }}
-          >
-            취소
-          </Button>
-        </div>
-        <div>
-          <Button
-            type="submit"
-            variant={"confirm"}
-            style={{ marginLeft: 14, backgroundColor: "blue" }}
-          >
-            수정
-          </Button>
-        </div>
+            }
+          }}
+          type="button"
+        >
+          취소
+        </Button>
+        <Button type="submit" variant={"confirm"}>
+          수정
+        </Button>
       </div>
     </RegistrationStyled>
   );

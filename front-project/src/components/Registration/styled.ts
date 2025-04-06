@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 // Button 컴포넌트 사용 시 variant 명시
 interface ButtonProps {
-  variant?: "default" | "confirm" | "danger";
+  variant?: "default" | "confirm";
 }
 
 export const RegistrationStyled = styled.form`
@@ -42,6 +42,11 @@ export const RegistrationStyled = styled.form`
   .Point {
     color: ${(props) => props.theme.colors.pointPurple};
   }
+
+  .Registration_Textbox {
+    margin-top: 15px;
+    position: relative;
+  }
 `;
 
 export const ImageScrollContainer = styled.div`
@@ -50,12 +55,31 @@ export const ImageScrollContainer = styled.div`
   border-radius: 8px; */
 `;
 
+export const EditSwiperContainer = styled.div`
+  padding: 35px 15px 15px 15px;
+`;
+
 export const ImageBox = styled.div`
   position: relative;
   width: 150px;
   height: 150px;
   border-radius: 8px;
   overflow: hidden;
+
+  @media (max-width: 841px) {
+    width: 100px;
+    height: 100px;
+  }
+
+  @media (max-width: 592px) {
+    width: 70px;
+    height: 70px;
+  }
+
+  @media (max-width: 424px) {
+    width: 65px;
+    height: 65px;
+  }
 `;
 
 export const PreviewImg = styled.img`
@@ -67,27 +91,19 @@ export const PreviewImg = styled.img`
 export const Button = styled.button.withConfig({
   shouldForwardProp: (prop) => prop !== "variant",
 })<ButtonProps>`
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 6px;
-  padding: 6px 19px;
+  padding: 9px 19px;
   font-weight: 700;
-  color: ${({ variant }) => (variant === "danger" ? "#333" : "#fff")};
+  color: ${({ variant }) => (variant === "confirm" ? "#fff" : "#aaa")};
   background-color: ${({ variant }) =>
-    variant === "confirm"
-      ? "#9855f3"
-      : variant === "danger"
-      ? "#dc3545"
-      : "#fff"};
+    variant === "confirm" ? "#9855f3" : "#eee"};
   cursor: pointer;
   margin-left: ${({ variant }) => (variant === "confirm" ? "14px" : "0")};
 
   &:hover {
     background-color: ${({ variant }) =>
-      variant === "confirm"
-        ? "#ccb6fd"
-        : variant === "danger"
-        ? "#c82333"
-        : "#e6e6e6"};
+      variant === "confirm" ? "#c7adff" : "#dfdfdf"};
   }
 `;
 
@@ -96,10 +112,15 @@ export const ImgLabel = styled.label`
   display: block;
   border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 14px;
+  padding: 15px;
   text-align: center;
   cursor: pointer;
   background-color: #fff;
+
+  @media (max-width: 592px) {
+    width: 65px;
+    padding: 12px;
+  }
 
   &:hover {
     transition: 0.2s;
