@@ -1,20 +1,34 @@
-import { WalkingMateStyled } from "./styled";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 import axios from "axios";
+import { WalkingMateStyled } from "./styled";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { fetchMyDog } from "@/reducers/dogSlice";
 
 interface Dog {
   id: number;
   name: string;
-  distance: number; // km 단위
+  age: number;
+  breed: string;
+  gender: string;
+  mbti: string;
+  personality: string[];
+  dog_image: string;
 }
 
 const WalkingMate = () => {
   const [dogs, setDogs] = useState<Dog[]>([]);
-  const dogId = 1; // 임시로 설정 — 실제로는 props나 전역 상태에서 받아와야 해
-  const token = localStorage.getItem("accessToken"); // JWT 토큰 가져오기
+  const myDog = useSelector((state: RootState) => state.dog.dog);
+  const dogId = myDog?.id;
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (navigator.geolocation && token) {
+    dispatch(fetchMyDog());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (navigator.geolocation && dogId) {
       navigator.geolocation.getCurrentPosition(async (pos) => {
         const { latitude, longitude } = pos.coords;
 
@@ -23,21 +37,20 @@ const WalkingMate = () => {
             `http://localhost:5000/dogs/${dogId}/location`,
             { latitude, longitude },
             {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
+              withCredentials: true,
             }
           );
 
           if (res.data.ok) {
             setDogs(res.data.dogs);
+            console.log("서버 응답 dogs:", res.data.dogs);
           }
         } catch (err) {
           console.error("위치 전송 실패:", err);
         }
       });
     }
-  }, []);
+  }, [dogId]);
 
   return (
     <WalkingMateStyled>
@@ -46,7 +59,27 @@ const WalkingMate = () => {
         <ul>
           {dogs.map((dog) => (
             <li key={dog.id}>
-              {dog.name} - {dog.distance.toFixed(1)}km 떨어져 있음
+              <img
+                src={dog.dog_image}
+                alt={`${dog.name}의 이미지`}
+                style={{
+                  width: "150px",
+                  height: "150px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                }}
+              />
+              <p>이름: {dog.name}</p>
+              <p>견종: {dog.breed}</p>
+              <p>나이: {dog.age}</p>
+              <p>성별: {dog.gender}</p>
+              <p>MBTI: {dog.mbti}</p>
+              <p>
+                성격:{" "}
+                {Array.isArray(dog.personality)
+                  ? dog.personality.join(", ")
+                  : JSON.parse(dog.personality).join(", ")}
+              </p>
             </li>
           ))}
         </ul>
