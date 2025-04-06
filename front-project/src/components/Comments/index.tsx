@@ -6,31 +6,38 @@ import { useClickOutside } from "@/hooks/useClickOutside";
 import { useDispatch, useSelector } from "react-redux";
 import { postComment } from "@/reducers/getCommentSlice";
 import { AppDispatch, RootState } from "@/store/store";
+import { CommentType } from "../Post";
 
 type Props = {
   postId: number;
+  onAddComment: (comment: CommentType) => void;
 };
 
-const Comment = ({ postId }: Props) => {
+const Comment = ({ postId, onAddComment }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  // 댓글
+  // 댓글 등록
   const [comment, setComment] = useState("");
 
   // 댓글 게시
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!comment.trim()) return;
 
     try {
-      const resultAction = dispatch(postComment({ postId, content: comment }));
+      const resultAction = await dispatch(
+        postComment({ postId, content: comment })
+      );
 
       if (postComment.fulfilled.match(resultAction)) {
         console.log("댓글 등록 성공: ", resultAction.payload);
+
+        const newComment = resultAction.payload.comment;
+
+        onAddComment(newComment);
+        setComment("");
       } else {
         console.error("댓글 등록 실패: ", resultAction);
       }
-
-      setComment("");
     } catch (error) {
       console.error("예외 발생: ", error);
     }

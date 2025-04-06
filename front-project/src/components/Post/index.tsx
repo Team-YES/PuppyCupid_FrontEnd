@@ -22,16 +22,27 @@ import { RootState, AppDispatch } from "@/store/store";
 import EditPostModal from "../EditPostModal";
 import Comment from "../Comments";
 import { format, differenceInDays, parseISO } from "date-fns";
+import { fetchComments } from "@/reducers/getCommentSlice";
 
 type Props = {
   post: Post;
   loginUser?: number;
 };
 
+export type CommentType = {
+  id: number;
+  content: string;
+  created_at: string;
+  user: {
+    id: number;
+    nickName: string;
+  };
+};
+
 const PostList = ({ post, loginUser }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  console.log("하위 컴포", post);
+  // console.log("하위 컴포", post);
 
   // 좋아요 상태값
   const [like, setLike] = useState(post.like_count);
@@ -40,6 +51,22 @@ const PostList = ({ post, loginUser }: Props) => {
 
   // 수정, 삭제 모달
   const [showEdit, setShowEdit] = useState(false);
+
+  // 게시한 댓글 표시
+  const [getComment, setGetComment] = useState<CommentType[]>([]);
+
+  const handleAddComment = (newComment: CommentType) => {
+    setGetComment((v) => [newComment, ...v]);
+  };
+
+  // 저장된 댓글 가져오기
+  useEffect(() => {
+    dispatch(fetchComments(post.id));
+  }, [dispatch, post.id]);
+
+  const allComment = useSelector((state: RootState) => state.comment.comments);
+
+  console.log("모든 댓글: ", allComment);
 
   // 좋아요 요청
   const handleLikeClick = async () => {
@@ -93,15 +120,22 @@ const PostList = ({ post, loginUser }: Props) => {
             pagination={{ clickable: true }}
             spaceBetween={10}
             slidesPerView={1}
-            style={{ width: "100%", height: "500px" }}
+            style={{
+              width: "100%",
+              height: "auto",
+              borderTopLeftRadius: 4,
+              borderBottomLeftRadius: 4,
+            }}
           >
             {post.images.map((img, i) => (
               <SwiperSlide key={i}>
-                <img
-                  className="Post_swiperImg"
-                  src={`http://localhost:5000${img.image_url}`}
-                  alt={`post_image${img.id}`}
-                />
+                <div className="Post_SwiperBox">
+                  <img
+                    className="Post_swiperImg"
+                    src={`http://localhost:5000${img.image_url}`}
+                    alt={`post_image${img.id}`}
+                  />
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -113,7 +147,11 @@ const PostList = ({ post, loginUser }: Props) => {
         <div className="Post_RightBox">
           {/* 작성자 정보 */}
           <div className="Post_RightBox_userInfo">
-            <Img src={`http://localhost:5000${dogImg}`} />
+            <Img
+              src={
+                dogImg ? `http://localhost:5000${dogImg}` : "/puppy_profile.png"
+              }
+            />
             <div className="Post_user">
               <div className="Post_nickName">{post.user.nickName}</div>
               <div className="Post_category">
@@ -145,6 +183,13 @@ const PostList = ({ post, loginUser }: Props) => {
         {/* 게시글 내용 */}
         <PostContent>{post.content}</PostContent>
 
+        {/* 댓글 내용 */}
+        <ul>
+          {getComment.map((c, i) => (
+            <li key={i}>{c.content}</li>
+          ))}
+        </ul>
+
         <FixedBox>
           {/* 좋아요 + 아이콘 */}
           <div className="Post_iconContainer">
@@ -171,7 +216,7 @@ const PostList = ({ post, loginUser }: Props) => {
           </div>
 
           {/* 댓글 입력창 */}
-          <Comment postId={post.id} />
+          <Comment postId={post.id} onAddComment={handleAddComment} />
         </FixedBox>
       </RightContainer>
     </PostStyled>

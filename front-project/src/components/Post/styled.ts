@@ -13,6 +13,10 @@ export const PostStyled = styled.div`
   display: flex;
   margin-bottom: 48px;
   border-radius: 4px;
+
+  @media (max-width: 632px) {
+    display: block;
+  }
 `;
 
 export const Title = styled.div`
@@ -52,12 +56,37 @@ export const DateDiv = styled.div`
 export const LeftContainer = styled.div`
   width: 50%;
 
-  .Post_swiperImg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .swiper-slide {
+    display: flex;
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    align-items: center;
+    background-color: black;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
+    min-height: 463px;
+    overflow: hidden;
+    flex-grow: 1;
+  }
+
+  .Post_SwiperBox {
+    /* width: 100%;
+    height: 100%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 463px;
+    max-width: 463px;
+    aspect-ratio: 1 / 1;
+    flex-basis: 463px;
+    /* min-height: 283px; */
+    overflow: hidden;
+  }
+
+  .Post_swiperImg {
+    width: 100%;
+    /* height: 100%; */
+    object-fit: cover;
   }
 `;
 export const RightContainer = styled.div`
