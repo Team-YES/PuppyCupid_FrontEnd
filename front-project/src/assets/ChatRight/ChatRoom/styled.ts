@@ -31,14 +31,11 @@ export const ChatRoomWrapper = styled.div`
     width: 100%;
     height: 100%;
   }
-  .ChatRoom_Chat_input {
-    height: 10vh;
-    box-sizing: border-box;
 
-    overflow: hidden;
-  }
   /* 인풋 디자인 */
   .ChatRoom_Chat_input {
+    box-sizing: border-box;
+    overflow: hidden;
     height: 10vh;
     padding: 10px 20px;
     border-top: 1px solid #ddd;
@@ -58,6 +55,7 @@ export const ChatRoomWrapper = styled.div`
       border: #ddd 1px solid;
       box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.03);
       transition: all 0.2s;
+      cursor: text;
     }
   }
   .ChatRoom_Chat_input .left-icon,

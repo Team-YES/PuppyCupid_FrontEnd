@@ -13,7 +13,7 @@ export const MypostCountWrapper = styled.div`
     color: gray;
     font-size: 18px;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .MypostCount_title {
       font-size: 15px;
     }

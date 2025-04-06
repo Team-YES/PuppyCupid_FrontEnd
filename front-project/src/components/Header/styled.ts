@@ -95,7 +95,7 @@ export const HeaderWrapper = styled.header`
     }
   }
   /* 반응형 */
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .header_menu_text {
       opacity: 0;
       visibility: hidden;
@@ -266,7 +266,7 @@ export const RightMenu = styled.a`
     }
   }
   /* 반응형 */
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     /* .header_right_wrap {
       border: none;
     } */
@@ -343,7 +343,7 @@ export const Nav = styled.nav`
     padding-right: 20px;
     cursor: pointer;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .header_userfindicon i {
       padding-right: 15px;
     }
@@ -374,7 +374,7 @@ export const Nav = styled.nav`
     aspect-ratio: 1/1;
     cursor: pointer;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .header_rightnav_closebtnWrap {
       font-size: 25px;
       background-color: white;
@@ -411,7 +411,7 @@ export const Nav = styled.nav`
       color: ${({ theme }) => theme.colors.pointPurple};
     }
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .header_logout_btn {
       font-size: 15px;
     }

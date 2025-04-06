@@ -22,6 +22,10 @@ const ChatLeft = () => {
     router.push("/mypage");
   };
 
+  const handleHouse = () => {
+    router.push("/");
+  };
+
   return (
     <ChatLeftWrapper>
       <div className="ChatLeft_AllWrap">
@@ -34,6 +38,9 @@ const ChatLeft = () => {
         </div>
         {/* 이미지 컴포넌트 만들기 */}
         <div className="ChatLeft_otherdog_imgwrap"></div>
+        <div className="ChatLeft_Home_icons">
+          <i className="fa-solid fa-house" onClick={handleHouse}></i>
+        </div>
       </div>
     </ChatLeftWrapper>
   );

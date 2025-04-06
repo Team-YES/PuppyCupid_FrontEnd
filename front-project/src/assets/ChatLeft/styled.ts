@@ -29,4 +29,28 @@ export const ChatLeftWrapper = styled.div`
     object-fit: contain;
     height: 100%;
   }
+  /* 홈으로 가기 버튼 */
+  .ChatLeft_Home_icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 25px;
+    font-size: 25px;
+    /* color: ${({ theme }) => theme.colors.pointPurple}; */
+    color: black;
+    i {
+      cursor: pointer;
+    }
+    @media (max-width: 767px) {
+      display: none;
+    }
+    .ChatLeft_otherdog_imgwrap {
+      display: none;
+
+      @media (max-width: 767px) {
+        display: block;
+      }
+    }
+  }
 `;
