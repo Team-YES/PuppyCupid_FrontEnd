@@ -1,20 +1,23 @@
 import axios from "axios";
 import { EditPostModalStyled, ModalBtn } from "./styled";
 import { useRouter } from "next/router";
+import { useRef } from "react";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 type Props = {
   postId: number;
   writerId: number;
   loginUserId?: number;
+  onClose: () => void;
 };
 
-const EditPostModal = ({ postId, writerId, loginUserId }: Props) => {
+const EditPostModal = ({ postId, writerId, loginUserId, onClose }: Props) => {
   const router = useRouter();
 
   console.log("EditPostModal : ", postId, writerId, loginUserId);
 
-  // 현재 사이트를 보고 있는 유저의 아이디(임시)
-  // const writerId = 2;
+  const pickerRef = useRef<HTMLDivElement>(null);
+  useClickOutside(pickerRef, onClose);
 
   // 내 게시물 판단
   const isMine = writerId === loginUserId;
@@ -68,7 +71,7 @@ const EditPostModal = ({ postId, writerId, loginUserId }: Props) => {
   };
 
   return (
-    <EditPostModalStyled>
+    <EditPostModalStyled ref={pickerRef}>
       {isMine ? (
         <>
           <div>

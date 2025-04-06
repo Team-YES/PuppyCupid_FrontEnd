@@ -3,6 +3,7 @@ import userReducer from "../reducers/userSlice";
 import getLikeReducer from "../reducers/getLikeSlice";
 import dogReducer from "../reducers/dogSlice";
 import getAllPostsReducer from "../reducers/getAllPostsSlice";
+import getCommentReducer from "../reducers/getCommentSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     getLike: getLikeReducer,
     dog: dogReducer,
     posts: getAllPostsReducer,
+    comment: getCommentReducer,
   },
 });
 
