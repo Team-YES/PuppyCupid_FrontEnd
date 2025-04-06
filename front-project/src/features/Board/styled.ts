@@ -9,6 +9,10 @@ export const AllPostsWrap = styled.div`
   padding: 25px;
   max-width: 975px;
   margin: 0 auto;
+
+  @media (max-width: 632px) {
+    width: 375px;
+  }
 `;
 
 export const WeatherWrapper = styled.div`

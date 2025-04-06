@@ -1,5 +1,8 @@
 import {
   RegistrationStyled,
+  ImageScrollContainer,
+  ImageBox,
+  PreviewImg,
   Button,
   ImgLabel,
   ErrorMessage,
@@ -9,33 +12,24 @@ import { useFormik } from "formik";
 import SelectBox from "@/components/SelectBox";
 import TextAreaComp from "@/components/TextAreaComp";
 import { useRouter } from "next/router";
-import { notification } from "antd";
 import axios from "axios";
 import { useState } from "react";
-
-// interface FormValues {
-//   images: File[];
-//   category: string;
-//   title: string;
-//   content: string;
-// }
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Scrollbar } from "swiper/modules";
 
 const Registration = () => {
   // 사진 개수
   const [count, setCount] = useState(0);
+  const router = useRouter();
 
-  // select 선택 목록
+  // 카테고리 선택 목록
   const option = [
     { value: "walk", label: "산책메이트" },
     { value: "free", label: "자유게시판" },
     { value: "adopt", label: "유기견 임시보호 / 입양" },
   ];
 
-  // 페이지 이동
-  const router = useRouter();
-
-  // 게시물 저장
-  // 이미지, select, checkbox모두 가능
+  // Formik 설정
   const userFormik = useFormik({
     initialValues: {
       images: [],
@@ -93,9 +87,6 @@ const Registration = () => {
         console.log("게시물 등록 성공 응답: ", res.data);
 
         alert("게시물을 등록하였습니다.");
-        // notification.success({
-        //   message: "게시글 등록성공!",
-        // });
         router.push("/board");
       } catch (error) {
         console.error("게시물 등록 에러: ", error);
@@ -107,10 +98,13 @@ const Registration = () => {
 
   return (
     <RegistrationStyled onSubmit={userFormik.handleSubmit}>
+      {/* 이미지 업로드 */}
       <div className="Registration_LabelBox">
         <ImgLabel htmlFor="img_upload">
           <i className="fa-solid fa-camera-retro"></i>
-          <div className="Registration_count">{count}/10</div>
+          <div className="Registration_count">
+            <span className="Point">{count}</span>/10
+          </div>
         </ImgLabel>
         <input
           id="img_upload"
@@ -136,34 +130,48 @@ const Registration = () => {
           }}
         />
       </div>
-      <div className="Registration_ImagesContainer">
-        {Array.isArray(userFormik.values.images) &&
-          userFormik.values.images.map((img, i) => (
-            <div className="Registration_ImageBox" key={i}>
-              <img
-                className="Registration_Img"
-                src={URL.createObjectURL(img)}
-                alt={`이미지 미리보기${i + 1}`}
-              />
-              <XBtn
-                type="button"
-                onClick={() => {
-                  const updated = userFormik.values.images.filter(
-                    (_, idx) => idx !== i
-                  );
-                  userFormik.setFieldValue("images", updated);
-                  // 사진 개수 수정
-                  setCount(updated.length);
-                }}
-              >
-                ×
-              </XBtn>
-            </div>
-          ))}
-      </div>
 
+      {/* 이미지 미리보기 슬라이드 */}
+      {/* <div style={{ padding: 15 }}> */}
+      <ImageScrollContainer>
+        <Swiper
+          modules={[Navigation, Scrollbar]}
+          scrollbar={{ el: ".swiper-scrollbar" }}
+          spaceBetween={12}
+          slidesPerView={5}
+          style={{ width: "100%", paddingRight: 22 }}
+        >
+          {Array.isArray(userFormik.values.images) &&
+            userFormik.values.images.map((img, i) => (
+              <SwiperSlide key={i}>
+                <ImageBox>
+                  <PreviewImg
+                    src={URL.createObjectURL(img)}
+                    alt={`이미지 미리보기${i + 1}`}
+                  />
+                  <XBtn
+                    type="button"
+                    onClick={() => {
+                      const updated = userFormik.values.images.filter(
+                        (_, idx) => idx !== i
+                      );
+                      userFormik.setFieldValue("images", updated);
+                      // 사진 개수 수정
+                      setCount(updated.length);
+                    }}
+                  >
+                    ×
+                  </XBtn>
+                </ImageBox>
+              </SwiperSlide>
+            ))}
+        </Swiper>
+      </ImageScrollContainer>
+      {/* </div> */}
+
+      {/* 카테고리 선택 & 본문 입력 */}
       <div style={{ padding: 15 }}>
-        <div style={{ marginBottom: 15 }}>
+        <div style={{ marginBottom: 29 }}>
           <SelectBox
             name="category"
             value={userFormik.values.category}
@@ -179,6 +187,8 @@ const Registration = () => {
             onBlur={userFormik.handleBlur}
           />
         </div>
+
+        {/* 에러 메시지 */}
         {userFormik.touched.content && userFormik.errors.content && (
           <ErrorMessage>{userFormik.errors.content}</ErrorMessage>
         )}
@@ -187,23 +197,19 @@ const Registration = () => {
         )}
       </div>
 
+      {/* 등록 / 취소 버튼 */}
       <div className="Registration_BtnBox">
-        <div>
-          {/* 수정예정 : 전체게시물url로 이동 */}
-          <Button
-            variant={"default"}
-            onClick={() => {
-              router.push("/board");
-            }}
-          >
-            취소
-          </Button>
-        </div>
-        <div>
-          <Button type="submit" variant={"confirm"}>
-            등록
-          </Button>
-        </div>
+        <Button
+          variant={"default"}
+          onClick={() => {
+            router.push("/board");
+          }}
+        >
+          취소
+        </Button>
+        <Button type="submit" variant={"confirm"}>
+          등록
+        </Button>
       </div>
     </RegistrationStyled>
   );

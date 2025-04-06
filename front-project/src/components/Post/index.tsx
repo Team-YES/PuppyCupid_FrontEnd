@@ -113,7 +113,7 @@ const PostList = ({ post, loginUser }: Props) => {
     <PostStyled>
       {/* 왼쪽 : 이미지 슬라이더 영역 */}
       <LeftContainer>
-        <div>
+        <div style={{ borderTopLeftRadius: 4, borderBottomLeftRadius: 4 }}>
           <Swiper
             modules={[Navigation, Pagination]}
             navigation
@@ -123,8 +123,6 @@ const PostList = ({ post, loginUser }: Props) => {
             style={{
               width: "100%",
               height: "auto",
-              borderTopLeftRadius: 4,
-              borderBottomLeftRadius: 4,
             }}
           >
             {post.images.map((img, i) => (

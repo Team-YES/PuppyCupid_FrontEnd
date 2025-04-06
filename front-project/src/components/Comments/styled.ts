@@ -13,6 +13,7 @@ export const CommentStyled = styled.div`
     bottom: 49px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
+    z-index: 100;
   }
 `;
 

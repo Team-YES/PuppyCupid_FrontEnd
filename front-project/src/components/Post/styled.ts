@@ -67,6 +67,13 @@ export const LeftContainer = styled.div`
     min-height: 463px;
     overflow: hidden;
     flex-grow: 1;
+
+    @media (max-width: 632px) {
+      border-top-right-radius: 4px;
+      border-bottom-left-radius: 0px;
+      min-height: auto;
+      justify-content: center;
+    }
   }
 
   .Post_SwiperBox {
@@ -81,12 +88,25 @@ export const LeftContainer = styled.div`
     flex-basis: 463px;
     /* min-height: 283px; */
     overflow: hidden;
+
+    @media (max-width: 632px) {
+      flex-basis: auto;
+      /* aspect-ratio: auto; */
+      max-height: 400px;
+      width: 100%;
+    }
   }
 
   .Post_swiperImg {
     width: 100%;
     /* height: 100%; */
     object-fit: cover;
+  }
+
+  @media (max-width: 632px) {
+    width: 100%;
+    height: 100%;
+    /* max-height: 400px; */
   }
 `;
 export const RightContainer = styled.div`
@@ -135,6 +155,10 @@ export const RightContainer = styled.div`
 
   .Post_content {
     padding: 0 15px;
+  }
+
+  @media (max-width: 632px) {
+    width: 100%;
   }
 `;
 

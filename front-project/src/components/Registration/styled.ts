@@ -7,23 +7,22 @@ interface ButtonProps {
 
 export const RegistrationStyled = styled.form`
   width: 100%;
-  border: 1px solid #333;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  max-width: 975px;
+  margin: 0 auto;
 
   .Registration_LabelBox {
     padding: 15px;
   }
 
   .fa-solid.fa-camera-retro {
-    color: #9855f3;
+    color: ${(props) => props.theme.colors.pointPurple};
   }
 
   #img_upload {
     display: none;
-  }
-
-  .Registration_ImagesContainer {
-    display: flex;
-    flex-wrap: wrap;
   }
 
   .Registration_ImageBox {
@@ -31,12 +30,7 @@ export const RegistrationStyled = styled.form`
     width: 190px;
     height: auto;
     border-radius: 8px;
-    margin: 15px;
-  }
-
-  .Registration_Img {
-    width: 100%;
-    border-radius: 8px;
+    /* margin: 15px; */
   }
 
   .Registration_BtnBox {
@@ -44,22 +38,43 @@ export const RegistrationStyled = styled.form`
     justify-content: flex-end;
     padding: 15px;
   }
+
+  .Point {
+    color: ${(props) => props.theme.colors.pointPurple};
+  }
 `;
 
-export const Image = styled.div`
+export const ImageScrollContainer = styled.div`
+  padding: 15px;
+  /* border: 1px solid #333;
+  border-radius: 8px; */
+`;
+
+export const ImageBox = styled.div`
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  overflow: hidden;
+`;
+
+export const PreviewImg = styled.img`
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 export const Button = styled.button.withConfig({
   shouldForwardProp: (prop) => prop !== "variant",
 })<ButtonProps>`
-  border: 1px solid #333;
+  border: 1px solid #ccc;
   border-radius: 6px;
   padding: 6px 19px;
-  color: ${({ variant }) => (variant === "danger" ? "#fff" : "#333")};
+  font-weight: 700;
+  color: ${({ variant }) => (variant === "danger" ? "#333" : "#fff")};
   background-color: ${({ variant }) =>
     variant === "confirm"
-      ? "#ccb6fd"
+      ? "#9855f3"
       : variant === "danger"
       ? "#dc3545"
       : "#fff"};
@@ -69,7 +84,7 @@ export const Button = styled.button.withConfig({
   &:hover {
     background-color: ${({ variant }) =>
       variant === "confirm"
-        ? "#bc9dff"
+        ? "#ccb6fd"
         : variant === "danger"
         ? "#c82333"
         : "#e6e6e6"};
@@ -79,15 +94,24 @@ export const Button = styled.button.withConfig({
 export const ImgLabel = styled.label`
   width: 72px;
   display: block;
-  border: 2px solid #ccc;
+  border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 15px;
+  padding: 14px;
   text-align: center;
   cursor: pointer;
-  background-color: ${(props) => props.theme.colors.softPurple};
+  background-color: #fff;
+
+  &:hover {
+    transition: 0.2s;
+    box-shadow: 0 0 4px 2px #e9dffe !important;
+  }
 
   .Registration_count {
     font-size: 14px;
+  }
+
+  i {
+    font-size: 19px;
   }
 `;
 
@@ -105,7 +129,7 @@ export const XBtn = styled.button`
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   cursor: pointer;
 `;
