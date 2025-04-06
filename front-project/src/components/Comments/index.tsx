@@ -39,10 +39,8 @@ const Comment = ({ postId, onAddComment }: Props) => {
         console.error("댓글 등록 실패: ", resultAction);
       }
     } catch (error) {
-      console.error("예외 발생: ", error);
+      console.error("댓글 등록 실패:", error);
     }
-
-    setComment("");
   };
 
   // 이모지 열기

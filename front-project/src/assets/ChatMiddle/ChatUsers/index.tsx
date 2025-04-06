@@ -32,6 +32,7 @@ const ChatUsers = ({ openChat, setOpenChat }: ChatProps) => {
           }
         );
         setChatUsers(res.data.users);
+        console.log(res.data);
       } catch (error) {
         console.error("채팅 유저 불러오기 실패:", error);
       }

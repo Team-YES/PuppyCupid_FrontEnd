@@ -27,6 +27,7 @@ export const ChatRoomWrapper = styled.div`
     height: 80vh;
     overflow-y: auto;
     box-sizing: border-box;
+    background-color: ${({ theme }) => theme.colors.softPurple};
   }
   .ChatRoom_AllWrap {
     width: 100%;
@@ -127,7 +128,7 @@ export const ChatRoomWrapper = styled.div`
   }
 
   .ChatRoom_message_wrap .ChatRoom_text_emessage {
-    background-color: ${({ theme }) => theme.colors.mainPurple};
+    background-color: ${({ theme }) => theme.colors.pointPurple};
     padding: 10px 14px;
     border-radius: 16px;
     width: 100%;
@@ -140,9 +141,10 @@ export const ChatRoomWrapper = styled.div`
   }
 
   .ChatRoom_message_wrap.my .ChatRoom_text_emessage {
-    background-color: ${({ theme }) => theme.colors.backgroundGray};
+    /* background-color: ${({ theme }) => theme.colors.backgroundGray}; */
+    background-color: white;
     display: inline-block;
-    color: black;
+    color: #383838;
     max-width: 30ch;
   }
 
