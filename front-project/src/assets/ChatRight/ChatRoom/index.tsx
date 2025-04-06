@@ -84,9 +84,9 @@ const ChatRoom = () => {
   });
 
   // 메시지 삭제 axios
-  const deleteMessage = async (messageId: number) => {
+  const deleteMessage = async (otherUserId: number) => {
     const res = await axios.delete(
-      `http://localhost:5000/messages/${messageId}`,
+      `http://localhost:5000/messages/${otherUserId}`,
       {
         withCredentials: true,
       }
@@ -102,8 +102,8 @@ const ChatRoom = () => {
     },
   });
 
-  const handleDeleteMessage = (messageId: number) => {
-    deleteMessageMutation.mutate(messageId);
+  const handleDeleteMessage = () => {
+    deleteMessageMutation.mutate(parsedId);
   };
 
   // 상대방 닉네임 설정
@@ -176,7 +176,7 @@ const ChatRoom = () => {
                 <div className="ChatRoom_option_item">🚨신고하기</div>
                 <div
                   className="ChatRoom_option_item"
-                  onClick={() => handleDeleteMessage(messages[0]?.id)}
+                  onClick={() => handleDeleteMessage()}
                 >
                   🗑️채팅삭제
                 </div>

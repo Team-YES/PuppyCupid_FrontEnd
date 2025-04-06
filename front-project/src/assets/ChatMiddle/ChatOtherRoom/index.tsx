@@ -28,7 +28,11 @@ const ChatOtherRoom = ({ user, openChat, setOpenChat }: ChatOtherRoomProps) => {
     <ChatOtherRoomWrapper onClick={handleToggleClick}>
       <div className="ChatOtherRoom_chat-room-item">
         <img
-          src={user.dogImage || "/puppy_profile.png"}
+          src={
+            user.dogImage
+              ? `http://localhost:5000${user.dogImage}`
+              : "/puppy_profile.png"
+          }
           alt="dog"
           className="ChatOtherRoom_dog-image"
         />
