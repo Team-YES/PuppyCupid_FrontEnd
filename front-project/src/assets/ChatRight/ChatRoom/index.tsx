@@ -23,7 +23,7 @@ interface Message {
   };
 }
 
-// 메시지 불러오기
+// 메시지 불러오기 (2초마다 갱신)
 const fetchMessages = async (receiverId: number) => {
   const res = await axios.get(`http://localhost:5000/messages/${receiverId}`, {
     withCredentials: true,
@@ -111,6 +111,13 @@ const ChatRoom = () => {
   // 외부 클릭 시 이모지 창 닫기
   useClickOutside(pickerRef, () => setShowPicker(false));
 
+  // 하트 보내기
+  const handleHeartClick = () => {
+    if (parsedId) {
+      const heartMessage = "💜";
+      mutation.mutate({ receiverId: parsedId, content: heartMessage });
+    }
+  };
   return (
     <ChatRoomWrapper>
       <div className="ChatRoom_AllWrap">
@@ -123,9 +130,37 @@ const ChatRoom = () => {
           </div>
         </div>
         <div className="ChatRoom_contents_wrap">
-          {messages.map((msg) => (
-            <div key={msg.id}>{msg.content}</div>
-          ))}
+          {messages.map((msg) => {
+            const isMyMessage = msg.sender.id === myId;
+            const isSingleEmoji = /^[\p{Emoji}]{1}$/u.test(msg.content.trim());
+
+            return (
+              <div
+                key={msg.id}
+                className={`ChatRoom_message_wrap ${
+                  msg.sender.id === myId ? "my" : "other"
+                }`}
+              >
+                <div>
+                  {!isMyMessage && (
+                    <div className="ChatRoom_sender_nickname">
+                      {msg.sender.nickName}
+                    </div>
+                  )}
+                  <div
+                    className={
+                      isSingleEmoji
+                        ? "ChatRoom_emoji_emessage"
+                        : "ChatRoom_text_emessage"
+                    }
+                  >
+                    {msg.content}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+
           <div ref={bottomRef} />
         </div>
 
@@ -141,7 +176,10 @@ const ChatRoom = () => {
             onKeyDown={handleKeyDown}
             placeholder="메시지를 입력하세요"
           />
-          <i className="fa-regular fa-heart right-icon"></i>
+          <i
+            className="fa-regular fa-heart right-icon"
+            onClick={handleHeartClick}
+          ></i>
         </div>
         {/* 이모티콘 선택기 표시 */}
         {showPicker && (
@@ -154,7 +192,11 @@ const ChatRoom = () => {
               zIndex: 9999,
             }}
           >
-            <Picker data={data} onEmojiSelect={handleEmoji} />
+            <Picker
+              data={data}
+              onEmojiSelect={handleEmoji}
+              onClick={handleHeartClick}
+            />
           </div>
         )}
       </div>

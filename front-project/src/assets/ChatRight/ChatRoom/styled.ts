@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ChatRoomWrapper = styled.div`
   width: 100%;
   height: 100%;
-
+  overflow-x: hidden;
   .ChatRoom_otheruser_nametitle {
     display: flex;
     align-items: center;
@@ -19,6 +19,7 @@ export const ChatRoomWrapper = styled.div`
     color: black;
   }
   .ChatRoom_contents_wrap {
+    overflow-x: hidden;
     height: 80vh;
     overflow-y: auto;
   }
@@ -28,6 +29,8 @@ export const ChatRoomWrapper = styled.div`
   }
   .ChatRoom_Chat_input {
     height: 10vh;
+    box-sizing: border-box;
+    overflow: hidden;
   }
   /* 인풋 디자인 */
   .ChatRoom_Chat_input {
@@ -68,5 +71,79 @@ export const ChatRoomWrapper = styled.div`
 
   .ChatRoom_Chat_input .right-icon {
     right: 40px;
+  }
+
+  // 이모티콘 사이즈
+  .ChatRoom_emoji_emessage {
+    font-size: 45px;
+    margin: 10px 0;
+  }
+
+  /* 채팅방 메시지 폰트 크기 */
+  .ChatRoom_text_emessage {
+    font-size: 15px;
+  }
+
+  /*  */
+  .ChatRoom_message_wrap {
+    display: flex;
+    align-items: flex-end;
+    margin: 10px 20px;
+    box-sizing: border-box;
+  }
+  .ChatRoom_message_wrap.other {
+    justify-content: flex-start;
+  }
+
+  .ChatRoom_message_wrap.my {
+    div {
+      display: flex;
+      justify-content: flex-end;
+      max-width: 100%;
+    }
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .ChatRoom_profile_area {
+    margin-right: 5px;
+  }
+
+  /* .ChatRoom_profile_img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+  } */
+
+  .ChatRoom_sender_nickname {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 4px;
+  }
+
+  .ChatRoom_message_wrap .ChatRoom_text_emessage {
+    background-color: ${({ theme }) => theme.colors.mainPurple};
+    padding: 10px 14px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 30ch;
+    word-break: break-word;
+    white-space: pre-wrap;
+    color: white;
+    display: inline-block;
+    box-sizing: border-box;
+  }
+
+  .ChatRoom_message_wrap.my .ChatRoom_text_emessage {
+    background-color: ${({ theme }) => theme.colors.backgroundGray};
+    display: inline-block;
+    color: black;
+    max-width: 30ch;
+  }
+
+  .ChatRoom_message_wrap .ChatRoom_emoji_emessage {
+    font-size: 2.5rem;
+    margin: 5px;
   }
 `;
