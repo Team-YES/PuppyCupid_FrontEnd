@@ -18,24 +18,19 @@ const Comment = ({ postId }: Props) => {
   const [comment, setComment] = useState("");
 
   // 댓글 게시
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!comment.trim()) return;
 
     try {
-      const resultAction = dispatch(postComment({ postId, content: comment }));
+      const result = await dispatch(
+        postComment({ postId, content: comment })
+      ).unwrap();
 
-      if (postComment.fulfilled.match(resultAction)) {
-        console.log("댓글 등록 성공: ", resultAction.payload);
-      } else {
-        console.error("댓글 등록 실패: ", resultAction);
-      }
-
+      console.log("댓글 등록 성공:", result);
       setComment("");
     } catch (error) {
-      console.error("예외 발생: ", error);
+      console.error("댓글 등록 실패:", error);
     }
-
-    setComment("");
   };
 
   // 이모지 열기

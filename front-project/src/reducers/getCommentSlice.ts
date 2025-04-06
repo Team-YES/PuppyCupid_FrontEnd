@@ -5,7 +5,7 @@ export const postComment = createAsyncThunk(
   "comment/postComment",
   async ({ postId, content }: { postId: number; content: string }) => {
     const res = await axios.post(
-      `http://localhost:5000/comment/${postId}`,
+      `http://localhost:5000/interactions/comment/${postId}`,
       { content },
       { withCredentials: true }
     );
