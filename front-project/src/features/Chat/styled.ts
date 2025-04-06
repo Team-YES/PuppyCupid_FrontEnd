@@ -6,7 +6,7 @@ export const ChatStyled = styled.div`
     /* height: calc(100vh - 130px); */
     height: 100vh;
     padding-top: 0px;
-    border-top: 1.5px #ddd solid;
+    /* border-top: 1.5px #ddd solid; */
     box-sizing: border-box;
   }
   /* 왼쪽 */

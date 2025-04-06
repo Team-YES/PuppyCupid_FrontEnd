@@ -2,13 +2,16 @@ import styled from "styled-components";
 
 export const ChatRoomWrapper = styled.div`
   width: 100%;
-  height: 100%;
-  overflow-x: hidden;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  box-sizing: border-box;
   .ChatRoom_otheruser_nametitle {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 30px 25px;
+    padding: 20px 25px;
     font-size: 18px;
     width: 100%;
     height: 10vh;
@@ -22,6 +25,7 @@ export const ChatRoomWrapper = styled.div`
     overflow-x: hidden;
     height: 80vh;
     overflow-y: auto;
+    box-sizing: border-box;
   }
   .ChatRoom_AllWrap {
     width: 100%;
@@ -30,6 +34,7 @@ export const ChatRoomWrapper = styled.div`
   .ChatRoom_Chat_input {
     height: 10vh;
     box-sizing: border-box;
+
     overflow: hidden;
   }
   /* 인풋 디자인 */
