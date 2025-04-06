@@ -12,6 +12,9 @@ export const ChatLeftWrapper = styled.div`
     justify-content: center;
     margin: 0 auto;
     cursor: pointer;
+    @media (max-width: 767px) {
+      width: 70%;
+    }
   }
   .ChatLeft_puppyprofile {
     border: 1px #ddd solid;
@@ -43,7 +46,7 @@ export const ChatLeftWrapper = styled.div`
       cursor: pointer;
     }
     @media (max-width: 767px) {
-      display: none;
+      font-size: 30px;
     }
     .ChatLeft_otherdog_imgwrap {
       display: none;

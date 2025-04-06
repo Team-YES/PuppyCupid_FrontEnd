@@ -62,6 +62,10 @@ const ChatRoom = () => {
   const parsedId = Number(
     Array.isArray(receiverId) ? receiverId[0] : receiverId
   );
+  // 오른쪽 ... 메뉴
+  const [showOptions, setShowOptions] = useState(false);
+  const optionsWrapperRef = useRef<HTMLDivElement>(null);
+  useClickOutside(optionsWrapperRef, () => setShowOptions(false));
 
   // 메시지 불러오기 (2초마다 polling)
   const { data: messages = [] } = useQuery<Message[]>({
@@ -120,9 +124,16 @@ const ChatRoom = () => {
     }
   };
 
+  // 시간 들어 있는지
   const isValidDate = (date: any) => {
     return !isNaN(new Date(date).getTime());
   };
+
+  // 오른쪽 상단 ... 토글 버튼
+  const toggleOptions = () => {
+    setShowOptions((prev) => !prev);
+  };
+
   return (
     <ChatRoomWrapper>
       <div className="ChatRoom_AllWrap">
@@ -130,8 +141,19 @@ const ChatRoom = () => {
           <div className="ChatRoom_otheruser_nickname">
             사진 가져오기+{receiverNickName}
           </div>
-          <div className="ChatRoom_otheruser_info">
+          <div
+            className="ChatRoom_otheruser_info"
+            onClick={toggleOptions}
+            ref={optionsWrapperRef}
+          >
             <i className="fa-solid fa-ellipsis"></i>
+            {/* ... 버튼 */}
+            {showOptions && (
+              <div className="ChatRoom_options_menu">
+                <div className="ChatRoom_option_item">🚨신고하기</div>
+                <div className="ChatRoom_option_item">🗑️채팅삭제</div>
+              </div>
+            )}
           </div>
         </div>
         <div className="ChatRoom_contents_wrap">

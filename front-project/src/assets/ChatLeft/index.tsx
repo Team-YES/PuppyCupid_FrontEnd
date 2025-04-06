@@ -36,11 +36,11 @@ const ChatLeft = () => {
             className="ChatLeft_puppyprofile"
           />
         </div>
-        {/* 이미지 컴포넌트 만들기 */}
-        <div className="ChatLeft_otherdog_imgwrap"></div>
         <div className="ChatLeft_Home_icons">
           <i className="fa-solid fa-house" onClick={handleHouse}></i>
         </div>
+        {/* 이미지 컴포넌트 만들기 */}
+        <div className="ChatLeft_otherdog_imgwrap"></div>
       </div>
     </ChatLeftWrapper>
   );

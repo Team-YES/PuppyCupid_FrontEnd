@@ -25,4 +25,18 @@ export const ChatStyled = styled.div`
   .Chat_ChatSend_Wrap {
     width: 63%;
   }
+  @media (max-width: 767px) {
+    /* 왼쪽 */
+    .Chat_ChatLeft_Wrap {
+      width: 20%;
+    }
+    /* 가운데 채팅 상대창 */
+    .Chat_ChatUser_Wrap {
+      display: none;
+    }
+    /* 오른쪽 채팅창 */
+    .Chat_ChatSend_Wrap {
+      width: 80%;
+    }
+  }
 `;

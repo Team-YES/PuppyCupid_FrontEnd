@@ -16,6 +16,7 @@ export const ChatRoomWrapper = styled.div`
     width: 100%;
     height: 10vh;
     border-bottom: 1px #ddd solid;
+    font-weight: bold;
   }
   .ChatRoom_otheruser_info {
     cursor: pointer;
@@ -164,5 +165,35 @@ export const ChatRoomWrapper = styled.div`
     color: #aaa;
     margin-top: 5px;
     margin-left: 5px;
+  }
+
+  /* 옵션 */
+  .ChatRoom_options_menu {
+    background-color: ${({ theme }) => theme.colors.backgroundGray};
+    position: absolute;
+    top: 40px;
+    right: 30px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    padding: 15px 13px;
+  }
+
+  .ChatRoom_option_item {
+    border: 1px solid #ddd;
+    padding: 10px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+    border-radius: 5px;
+    background-color: ${({ theme }) => theme.colors.softPurple};
+    margin-top: 5px;
+  }
+
+  .ChatRoom_option_item:hover {
+    background-color: ${({ theme }) => theme.colors.pointPurple};
+    color: white;
   }
 `;
