@@ -1,32 +1,55 @@
 import styled from "styled-components";
 
 export const EditPostModalStyled = styled.div`
-  position: absolute;
+  /* position: absolute;
   z-index: 100;
   background-color: #fff;
   border-radius: 8px;
   border: 1px solid #ddd;
   padding: 15px 13px;
   right: 0px;
-  top: 38px;
+  top: 38px; */
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .EditModal_btnContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    line-height: 48px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
 
   .EditPostModal_m {
-    margin-top: 8px;
+    border-top: 1px solid #ddd;
   }
 `;
 
 export const ModalBtn = styled.button<{ $danger?: boolean }>`
   padding: 4px 12px;
   border-radius: 7px;
-  border: 1px solid #ddd;
-  background-color: #ebe2ff99;
+  border: none;
+  background-color: #fff;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 17px;
+  /* font-weight: 700; */
   color: ${({ $danger }) => ($danger ? "red" : "#515151")};
   width: 100%;
 
-  &:hover {
+  &:active {
     background-color: ${({ $danger }) => ($danger ? "#ffd1d1" : "#ebe2ff")};
   }
 `;

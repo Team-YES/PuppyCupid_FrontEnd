@@ -1,7 +1,7 @@
 import axios from "axios";
 import { EditPostModalStyled, ModalBtn } from "./styled";
 import { useRouter } from "next/router";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
 
 type Props = {
@@ -70,26 +70,38 @@ const EditPostModal = ({ postId, writerId, loginUserId, onClose }: Props) => {
     }
   };
 
+  useEffect(() => {
+    // 모달이 열리면 스크롤 막기
+    document.body.style.overflow = "hidden";
+
+    // 모달이 닫히면 원래대로 복구
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
   return (
-    <EditPostModalStyled ref={pickerRef}>
+    <EditPostModalStyled>
       {isMine ? (
-        <>
+        <div className="EditModal_btnContainer" ref={pickerRef}>
           <div>
             <ModalBtn
               onClick={() => {
                 router.push(`/post_edit/${postId}`);
               }}
             >
-              수정
+              수정하기
             </ModalBtn>
           </div>
           <div className="EditPostModal_m">
-            <ModalBtn onClick={handleDeletePost}>삭제</ModalBtn>
+            <ModalBtn $danger onClick={handleDeletePost}>
+              삭제하기
+            </ModalBtn>
           </div>
-        </>
+        </div>
       ) : (
-        <>
-          <div>
+        <div className="EditModal_btnContainer">
+          <div ref={pickerRef}>
             <ModalBtn
               onClick={() => {
                 if (writerId) {
@@ -109,7 +121,7 @@ const EditPostModal = ({ postId, writerId, loginUserId, onClose }: Props) => {
               신고하기
             </ModalBtn>
           </div>
-        </>
+        </div>
       )}
     </EditPostModalStyled>
   );

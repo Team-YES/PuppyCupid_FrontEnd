@@ -119,11 +119,10 @@ const EditPost = () => {
         const ok = confirm("게시물을 수정하시겠습니까?");
         if (ok) {
           alert("게시물을 수정하였습니다.");
+          router.push("/board");
         } else {
           return;
         }
-
-        router.push("/board");
       } catch (error) {
         console.error("게시물 수정 에러: ", error);
       }
