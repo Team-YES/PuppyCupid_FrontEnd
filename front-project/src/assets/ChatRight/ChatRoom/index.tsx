@@ -8,11 +8,12 @@ import Picker from "@emoji-mart/react";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { RootState } from "@/store/store";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { format } from "date-fns";
 
 interface Message {
   id: number;
   content: string;
-  createdAt: string;
+  created_at: string;
   sender: {
     id: number;
     nickName: string;
@@ -118,6 +119,10 @@ const ChatRoom = () => {
       mutation.mutate({ receiverId: parsedId, content: heartMessage });
     }
   };
+
+  const isValidDate = (date: any) => {
+    return !isNaN(new Date(date).getTime());
+  };
   return (
     <ChatRoomWrapper>
       <div className="ChatRoom_AllWrap">
@@ -130,31 +135,53 @@ const ChatRoom = () => {
           </div>
         </div>
         <div className="ChatRoom_contents_wrap">
-          {messages.map((msg) => {
+          {messages.map((msg, index) => {
             const isMyMessage = msg.sender.id === myId;
             const isSingleEmoji = /^[\p{Emoji}]{1}$/u.test(msg.content.trim());
 
+            let currentDate = "";
+            if (isValidDate(msg.created_at)) {
+              currentDate = format(new Date(msg.created_at), "yyyy.MM.dd");
+            }
+
+            const prevMessage = messages[index - 1];
+            let prevDate = null;
+            if (prevMessage && isValidDate(prevMessage.created_at)) {
+              prevDate = format(new Date(prevMessage.created_at), "yyyy.MM.dd");
+            }
+
+            const showDateSeparator = currentDate && currentDate !== prevDate;
+
             return (
-              <div
-                key={msg.id}
-                className={`ChatRoom_message_wrap ${
-                  msg.sender.id === myId ? "my" : "other"
-                }`}
-              >
-                <div>
-                  {!isMyMessage && (
-                    <div className="ChatRoom_sender_nickname">
-                      {msg.sender.nickName}
+              <div key={msg.id}>
+                {showDateSeparator && (
+                  <div className="ChatRoom_date_separator">{currentDate}</div>
+                )}
+
+                <div
+                  className={`ChatRoom_message_wrap ${
+                    isMyMessage ? "my" : "other"
+                  }`}
+                >
+                  <div>
+                    {!isMyMessage && (
+                      <div className="ChatRoom_sender_nickname">
+                        {msg.sender.nickName}
+                      </div>
+                    )}
+                    <div
+                      className={
+                        isSingleEmoji
+                          ? "ChatRoom_emoji_emessage"
+                          : "ChatRoom_text_emessage"
+                      }
+                    >
+                      {msg.content}
                     </div>
-                  )}
-                  <div
-                    className={
-                      isSingleEmoji
-                        ? "ChatRoom_emoji_emessage"
-                        : "ChatRoom_text_emessage"
-                    }
-                  >
-                    {msg.content}
+                  </div>
+                  <div className="ChatRoom_message_time">
+                    {isValidDate(msg.created_at) &&
+                      format(new Date(msg.created_at), "a h:mm")}
                   </div>
                 </div>
               </div>

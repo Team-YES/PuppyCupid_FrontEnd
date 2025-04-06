@@ -149,4 +149,20 @@ export const ChatRoomWrapper = styled.div`
     font-size: 2.5rem;
     margin: 5px;
   }
+  /* 날짜 구분선 */
+  .ChatRoom_date_separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 0px;
+    font-size: 12px;
+    color: gray;
+  }
+  /* 채팅 시간 */
+  .ChatRoom_message_time {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 5px;
+    margin-left: 5px;
+  }
 `;
