@@ -83,6 +83,29 @@ const ChatRoom = () => {
     },
   });
 
+  // 메시지 삭제 axios
+  const deleteMessage = async (messageId: number) => {
+    const res = await axios.delete(
+      `http://localhost:5000/messages/${messageId}`,
+      {
+        withCredentials: true,
+      }
+    );
+    return res.data;
+  };
+
+  // 채팅 삭제
+  const deleteMessageMutation = useMutation({
+    mutationFn: deleteMessage,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["messages", parsedId] });
+    },
+  });
+
+  const handleDeleteMessage = (messageId: number) => {
+    deleteMessageMutation.mutate(messageId);
+  };
+
   // 상대방 닉네임 설정
   useEffect(() => {
     if (messages.length > 0 && myId) {
@@ -151,7 +174,12 @@ const ChatRoom = () => {
             {showOptions && (
               <div className="ChatRoom_options_menu">
                 <div className="ChatRoom_option_item">🚨신고하기</div>
-                <div className="ChatRoom_option_item">🗑️채팅삭제</div>
+                <div
+                  className="ChatRoom_option_item"
+                  onClick={() => handleDeleteMessage(messages[0]?.id)}
+                >
+                  🗑️채팅삭제
+                </div>
               </div>
             )}
           </div>
