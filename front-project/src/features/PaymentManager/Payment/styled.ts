@@ -3,7 +3,7 @@ import styled from "styled-components";
 // 패딩
 export const PaymentPadding = styled.div`
   padding: 0px 120px;
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     padding: 0px 35px;
   }
 `;
@@ -26,7 +26,7 @@ export const PaymentStyled = styled.div`
     flex-direction: column;
     align-items: center;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     padding: 50px 20px;
   }
   button {
@@ -116,7 +116,7 @@ export const PaymentTop = styled.div`
     border-bottom: 1px solid #ddd;
     padding-bottom: 50px;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 75%;
     padding: 0px 0px;
     padding-bottom: 35px;
@@ -180,7 +180,7 @@ export const PaymentMid = styled.div`
     padding: 0px 25px;
     padding-top: 50px;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 100%;
     padding-top: 35px;
   }

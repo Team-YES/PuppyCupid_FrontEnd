@@ -12,6 +12,9 @@ export const ChatLeftWrapper = styled.div`
     justify-content: center;
     margin: 0 auto;
     cursor: pointer;
+    @media (max-width: 767px) {
+      width: 70%;
+    }
   }
   .ChatLeft_puppyprofile {
     border: 1px #ddd solid;
@@ -28,5 +31,29 @@ export const ChatLeftWrapper = styled.div`
     width: 100%;
     object-fit: contain;
     height: 100%;
+  }
+  /* 홈으로 가기 버튼 */
+  .ChatLeft_Home_icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 25px;
+    font-size: 25px;
+    /* color: ${({ theme }) => theme.colors.pointPurple}; */
+    color: black;
+    i {
+      cursor: pointer;
+    }
+    @media (max-width: 767px) {
+      font-size: 30px;
+    }
+    .ChatLeft_otherdog_imgwrap {
+      display: none;
+
+      @media (max-width: 767px) {
+        display: block;
+      }
+    }
   }
 `;

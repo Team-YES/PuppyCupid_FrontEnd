@@ -159,7 +159,7 @@ export const PhonePadding = styled.div`
       width: 75%;
     }
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     padding: 0px 30px;
     .Phone_form_wrap {
       width: 85%;

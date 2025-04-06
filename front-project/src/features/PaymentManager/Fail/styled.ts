@@ -74,7 +74,7 @@ export const PaymentFailPadding = styled.div`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     padding: 0px 30px;
 
     .PaymentFailPadding {

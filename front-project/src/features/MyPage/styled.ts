@@ -23,7 +23,7 @@ export const MyPageStyled = styled.div`
     justify-content: space-between;
     padding: 75px 30px;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .MyPage_top_wrap {
       padding: 25px 10px 25px 10px;
     }
@@ -57,7 +57,7 @@ export const MyPageLeft = styled.div`
     height: 100%;
     object-fit: cover;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 50%;
     .MyPage_left_profileImg {
       width: 160px;
@@ -108,7 +108,7 @@ export const MyPageRight = styled.div`
       font-size: 12px;
     }
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     width: 55%;
     .MyPage_right_namebtns .MyPage_profile_btns {
       font-size: 12px;
@@ -167,7 +167,7 @@ export const MyPageBottom = styled.div`
     height: 100%;
     border-top: 1px solid ${({ theme }) => theme.colors.pointPurple};
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     padding: 0px 15px 15px 15px;
   }
   @media (max-width: 480px) {
