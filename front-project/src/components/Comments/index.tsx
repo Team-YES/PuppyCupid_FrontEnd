@@ -3,11 +3,43 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { useRef, useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import { useDispatch, useSelector } from "react-redux";
+import { postComment } from "@/reducers/getCommentSlice";
+import { AppDispatch, RootState } from "@/store/store";
 
-const Comment = () => {
+type Props = {
+  postId: number;
+};
+
+const Comment = ({ postId }: Props) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  // 댓글
+  const [comment, setComment] = useState("");
+
+  // 댓글 게시
+  const handleSubmit = () => {
+    if (!comment.trim()) return;
+
+    try {
+      const resultAction = dispatch(postComment({ postId, content: comment }));
+
+      if (postComment.fulfilled.match(resultAction)) {
+        console.log("댓글 등록 성공: ", resultAction.payload);
+      } else {
+        console.error("댓글 등록 실패: ", resultAction);
+      }
+
+      setComment("");
+    } catch (error) {
+      console.error("예외 발생: ", error);
+    }
+
+    setComment("");
+  };
+
   // 이모지 열기
   const [showPicker, setShowPicker] = useState(false);
-  const [comment, setComment] = useState("");
 
   const pickerRef = useRef<HTMLDivElement>(null);
 
@@ -47,7 +79,9 @@ const Comment = () => {
       />
 
       {/* 게시 버튼 */}
-      <CommentPost disabled={!comment.trim()}>게시</CommentPost>
+      <CommentPost disabled={!comment.trim()} onClick={handleSubmit}>
+        게시
+      </CommentPost>
     </CommentStyled>
   );
 };

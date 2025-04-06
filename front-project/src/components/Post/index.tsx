@@ -29,67 +29,62 @@ type Props = {
 };
 
 const PostList = ({ post, loginUser }: Props) => {
+  const dispatch = useDispatch<AppDispatch>();
+
   console.log("하위 컴포", post);
 
-  // 좋아요 리듀서
-  const dispatch = useDispatch<AppDispatch>();
-  const likeStatus = useSelector(getLikeStatus);
-
-  // 좋아요 개수
+  // 좋아요 상태값
   const [like, setLike] = useState(post.like_count);
-  // 좋아요 여부
   const [isLiked, setIsLiked] = useState(post.liked);
-  // 좋아요 애니메이션
   const [animate, setAnimate] = useState(false);
+
+  // 수정, 삭제 모달
+  const [showEdit, setShowEdit] = useState(false);
 
   // 좋아요 요청
   const handleLikeClick = async () => {
     const url = `http://localhost:5000/interactions/like/${post.id}`;
-
     const result = await dispatch(AxiosGetLike(url));
 
     console.log("좋아요 응답 : ", result.payload);
 
     if (AxiosGetLike.fulfilled.match(result)) {
       const { liked, likeCount } = result.payload;
-
       setIsLiked(liked);
       setLike(likeCount);
       setAnimate(liked);
     }
   };
 
-  // 수정, 삭제 모달
-  const [showEdit, setShowEdit] = useState(false);
-
-  // fontawesome 아이콘
-  const MypageTitles = [
-    { icon: "fa-regular fa-comment" },
-    { icon: "fa-solid fa-share-nodes" },
-  ];
-
-  // 게시글 등록 날짜 표시
+  // 게시글 작성일 표시 함수(3일 이내면 n일 전, 그 이상은 M월 d일)
   const formatPostDate = (dateString: string) => {
     const now = new Date();
     const date = parseISO(dateString);
     const diffDays = differenceInDays(now, date);
 
-    if (diffDays <= 4) {
+    if (diffDays <= 3) {
       return `${diffDays === 0 ? "오늘" : `${diffDays}일 전`}`;
     } else {
       return format(date, "M월 d일");
     }
   };
 
-  // 강아지 정보 - 이미지
+  // 강아지 이미지 가져오기
   useEffect(() => {
     dispatch(fetchMyDog());
   }, [dispatch]);
 
   const dogImg = useSelector((state: RootState) => state.dog.dog?.image);
 
+  // fontawesome 아이콘 리스트
+  const MypageTitles = [
+    { icon: "fa-regular fa-comment" },
+    { icon: "fa-solid fa-share-nodes" },
+  ];
+
   return (
     <PostStyled>
+      {/* 왼쪽 : 이미지 슬라이더 영역 */}
       <LeftContainer>
         <div>
           <Swiper
@@ -113,8 +108,10 @@ const PostList = ({ post, loginUser }: Props) => {
         </div>
       </LeftContainer>
 
+      {/* 오른쪽: 유저 정보, 게시글 내용, 좋아요, 댓글 */}
       <RightContainer>
         <div className="Post_RightBox">
+          {/* 작성자 정보 */}
           <div className="Post_RightBox_userInfo">
             <Img src={`http://localhost:5000${dogImg}`} />
             <div className="Post_user">
@@ -129,21 +126,27 @@ const PostList = ({ post, loginUser }: Props) => {
             </div>
           </div>
 
+          {/* ... 아이콘 */}
           <div className="Post_menu" onClick={() => setShowEdit(!showEdit)}>
             <i className="fa-solid fa-ellipsis-h"></i>
           </div>
+
           {/* 수정, 삭제 모달 */}
           {showEdit && (
             <EditPostModal
               postId={post.id}
               writerId={post.user.id}
               loginUserId={loginUser}
+              onClose={() => setShowEdit(false)}
             />
           )}
         </div>
 
+        {/* 게시글 내용 */}
         <PostContent>{post.content}</PostContent>
+
         <FixedBox>
+          {/* 좋아요 + 아이콘 */}
           <div className="Post_iconContainer">
             <div className="Post_icon" onClick={handleLikeClick}>
               <LikeIcon
@@ -160,12 +163,15 @@ const PostList = ({ post, loginUser }: Props) => {
               </div>
             ))}
           </div>
+
+          {/* 좋아요 수 + 날짜 */}
           <div className="Post_content">
             <LikeCont>좋아요 {like}개</LikeCont>
             <DateDiv>{formatPostDate(post.created_at)}</DateDiv>
           </div>
-          {/* 댓글 */}
-          <Comment />
+
+          {/* 댓글 입력창 */}
+          <Comment postId={post.id} />
         </FixedBox>
       </RightContainer>
     </PostStyled>

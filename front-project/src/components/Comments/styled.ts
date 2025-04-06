@@ -51,4 +51,8 @@ export const CommentPost = styled.button`
     color: #e3d5ff;
     cursor: default;
   }
+
+  &:hover {
+    color: #9755f3cb;
+  }
 `;
