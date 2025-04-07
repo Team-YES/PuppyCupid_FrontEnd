@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 import MainImgs from "../../../components/MainImgs";
+// 이벤트 팝업
+import EventPopup from "@/components/EventPopup";
 
 const titles = [
   "산책메이트",
@@ -33,6 +35,7 @@ const paths = [
 const Main = () => {
   return (
     <MainStyled className={clsx("main_wrap")}>
+      <EventPopup />
       <MainImgs titles={titles} images={images} paths={paths} />
     </MainStyled>
   );

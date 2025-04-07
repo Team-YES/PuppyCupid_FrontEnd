@@ -147,7 +147,14 @@ const MyPage = () => {
               <div className="MyPage_right_namebtns">
                 <div className="MyPage_profile_nickname">
                   {user ? user.nickName || user.email : "Guest"}
+
+                  {/* 왕관 */}
+                  <i className="fa-solid fa-crown MyPage_crown"></i>
+                  <div className="MyPage_crownText">
+                    오픈 기념 할인 중이에요!
+                  </div>
                 </div>
+
                 <div className="MyPage_profile_editbtns">
                   <div
                     className="MyPage_profile_btns"

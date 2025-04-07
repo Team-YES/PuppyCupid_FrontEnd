@@ -65,12 +65,12 @@ const PaymentPage = ({ tossClientKey }: PaymentProps) => {
 
             <div className="Payment_btns">
               <button
-                onClick={() => handlePayment(3900)}
+                onClick={() => handlePayment(2900)}
                 className="Payment_btn_1"
               >
                 <p className="Payment_btn_text1">한 달 유저권</p>
                 <p className="Payment_btn_text2">4,900원</p>
-                <p className="Payment_btn_text3">3,900원</p>
+                <p className="Payment_btn_text3">2,900원</p>
                 <p className="Payment_btn_text4">(부가세 포함)</p>
               </button>
               <button
