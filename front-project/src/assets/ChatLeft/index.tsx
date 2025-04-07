@@ -7,12 +7,18 @@ import { fetchMyDog } from "@/reducers/dogSlice";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useRouter } from "next/router";
 
-const ChatLeft = () => {
+type ChatProps = {
+  openChat: boolean;
+  setOpenChat: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const ChatLeft = ({ openChat, setOpenChat }: ChatProps) => {
   const router = useRouter();
   const dog = useSelector((state: RootState) => state.dog.dog);
   const baseURL = "http://localhost:5000";
   const dogImage = dog?.image ? `${baseURL}${dog.image}` : "/puppy_profile.png";
   const dispatch = useAppDispatch();
+  const chatUsers = useSelector((state: RootState) => state.chatUsers.users);
 
   useEffect(() => {
     dispatch(fetchMyDog());
@@ -39,8 +45,27 @@ const ChatLeft = () => {
         <div className="ChatLeft_Home_icons">
           <i className="fa-solid fa-house" onClick={handleHouse}></i>
         </div>
-        {/* 이미지 컴포넌트 만들기 */}
-        <div className="ChatLeft_otherdog_imgwrap"></div>
+        {/* 상대 강아지 */}
+        <div className="ChatLeft_otherdog_imgwrap">
+          {chatUsers.map((user) => {
+            const receiverImage = user.dogImage
+              ? `${baseURL}${user.dogImage}`
+              : "/puppy_profile.png";
+
+            return (
+              <img
+                key={user.id}
+                src={receiverImage}
+                alt={`${user.nickName} profile`}
+                className="ChatLeft_ohtersprofile"
+                onClick={() => {
+                  setOpenChat(true);
+                  router.push(`/chat?receiverId=${user.id}`);
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
     </ChatLeftWrapper>
   );

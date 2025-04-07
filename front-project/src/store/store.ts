@@ -4,6 +4,7 @@ import getLikeReducer from "../reducers/getLikeSlice";
 import dogReducer from "../reducers/dogSlice";
 import getAllPostsReducer from "../reducers/getAllPostsSlice";
 import getCommentReducer from "../reducers/getCommentSlice";
+import getChatUsersReducer from "../reducers/getChatUsersSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     dog: dogReducer,
     posts: getAllPostsReducer,
     comment: getCommentReducer,
+    chatUsers: getChatUsersReducer,
   },
 });
 

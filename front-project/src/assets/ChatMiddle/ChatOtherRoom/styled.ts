@@ -16,4 +16,9 @@ export const ChatOtherRoomWrapper = styled.div`
     object-fit: cover;
     margin-right: 12px;
   }
+  .ChatOtherRoom_time {
+    padding-left: 5px;
+    font-size: 13px;
+    color: gray;
+  }
 `;

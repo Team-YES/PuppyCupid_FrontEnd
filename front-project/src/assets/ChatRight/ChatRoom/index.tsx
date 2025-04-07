@@ -55,13 +55,22 @@ const ChatRoom = () => {
   const myId = useSelector((state: RootState) => state.user.user?.id);
   const [receiverNickName, setReceiverNickName] = useState("");
   const [input, setInput] = useState("");
+
+  // 유저 가져오기(reducers)
+  const parsedId = Number(
+    Array.isArray(receiverId) ? receiverId[0] : receiverId
+  );
+  const chatUsers = useSelector((state: RootState) => state.chatUsers.users);
+  const receiverUser = chatUsers.find((user) => user.id === parsedId);
+  const receiverImage = receiverUser?.dogImage
+    ? `http://localhost:5000${receiverUser.dogImage}`
+    : "/puppy_profile.png";
+
   // 이모티콘
   const [showPicker, setShowPicker] = useState(false);
   const pickerRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
-  const parsedId = Number(
-    Array.isArray(receiverId) ? receiverId[0] : receiverId
-  );
+
   // 오른쪽 ... 메뉴
   const [showOptions, setShowOptions] = useState(false);
   const optionsWrapperRef = useRef<HTMLDivElement>(null);
@@ -162,7 +171,8 @@ const ChatRoom = () => {
       <div className="ChatRoom_AllWrap">
         <div className="ChatRoom_otheruser_nametitle">
           <div className="ChatRoom_otheruser_nickname">
-            사진 가져오기+{receiverNickName}
+            {receiverImage && <img src={receiverImage} alt="receiverImage" />}
+            <span>{receiverNickName}</span>
           </div>
           <div
             className="ChatRoom_otheruser_info"
@@ -173,12 +183,12 @@ const ChatRoom = () => {
             {/* ... 버튼 */}
             {showOptions && (
               <div className="ChatRoom_options_menu">
-                <div className="ChatRoom_option_item">🚨신고하기</div>
+                <div className="ChatRoom_option_item">신고하기</div>
                 <div
                   className="ChatRoom_option_item"
                   onClick={() => handleDeleteMessage()}
                 >
-                  🗑️채팅삭제
+                  채팅삭제
                 </div>
               </div>
             )}

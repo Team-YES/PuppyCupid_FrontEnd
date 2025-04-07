@@ -45,7 +45,7 @@ const Phone = () => {
         );
 
         if (res.data.ok) {
-          alert("전화번호 등록 완료!");
+          alert("추가 정보 등록 완료!");
           window.location.href = "/";
         }
       } catch (err: any) {

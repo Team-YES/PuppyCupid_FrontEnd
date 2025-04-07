@@ -36,10 +36,10 @@ const ChatOtherRoom = ({ user, openChat, setOpenChat }: ChatOtherRoomProps) => {
           alt="dog"
           className="ChatOtherRoom_dog-image"
         />
-        <div className="chat-info">
+        <div className="ChatOtherRoom_chat-info">
           <div className="top-row">
-            <span className="nickname">{user.nickName}</span>
-            <span className="time">
+            <span className="ChatOtherRoom_nickname">{user.nickName}</span>
+            <span className="ChatOtherRoom_time">
               {new Date(user.lastMessageTime).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
