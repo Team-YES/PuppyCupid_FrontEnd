@@ -27,20 +27,37 @@ const ChatUsers = ({ openChat, setOpenChat }: ChatProps) => {
   // const [chatUsers, setChatUsers] = useState<ChatUser[]>([]);
   const chatUsers = useSelector((state: RootState) => state.chatUsers.users);
 
+  // useEffect(() => {
+  //   const fetchChatUsers = async () => {
+  //     try {
+  //       const res = await axiosInstance.get("/messages/chatUsers");
+  //       // setChatUsers(res.data.users);
+  //       dispatch(setChatUsers(res.data.users));
+  //       console.log(res.data);
+  //     } catch (error) {
+  //       console.error("채팅 유저 불러오기 실패:", error);
+  //     }
+  //   };
+
+  //   fetchChatUsers();
+  // }, []);
   useEffect(() => {
     const fetchChatUsers = async () => {
       try {
         const res = await axiosInstance.get("/messages/chatUsers");
-        // setChatUsers(res.data.users);
         dispatch(setChatUsers(res.data.users));
-        console.log(res.data);
+        // console.log(res.data);
       } catch (error) {
         console.error("채팅 유저 불러오기 실패:", error);
       }
     };
 
-    fetchChatUsers();
-  }, []);
+    fetchChatUsers(); // 처음에 한 번 실행
+
+    const interval = setInterval(fetchChatUsers, 2000); // 2초마다 실행
+
+    return () => clearInterval(interval); // 컴포넌트 언마운트 시 정리
+  }, [dispatch]);
 
   return (
     // 채팅 가운데 컴포넌트

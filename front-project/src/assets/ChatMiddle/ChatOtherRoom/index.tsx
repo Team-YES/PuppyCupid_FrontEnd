@@ -21,7 +21,6 @@ const ChatOtherRoom = ({ user, openChat, setOpenChat }: ChatOtherRoomProps) => {
 
   const handleToggleClick = () => {
     setOpenChat(true);
-
     router.push(`/chat?receiverId=${user.id}`);
   };
 
