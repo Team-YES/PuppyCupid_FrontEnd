@@ -13,6 +13,7 @@ const ChatLeft = () => {
   const baseURL = "http://localhost:5000";
   const dogImage = dog?.image ? `${baseURL}${dog.image}` : "/puppy_profile.png";
   const dispatch = useAppDispatch();
+  const chatUsers = useSelector((state: RootState) => state.chatUsers.users);
 
   useEffect(() => {
     dispatch(fetchMyDog());
@@ -39,8 +40,24 @@ const ChatLeft = () => {
         <div className="ChatLeft_Home_icons">
           <i className="fa-solid fa-house" onClick={handleHouse}></i>
         </div>
-        {/* 이미지 컴포넌트 만들기 */}
-        <div className="ChatLeft_otherdog_imgwrap"></div>
+        {/* 상대 강아지 */}
+        <div className="ChatLeft_otherdog_imgwrap">
+          {chatUsers.map((user) => {
+            const receiverImage = user.dogImage
+              ? `${baseURL}${user.dogImage}`
+              : "/puppy_profile.png";
+
+            return (
+              <img
+                key={user.id}
+                src={receiverImage}
+                alt={`${user.nickName} profile`}
+                className="ChatLeft_ohtersprofile"
+                onClick={() => router.push(`/chat/${user.id}`)}
+              />
+            );
+          })}
+        </div>
       </div>
     </ChatLeftWrapper>
   );

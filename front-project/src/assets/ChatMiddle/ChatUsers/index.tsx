@@ -4,7 +4,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import ChatOtherRoom from "../ChatOtherRoom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "@/lib/axios";
+import { setChatUsers } from "@/reducers/getChatUsersSlice";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+// import axios from "axios";
 
 type ChatUser = {
   id: number;
@@ -19,19 +22,17 @@ type ChatProps = {
 };
 
 const ChatUsers = ({ openChat, setOpenChat }: ChatProps) => {
+  const dispatch = useAppDispatch();
   const nickName = useSelector((state: RootState) => state.user.user?.nickName);
-  const [chatUsers, setChatUsers] = useState<ChatUser[]>([]);
+  // const [chatUsers, setChatUsers] = useState<ChatUser[]>([]);
+  const chatUsers = useSelector((state: RootState) => state.chatUsers.users);
 
   useEffect(() => {
     const fetchChatUsers = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:5000/messages/chatUsers",
-          {
-            withCredentials: true,
-          }
-        );
-        setChatUsers(res.data.users);
+        const res = await axiosInstance.get("/messages/chatUsers");
+        // setChatUsers(res.data.users);
+        dispatch(setChatUsers(res.data.users));
         console.log(res.data);
       } catch (error) {
         console.error("채팅 유저 불러오기 실패:", error);

@@ -12,7 +12,7 @@ export const ChatRoomWrapper = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 20px 25px;
-    font-size: 18px;
+    font-size: 15px;
     width: 100%;
     height: 10vh;
     border-bottom: 1px #ddd solid;
