@@ -37,7 +37,7 @@ const ChatSend = ({ openChat, setOpenChat }: ChatProps) => {
           <div className="ChatSend_True">
             <ChatSendTrue>
               <div className="ChatSend_True_Wrap">
-                <ChatRoom />
+                {receiverId && <ChatRoom setOpenChat={setOpenChat} />}
               </div>
             </ChatSendTrue>
           </div>

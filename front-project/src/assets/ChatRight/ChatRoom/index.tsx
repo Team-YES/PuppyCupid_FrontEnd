@@ -23,6 +23,9 @@ interface Message {
     nickName: string;
   };
 }
+type ChatRoomProps = {
+  setOpenChat: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 // 메시지 불러오기 (2초마다 갱신)
 const fetchMessages = async (receiverId: number) => {
@@ -48,7 +51,7 @@ const sendMessage = async ({
   return res.data;
 };
 
-const ChatRoom = () => {
+const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { receiverId } = router.query;
@@ -112,7 +115,13 @@ const ChatRoom = () => {
   });
 
   const handleDeleteMessage = () => {
-    deleteMessageMutation.mutate(parsedId);
+    deleteMessageMutation.mutate(parsedId, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["messages", parsedId] });
+        setOpenChat(false);
+        router.push("/chat");
+      },
+    });
   };
 
   // 상대방 닉네임 설정

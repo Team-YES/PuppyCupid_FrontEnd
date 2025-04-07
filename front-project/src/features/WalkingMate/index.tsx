@@ -60,7 +60,7 @@ const WalkingMate = () => {
           {dogs.map((dog) => (
             <li key={dog.id}>
               <img
-                src={dog.dog_image}
+                src={`http://localhost:5000${dog.dog_image}`}
                 alt={`${dog.name}의 이미지`}
                 style={{
                   width: "150px",
