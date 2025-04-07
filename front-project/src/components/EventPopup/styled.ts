@@ -14,8 +14,12 @@ export const Overlay = styled.div`
 `;
 
 export const PopupWrapper = styled.div`
-  background-color: #fff;
+  overflow: hidden;
   border-radius: 12px;
+  .EventPopup_wrap {
+    border-radius: 12px;
+  }
+  background-color: #fff;
   width: 400px;
   max-width: 90%;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);

@@ -23,18 +23,20 @@ const EventPopup = () => {
   return (
     <S.Overlay>
       <S.PopupWrapper>
-        <a href="/payment">
-          <img
-            src="/openEvent.png"
-            alt="이벤트 이미지"
-            style={{ width: "100%", borderRadius: "8px" }}
-          />
-        </a>
-        <div className="EventPopup_btngroup">
-          <S.PopupButton onClick={handleHideToday}>
-            오늘은 그만 보기
-          </S.PopupButton>
-          <S.PopupButton onClick={handleClose}>닫기</S.PopupButton>
+        <div className="EventPopup_wrap">
+          <a href="/payment">
+            <img
+              src="/openEvent.png"
+              alt="이벤트 이미지"
+              style={{ width: "100%", borderRadius: "8px" }}
+            />
+          </a>
+          <div className="EventPopup_btngroup">
+            <S.PopupButton onClick={handleHideToday}>
+              오늘은 그만 보기
+            </S.PopupButton>
+            <S.PopupButton onClick={handleClose}>닫기</S.PopupButton>
+          </div>
         </div>
       </S.PopupWrapper>
     </S.Overlay>
