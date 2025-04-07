@@ -36,8 +36,13 @@ export const ChatLeftWrapper = styled.div`
     justify-content: center;
     margin: 0 auto;
   }
+  @media (max-width: 480px) {
+    .ChatLeft_mydog_imgwrap {
+      width: 85%;
+    }
+  }
   .ChatLeft_puppyprofile img {
-    width: 100%;
+    width: 92%;
     object-fit: contain;
     height: 100%;
   }
@@ -48,14 +53,16 @@ export const ChatLeftWrapper = styled.div`
     justify-content: center;
     align-items: center;
     padding-top: 25px;
-    font-size: 25px;
-    /* color: ${({ theme }) => theme.colors.pointPurple}; */
+    font-size: 20px;
     color: black;
     i {
       cursor: pointer;
     }
     @media (max-width: 767px) {
       font-size: 30px;
+    }
+    @media (max-width: 480px) {
+      font-size: 20px;
     }
   }
   .ChatLeft_otherdog_imgwrap {
@@ -72,9 +79,20 @@ export const ChatLeftWrapper = styled.div`
         margin-top: 25px;
       }
     }
+    @media (max-width: 480px) {
+      img {
+        margin-top: 15px;
+      }
+    }
   }
+
   .ChatLeft_otherdog_imgwrap {
     padding-top: 25px;
+  }
+  @media (max-width: 480px) {
+    .ChatLeft_otherdog_imgwrap {
+      padding-top: 10px;
+    }
   }
   .ChatLeft_ohtersprofile {
     border: 1px #ddd solid;
@@ -85,6 +103,11 @@ export const ChatLeftWrapper = styled.div`
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+  }
+  @media (max-width: 480px) {
+    .ChatLeft_ohtersprofile {
+      width: 75%;
+    }
   }
   .ChatLeft_ohtersprofile img {
     width: 100%;

@@ -62,7 +62,9 @@ const ChatRoom = () => {
   );
   const chatUsers = useSelector((state: RootState) => state.chatUsers.users);
   const receiverUser = chatUsers.find((user) => user.id === parsedId);
-  const receiverImage = receiverUser?.dogImage || null;
+  const receiverImage = receiverUser?.dogImage
+    ? `http://localhost:5000${receiverUser.dogImage}`
+    : "/puppy_profile.png";
 
   // 이모티콘
   const [showPicker, setShowPicker] = useState(false);
@@ -169,20 +171,8 @@ const ChatRoom = () => {
       <div className="ChatRoom_AllWrap">
         <div className="ChatRoom_otheruser_nametitle">
           <div className="ChatRoom_otheruser_nickname">
-            {receiverImage && (
-              <img
-                src={`http://localhost:5000${receiverImage}`}
-                alt="receiverImage"
-                style={{
-                  width: "32px",
-                  height: "32px",
-                  borderRadius: "50%",
-                  marginRight: "8px",
-                  objectFit: "cover",
-                }}
-              />
-            )}
-            {receiverNickName}
+            {receiverImage && <img src={receiverImage} alt="receiverImage" />}
+            <span>{receiverNickName}</span>
           </div>
           <div
             className="ChatRoom_otheruser_info"

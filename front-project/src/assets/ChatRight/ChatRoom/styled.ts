@@ -59,6 +59,11 @@ export const ChatRoomWrapper = styled.div`
       transition: all 0.2s;
       cursor: text;
     }
+    @media (max-width: 480px) {
+      input {
+        font-size: 14px;
+      }
+    }
   }
   .ChatRoom_Chat_input .left-icon,
   .ChatRoom_Chat_input .right-icon {
@@ -88,7 +93,15 @@ export const ChatRoomWrapper = styled.div`
   .ChatRoom_text_emessage {
     font-size: 15px;
   }
+  @media (max-width: 480px) {
+    .ChatRoom_message_wrap .ChatRoom_text_emessage {
+      font-size: 12px;
+    }
+  }
 
+  .ChatRoom_text_emessage {
+    font-size: 15px;
+  }
   /*  */
   .ChatRoom_message_wrap {
     display: flex;
@@ -120,6 +133,24 @@ export const ChatRoomWrapper = styled.div`
     border-radius: 50%;
     object-fit: cover;
   } */
+  .ChatRoom_otheruser_nickname {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
+    }
+    @media (max-width: 480px) {
+      img {
+        width: 38px;
+        height: 38px;
+      }
+    }
+  }
 
   .ChatRoom_sender_nickname {
     font-size: 12px;
