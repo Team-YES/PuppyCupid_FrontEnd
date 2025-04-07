@@ -24,23 +24,8 @@ type ChatProps = {
 const ChatUsers = ({ openChat, setOpenChat }: ChatProps) => {
   const dispatch = useAppDispatch();
   const nickName = useSelector((state: RootState) => state.user.user?.nickName);
-  // const [chatUsers, setChatUsers] = useState<ChatUser[]>([]);
   const chatUsers = useSelector((state: RootState) => state.chatUsers.users);
 
-  // useEffect(() => {
-  //   const fetchChatUsers = async () => {
-  //     try {
-  //       const res = await axiosInstance.get("/messages/chatUsers");
-  //       // setChatUsers(res.data.users);
-  //       dispatch(setChatUsers(res.data.users));
-  //       console.log(res.data);
-  //     } catch (error) {
-  //       console.error("채팅 유저 불러오기 실패:", error);
-  //     }
-  //   };
-
-  //   fetchChatUsers();
-  // }, []);
   useEffect(() => {
     const fetchChatUsers = async () => {
       try {
@@ -52,7 +37,7 @@ const ChatUsers = ({ openChat, setOpenChat }: ChatProps) => {
       }
     };
 
-    fetchChatUsers(); // 처음에 한 번 실행
+    fetchChatUsers();
 
     const interval = setInterval(fetchChatUsers, 2000); // 2초마다 실행
 
