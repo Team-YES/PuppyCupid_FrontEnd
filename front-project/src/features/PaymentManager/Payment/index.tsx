@@ -8,6 +8,7 @@ import {
   PaymentTop,
   PaymentMid,
 } from "@/features/PaymentManager/Payment/styled";
+import axios from "axios";
 
 interface PaymentProps {
   tossClientKey: string | null;
@@ -19,17 +20,32 @@ const PaymentPage = ({ tossClientKey }: PaymentProps) => {
       return;
     }
 
-    const tossPayments = await loadTossPayments(tossClientKey);
     try {
+      const res = await axios.post(
+        "http://localhost:5000/payments/create",
+        {
+          amount,
+          method: "card",
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      const { orderId } = res.data;
+
+      // 2. Toss 결제 요청
+      const tossPayments = await loadTossPayments(tossClientKey);
+
       await tossPayments.requestPayment("카드", {
         amount: amount,
-        orderId: `order-${new Date().getTime()}`,
+        orderId: orderId,
         orderName: `${amount}원 결제`,
-        successUrl: "http://localhost:3000/payment/success",
-        failUrl: "http://localhost:3000/payment/fail",
+        successUrl: `http://localhost:3000/payment/success?orderId=${orderId}&amount=${amount}`,
+        failUrl: `http://localhost:3000/payment/fail?orderId=${orderId}&amount=${amount}`,
       });
     } catch (error) {
-      console.error("결제 오류: ", error);
+      console.error("결제 요청 중 오류:", error);
       window.location.href = "/payment/fail";
     }
   };
