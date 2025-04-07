@@ -12,7 +12,7 @@ const Chat = () => {
       <div className="Chat_allWrap">
         {/* Chat 컴포넌트 1 - 왼쪽 */}
         <div className="Chat_ChatLeft_Wrap">
-          <ChatLeft />
+          <ChatLeft openChat={openChat} setOpenChat={setOpenChat} />
         </div>
         <div className="Chat_ChatUser_Wrap">
           {/* Chat 컴포넌트 2 - 가운데 */}

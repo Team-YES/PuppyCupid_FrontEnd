@@ -7,7 +7,12 @@ import { fetchMyDog } from "@/reducers/dogSlice";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useRouter } from "next/router";
 
-const ChatLeft = () => {
+type ChatProps = {
+  openChat: boolean;
+  setOpenChat: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const ChatLeft = ({ openChat, setOpenChat }: ChatProps) => {
   const router = useRouter();
   const dog = useSelector((state: RootState) => state.dog.dog);
   const baseURL = "http://localhost:5000";
@@ -53,7 +58,10 @@ const ChatLeft = () => {
                 src={receiverImage}
                 alt={`${user.nickName} profile`}
                 className="ChatLeft_ohtersprofile"
-                onClick={() => router.push(`/chat/${user.id}`)}
+                onClick={() => {
+                  setOpenChat(true);
+                  router.push(`/chat?receiverId=${user.id}`);
+                }}
               />
             );
           })}
