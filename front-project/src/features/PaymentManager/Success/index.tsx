@@ -33,18 +33,21 @@ export default function SuccessPage() {
 
         const paymentData = response.data;
 
-        console.log("💬 Toss 응답 상태:", paymentData.status);
+        console.log("Toss 응답 상태:", paymentData.status);
 
-        if (paymentData.status === "DONE" || paymentData.status === "SUCCESS") {
+        if (
+          paymentData.status === "DONE" ||
+          paymentData.status === "SUCCESS" ||
+          // 배포시 삭제
+          (process.env.NODE_ENV === "development" &&
+            paymentData.status === "IN_PROGRESS")
+        ) {
           await axios.post("http://localhost:5000/payments/success", {
             orderId: parsedOrderId,
             amount: parsedAmount,
             paymentKey: parsedPaymentKey,
           });
-
           setStatusChecked(true);
-        } else {
-          console.warn("아직 결제 완료 아님:", paymentData.status);
         }
       } catch (err) {
         console.error("Toss 결제 상태 확인 실패", err);
