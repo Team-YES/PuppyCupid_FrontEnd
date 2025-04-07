@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import {
   PostStyled,
   Title,
@@ -23,10 +23,12 @@ import EditPostModal from "../EditPostModal";
 import Comment from "../Comments";
 import { format, differenceInDays, parseISO } from "date-fns";
 import { fetchComments } from "@/reducers/getCommentSlice";
+import { useRouter } from "next/router";
 
 type Props = {
   post: Post;
   loginUser?: number;
+  isDetailPage?: boolean;
 };
 
 export type CommentType = {
@@ -39,7 +41,7 @@ export type CommentType = {
   };
 };
 
-const PostList = ({ post, loginUser }: Props) => {
+const PostList = ({ post, loginUser, isDetailPage }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
 
   // console.log("하위 컴포", post);
@@ -109,8 +111,15 @@ const PostList = ({ post, loginUser }: Props) => {
     { icon: "fa-solid fa-share-nodes" },
   ];
 
+  const router = useRouter();
+
   return (
-    <PostStyled>
+    <PostStyled
+      onClick={() => {
+        if (!isDetailPage) router.push(`/post_detail/${post.id}`);
+      }}
+      style={{ cursor: isDetailPage ? "default" : "pointer" }}
+    >
       {/* 왼쪽 : 이미지 슬라이더 영역 */}
       <LeftContainer>
         <div style={{ borderTopLeftRadius: 4, borderBottomLeftRadius: 4 }}>
@@ -163,7 +172,13 @@ const PostList = ({ post, loginUser }: Props) => {
           </div>
 
           {/* ... 아이콘 */}
-          <div className="Post_menu" onClick={() => setShowEdit(!showEdit)}>
+          <div
+            className="Post_menu"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowEdit(!showEdit);
+            }}
+          >
             <i className="fa-solid fa-ellipsis-h"></i>
           </div>
 
@@ -191,7 +206,13 @@ const PostList = ({ post, loginUser }: Props) => {
         <FixedBox>
           {/* 좋아요 + 아이콘 */}
           <div className="Post_iconContainer">
-            <div className="Post_icon" onClick={handleLikeClick}>
+            <div
+              className="Post_icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleLikeClick();
+              }}
+            >
               <LikeIcon
                 className={
                   isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart"

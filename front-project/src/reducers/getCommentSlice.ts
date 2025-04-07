@@ -24,7 +24,7 @@ export const postComment = createAsyncThunk(
       { content },
       { withCredentials: true }
     );
-    console.log("댓글 slice: ", res.data);
+    // console.log("댓글 slice: ", res.data);
     return res.data;
   }
 );
