@@ -117,34 +117,43 @@ export const PaymentTop = styled.div`
     padding-bottom: 50px;
   }
   @media (max-width: 767px) {
-    width: 75%;
+    width: 90%;
     padding: 0px 0px;
     padding-bottom: 35px;
     .Payment_btns {
-      flex-direction: column;
       justify-content: flex-start;
     }
     .Payment_btn_1 {
       background-color: ${({ theme }) => theme.colors.softPurple};
-      padding: 25px 65px;
+      padding: 25px 35px;
     }
     .Payment_btn_2 {
       background-color: ${({ theme }) => theme.colors.mainPurple};
-      padding: 25px 65px;
+      padding: 25px 35px;
     }
   }
   @media (max-width: 480px) {
+    width: 100%;
+
+    .Payment_btns {
+      width: 100%;
+    }
     .Payment_btn_1 {
-      padding: 25px 50px;
+      padding: 25px 10px;
     }
     .Payment_btn_2 {
-      padding: 25px 50px;
+      padding: 25px 10px;
     }
     h3 {
-      font-size: 26px;
-      span {
-        display: inline;
-      }
+      font-size: 20px;
+      padding-bottom: 10px;
+      width: 95%;
+    }
+    .Payment_blackText {
+      width: 95%;
+    }
+    .Payment_blueText {
+      width: 95%;
     }
   }
 `;
@@ -181,7 +190,12 @@ export const PaymentMid = styled.div`
     padding-top: 50px;
   }
   @media (max-width: 767px) {
+    width: 90%;
+    padding-top: 35px;
+  }
+  @media (max-width: 480px) {
     width: 100%;
+    padding: 0px;
     padding-top: 35px;
   }
 `;
