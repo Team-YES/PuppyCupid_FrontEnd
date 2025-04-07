@@ -8,6 +8,7 @@ type UserInfo = {
   nickName: string | null;
   gender: string | null;
   isPhoneVerified: boolean;
+  power_expired_at: string | null;
 };
 
 type UserState = {

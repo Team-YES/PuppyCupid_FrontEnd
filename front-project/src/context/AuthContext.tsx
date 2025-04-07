@@ -21,6 +21,7 @@ type UserInfo = {
   nickName: string | null;
   gender: string | null;
   isPhoneVerified: boolean;
+  power_expired_at: string | null;
 };
 
 type AuthContextType = {
@@ -66,7 +67,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       if (response.data.isLoggedIn) {
         setIsLoggedIn(true);
-        console.log(response.data.user, "response.data.user??");
+        console.log(response.data.user, "로그인 유저 상태?");
         // setUser(response.data.user);
         // console.log(response.data.user, "response.data.user???");
         // dispatch(setUser(response.data.user as UserInfo));
@@ -80,6 +81,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           nickName: response.data.user.nickName ?? null,
           gender: response.data.user.gender ?? null,
           isPhoneVerified: response.data.user.isPhoneVerified ?? false,
+          power_expired_at: response.data.user.power_expired_at ?? null,
         };
         setUser(userData);
         dispatch(setReduxUser(userData));
