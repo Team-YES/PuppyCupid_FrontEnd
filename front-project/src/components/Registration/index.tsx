@@ -89,7 +89,17 @@ const Registration = () => {
         alert("게시물을 등록하였습니다.");
         router.push("/board");
       } catch (error) {
-        console.error("게시물 등록 에러: ", error);
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status === 401) {
+            alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
+            router.push("/login");
+          } else {
+            // 기타 에러 처리
+            alert("게시물 등록에 실패했습니다.");
+          }
+        } else {
+          console.error("예상치 못한 에러:", error);
+        }
       }
     },
   });

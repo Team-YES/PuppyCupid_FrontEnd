@@ -66,7 +66,7 @@ const PostList = ({ post, loginUser }: Props) => {
     }
   }, [dispatch, post.id]);
 
-  const allComment = useSelector((state: RootState) => state.comment.comments);
+  const allComment = useSelector((state: RootState) => state.comment);
 
   console.log("모든 댓글: ", allComment);
 

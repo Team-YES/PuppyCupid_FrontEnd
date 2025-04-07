@@ -4,7 +4,7 @@ import axios from "axios";
 interface CommentState {
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
-  latestComment: any | null; // 혹은 타입 명확히 지정
+  latestComment: any | null;
   comments: any[];
 }
 

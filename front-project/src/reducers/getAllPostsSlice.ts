@@ -22,6 +22,8 @@ interface PostsState {
   currentUser: { id: number } | null;
   loading: boolean;
   error: string | null;
+  // page: number;
+  // hasMore: boolean;
 }
 
 const initialState: PostsState = {
@@ -29,6 +31,8 @@ const initialState: PostsState = {
   currentUser: null,
   loading: false,
   error: null,
+  // page:1,
+  // hasMore:true,
 };
 
 export const fetchAllPosts = createAsyncThunk(

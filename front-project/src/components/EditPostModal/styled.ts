@@ -1,14 +1,6 @@
 import styled from "styled-components";
 
 export const EditPostModalStyled = styled.div`
-  /* position: absolute;
-  z-index: 100;
-  background-color: #fff;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  padding: 15px 13px;
-  right: 0px;
-  top: 38px; */
   position: fixed;
   top: 0px;
   left: 0px;
