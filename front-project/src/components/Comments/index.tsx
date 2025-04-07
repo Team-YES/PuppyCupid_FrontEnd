@@ -24,26 +24,26 @@ const Comment = ({ postId, onAddComment }: Props) => {
     if (!comment.trim()) return;
 
     try {
-      // const resultAction = await dispatch(
-      //   postComment({ postId, content: comment })
-      // );
-
-      // if (postComment.fulfilled.match(resultAction)) {
-      //   console.log("댓글 등록 성공: ", resultAction.payload);
-
-      //   const newComment = resultAction.payload.comment;
-
-      //   onAddComment(newComment);
-      //   setComment("");
-      // } else {
-      //   console.error("댓글 등록 실패: ", resultAction);
-      // }
-      const result = await dispatch(
+      const resultAction = await dispatch(
         postComment({ postId, content: comment })
-      ).unwrap();
+      );
 
-      console.log("댓글 등록 성공:", result);
-      setComment("");
+      if (postComment.fulfilled.match(resultAction)) {
+        console.log("댓글 등록 성공: ", resultAction.payload);
+
+        const newComment = resultAction.payload.content;
+
+        onAddComment(newComment);
+        setComment("");
+      } else {
+        console.error("댓글 등록 실패: ", resultAction);
+      }
+      // const result = await dispatch(
+      //   postComment({ postId, content: comment })
+      // ).unwrap();
+
+      // console.log("댓글 등록 성공:", result);
+      // setComment("");
     } catch (error) {
       console.error("댓글 등록 실패:", error);
     }

@@ -24,7 +24,7 @@ export const postComment = createAsyncThunk(
       { content },
       { withCredentials: true }
     );
-    // console.log("댓글 slice: ", res.data);
+    console.log("댓글 slice: ", res.data);
     return res.data;
   }
 );
@@ -38,7 +38,7 @@ export const fetchComments = createAsyncThunk(
       { withCredentials: true }
     );
     console.log("댓글 get: ", res.data);
-    return res.data.comments;
+    return res.data;
   }
 );
 

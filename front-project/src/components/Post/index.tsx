@@ -61,12 +61,10 @@ const PostList = ({ post, loginUser }: Props) => {
 
   // 저장된 댓글 가져오기
   useEffect(() => {
-    if (post.id) {
-      dispatch(fetchComments(post.id));
-    }
+    dispatch(fetchComments(post.id));
   }, [dispatch, post.id]);
 
-  const allComment = useSelector((state: RootState) => state.comment);
+  const allComment = useSelector((state: RootState) => state.comment.comments);
 
   console.log("모든 댓글: ", allComment);
 
