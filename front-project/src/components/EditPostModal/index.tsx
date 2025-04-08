@@ -1,7 +1,7 @@
 import axios from "axios";
 import { EditPostModalStyled, ModalBtn } from "./styled";
 import { useRouter } from "next/router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
 
 type Props = {
@@ -44,7 +44,12 @@ const EditPostModal = ({ postId, writerId, loginUserId, onClose }: Props) => {
   };
 
   // 채팅하기 페이지 이동
+  const [isSending, setIsSending] = useState(false);
+
   const handleChatRequest = async (receiverId: number) => {
+    if (isSending) return;
+    setIsSending(true);
+
     try {
       const res = await axios.post(
         "http://localhost:5000/messages",
@@ -57,16 +62,12 @@ const EditPostModal = ({ postId, writerId, loginUserId, onClose }: Props) => {
         }
       );
 
-      console.log("채팅 생성 성공!", res.data);
-
       window.location.href = `/chat?userId=${receiverId}`;
     } catch (error: any) {
-      if (axios.isAxiosError(error)) {
-        console.error("채팅 요청 실패:", error.response?.data || error.message);
-      } else {
-        console.error("예상치 못한 에러:", error);
-      }
       alert("채팅 요청에 실패했습니다.");
+      console.error(error);
+    } finally {
+      setIsSending(false);
     }
   };
 
