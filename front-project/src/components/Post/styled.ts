@@ -44,6 +44,11 @@ export const LikeCont = styled.div`
 export const PostContent = styled.div`
   padding: 15px;
   flex: 1;
+  position: relative;
+
+  @media (max-width: 632px) {
+    padding: 15px 15px 30px 15px;
+  }
 
   .Post_ClampText {
     overflow: hidden;
@@ -53,6 +58,19 @@ export const PostContent = styled.div`
     text-overflow: ellipsis;
     line-height: 23px;
     max-height: 46px;
+  }
+
+  .Post_more {
+    position: absolute;
+    color: #aaa;
+    font-size: 12px;
+    margin-top: 5px;
+
+    right: 17px;
+
+    @media (max-width: 632px) {
+      bottom: 10px;
+    }
   }
 `;
 
