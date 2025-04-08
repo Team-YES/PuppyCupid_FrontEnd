@@ -3,27 +3,30 @@ import { EditPostModalStyled, ModalBtn } from "./styled";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
+// import { deleteComment } from "@/reducers/getCommentSlice";
+// import { useDispatch } from "react-redux";
+// import { AppDispatch } from "@/store/store";
 
 type Mode = "post" | "comment" | "other";
 
 type Props = {
   mode?: Mode;
   commentId?: number;
-  onDeleteComment?: (commentId: number) => void;
   postId: number;
   writerId: number;
   loginUserId?: number;
   onClose: () => void;
+  onDeleteComment?: (commentId: number) => void;
 };
 
 const EditPostModal = ({
   mode,
   commentId,
-  onDeleteComment,
   postId,
   writerId,
   loginUserId,
   onClose,
+  onDeleteComment,
 }: Props) => {
   const router = useRouter();
 
@@ -35,7 +38,8 @@ const EditPostModal = ({
   // 채팅하기 페이지 이동
   const [isSending, setIsSending] = useState(false);
 
-  console.log("writerId :", writerId);
+  // console.log("writerId :", writerId);
+  // console.log("commentId :", commentId);
 
   // 내 게시물 판단
   const isMine = writerId === loginUserId;
@@ -46,51 +50,46 @@ const EditPostModal = ({
   console.log("댓글아이디", loginUserId, writerId);
 
   // 댓글 삭제 모드
-  if (mode === "comment" && commentId && onDeleteComment) {
+  if (mode === "comment" && commentId) {
     return (
       <EditPostModalStyled>
-        <div className="EditModal_btnContainer" ref={pickerRef}>
-          {isMineComment ? (
-            // 내 댓글일 경우: 삭제/취소
-            <>
-              <div>
-                <ModalBtn
-                  $danger
-                  onClick={() => {
-                    const confirmed = confirm("댓글을 삭제하시겠습니까?");
-                    if (confirmed) {
-                      onDeleteComment(commentId);
-                      onClose();
-                    }
-                  }}
-                >
-                  삭제하기
-                </ModalBtn>
-              </div>
-              <div className="EditPostModal_m">
-                <ModalBtn onClick={onClose}>취소</ModalBtn>
-              </div>
-            </>
-          ) : (
-            // 남의 댓글일 경우: 신고/취소
-            <>
-              <div>
-                <ModalBtn
-                  $danger
-                  onClick={() => {
-                    alert("신고가 접수되었습니다.");
-                    onClose();
-                  }}
-                >
-                  신고하기
-                </ModalBtn>
-              </div>
-              <div className="EditPostModal_m">
-                <ModalBtn onClick={onClose}>취소</ModalBtn>
-              </div>
-            </>
-          )}
-        </div>
+        {isMineComment ? (
+          // 내 댓글일 경우: '삭제/취소'
+          <div className="EditModal_btnContainer">
+            <div>
+              <ModalBtn
+                $danger
+                onClick={() => {
+                  onDeleteComment?.(commentId);
+                  onClose();
+                }}
+              >
+                삭제하기
+              </ModalBtn>
+            </div>
+            <div className="EditPostModal_m">
+              <ModalBtn onClick={onClose}>취소</ModalBtn>
+            </div>
+          </div>
+        ) : (
+          // 남의 댓글일 경우: '신고/취소'
+          <div className="EditModal_btnContainer">
+            <div>
+              <ModalBtn
+                $danger
+                onClick={() => {
+                  alert("신고 준비중");
+                  onClose();
+                }}
+              >
+                신고하기
+              </ModalBtn>
+            </div>
+            <div className="EditPostModal_m">
+              <ModalBtn onClick={onClose}>취소</ModalBtn>
+            </div>
+          </div>
+        )}
       </EditPostModalStyled>
     );
   }
@@ -116,6 +115,7 @@ const EditPostModal = ({
     }
   };
 
+  // 채팅 신청
   const handleChatRequest = async (receiverId: number) => {
     if (isSending) return;
     setIsSending(true);

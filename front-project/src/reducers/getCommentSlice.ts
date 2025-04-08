@@ -44,6 +44,25 @@ export const fetchComments = createAsyncThunk(
   }
 );
 
+// 댓글 삭제
+export const deleteComment = createAsyncThunk(
+  "comment/deleteComment",
+  async (commentId: number, { rejectWithValue }) => {
+    try {
+      await axios.delete(
+        `http://localhost:5000/interactions/comment/${commentId}`,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log("삭제성공: ", commentId);
+      return commentId; // 삭제 성공 시 삭제된 댓글 ID 반환
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || "댓글 삭제 실패");
+    }
+  }
+);
+
 const commentSlice = createSlice({
   name: "comment",
   initialState,
@@ -73,6 +92,19 @@ const commentSlice = createSlice({
       .addCase(fetchComments.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message ?? "댓글 불러오기 실패";
+      })
+      .addCase(deleteComment.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteComment.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.comments = state.comments.filter(
+          (comment) => comment.id !== action.payload
+        );
+      })
+      .addCase(deleteComment.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message ?? "댓글 삭제 실패";
       });
   },
 });

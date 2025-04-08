@@ -23,6 +23,7 @@ import EditPostModal from "../EditPostModal";
 import Comment from "../Comments";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { formatPostDate } from "@/utils/formatDate";
+import { deleteComment } from "@/reducers/getCommentSlice";
 
 type Props = {
   post: Post;
@@ -56,14 +57,6 @@ const DetailPost = ({
   const [selectedCommentId, setSelectedCommentId] = useState<number | null>(
     null
   );
-
-  // 댓글 삭제
-  const handleDeleteComment = (commentId: number) => {
-    // 실제 삭제 로직 (Redux dispatch나 API 호출)
-    // 예: dispatch(deleteCommentThunk(commentId));
-    setGetComment((prev) => prev.filter((c) => c.id !== commentId)); // UI에서도 제거
-    setSelectedCommentId(null); // 모달 닫기
-  };
 
   // 게시한 댓글 표시
   const [getComment, setGetComment] = useState<CommentType[]>([]);
@@ -127,6 +120,15 @@ const DetailPost = ({
   // 외부영역 클릭 시 창닫기
   const pickerRef = useRef<HTMLDivElement>(null);
   useClickOutside(pickerRef, onClose);
+
+  // 댓글 삭제 요청
+  const onDeleteComment = async (commentId: number) => {
+    const confirmed = confirm("댓글을 삭제하시겠습니까?");
+    if (confirmed && commentId) {
+      await dispatch(deleteComment(commentId));
+      alert("댓글 삭제를 완료하였습니다.");
+    }
+  };
 
   return (
     <DetailPostStyled>
@@ -288,7 +290,7 @@ const DetailPost = ({
                             } // 댓글 작성자의 ID
                             loginUserId={loginUser}
                             onClose={() => setSelectedCommentId(null)}
-                            onDeleteComment={handleDeleteComment}
+                            onDeleteComment={onDeleteComment}
                           />
                         )}
                       </div>
