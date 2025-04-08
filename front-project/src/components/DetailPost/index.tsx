@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { fetchComments } from "@/reducers/getCommentSlice";
 import { AxiosGetLike } from "@/reducers/getLikeSlice";
-import { format, differenceInDays, parseISO } from "date-fns";
+import { updatePostLike } from "@/reducers/getAllPostsSlice";
 import { Navigation, Pagination } from "swiper/modules";
 import type { Post } from "@/features/Board";
 import type { CommentType } from "@/components/Post";
@@ -90,6 +90,8 @@ const DetailPost = ({
       setIsLiked(liked);
       setLike(likeCount);
       setAnimate(liked);
+
+      dispatch(updatePostLike({ postId: post.id, liked, likeCount }));
     }
   };
 

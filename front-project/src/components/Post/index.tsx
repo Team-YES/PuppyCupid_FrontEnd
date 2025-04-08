@@ -47,12 +47,12 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
   // console.log("하위 컴포", post);
 
   // 좋아요 상태값
-  const [like, setLike] = useState(post.like_count);
-  const [isLiked, setIsLiked] = useState(post.liked);
+  // const [like, setLike] = useState(post.like_count);
+  // const [isLiked, setIsLiked] = useState(post.liked);
   const [animate, setAnimate] = useState(false);
 
   // 수정, 삭제 모달
-  const [showEdit, setShowEdit] = useState(false);
+  // const [showEdit, setShowEdit] = useState(false);
 
   // 게시한 댓글 표시
   const [getComment, setGetComment] = useState<CommentType[]>([]);
@@ -70,20 +70,27 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
 
   // console.log("모든 댓글: ", allComment);
 
-  // 좋아요 요청
-  const handleLikeClick = async () => {
-    const url = `http://localhost:5000/interactions/like/${post.id}`;
-    const result = await dispatch(AxiosGetLike(url));
+  // 좋아요 redux반영
+  const postFromStore = useSelector((state: RootState) =>
+    state.posts.posts.find((p) => p.id === post.id)
+  );
 
-    console.log("좋아요 응답 : ", result.payload);
+  const likeCount = postFromStore?.like_count ?? post.like_count;
+  const isLiked = postFromStore?.liked ?? post.liked;
 
-    if (AxiosGetLike.fulfilled.match(result)) {
-      const { liked, likeCount } = result.payload;
-      setIsLiked(liked);
-      setLike(likeCount);
-      setAnimate(liked);
-    }
-  };
+  // const handleLikeClick = async () => {
+  //   const url = `http://localhost:5000/interactions/like/${post.id}`;
+  //   const result = await dispatch(AxiosGetLike(url));
+
+  //   console.log("좋아요 응답 : ", result.payload);
+
+  //   if (AxiosGetLike.fulfilled.match(result)) {
+  //     const { liked, likeCount } = result.payload;
+  //     setIsLiked(liked);
+  //     setLike(likeCount);
+  //     setAnimate(liked);
+  //   }
+  // };
 
   // 게시글 작성일 표시 함수(3일 이내면 n일 전, 그 이상은 M월 d일)
   const formatPostDate = (dateString: string) => {
@@ -198,24 +205,27 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
         {/* 게시글 내용 */}
         <PostContent>
           <div className="Post_ClampText">{post.content}</div>
+          <div className="Post_more">본문 더보기</div>
         </PostContent>
 
         {/* 댓글 내용 */}
-        <ul>
-          {getComment.map((c, i) => (
-            <li key={i}>{c.content}</li>
-          ))}
-        </ul>
+        {/* <div>
+          <ul>
+            {getComment.map((c, i) => (
+              <li key={i}>{c.content}</li>
+            ))}
+          </ul>
+        </div> */}
 
         <div>
           {/* 좋아요 + 아이콘 */}
           <div className="Post_iconContainer">
             <div
               className="Post_icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleLikeClick();
-              }}
+              // onClick={(e) => {
+              //   e.stopPropagation();
+              //   handleLikeClick();
+              // }}
             >
               <LikeIcon
                 className={
@@ -234,7 +244,7 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
 
           {/* 좋아요 수 + 날짜 */}
           <div className="Post_content">
-            <LikeCont>좋아요 {like}개</LikeCont>
+            <LikeCont>좋아요 {likeCount}개</LikeCont>
             <DateDiv>{formatPostDate(post.created_at)}</DateDiv>
           </div>
 
