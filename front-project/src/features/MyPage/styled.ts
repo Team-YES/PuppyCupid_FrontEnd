@@ -99,6 +99,65 @@ export const MyPageRight = styled.div`
       margin-right: 15px;
       font-size: 23px;
       width: 25%;
+      position: relative;
+      display: flex;
+      justify-content: space-around;
+      i {
+        text-align: center;
+        margin-left: 5px;
+        font-size: 20px;
+        color: ${(props) => props.theme.colors.pointPurple};
+      }
+      .MyPage_crown_wrap {
+        position: relative;
+        display: flex;
+      }
+      .MyPage_crownText {
+        background-color: white;
+        visibility: hidden;
+        border: 1.5px solid #ddd;
+        color: gray;
+        font-size: 13px;
+        text-align: center;
+        border-radius: 8px;
+        padding: 8px 12px;
+        position: absolute;
+        z-index: 1;
+        bottom: 130%;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+
+        /* 말풍선 꼬리 */
+        &::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          border-width: 7px;
+          border-style: solid;
+          border-color: #ddd transparent transparent transparent;
+          z-index: 0;
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: calc(100% - 1px);
+          left: 50%;
+          transform: translateX(-50%);
+          border-width: 6px;
+          border-style: solid;
+          border-color: white transparent transparent transparent;
+          z-index: 1;
+        }
+      }
+    }
+
+    .MyPage_profile_nickname:hover .MyPage_crownText {
+      visibility: visible;
+      opacity: 1;
     }
   }
   .MyPage_profile_editbtns {
