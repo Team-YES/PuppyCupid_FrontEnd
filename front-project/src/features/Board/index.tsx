@@ -66,7 +66,7 @@ const Board = () => {
   const isAlert = weather ? dangerWeather.includes(weather) : false;
 
   // console.log("검색결과: ", searchResult);
-  // console.log("상위컴포", posts);
+  console.log("상위컴포", posts);
   // console.log("로그인유저", loginUser);
 
   // 5. 전체 게시글 요청
@@ -113,33 +113,23 @@ const Board = () => {
 
   // 9. 상세 페이지 이동
   const router = useRouter();
-  const [selectPost, setSelectPost] = useState<number | null>(null);
+  const [selectPostId, setSelectPostId] = useState<number | null>(null);
+  const [selectPost, setSelectPost] = useState(false);
 
-  useEffect(() => {
-    console.log(router.query.id);
-    if (router.query.id) {
-      setSelectPost(Number(router.query.id));
-    } else {
-      setSelectPost(null);
-    }
-  }, [router.query.id]);
+  // console.log(selectPostId);
 
-  // 게시글 클릭 시 주소 변경
+  // 게시글 클릭 시 주소 변경x -> 모달 띄우기
   const handlePostClick = (postId: number) => {
-    router.push(
-      {
-        pathname: "/board",
-        query: { id: postId },
-      },
-      `/post_detail/${postId}`, // 브라우저 주소에만 표시할 경로
-      { shallow: true }
-    );
+    setSelectPostId(postId);
   };
 
   // 모달 닫기
   const handleCloseModal = () => {
-    router.push("/board", undefined, { shallow: true });
+    setSelectPostId(null);
   };
+
+  // 현재 선택된 게시글
+  const selectedPost = posts.find((p) => p.id === selectPostId);
 
   return (
     <div>
@@ -176,12 +166,13 @@ const Board = () => {
               post={post}
               loginUser={loginUser?.id}
               isDetailPage={false}
+              onClick={() => handlePostClick(post.id)}
             />
           </div>
         ))}
       </AllPostsWrap>
-      {selectPost && (
-        <DetailPost postId={selectPost} onClose={handleCloseModal} />
+      {selectedPost && (
+        <DetailPost post={selectedPost} onClose={handleCloseModal} />
       )}
     </div>
   );

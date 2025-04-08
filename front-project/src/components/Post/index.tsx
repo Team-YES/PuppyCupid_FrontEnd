@@ -10,7 +10,6 @@ import {
   LikeIcon,
   DateDiv,
   LikeCont,
-  FixedBox,
 } from "./styled";
 import type { Post } from "@/features/Board";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -29,6 +28,7 @@ type Props = {
   post: Post;
   loginUser?: number;
   isDetailPage?: boolean;
+  onClick?: () => void;
 };
 
 export type CommentType = {
@@ -41,7 +41,7 @@ export type CommentType = {
   };
 };
 
-const PostList = ({ post, loginUser, isDetailPage }: Props) => {
+const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
 
   // console.log("하위 컴포", post);
@@ -62,13 +62,13 @@ const PostList = ({ post, loginUser, isDetailPage }: Props) => {
   };
 
   // 저장된 댓글 가져오기
-  useEffect(() => {
-    dispatch(fetchComments(post.id));
-  }, [dispatch, post.id]);
+  // useEffect(() => {
+  //   dispatch(fetchComments(post.id));
+  // }, [dispatch, post.id]);
 
-  const allComment = useSelector((state: RootState) => state.comment.comments);
+  // const allComment = useSelector((state: RootState) => state.comment.comments);
 
-  console.log("모든 댓글: ", allComment);
+  // console.log("모든 댓글: ", allComment);
 
   // 좋아요 요청
   const handleLikeClick = async () => {
@@ -116,7 +116,9 @@ const PostList = ({ post, loginUser, isDetailPage }: Props) => {
   return (
     <PostStyled
       onClick={() => {
-        if (!isDetailPage) router.push(`/post_detail/${post.id}`);
+        if (!isDetailPage) {
+          onClick?.();
+        }
       }}
       style={{ cursor: isDetailPage ? "default" : "pointer" }}
     >
@@ -172,7 +174,7 @@ const PostList = ({ post, loginUser, isDetailPage }: Props) => {
           </div>
 
           {/* ... 아이콘 */}
-          <div
+          {/* <div
             className="Post_menu"
             onClick={(e) => {
               e.stopPropagation();
@@ -180,21 +182,23 @@ const PostList = ({ post, loginUser, isDetailPage }: Props) => {
             }}
           >
             <i className="fa-solid fa-ellipsis-h"></i>
-          </div>
+          </div> */}
 
           {/* 수정, 삭제 모달 */}
-          {showEdit && (
+          {/* {showEdit && (
             <EditPostModal
               postId={post.id}
               writerId={post.user.id}
               loginUserId={loginUser}
               onClose={() => setShowEdit(false)}
             />
-          )}
+          )} */}
         </div>
 
         {/* 게시글 내용 */}
-        <PostContent>{post.content}</PostContent>
+        <PostContent>
+          <div className="Post_ClampText">{post.content}</div>
+        </PostContent>
 
         {/* 댓글 내용 */}
         <ul>
@@ -203,7 +207,7 @@ const PostList = ({ post, loginUser, isDetailPage }: Props) => {
           ))}
         </ul>
 
-        <FixedBox>
+        <div>
           {/* 좋아요 + 아이콘 */}
           <div className="Post_iconContainer">
             <div
@@ -235,8 +239,8 @@ const PostList = ({ post, loginUser, isDetailPage }: Props) => {
           </div>
 
           {/* 댓글 입력창 */}
-          <Comment postId={post.id} onAddComment={handleAddComment} />
-        </FixedBox>
+          {/* <Comment postId={post.id} onAddComment={handleAddComment} /> */}
+        </div>
       </RightContainer>
     </PostStyled>
   );

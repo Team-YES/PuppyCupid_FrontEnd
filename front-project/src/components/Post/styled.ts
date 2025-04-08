@@ -16,6 +16,7 @@ export const PostStyled = styled.div`
 
   @media (max-width: 632px) {
     display: block;
+    border-radius: 10px;
   }
 `;
 
@@ -43,6 +44,16 @@ export const LikeCont = styled.div`
 export const PostContent = styled.div`
   padding: 15px;
   flex: 1;
+
+  .Post_ClampText {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    line-height: 23px;
+    max-height: 46px;
+  }
 `;
 
 export const DateDiv = styled.div`
@@ -69,7 +80,8 @@ export const LeftContainer = styled.div`
     flex-grow: 1;
 
     @media (max-width: 632px) {
-      border-top-right-radius: 4px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
       border-bottom-left-radius: 0px;
       min-height: auto;
       justify-content: center;
@@ -109,6 +121,7 @@ export const LeftContainer = styled.div`
     /* max-height: 400px; */
   }
 `;
+
 export const RightContainer = styled.div`
   width: 50%;
   display: flex;
@@ -161,8 +174,6 @@ export const RightContainer = styled.div`
     width: 100%;
   }
 `;
-
-export const FixedBox = styled.div``;
 
 // 좋아요 애니메이션
 const pop = keyframes`
