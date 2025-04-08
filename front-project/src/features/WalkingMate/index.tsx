@@ -35,8 +35,39 @@ const WalkingMate = () => {
   };
 
   // 채팅하기 이동
-  const handleChat = (dogId: number) => {
-    console.log(`${dogId}번 강아지와 채팅 시작`);
+  const handleChat = async (receiverId: number) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/messages",
+        {
+          receiverId,
+          content: "산책 메이트 채팅 신청합니다!",
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log("채팅 생성 성공!", res.data);
+      window.location.href = `/chat?userId=${receiverId}`;
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        console.error("채팅 요청 실패:", error.response?.data || error.message);
+      } else {
+        console.error("예상치 못한 에러:", error);
+      }
+      alert("채팅 요청에 실패했습니다.");
+    }
+  };
+
+  // 중성화 여부 함수
+  const formatGender = (rawGender: string) => {
+    const map: Record<string, string> = {
+      male_neutered: "수컷 (중성화 O)",
+      male_not_neutered: "수컷 (중성화 X)",
+      female_neutered: "암컷 (중성화 O)",
+      female_not_neutered: "암컷 (중성화 X)",
+    };
+    return map[rawGender] || "정보 없음";
   };
 
   useEffect(() => {
@@ -119,7 +150,7 @@ const WalkingMate = () => {
                     <div className="WalkingMate_card-face WalkingMate_card-back">
                       <p>견종: {dog.breed}</p>
                       <p>나이: {dog.age}</p>
-                      <p>성별: {dog.gender}</p>
+                      <p>성별: {formatGender(dog.gender)}</p>
                       <p>MBTI: {dog.mbti}</p>
                       <p>
                         성격:{" "}

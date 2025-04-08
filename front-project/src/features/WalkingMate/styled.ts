@@ -145,6 +145,7 @@ export const WalkingMateCard = styled.div`
     margin: 0 auto;
     max-width: 900px;
     justify-content: center;
+    place-items: center;
   }
 
   li {
@@ -163,7 +164,7 @@ export const WalkingMateCard = styled.div`
     transform-style: preserve-3d;
   }
 
-  .WalkingMate_card.flip {
+  .WalkingMate_card.WalkingMate_flip {
     transform: rotateY(180deg);
   }
 
@@ -217,12 +218,10 @@ export const WalkingMateCard = styled.div`
     line-height: 1.6;
   }
   @media (hover: hover) and (pointer: fine) {
-    /* 데스크탑: hover로 뒤집힘 */
-    li:hover .WalkingMate_card {
+    li:hover .WalkingMate_card:not(.WalkingMate_flip) {
       transform: rotateY(180deg);
     }
   }
-
   img {
     width: 100%;
     height: 100%;
@@ -245,5 +244,59 @@ export const WalkingMateCard = styled.div`
     cursor: pointer;
     transition: background-color 0.2s ease;
     text-align: center;
+  }
+
+  // 반응형
+  /* ✅ 반응형 스타일 */
+  @media (max-width: 768px) {
+    ul {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      max-width: 100%;
+      padding: 0 10px;
+    }
+
+    li {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 30px;
+    }
+
+    .WalkingMate_card-name-overlay {
+      font-size: 13px;
+      bottom: -35px;
+      padding: 10px;
+    }
+
+    p {
+      font-size: 13px;
+    }
+
+    .WalkingMate_chat-button {
+      font-size: 13px;
+      padding: 6px 10px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    li {
+      width: 230px;
+      height: 230px;
+      margin-bottom: 25px;
+    }
+
+    .WalkingMate_card-name-overlay {
+      font-size: 12px;
+      bottom: -30px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+
+    .WalkingMate_chat-button {
+      font-size: 12px;
+      padding: 5px 8px;
+    }
   }
 `;
