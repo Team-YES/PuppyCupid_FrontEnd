@@ -6,6 +6,7 @@ interface CommentState {
   error: string | null;
   latestComment: any | null;
   comments: any[];
+  postId: string | null;
 }
 
 const initialState: CommentState = {
@@ -13,6 +14,7 @@ const initialState: CommentState = {
   error: null,
   latestComment: null,
   comments: [],
+  postId: null,
 };
 
 // 댓글 게시
@@ -24,7 +26,7 @@ export const postComment = createAsyncThunk(
       { content },
       { withCredentials: true }
     );
-    console.log("댓글 slice: ", res.data);
+    // console.log("댓글 slice: ", res.data);
     return res.data;
   }
 );
@@ -65,7 +67,8 @@ const commentSlice = createSlice({
       })
       .addCase(fetchComments.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.comments = action.payload;
+        state.comments = action.payload.comments;
+        state.postId = action.payload.postId;
       })
       .addCase(fetchComments.rejected, (state, action) => {
         state.status = "failed";
