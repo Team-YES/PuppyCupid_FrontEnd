@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import {
   PostStyled,
   Title,
@@ -10,7 +10,6 @@ import {
   LikeIcon,
   DateDiv,
   LikeCont,
-  FixedBox,
 } from "./styled";
 import type { Post } from "@/features/Board";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -23,10 +22,13 @@ import EditPostModal from "../EditPostModal";
 import Comment from "../Comments";
 import { format, differenceInDays, parseISO } from "date-fns";
 import { fetchComments } from "@/reducers/getCommentSlice";
+import { useRouter } from "next/router";
 
 type Props = {
   post: Post;
   loginUser?: number;
+  isDetailPage?: boolean;
+  onClick?: () => void;
 };
 
 export type CommentType = {
@@ -39,7 +41,7 @@ export type CommentType = {
   };
 };
 
-const PostList = ({ post, loginUser }: Props) => {
+const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
 
   // console.log("하위 컴포", post);
@@ -60,13 +62,13 @@ const PostList = ({ post, loginUser }: Props) => {
   };
 
   // 저장된 댓글 가져오기
-  useEffect(() => {
-    dispatch(fetchComments(post.id));
-  }, [dispatch, post.id]);
+  // useEffect(() => {
+  //   dispatch(fetchComments(post.id));
+  // }, [dispatch, post.id]);
 
-  const allComment = useSelector((state: RootState) => state.comment.comments);
+  // const allComment = useSelector((state: RootState) => state.comment.comments);
 
-  console.log("모든 댓글: ", allComment);
+  // console.log("모든 댓글: ", allComment);
 
   // 좋아요 요청
   const handleLikeClick = async () => {
@@ -109,8 +111,17 @@ const PostList = ({ post, loginUser }: Props) => {
     { icon: "fa-solid fa-share-nodes" },
   ];
 
+  const router = useRouter();
+
   return (
-    <PostStyled>
+    <PostStyled
+      onClick={() => {
+        if (!isDetailPage) {
+          onClick?.();
+        }
+      }}
+      style={{ cursor: isDetailPage ? "default" : "pointer" }}
+    >
       {/* 왼쪽 : 이미지 슬라이더 영역 */}
       <LeftContainer>
         <div style={{ borderTopLeftRadius: 4, borderBottomLeftRadius: 4 }}>
@@ -163,23 +174,31 @@ const PostList = ({ post, loginUser }: Props) => {
           </div>
 
           {/* ... 아이콘 */}
-          <div className="Post_menu" onClick={() => setShowEdit(!showEdit)}>
+          {/* <div
+            className="Post_menu"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowEdit(!showEdit);
+            }}
+          >
             <i className="fa-solid fa-ellipsis-h"></i>
-          </div>
+          </div> */}
 
           {/* 수정, 삭제 모달 */}
-          {showEdit && (
+          {/* {showEdit && (
             <EditPostModal
               postId={post.id}
               writerId={post.user.id}
               loginUserId={loginUser}
               onClose={() => setShowEdit(false)}
             />
-          )}
+          )} */}
         </div>
 
         {/* 게시글 내용 */}
-        <PostContent>{post.content}</PostContent>
+        <PostContent>
+          <div className="Post_ClampText">{post.content}</div>
+        </PostContent>
 
         {/* 댓글 내용 */}
         <ul>
@@ -188,10 +207,16 @@ const PostList = ({ post, loginUser }: Props) => {
           ))}
         </ul>
 
-        <FixedBox>
+        <div>
           {/* 좋아요 + 아이콘 */}
           <div className="Post_iconContainer">
-            <div className="Post_icon" onClick={handleLikeClick}>
+            <div
+              className="Post_icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleLikeClick();
+              }}
+            >
               <LikeIcon
                 className={
                   isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart"
@@ -214,8 +239,8 @@ const PostList = ({ post, loginUser }: Props) => {
           </div>
 
           {/* 댓글 입력창 */}
-          <Comment postId={post.id} onAddComment={handleAddComment} />
-        </FixedBox>
+          {/* <Comment postId={post.id} onAddComment={handleAddComment} /> */}
+        </div>
       </RightContainer>
     </PostStyled>
   );

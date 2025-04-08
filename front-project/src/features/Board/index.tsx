@@ -7,6 +7,8 @@ import Search from "@/components/Search";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllPosts } from "@/reducers/getAllPostsSlice";
 import { AppDispatch, RootState } from "@/store/store";
+import DetailPost from "@/components/DetailPost";
+import { useRouter } from "next/router";
 
 // Props 타입 선언
 export type Post = {
@@ -64,7 +66,7 @@ const Board = () => {
   const isAlert = weather ? dangerWeather.includes(weather) : false;
 
   // console.log("검색결과: ", searchResult);
-  // console.log("상위컴포", posts);
+  console.log("상위컴포", posts);
   // console.log("로그인유저", loginUser);
 
   // 5. 전체 게시글 요청
@@ -109,6 +111,26 @@ const Board = () => {
   // 8. 날씨 메시지 매핑
   const weatherInfo = weather ? weatherMessages[weather] : null;
 
+  // 9. 상세 페이지 이동
+  const router = useRouter();
+  const [selectPostId, setSelectPostId] = useState<number | null>(null);
+  const [selectPost, setSelectPost] = useState(false);
+
+  // console.log(selectPostId);
+
+  // 게시글 클릭 시 주소 변경x -> 모달 띄우기
+  const handlePostClick = (postId: number) => {
+    setSelectPostId(postId);
+  };
+
+  // 모달 닫기
+  const handleCloseModal = () => {
+    setSelectPostId(null);
+  };
+
+  // 현재 선택된 게시글
+  const selectedPost = posts.find((p) => p.id === selectPostId);
+
   return (
     <div>
       {/* 날씨정보 */}
@@ -138,9 +160,20 @@ const Board = () => {
       {/* 전체 게시글 */}
       <AllPostsWrap>
         {(searchResult.length > 0 ? searchResult : posts).map((post, i) => (
-          <PostComp key={i} post={post} loginUser={loginUser?.id} />
+          <div key={post.id} onClick={() => handlePostClick(post.id)}>
+            <PostComp
+              key={i}
+              post={post}
+              loginUser={loginUser?.id}
+              isDetailPage={false}
+              onClick={() => handlePostClick(post.id)}
+            />
+          </div>
         ))}
       </AllPostsWrap>
+      {selectedPost && (
+        <DetailPost post={selectedPost} onClose={handleCloseModal} />
+      )}
     </div>
   );
 };

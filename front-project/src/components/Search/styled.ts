@@ -4,7 +4,7 @@ export const SearchStyled = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 25px;
+  padding: 12px 25px;
   /* border-top: 1px solid #333; */
 `;
 
