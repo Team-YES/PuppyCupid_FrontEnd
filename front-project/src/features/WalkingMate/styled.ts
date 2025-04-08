@@ -17,7 +17,7 @@ export const WalkingMateStyled = styled.div`
   }
   .WalkingMate_Info_Textwrap {
     position: absolute;
-    right: 75px;
+    right: 55px;
     top: 60px;
     h5 {
       font-size: 13px;
@@ -304,6 +304,41 @@ export const WalkingMateCard = styled.div`
     .WalkingMate_chat-button {
       font-size: 12px;
       padding: 5px 8px;
+    }
+  }
+  /* 유저 없는 경우 텅 */
+  .WalkingMate-nodogs-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 80px;
+    font-size: 18x;
+    color: black;
+    min-height: 250px;
+    div {
+      text-align: center;
+    }
+  }
+  .WalkingMate-nodogs-message img {
+    width: 250px;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 767px) {
+    .WalkingMate-nodogs-message {
+      font-size: 15px;
+      img {
+        width: 200px;
+      }
+    }
+  }
+  @media (max-width: 480px) {
+    .WalkingMate-nodogs-message {
+      font-size: 13px;
+      img {
+        width: 150px;
+      }
     }
   }
 `;

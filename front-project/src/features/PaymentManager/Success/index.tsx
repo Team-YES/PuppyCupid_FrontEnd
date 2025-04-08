@@ -73,7 +73,15 @@ export default function SuccessPage() {
             <h1>🎉 {getPaymentMessage(parsedAmount)}</h1>
             <p>주문 번호: {parsedOrderId}</p>
             <p>결제 금액: {parsedAmount}원</p>
-            <button onClick={() => router.push("/")}>홈으로</button>
+            <button
+              onClick={() => {
+                router.push("/").then(() => {
+                  window.location.reload();
+                });
+              }}
+            >
+              홈으로
+            </button>
           </>
         ) : (
           <h2>⏳ 결제 확인 중입니다...</h2>

@@ -36,7 +36,7 @@ const WalkingMate = () => {
   };
 
   // 채팅하기 이동
-  const handleChat = async (receiverId: number) => {
+  const handleChat = async (receiverId: number | undefined) => {
     try {
       const res = await axios.post(
         "http://localhost:5000/messages",
@@ -48,7 +48,7 @@ const WalkingMate = () => {
           withCredentials: true,
         }
       );
-      window.location.href = `/chat?userId=${receiverId}`;
+      window.location.href = `/chat?receiverId=${receiverId}`;
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
         console.error("채팅 요청 실패:", error.response?.data || error.message);
@@ -91,6 +91,7 @@ const WalkingMate = () => {
           if (res.data.ok) {
             setDogs(res.data.dogs);
             console.log("받은 데이터:", res.data);
+            console.log("받은 dogs 리스트:", res.data.dogs);
           }
         } catch (err) {
           console.error("위치 전송 실패:", err);
@@ -171,8 +172,9 @@ const WalkingMate = () => {
             </ul>
           ) : (
             <div className="WalkingMate-nodogs-message">
-              주변에 접속 중인 산책 친구가 없어요 😢 <br />
-              나중에 다시 확인해보세요!
+              <img src="/puppy2.gif" alt="nodogs-message"></img>
+              <span>주변에 접속 중인 산책 친구가 없어요 😢</span>{" "}
+              <span>나중에 다시 확인해보세요!</span>
             </div>
           )}
         </WalkingMateCard>
