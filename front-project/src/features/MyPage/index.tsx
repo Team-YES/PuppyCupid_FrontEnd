@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import axios from "axios";
+
 import {
   MyPagePadding,
   MyPageStyled,
@@ -51,7 +52,10 @@ const MyPage = () => {
   const [loading, setLoading] = useState(false);
   const [selectedType, setSelectedType] = useState<string>("posts");
   const user = useSelector((state: RootState) => state.user.user);
-
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastPostElementRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     handleFetchData("posts");
   }, []);
@@ -107,6 +111,8 @@ const MyPage = () => {
   const handleFetchData = async (type: string) => {
     setSelectedType(type);
     setLoading(true);
+    setPage(1);
+
     try {
       const response = await axios.get("http://localhost:5000/users/mypage", {
         withCredentials: true,
@@ -136,6 +142,73 @@ const MyPage = () => {
         return "crown-gold";
     }
   };
+
+  // 무한스크롤
+  const fetchInitialData = async (type: string) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `http://localhost:5000/users/mypage?type=${type}&page=1`,
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.data.ok) {
+        const result = response.data[type];
+        setData(result);
+        setHasMore(result.length > 0);
+      }
+    } catch (error) {
+      console.error("초기 데이터 불러오기 오류:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 무한스크롤 추가
+  const fetchMoreData = async () => {
+    try {
+      const nextPage = page + 1;
+      const response = await axios.get(
+        `http://localhost:5000/users/mypage?type=${selectedType}&page=${nextPage}`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (response.data.ok) {
+        const newData = response.data[selectedType];
+        if (newData.length === 0) {
+          setHasMore(false);
+        } else {
+          setData((prevData) =>
+            prevData ? [...prevData, ...newData] : newData
+          );
+          setPage(nextPage);
+        }
+      }
+    } catch (error) {
+      console.error("더 많은 데이터를 불러오는 중 오류:", error);
+    }
+  };
+
+  // 감지
+  useEffect(() => {
+    if (loading || !hasMore) return;
+    const target = lastPostElementRef.current;
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          fetchMoreData();
+        }
+      },
+      {
+        threshold: 1.0,
+      }
+    );
+    if (target) observer.current.observe(target);
+  }, [data, loading, hasMore]);
 
   return (
     <MyPagePadding>
@@ -242,6 +315,9 @@ const MyPage = () => {
           {/* 하단 게시글, 좋아요, 알림 정보 */}
           <div>
             <PostList data={data} />
+            {hasMore && (
+              <div ref={lastPostElementRef} style={{ height: "1px" }}></div>
+            )}
           </div>
           {/* 강아지 정보 모달 */}
           {isPuppyModalVisible && (
