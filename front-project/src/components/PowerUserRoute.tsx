@@ -19,7 +19,11 @@ const PowerUserRoute = ({ children }: PowerUserRouteProps) => {
       if (!isLoggedIn) {
         alert("로그인이 필요합니다.");
         router.push("/login");
-      } else if (user?.role !== "power_month" && user?.role !== "power_year") {
+      } else if (
+        user?.role !== "power_month" &&
+        user?.role !== "power_year" &&
+        user?.role !== "admin"
+      ) {
         alert("이 페이지는 파워 유저만 접근할 수 있습니다.");
         router.push("/");
       }

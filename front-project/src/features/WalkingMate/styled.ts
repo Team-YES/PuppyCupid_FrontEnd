@@ -101,6 +101,13 @@ export const WalkingMateStyled = styled.div`
       }
     }
   }
+  @media (max-width: 480px) {
+    .WalkingMate_Info_wrap {
+      img {
+        width: 80%;
+      }
+    }
+  }
   .WalkingMate_List_Title {
     width: 100%;
     height: 80px;
