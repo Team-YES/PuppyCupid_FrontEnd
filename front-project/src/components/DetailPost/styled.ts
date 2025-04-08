@@ -107,8 +107,19 @@ export const Detail_RightContainer = styled.div`
   .Detail_commenter {
     width: 100%;
     display: flex;
-    /* padding-top: 12px; */
+    position: relative;
     margin-bottom: 16px;
+  }
+
+  .Detail_commenter .Detail_dayDiv {
+    display: none;
+  }
+
+  .Detail_commenter:hover .Detail_dayDiv {
+    display: block;
+    margin-left: 20px;
+    color: #7a7a7a;
+    cursor: pointer;
   }
 
   .Detail_imgBox {
@@ -207,7 +218,7 @@ export const Detail_RightContainer = styled.div`
   .Detail_span {
     color: rgb(115, 115, 115);
     font-size: 12px;
-    margin: 0 0 3px 10px;
+    margin: 0 0 2px 10px;
     cursor: pointer;
   }
 

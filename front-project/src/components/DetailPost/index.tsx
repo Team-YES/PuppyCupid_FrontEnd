@@ -41,7 +41,8 @@ const DetailPost = ({
 }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  console.log("상세 컴포", post);
+  // console.log("상세 컴포", post);
+  // console.log("로그인아이디:", loginUser);
 
   // 좋아요 상태값
   const [like, setLike] = useState(post.like_count);
@@ -50,6 +51,19 @@ const DetailPost = ({
 
   // 수정, 삭제 모달
   const [showEdit, setShowEdit] = useState(false);
+
+  // 댓글 모달
+  const [selectedCommentId, setSelectedCommentId] = useState<number | null>(
+    null
+  );
+
+  // 댓글 삭제
+  const handleDeleteComment = (commentId: number) => {
+    // 실제 삭제 로직 (Redux dispatch나 API 호출)
+    // 예: dispatch(deleteCommentThunk(commentId));
+    setGetComment((prev) => prev.filter((c) => c.id !== commentId)); // UI에서도 제거
+    setSelectedCommentId(null); // 모달 닫기
+  };
 
   // 게시한 댓글 표시
   const [getComment, setGetComment] = useState<CommentType[]>([]);
@@ -188,6 +202,7 @@ const DetailPost = ({
             {/* 수정, 삭제 모달 */}
             {showEdit && (
               <EditPostModal
+                mode="post"
                 postId={post.id}
                 writerId={post.user.id}
                 loginUserId={loginUser}
@@ -243,6 +258,39 @@ const DetailPost = ({
                       <div className="Detail_day">
                         <DateDiv>{formatPostDate(c.created_at)}</DateDiv>
                         <span className="Detail_span">답글 달기</span>
+                        <div
+                          className="Detail_dayDiv"
+                          onClick={() => setSelectedCommentId(c.id)}
+                        >
+                          <i className="fa-solid fa-ellipsis-h"></i>
+                        </div>
+
+                        {/* 댓글 삭제, 신고 모달 */}
+                        {/* {selectedCommentId !== null && (
+                          <EditPostModal
+                            mode="comment"
+                            postId={post.id}
+                            commentId={selectedCommentId}
+                            writerId={loginUser || 0}
+                            loginUserId={loginUser}
+                            onClose={() => setSelectedCommentId(null)}
+                            onDeleteComment={handleDeleteComment}
+                          />
+                        )} */}
+                        {selectedCommentId !== null && (
+                          <EditPostModal
+                            mode="comment"
+                            postId={post.id}
+                            commentId={selectedCommentId}
+                            writerId={
+                              getComment.find((c) => c.id === selectedCommentId)
+                                ?.user.id || 0
+                            } // 댓글 작성자의 ID
+                            loginUserId={loginUser}
+                            onClose={() => setSelectedCommentId(null)}
+                            onDeleteComment={handleDeleteComment}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>
