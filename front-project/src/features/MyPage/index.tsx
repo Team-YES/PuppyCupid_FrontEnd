@@ -124,6 +124,18 @@ const MyPage = () => {
     }
     setLoading(false);
   };
+  // 왕관색 바꾸기
+  const getCrownClass = (role?: string) => {
+    switch (role) {
+      case "power_year":
+        return "crown-purple";
+      case "admin":
+        return "crown-red";
+      case "power_month":
+      default:
+        return "crown-gold";
+    }
+  };
 
   return (
     <MyPagePadding>
@@ -149,12 +161,44 @@ const MyPage = () => {
                   {user ? user.nickName || user.email : "Guest"}
 
                   {/* 왕관 */}
-                  <div className="MyPage_crown_wrap">
-                    <i className="fa-solid fa-crown MyPage_crown"></i>
-                    <div className="MyPage_crownText">
-                      오픈 기념 할인 중이에요!
+                  {(user?.role === "power_month" ||
+                    user?.role === "power_year" ||
+                    user?.role === "admin") && (
+                    <div className="MyPage_crown_wrap">
+                      <i
+                        className={`fa-solid fa-crown MyPage_crown ${getCrownClass(
+                          user?.role
+                        )}`}
+                      ></i>
+                      {(user?.role === "power_month" ||
+                        user?.role === "power_year") &&
+                        user?.power_expired_at && (
+                          <div className="MyPage_crownText">
+                            {user.role === "power_month" && (
+                              <span className="MyPage_text-plan">
+                                월간 이용권 이용 중입니다.
+                              </span>
+                            )}
+                            {user.role === "power_year" && (
+                              <span className="MyPage_text-plan">
+                                연간 이용권 이용 중입니다.
+                              </span>
+                            )}
+                            <br />
+                            <span className="MyPage_text-expired">
+                              만료일:{" "}
+                              {new Date(
+                                user.power_expired_at
+                              ).toLocaleDateString("ko-KR", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              })}
+                            </span>
+                          </div>
+                        )}
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 <div className="MyPage_profile_editbtns">

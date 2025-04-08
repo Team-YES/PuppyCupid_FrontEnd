@@ -29,7 +29,7 @@ export const MyPageStyled = styled.div`
       padding: 25px 10px 25px 10px;
     }
   }
-  @media (max-width: 486px) {
+  @media (max-width: 480px) {
     .MyPage_top_wrap {
       display: block;
     }
@@ -101,7 +101,6 @@ export const MyPageRight = styled.div`
       width: 25%;
       position: relative;
       display: flex;
-      justify-content: space-around;
       i {
         text-align: center;
         margin-left: 5px;
@@ -111,6 +110,17 @@ export const MyPageRight = styled.div`
       .MyPage_crown_wrap {
         position: relative;
         display: flex;
+        .crown-gold {
+          color: gold;
+        }
+
+        .crown-purple {
+          color: #9855f3;
+        }
+
+        .crown-red {
+          color: crimson;
+        }
       }
       .MyPage_crownText {
         background-color: white;
@@ -152,6 +162,14 @@ export const MyPageRight = styled.div`
           border-color: white transparent transparent transparent;
           z-index: 1;
         }
+      }
+      .MyPage_crownText .MyPage_text-plan {
+        color: gray;
+        font-weight: bold;
+      }
+
+      .MyPage_crownText .MyPage_text-expired {
+        color: ${({ theme }) => theme.colors.pointPurple};
       }
     }
 
@@ -195,6 +213,7 @@ export const MyPageRight = styled.div`
       font-size: 15px;
       width: 100%;
       padding: 20px 0px;
+      justify-content: center;
     }
   }
 `;
