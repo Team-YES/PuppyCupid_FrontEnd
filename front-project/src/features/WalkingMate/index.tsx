@@ -14,7 +14,7 @@ interface Dog {
   gender: string;
   mbti: string;
   personality: string[];
-  dog_image: string;
+  image: string;
   userId: number;
 }
 
@@ -138,7 +138,7 @@ const WalkingMate = () => {
                     <div className="WalkingMate_card-face WalkingMate_card-front">
                       <div className="WalkingMate_card-img-wrap">
                         <img
-                          src={`http://localhost:5000${dog.dog_image}`}
+                          src={`http://localhost:5000${dog.image}`}
                           alt={`${dog.name}의 이미지`}
                         />
                       </div>
