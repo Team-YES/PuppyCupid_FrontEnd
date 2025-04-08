@@ -5,25 +5,39 @@ export const HelpStyled = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    padding: 0px 60px;
+    flex-direction: column;
+    button {
+      width: 100px;
+      margin: 0 auto;
+      border: 1px solid black;
+      background-color: white;
+      color: black;
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: none;
+      outline: none;
+    }
   }
-  .Help_formWrap {
+
+  .Help_Wrap {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* 화면 중앙에 오도록 */
-    background-color: #f9f9f9; /* 배경 색상 (선택사항) */
+    flex-direction: column;
+    width: 100%;
   }
 
   .Help_formWrap form {
     background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 500px;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+  }
+  .Help_required-dot span {
+    color: red;
+    margin-left: 4px;
+    font-weight: bold;
+    font-size: 6px;
+    vertical-align: middle;
   }
 `;

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import axios from "axios";
+
 import {
   MyPagePadding,
   MyPageStyled,
@@ -51,7 +52,10 @@ const MyPage = () => {
   const [loading, setLoading] = useState(false);
   const [selectedType, setSelectedType] = useState<string>("posts");
   const user = useSelector((state: RootState) => state.user.user);
-
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastPostElementRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     handleFetchData("posts");
   }, []);
@@ -107,17 +111,24 @@ const MyPage = () => {
   const handleFetchData = async (type: string) => {
     setSelectedType(type);
     setLoading(true);
+    setPage(1);
+    setHasMore(true);
+    setData(null);
     try {
       const response = await axios.get("http://localhost:5000/users/mypage", {
+        params: {
+          [`${type}Page`]: 1,
+          limit: 9,
+        },
         withCredentials: true,
       });
 
       if (response.data.ok) {
-        const { posts, liked, notifications } = response.data;
+        console.log(response.data, "??");
+        const result = response.data[type];
 
-        if (type === "posts") setData(posts);
-        else if (type === "liked") setData(liked);
-        else if (type === "notifications") setData(notifications);
+        setData(result.items);
+        setHasMore(result.hasMore);
       }
     } catch (error) {
       console.error(`${type} 데이터를 가져오는 중 오류 발생:`, error);
@@ -137,6 +148,85 @@ const MyPage = () => {
     }
   };
 
+  // 무한스크롤
+  const fetchInitialData = async (type: string) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `http://localhost:5000/users/mypage?type=${type}&page=1`,
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.data.ok) {
+        const result = response.data[type];
+        setData(result);
+        setHasMore(result.length > 0);
+      }
+    } catch (error) {
+      console.error("초기 데이터 불러오기 오류:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 무한스크롤 추가
+  const fetchMoreData = async () => {
+    const nextPage = page + 1;
+    console.log("📄 다음 페이지 불러옴:", nextPage);
+
+    try {
+      const response = await axios.get("http://localhost:5000/users/mypage", {
+        params: {
+          [`${selectedType}Page`]: nextPage,
+          limit: 9,
+        },
+        withCredentials: true,
+      });
+
+      if (response.data.ok) {
+        const result = response.data[selectedType];
+        console.log("📦 추가 데이터:", result);
+        setData((prevData) =>
+          prevData ? [...prevData, ...result.items] : result.items
+        ); // ✅ 여기 수정!
+        setHasMore(result.hasMore);
+        setPage(nextPage);
+      }
+    } catch (error) {
+      console.error("❌ 더 많은 데이터를 불러오는 중 오류:", error);
+    }
+  };
+  // 감지
+  useEffect(() => {
+    const target = lastPostElementRef.current;
+
+    if (observer.current) observer.current.disconnect();
+
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          // ✅ 조건을 여기서도 다시 체크!
+          if (hasMore && !loading) {
+            console.log("감지됨!");
+            fetchMoreData();
+          }
+        }
+      },
+      {
+        threshold: 1.0,
+      }
+    );
+
+    if (target) observer.current.observe(target);
+
+    return () => {
+      if (observer.current) observer.current.disconnect();
+    };
+  }, [data, loading, hasMore]);
+  useEffect(() => {
+    console.log("📦 hasMore 상태 변경됨:", hasMore);
+  }, [hasMore]);
   return (
     <MyPagePadding>
       <MyPageStyled>
@@ -241,7 +331,20 @@ const MyPage = () => {
           </div>
           {/* 하단 게시글, 좋아요, 알림 정보 */}
           <div>
-            <PostList data={data} />
+            <PostList data={data ?? []} />
+            {hasMore && (
+              <div
+                ref={lastPostElementRef}
+                style={{
+                  height: "100px",
+                  background: "lightcoral", // 테스트용으로 색도 입혀보세요
+                  textAlign: "center",
+                  lineHeight: "100px",
+                }}
+              >
+                감지 타겟
+              </div>
+            )}
           </div>
           {/* 강아지 정보 모달 */}
           {isPuppyModalVisible && (
