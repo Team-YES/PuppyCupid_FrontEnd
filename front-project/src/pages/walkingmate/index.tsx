@@ -1,10 +1,10 @@
 import WalkingMatePage from "@/features/WalkingMate";
-import PrivateRoute from "@/components/PrivateRoute";
+import PowerUserRoute from "@/components/PowerUserRoute";
 const WalkingMate = () => {
   return (
-    <PrivateRoute>
+    <PowerUserRoute>
       <WalkingMatePage />
-    </PrivateRoute>
+    </PowerUserRoute>
   );
 };
 
