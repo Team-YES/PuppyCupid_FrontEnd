@@ -12,6 +12,7 @@ export interface Dog {
   mbti: string;
   gender: string;
   image: string;
+  userId: number;
 }
 
 interface DogState {
@@ -30,7 +31,7 @@ export const fetchMyDog = createAsyncThunk("dog/fetchMyDog", async () => {
   const res = await axios.get("http://localhost:5000/dogs/profile", {
     withCredentials: true,
   });
-  return res.data.dog;
+  return res.data;
 });
 
 const dogSlice = createSlice({
@@ -45,7 +46,7 @@ const dogSlice = createSlice({
       })
       .addCase(fetchMyDog.fulfilled, (state, action) => {
         state.loading = false;
-        state.dog = action.payload;
+        state.dog = action.payload.dog;
       })
       .addCase(fetchMyDog.rejected, (state, action) => {
         state.loading = false;

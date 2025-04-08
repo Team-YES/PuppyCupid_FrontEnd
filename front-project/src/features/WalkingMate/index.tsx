@@ -15,6 +15,7 @@ interface Dog {
   mbti: string;
   personality: string[];
   dog_image: string;
+  userId: number;
 }
 
 const WalkingMate = () => {
@@ -41,13 +42,12 @@ const WalkingMate = () => {
         "http://localhost:5000/messages",
         {
           receiverId,
-          content: "산책 메이트 채팅 신청합니다!",
+          content: "산책 메이트 신청합니다!",
         },
         {
           withCredentials: true,
         }
       );
-      console.log("채팅 생성 성공!", res.data);
       window.location.href = `/chat?userId=${receiverId}`;
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
@@ -90,7 +90,7 @@ const WalkingMate = () => {
 
           if (res.data.ok) {
             setDogs(res.data.dogs);
-            console.log("서버 응답 dogs:", res.data.dogs);
+            console.log("받은 데이터:", res.data);
           }
         } catch (err) {
           console.error("위치 전송 실패:", err);
@@ -160,7 +160,7 @@ const WalkingMate = () => {
                       </p>
                       <div
                         className="WalkingMate_chat-button"
-                        onClick={() => handleChat(dog.id)}
+                        onClick={() => handleChat(dog.userId)}
                       >
                         채팅하기
                       </div>
