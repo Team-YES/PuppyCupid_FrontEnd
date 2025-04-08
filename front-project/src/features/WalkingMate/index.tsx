@@ -90,8 +90,6 @@ const WalkingMate = () => {
 
           if (res.data.ok) {
             setDogs(res.data.dogs);
-            console.log("받은 데이터:", res.data);
-            console.log("받은 dogs 리스트:", res.data.dogs);
           }
         } catch (err) {
           console.error("위치 전송 실패:", err);

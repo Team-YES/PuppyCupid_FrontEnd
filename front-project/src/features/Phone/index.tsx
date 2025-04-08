@@ -207,7 +207,7 @@ const Phone = () => {
                 type="submit"
                 className="Phone-button"
                 disabled={
-                  !formik.values.nickname || formik.values.nickname.length < 2
+                  !formik.isValid || !formik.dirty || !nicknameCheckPassed
                 }
               >
                 제출

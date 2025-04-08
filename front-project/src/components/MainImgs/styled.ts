@@ -64,4 +64,33 @@ export const MainImgsPadding = styled.div`
   @media (max-width: 1024px) {
     padding: 0px 20px;
   }
+
+  /* 강아지 */
+  @keyframes walkRight {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(100vw);
+    }
+  }
+  .MainImgs_puppy {
+    padding-top: 80px;
+    position: relative;
+    z-index: 10;
+  }
+  .MainImgs_puppy img {
+    width: 100px;
+    animation: walkRight 13s linear infinite;
+    position: absolute;
+    bottom: 20px;
+    left: -100px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* .MainImgsWrapper {
+    position: relative;
+    overflow: hidden;
+  } */
 `;

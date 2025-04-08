@@ -44,6 +44,9 @@ const MainImgs = ({ titles, images, paths }: MainImgsProps) => {
             </div>
           ))}
         </div>
+        <div className="MainImgs_puppy">
+          <img src="/hello_puppy.gif"></img>
+        </div>
       </MainImgsWrapper>
     </MainImgsPadding>
   );
