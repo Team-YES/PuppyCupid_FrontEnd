@@ -1,7 +1,7 @@
-// pages/contact.tsx
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { HelpStyled } from "./styled";
 
 export default function ContactPage() {
   const formik = useFormik({
@@ -49,106 +49,123 @@ export default function ContactPage() {
   const isFormValid = formik.isValid && formik.dirty;
 
   return (
-    <div className="Help_formWrap">
-      <h1>문의하기</h1>
-      <form onSubmit={formik.handleSubmit}>
-        <label className="Help_required-dot">
-          문의 유형 선택<span>●</span>
-          <select
-            name="type"
-            onChange={formik.handleChange}
-            value={formik.values.type}
-          >
-            <option value="">선택</option>
-            <option value="service">결제 관련 문의</option>
-            <option value="bug">신고하기</option>
-            <option value="etc">기타</option>
-          </select>
-        </label>
-        {formik.touched.type && formik.errors.type && (
-          <div>{formik.errors.type}</div>
-        )}
-
-        <label className="Help_required-dot">
-          이름<span>●</span>
-          <input
-            type="text"
-            name="name"
-            onChange={formik.handleChange}
-            value={formik.values.name}
-          />
-        </label>
-        {formik.touched.name && formik.errors.name && (
-          <div>{formik.errors.name}</div>
-        )}
-
-        <label className="Help_required-dot">
-          이메일<span>●</span>
-          <input
-            type="email"
-            name="email"
-            onChange={formik.handleChange}
-            value={formik.values.email}
-          />
-        </label>
-        {formik.touched.email && formik.errors.email && (
-          <div>{formik.errors.email}</div>
-        )}
-
-        <label>
-          연락처<span className="Help_required-dot">●</span>
-          <div style={{ display: "flex", gap: "5px" }}>
-            <input
-              type="text"
-              name="phone1"
-              maxLength={3}
-              onChange={formik.handleChange}
-              value={formik.values.phone1}
-            />
-            -
-            <input
-              type="text"
-              name="phone2"
-              maxLength={4}
-              onChange={formik.handleChange}
-              value={formik.values.phone2}
-            />
-            -
-            <input
-              type="text"
-              name="phone3"
-              maxLength={4}
-              onChange={formik.handleChange}
-              value={formik.values.phone3}
-            />
+    <HelpStyled>
+      <div className="Help_formWrap">
+        <h1>문의하기</h1>
+        <form onSubmit={formik.handleSubmit}>
+          <div className="Help_Wrap">
+            <div className="Help_labelinput_wrap">
+              <label className="Help_required-dot">
+                문의 유형 선택<span>●</span>
+                <div className="Help_inputWrap">
+                  <select
+                    name="type"
+                    onChange={formik.handleChange}
+                    value={formik.values.type}
+                  >
+                    <option value="">선택</option>
+                    <option value="service">결제 관련 문의</option>
+                    <option value="bug">신고하기</option>
+                    <option value="etc">기타</option>
+                  </select>
+                </div>
+              </label>
+              {formik.touched.type && formik.errors.type && (
+                <div>{formik.errors.type}</div>
+              )}
+            </div>
+            <div className="Help_labelinput_wrap">
+              <label className="Help_required-dot">
+                이름<span>●</span>
+                <div className="Help_inputWrap">
+                  <input
+                    type="text"
+                    name="name"
+                    onChange={formik.handleChange}
+                    value={formik.values.name}
+                  />
+                </div>
+              </label>
+              {formik.touched.name && formik.errors.name && (
+                <div>{formik.errors.name}</div>
+              )}
+            </div>
+            <div className="Help_labelinput_wrap">
+              <label className="Help_required-dot">
+                이메일<span>●</span>
+                <div className="Help_inputWrap">
+                  <input
+                    type="email"
+                    name="email"
+                    onChange={formik.handleChange}
+                    value={formik.values.email}
+                  />
+                </div>
+              </label>
+              {formik.touched.email && formik.errors.email && (
+                <div>{formik.errors.email}</div>
+              )}
+            </div>
+            <div className="Help_labelinput_wrap">
+              <label className="Help_required-dot">
+                연락처<span>●</span>
+                <div className="Help_inputWrap">
+                  <input
+                    type="text"
+                    name="phone1"
+                    maxLength={3}
+                    onChange={formik.handleChange}
+                    value={formik.values.phone1}
+                  />
+                  -
+                  <input
+                    type="text"
+                    name="phone2"
+                    maxLength={4}
+                    onChange={formik.handleChange}
+                    value={formik.values.phone2}
+                  />
+                  -
+                  <input
+                    type="text"
+                    name="phone3"
+                    maxLength={4}
+                    onChange={formik.handleChange}
+                    value={formik.values.phone3}
+                  />
+                </div>
+              </label>
+              {(formik.touched.phone1 && formik.errors.phone1 && (
+                <div>{formik.errors.phone1}</div>
+              )) ||
+                (formik.touched.phone2 && formik.errors.phone2 && (
+                  <div>{formik.errors.phone2}</div>
+                )) ||
+                (formik.touched.phone3 && formik.errors.phone3 && (
+                  <div>{formik.errors.phone3}</div>
+                ))}
+            </div>
+            <div className="Help_labelinput_wrap">
+              <label className="Help_required-dot">
+                문의 내용<span>●</span>
+                <div className="Help_inputWrap">
+                  <textarea
+                    name="message"
+                    onChange={formik.handleChange}
+                    value={formik.values.message}
+                  />
+                </div>
+              </label>
+              {formik.touched.message && formik.errors.message && (
+                <div>{formik.errors.message}</div>
+              )}
+            </div>
           </div>
-        </label>
-        {(formik.touched.phone1 && formik.errors.phone1 && (
-          <div>{formik.errors.phone1}</div>
-        )) ||
-          (formik.touched.phone2 && formik.errors.phone2 && (
-            <div>{formik.errors.phone2}</div>
-          )) ||
-          (formik.touched.phone3 && formik.errors.phone3 && (
-            <div>{formik.errors.phone3}</div>
-          ))}
-
-        <label>
-          문의 내용<span className="Help_required-dot">●</span>
-          <textarea
-            name="message"
-            onChange={formik.handleChange}
-            value={formik.values.message}
-          />
-        </label>
-        {formik.touched.message && formik.errors.message && (
-          <div>{formik.errors.message}</div>
-        )}
-
-        <button type="submit" disabled={!isFormValid}>
-          제출하기
-        </button>
-      </form>
-    </div>
+          <button type="submit" disabled={!isFormValid}>
+            제출하기
+          </button>
+        </form>
+      </div>
+    </HelpStyled>
   );
 }
