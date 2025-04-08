@@ -131,6 +131,9 @@ const Board = () => {
   // 현재 선택된 게시글
   const selectedPost = posts.find((p) => p.id === selectPostId);
 
+  console.log("현재 선택된게시글", selectedPost);
+  console.log("dataUser : ", dataUser);
+
   return (
     <div>
       {/* 날씨정보 */}
@@ -171,8 +174,14 @@ const Board = () => {
           </div>
         ))}
       </AllPostsWrap>
+
+      {/* 상세 게시글 */}
       {selectedPost && (
-        <DetailPost post={selectedPost} onClose={handleCloseModal} />
+        <DetailPost
+          post={selectedPost}
+          loginUser={loginUser?.id}
+          onClose={handleCloseModal}
+        />
       )}
     </div>
   );
