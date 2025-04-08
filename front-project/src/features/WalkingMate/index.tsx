@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import axios from "axios";
-import { WalkingMateStyled } from "./styled";
+import { WalkingMateStyled, WalkingMateCard } from "./styled";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { fetchMyDog } from "@/reducers/dogSlice";
 
@@ -19,9 +19,25 @@ interface Dog {
 
 const WalkingMate = () => {
   const [dogs, setDogs] = useState<Dog[]>([]);
+
+  // 카드 뒤집기
+  const [flippedCards, setFlippedCards] = useState<Record<number, boolean>>({});
   const myDog = useSelector((state: RootState) => state.dog.dog);
   const dogId = myDog?.id;
   const dispatch = useAppDispatch();
+
+  // 카드 토글
+  const toggleFlip = (id: number) => {
+    setFlippedCards((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
+
+  // 채팅하기 이동
+  const handleChat = (dogId: number) => {
+    console.log(`${dogId}번 강아지와 채팅 시작`);
+  };
 
   useEffect(() => {
     dispatch(fetchMyDog());
@@ -72,34 +88,63 @@ const WalkingMate = () => {
             </div>
           </div>
         </div>
+        <div className="WalkingMate_List_Title">
+          📍 지금 근처에서 접속 중인 댕댕이 친구들이에요!
+        </div>
         {/* 접속 중인 유저 목록 */}
-        <ul>
-          {dogs.map((dog) => (
-            <li key={dog.id}>
-              <img
-                src={`http://localhost:5000${dog.dog_image}`}
-                alt={`${dog.name}의 이미지`}
-                style={{
-                  width: "150px",
-                  height: "150px",
-                  objectFit: "cover",
-                  borderRadius: "8px",
-                }}
-              />
-              <p>이름: {dog.name}</p>
-              <p>견종: {dog.breed}</p>
-              <p>나이: {dog.age}</p>
-              <p>성별: {dog.gender}</p>
-              <p>MBTI: {dog.mbti}</p>
-              <p>
-                성격:{" "}
-                {Array.isArray(dog.personality)
-                  ? dog.personality.join(", ")
-                  : JSON.parse(dog.personality).join(", ")}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <WalkingMateCard>
+          {dogs.length > 0 ? (
+            <ul>
+              {dogs.map((dog) => (
+                <li key={dog.id} onClick={() => toggleFlip(dog.id)}>
+                  <div
+                    className={`WalkingMate_card ${
+                      flippedCards[dog.id] ? "WalkingMate_flip" : ""
+                    }`}
+                  >
+                    {/* 앞면 */}
+                    <div className="WalkingMate_card-face WalkingMate_card-front">
+                      <div className="WalkingMate_card-img-wrap">
+                        <img
+                          src={`http://localhost:5000${dog.dog_image}`}
+                          alt={`${dog.name}의 이미지`}
+                        />
+                      </div>
+                      <div className="WalkingMate_card-name-overlay">
+                        이름: {dog.name}
+                      </div>
+                    </div>
+
+                    {/* 뒷면 */}
+                    <div className="WalkingMate_card-face WalkingMate_card-back">
+                      <p>견종: {dog.breed}</p>
+                      <p>나이: {dog.age}</p>
+                      <p>성별: {dog.gender}</p>
+                      <p>MBTI: {dog.mbti}</p>
+                      <p>
+                        성격:{" "}
+                        {Array.isArray(dog.personality)
+                          ? dog.personality.join(", ")
+                          : JSON.parse(dog.personality).join(", ")}
+                      </p>
+                      <div
+                        className="WalkingMate_chat-button"
+                        onClick={() => handleChat(dog.id)}
+                      >
+                        채팅하기
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="WalkingMate-nodogs-message">
+              주변에 접속 중인 산책 친구가 없어요 😢 <br />
+              나중에 다시 확인해보세요!
+            </div>
+          )}
+        </WalkingMateCard>
       </div>
     </WalkingMateStyled>
   );
