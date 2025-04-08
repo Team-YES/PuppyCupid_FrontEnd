@@ -103,9 +103,9 @@ const DetailPost = ({
   };
 
   // 강아지 이미지 가져오기
-  useEffect(() => {
-    dispatch(fetchMyDog());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchMyDog());
+  // }, [dispatch]);
 
   const dogImg = useSelector((state: RootState) => state.dog.dog?.image);
 
@@ -247,8 +247,8 @@ const DetailPost = ({
                         <img
                           className="Detail_img"
                           src={
-                            dogImg
-                              ? `http://localhost:5000${dogImg}`
+                            c.user.dogImage
+                              ? `http://localhost:5000${c.user.dogImage}`
                               : "/puppy_profile.png"
                           }
                         />
