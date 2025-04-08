@@ -100,14 +100,18 @@ export const MyPageRight = styled.div`
       font-size: 23px;
       width: 25%;
       position: relative;
-      display: inline-block;
+      display: flex;
+      justify-content: space-around;
       i {
         text-align: center;
         margin-left: 5px;
-        font-size: 18px;
+        font-size: 20px;
         color: ${(props) => props.theme.colors.pointPurple};
       }
-
+      .MyPage_crown_wrap {
+        position: relative;
+        display: flex;
+      }
       .MyPage_crownText {
         background-color: white;
         visibility: hidden;
@@ -121,7 +125,7 @@ export const MyPageRight = styled.div`
         z-index: 1;
         bottom: 130%;
         left: 50%;
-        transform: translateX(-22%);
+        transform: translateX(-50%);
         white-space: nowrap;
 
         /* 말풍선 꼬리 */

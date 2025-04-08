@@ -55,7 +55,24 @@ const WalkingMate = () => {
   return (
     <WalkingMateStyled>
       <div>
-        <h1>📍 주변 강아지</h1>
+        {/* 윗부분 안내 문구 */}
+        <div>
+          <div className="WalkingMate_Info_wrap">
+            <img src="/puppy.gif" alt="walkingmate puppyimg"></img>
+            <div className="WalkingMate_Info_Textwrap">
+              <h5>혹시 우리 댕댕이... 외롭진 않을까요?</h5>
+              <h1>
+                <span>산책메이트로</span>
+                <span>친구를 찾아주세요!</span>
+              </h1>
+              <h3>
+                <span>주변에 접속 중인 친구들에게 대화 신청이 가능합니다.</span>
+                <span>새로운 산책 친구와 특별한 인연을 만들어보세요 🐶</span>
+              </h3>
+            </div>
+          </div>
+        </div>
+        {/* 접속 중인 유저 목록 */}
         <ul>
           {dogs.map((dog) => (
             <li key={dog.id}>

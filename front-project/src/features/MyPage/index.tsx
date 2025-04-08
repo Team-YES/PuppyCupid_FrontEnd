@@ -149,9 +149,11 @@ const MyPage = () => {
                   {user ? user.nickName || user.email : "Guest"}
 
                   {/* 왕관 */}
-                  <i className="fa-solid fa-crown MyPage_crown"></i>
-                  <div className="MyPage_crownText">
-                    오픈 기념 할인 중이에요!
+                  <div className="MyPage_crown_wrap">
+                    <i className="fa-solid fa-crown MyPage_crown"></i>
+                    <div className="MyPage_crownText">
+                      오픈 기념 할인 중이에요!
+                    </div>
                   </div>
                 </div>
 
