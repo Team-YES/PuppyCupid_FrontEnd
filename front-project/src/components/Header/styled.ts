@@ -334,7 +334,7 @@ export const Nav = styled.nav`
 
   /* 아이콘 */
   .header_userfindicon {
-    font-size: 30px;
+    font-size: 28px;
     padding: 0px 15px;
     padding-top: 8px;
   }
@@ -354,7 +354,7 @@ export const Nav = styled.nav`
     .RightMenubar_title {
       cursor: pointer;
       padding-bottom: 25px;
-      font-size: 25px;
+      font-size: 23px;
       &:hover {
         color: ${({ theme }) => theme.colors.pointPurple};
       }
