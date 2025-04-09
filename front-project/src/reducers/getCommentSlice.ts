@@ -1,11 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+interface Comment {
+  id: number;
+  content: string;
+  created_at: string;
+  user: any;
+  parentCommentId: number | null;
+}
+
 interface CommentState {
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
-  latestComment: any | null;
-  comments: any[];
+  latestComment: Comment | null;
+  comments: Comment[];
   postId: string | null;
 }
 
@@ -17,19 +25,75 @@ const initialState: CommentState = {
   postId: null,
 };
 
+// 답글 등록
+export const postReply = createAsyncThunk(
+  "comment/postReply",
+  async (
+    {
+      postId,
+      content,
+      parentCommentId,
+    }: {
+      postId: number;
+      content: string;
+      parentCommentId: number;
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      const res = await axios.post(
+        `http://localhost:5000/interactions/comment/${postId}`,
+        {
+          content,
+          parentCommentId,
+        },
+        { withCredentials: true }
+      );
+      console.log("답글등록slice: ", res.data);
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || "답글 등록 실패");
+    }
+  }
+);
+
 // 댓글 게시
 export const postComment = createAsyncThunk(
   "comment/postComment",
-  async ({ postId, content }: { postId: number; content: string }) => {
-    const res = await axios.post(
-      `http://localhost:5000/interactions/comment/${postId}`,
-      { content },
-      { withCredentials: true }
-    );
-    // console.log("댓글 slice: ", res.data);
-    return res.data;
+  async (
+    { postId, content }: { postId: number; content: string },
+    { rejectWithValue }
+  ) => {
+    try {
+      const res = await axios.post(
+        `http://localhost:5000/interactions/comment/${postId}`,
+        { content },
+        { withCredentials: true }
+      );
+
+      // 성공여부 확인
+      if (res.data.ok) {
+        return res.data.content;
+      } else {
+        return rejectWithValue("댓글 등록 실패: 서버 응답 실패");
+      }
+    } catch (err: any) {
+      return rejectWithValue(
+        err.response?.data?.message || "댓글 등록 중 예외 발생"
+      );
+    }
   }
 );
+//   async ({ postId, content }: { postId: number; content: string }) => {
+//     const res = await axios.post(
+//       `http://localhost:5000/interactions/comment/${postId}`,
+//       { content },
+//       { withCredentials: true }
+//     );
+//     console.log("댓글 slice: ", res.data);
+//     return res.data;
+//   }
+// );
 
 // 댓글 가져오기
 export const fetchComments = createAsyncThunk(
@@ -63,6 +127,7 @@ export const deleteComment = createAsyncThunk(
   }
 );
 
+// 슬라이스 정의
 const commentSlice = createSlice({
   name: "comment",
   initialState,
@@ -105,6 +170,18 @@ const commentSlice = createSlice({
       .addCase(deleteComment.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message ?? "댓글 삭제 실패";
+      })
+      .addCase(postReply.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(postReply.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.latestComment = action.payload;
+        state.comments = [action.payload, ...state.comments];
+      })
+      .addCase(postReply.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message ?? "답글 등록 실패";
       });
   },
 });
