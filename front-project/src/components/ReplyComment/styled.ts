@@ -6,7 +6,7 @@ export const ReplyCommentStyled = styled.div`
     background-color: transparent;
     display: flex;
     align-items: center;
-    margin: 16px 0 0 60px;
+    margin: 16px 0 18px 60px;
     cursor: pointer;
   }
 
@@ -34,5 +34,9 @@ export const ReplyCommentStyled = styled.div`
     color: rgb(115, 115, 115);
     font-size: 12px;
     margin: 0 0 2px 10px;
+  }
+
+  .Reply_content {
+    margin-top: 20px;
   }
 `;

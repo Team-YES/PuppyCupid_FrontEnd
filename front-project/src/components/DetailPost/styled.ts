@@ -108,7 +108,7 @@ export const Detail_RightContainer = styled.div`
     width: 100%;
     display: flex;
     position: relative;
-    margin-bottom: 16px;
+    margin-bottom: 17px;
   }
 
   .Detail_commenter .Detail_dayDiv {
@@ -255,4 +255,9 @@ export const DetailPostIcon = styled.i`
   color: #333;
   margin-right: 15px;
   cursor: pointer;
+`;
+
+export const ReplyCommentDiv = styled.div`
+  margin-left: 62px;
+  margin-top: -5px;
 `;

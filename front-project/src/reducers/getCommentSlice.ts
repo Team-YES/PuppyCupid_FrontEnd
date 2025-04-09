@@ -50,7 +50,7 @@ export const postReply = createAsyncThunk(
         { withCredentials: true }
       );
       console.log("답글등록slice: ", res.data);
-      return res.data;
+      return res.data.content;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || "답글 등록 실패");
     }
@@ -177,7 +177,7 @@ const commentSlice = createSlice({
       .addCase(postReply.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.latestComment = action.payload;
-        state.comments = [action.payload, ...state.comments];
+        // state.comments = [action.payload, ...state.comments];
       })
       .addCase(postReply.rejected, (state, action) => {
         state.status = "failed";

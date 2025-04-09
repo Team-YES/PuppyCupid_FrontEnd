@@ -11,10 +11,11 @@ import { CommentType } from "../Post";
 type Props = {
   postId: number;
   onAddComment: (comment: CommentType) => void;
+  onAddReply: (comment: CommentType) => void;
   replyTarget: { parentCommentId: number; nickName: string } | null;
 };
 
-const Comment = ({ postId, onAddComment, replyTarget }: Props) => {
+const Comment = ({ postId, onAddComment, onAddReply, replyTarget }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
 
   console.log("댓글컴포 replyTarget", replyTarget);
@@ -34,6 +35,7 @@ const Comment = ({ postId, onAddComment, replyTarget }: Props) => {
 
   // 댓글 / 답글 게시
   const handleSubmit = async () => {
+    console.log("replyTarget 확인", replyTarget);
     if (!comment.trim()) return;
 
     try {
@@ -54,13 +56,14 @@ const Comment = ({ postId, onAddComment, replyTarget }: Props) => {
         );
       }
 
-      if (
-        postComment.fulfilled.match(resultAction) ||
-        postReply.fulfilled.match(resultAction)
-      ) {
-        console.log("등록 성공: ", resultAction.payload);
-        onAddComment(resultAction.payload.content); // 부모 컴포넌트로 새 댓글/답글 전달
-        setComment(""); // 입력창 초기화
+      if (postComment.fulfilled.match(resultAction)) {
+        const newComment = resultAction.payload;
+        onAddComment(newComment); // 댓글만 추가
+        setComment("");
+      } else if (postReply.fulfilled.match(resultAction)) {
+        const newReply = resultAction.payload;
+        onAddReply(newReply); // 답글만 추가
+        setComment("");
       } else {
         console.error("등록 실패: ", resultAction);
       }

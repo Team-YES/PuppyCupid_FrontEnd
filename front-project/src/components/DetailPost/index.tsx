@@ -6,6 +6,7 @@ import {
   Detail_RightContainer,
   DetailLikeIcon,
   DetailPostIcon,
+  ReplyCommentDiv,
 } from "./styled";
 import { DateDiv, LikeCont } from "@/components/Post/styled";
 import ReplyComment from "@/components/ReplyComment";
@@ -59,12 +60,29 @@ const DetailPost = ({
     null
   );
 
+  // 답글 보기
+  const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
+    {}
+  );
+
+  const toggleReplyVisibility = (commentId: number) => {
+    setOpenReplies((prev) => ({
+      ...prev,
+      [commentId]: !prev[commentId],
+    }));
+  };
+
   // 게시한 댓글 표시
   const [getComment, setGetComment] = useState<CommentType[]>([]);
 
+  const handleAddComment = (newComment: CommentType) => {
+    setGetComment((v) => [newComment, ...v]);
+  };
+
   console.log("상세컴포 댓글 :", getComment);
 
-  const handleAddComment = (newComment: CommentType) => {
+  // 게시한 답글 표시
+  const handleAddReply = (newComment: CommentType) => {
     setGetComment((v) => [newComment, ...v]);
   };
 
@@ -114,17 +132,17 @@ const DetailPost = ({
   console.log("asdfs", dogId, dogImg);
 
   // 게시글 강아지 이미지
-  const targetUserId = post.user.id; // 예: 네이버용사의 user.id
+  // const targetUserId = post.user.id; // 예: 네이버용사의 user.id
 
-  const userImage = getComment.find(
-    (comment) => comment.user.id === targetUserId
-  )?.user.dogImage;
+  // const userImage = getComment.find(
+  //   (comment) => comment.user.id === targetUserId
+  // )?.user.dogImage;
 
-  console.log(userImage);
+  // console.log(userImage);
 
-  const imageSrc = userImage
-    ? `http://localhost:5000${userImage}`
-    : "/puppy_profile.png";
+  // const imageSrc = userImage
+  //   ? `http://localhost:5000${userImage}`
+  //   : "/puppy_profile.png";
 
   // '답글 달기' 클릭
   const [replyTarget, setReplyTarget] = useState<{
@@ -243,12 +261,12 @@ const DetailPost = ({
                 <div className="Detail_imgBox">
                   <img
                     className="Detail_img"
-                    src={imageSrc}
-                    // src={
-                    //   dogImg
-                    //     ? `http://localhost:5000${dogImg}`
-                    //     : "/puppy_profile.png"
-                    // }
+                    // src={imageSrc}
+                    src={
+                      dogImg
+                        ? `http://localhost:5000${dogImg}`
+                        : "/puppy_profile.png"
+                    }
                   />
                 </div>
               </div>
@@ -264,74 +282,138 @@ const DetailPost = ({
             {/* 댓글 내용 */}
             <div className="Detail_contBox">
               <div className="Detail_Info">
-                {getComment.map((c, i) => (
-                  <div key={i} className="Detail_commenter">
-                    <div className="Detail_contImg">
-                      <div className="Detail_imgBox">
-                        <img
-                          className="Detail_img"
-                          src={
-                            c.user.dogImage
-                              ? `http://localhost:5000${c.user.dogImage}`
-                              : "/puppy_profile.png"
-                          }
-                        />
-                      </div>
-                    </div>
-                    <div style={{ paddingTop: 5 }}>
-                      <div className="Post_nickName">{c.user.nickName}</div>
-                      <span className="Detail_pc">{c.content}</span>
-                      <div className="Detail_day">
-                        <DateDiv>{formatPostDate(c.created_at)}</DateDiv>
-                        <span
-                          className="Detail_span"
-                          onClick={() =>
-                            setReplyTarget({
-                              parentCommentId: c.id,
-                              nickName: c.user.nickName,
-                            })
-                          }
-                        >
-                          답글 달기
-                        </span>
-                        <div
-                          className="Detail_dayDiv"
-                          onClick={() => setSelectedCommentId(c.id)}
-                        >
-                          <i className="fa-solid fa-ellipsis-h"></i>
+                {getComment
+                  .filter((c) => c.parentCommentId === null) // 댓글만
+                  .map((comment) => {
+                    const replies = getComment.filter(
+                      (reply) => reply.parentCommentId === comment.id
+                    );
+
+                    return (
+                      <div key={comment.id}>
+                        {/* 댓글 본문 */}
+                        <div className="Detail_commenter">
+                          <div className="Detail_contImg">
+                            <div className="Detail_imgBox">
+                              <img
+                                className="Detail_img"
+                                src={
+                                  comment.user.dogImage
+                                    ? `http://localhost:5000${comment.user.dogImage}`
+                                    : "/puppy_profile.png"
+                                }
+                              />
+                            </div>
+                          </div>
+                          <div style={{ paddingTop: 5 }}>
+                            <div className="Post_nickName">
+                              {comment.user.nickName}
+                            </div>
+                            <span className="Detail_pc">{comment.content}</span>
+                            <div className="Detail_day">
+                              <DateDiv>
+                                {formatPostDate(comment.created_at)}
+                              </DateDiv>
+                              <span
+                                className="Detail_span"
+                                onClick={() =>
+                                  setReplyTarget({
+                                    parentCommentId: comment.id,
+                                    nickName: comment.user.nickName,
+                                  })
+                                }
+                              >
+                                답글 달기
+                              </span>
+                              <div
+                                className="Detail_dayDiv"
+                                onClick={() => setSelectedCommentId(comment.id)}
+                              >
+                                <i className="fa-solid fa-ellipsis-h"></i>
+                              </div>
+                              {selectedCommentId !== null && (
+                                <EditPostModal
+                                  mode="comment"
+                                  postId={post.id}
+                                  commentId={selectedCommentId}
+                                  writerId={
+                                    getComment.find(
+                                      (c) => c.id === selectedCommentId
+                                    )?.user.id || 0
+                                  } // 댓글 작성자의 ID
+                                  loginUserId={loginUser}
+                                  onClose={() => setSelectedCommentId(null)}
+                                  onDeleteComment={onDeleteComment}
+                                />
+                              )}
+                            </div>
+                          </div>
                         </div>
 
-                        {/* 댓글 삭제, 신고 모달 */}
-                        {/* {selectedCommentId !== null && (
-                          <EditPostModal
-                            mode="comment"
-                            postId={post.id}
-                            commentId={selectedCommentId}
-                            writerId={loginUser || 0}
-                            loginUserId={loginUser}
-                            onClose={() => setSelectedCommentId(null)}
-                            onDeleteComment={handleDeleteComment}
-                          />
-                        )} */}
-                        {selectedCommentId !== null && (
-                          <EditPostModal
-                            mode="comment"
-                            postId={post.id}
-                            commentId={selectedCommentId}
-                            writerId={
-                              getComment.find((c) => c.id === selectedCommentId)
-                                ?.user.id || 0
-                            } // 댓글 작성자의 ID
-                            loginUserId={loginUser}
-                            onClose={() => setSelectedCommentId(null)}
-                            onDeleteComment={onDeleteComment}
-                          />
+                        {/* 답글 토글 & 표시 */}
+                        {replies.length > 0 && (
+                          <ReplyComment
+                            replyCount={replies.length}
+                            isOpen={openReplies[comment.id]}
+                            onClick={() => toggleReplyVisibility(comment.id)}
+                          >
+                            {replies.map((reply) => (
+                              <div
+                                key={reply.id}
+                                className="Detail_commenter"
+                                style={{ marginLeft: "60px" }}
+                              >
+                                <div className="Detail_contImg">
+                                  <div className="Detail_imgBox">
+                                    <img
+                                      className="Detail_img"
+                                      src={
+                                        reply.user.dogImage
+                                          ? `http://localhost:5000${reply.user.dogImage}`
+                                          : "/puppy_profile.png"
+                                      }
+                                    />
+                                  </div>
+                                </div>
+                                <div>
+                                  <div className="Post_nickName">
+                                    {reply.user.nickName}
+                                  </div>
+                                  <span className="Detail_pc">
+                                    {reply.content}
+                                  </span>
+                                  <div className="Detail_day">
+                                    <DateDiv>
+                                      {formatPostDate(reply.created_at)}
+                                    </DateDiv>
+                                    <span
+                                      className="Detail_span"
+                                      onClick={() =>
+                                        setReplyTarget({
+                                          parentCommentId: comment.id,
+                                          nickName: comment.user.nickName,
+                                        })
+                                      }
+                                    >
+                                      답글 달기
+                                    </span>
+                                    <div
+                                      className="Detail_dayDiv"
+                                      onClick={() =>
+                                        setSelectedCommentId(reply.id)
+                                      }
+                                    >
+                                      <i className="fa-solid fa-ellipsis-h"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </ReplyComment>
                         )}
                       </div>
-                    </div>
-                  </div>
-                ))}
-                <ReplyComment />
+                    );
+                  })}
               </div>
             </div>
           </div>
@@ -371,6 +453,7 @@ const DetailPost = ({
             <Comment
               postId={post.id}
               onAddComment={handleAddComment}
+              onAddReply={handleAddReply}
               replyTarget={replyTarget}
             />
           </div>
