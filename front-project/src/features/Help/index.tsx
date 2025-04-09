@@ -33,7 +33,11 @@ export default function ContactPage() {
       phone3: Yup.string()
         .matches(/^\d{4}$/, "4자리 숫자만 입력해주세요.")
         .required("연락처를 입력해주세요."),
-      message: Yup.string().required("문의 내용을 입력해주세요."),
+      message: Yup.string().when("type", {
+        is: (val: string) => val !== "service",
+        then: (schema) => schema.required("문의 내용을 입력해주세요."),
+        otherwise: (schema) => schema.notRequired(),
+      }),
       bank: Yup.string().when("type", {
         is: "service",
         then: (schema) => schema.required("은행명을 선택해주세요."),
@@ -46,10 +50,7 @@ export default function ContactPage() {
         is: "service",
         then: (schema) =>
           schema
-            .matches(
-              /^\d{3}-\d{3,4}-\d{4,6}$/,
-              "올바른 계좌번호 형식이 아닙니다."
-            )
+            .matches(/^\d{10,13}$/, "10~13자리 숫자만 입력해주세요.")
             .required("계좌번호를 입력해주세요."),
       }),
       refundReason: Yup.string().when("type", {
@@ -57,7 +58,6 @@ export default function ContactPage() {
         then: (schema) => schema.required("환불 사유를 입력해주세요."),
       }),
     }),
-    validateOnMount: true,
     onSubmit: async (values) => {
       const phone = `${values.phone1}${values.phone2}${values.phone3}`;
 
@@ -84,7 +84,7 @@ export default function ContactPage() {
 
       try {
         await axios.post(
-          "/inquiries/contact",
+          "http://localhost:5000/inquiries/contact",
           {
             name: values.name,
             email: values.email,
@@ -104,6 +104,11 @@ export default function ContactPage() {
   });
 
   const isFormValid = formik.isValid;
+
+  console.log("dirty:", formik.dirty);
+  console.log("isValid:", formik.isValid);
+  console.log("values:", formik.values);
+  console.log("errors:", formik.errors);
 
   return (
     <HelpStyled>
@@ -293,25 +298,13 @@ export default function ContactPage() {
                       <input
                         type="text"
                         name="accountNumber"
-                        placeholder="예: 123-4567-891011"
+                        placeholder="예: 숫자만 입력해주세요"
                         inputMode="numeric"
                         onChange={(e) => {
                           const onlyNums = e.target.value
                             .replace(/\D/g, "")
                             .slice(0, 13);
-                          let formatted = onlyNums;
-                          if (onlyNums.length > 3 && onlyNums.length <= 7) {
-                            formatted = `${onlyNums.slice(
-                              0,
-                              3
-                            )}-${onlyNums.slice(3)}`;
-                          } else if (onlyNums.length > 7) {
-                            formatted = `${onlyNums.slice(
-                              0,
-                              3
-                            )}-${onlyNums.slice(3, 7)}-${onlyNums.slice(7)}`;
-                          }
-                          formik.setFieldValue("accountNumber", formatted);
+                          formik.setFieldValue("accountNumber", onlyNums);
                         }}
                         value={formik.values.accountNumber}
                         onBlur={formik.handleBlur}
@@ -374,8 +367,8 @@ export default function ContactPage() {
           </div>
           <button
             type="submit"
-            disabled={!isFormValid}
-            className={!isFormValid ? "disabled" : ""}
+            disabled={!(formik.dirty && formik.isValid)}
+            className={!formik.dirty || !formik.isValid ? "disabled" : ""}
           >
             제출하기
           </button>
