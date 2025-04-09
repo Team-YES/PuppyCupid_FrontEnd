@@ -5,7 +5,6 @@ import {
   Detail_LeftContainer,
   Detail_RightContainer,
   DetailLikeIcon,
-  DetailPostIcon,
   ReplyCommentDiv,
 } from "./styled";
 import { DateDiv, LikeCont } from "@/components/Post/styled";
@@ -25,6 +24,7 @@ import Comment from "../Comments";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { formatPostDate } from "@/utils/formatDate";
 import { deleteComment } from "@/reducers/getCommentSlice";
+import KakaoShare from "@/components/KakaoShare";
 
 type Props = {
   post: Post;
@@ -421,11 +421,18 @@ const DetailPost = ({
                   animate={animate}
                 />
               </div>
-              {MypageTitles.map((item, i) => (
-                <div key={i} className="Post_icon">
-                  <DetailPostIcon className={item.icon}></DetailPostIcon>
-                </div>
-              ))}
+              <div className="Post_icon">
+                <i className="fa-regular fa-comment"></i>
+              </div>
+              <KakaoShare
+                title={post.user.nickName}
+                description={post.content}
+                imageUrl={`http://localhost:5000${post.main_image_url}`}
+                url={typeof window !== "undefined" ? window.location.href : ""}
+              />
+              {/* <div className="Post_icon">
+                <i className="fa-solid fa-share-nodes"></i>
+              </div> */}
             </div>
 
             {/* 좋아요 수 + 날짜 */}

@@ -20,6 +20,7 @@ export type Post = {
   content: string;
   currentUser: number;
   created_at: string;
+  main_image_url: string;
   user: {
     id: number;
     nickName: string;
