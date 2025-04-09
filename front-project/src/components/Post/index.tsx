@@ -57,11 +57,11 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
   // const [showEdit, setShowEdit] = useState(false);
 
   // 게시한 댓글 표시
-  const [getComment, setGetComment] = useState<CommentType[]>([]);
+  // const [getComment, setGetComment] = useState<CommentType[]>([]);
 
-  const handleAddComment = (newComment: CommentType) => {
-    setGetComment((v) => [newComment, ...v]);
-  };
+  // const handleAddComment = (newComment: CommentType) => {
+  //   setGetComment((v) => [newComment, ...v]);
+  // };
 
   // 저장된 댓글 가져오기
   // useEffect(() => {

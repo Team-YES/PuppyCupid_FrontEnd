@@ -222,6 +222,12 @@ export const Detail_RightContainer = styled.div`
     cursor: pointer;
   }
 
+  /* 답글 */
+  .Reply_container {
+    margin-left: 62px;
+    margin-top: -5px;
+  }
+
   @media (max-width: 632px) {
     width: 100%;
   }

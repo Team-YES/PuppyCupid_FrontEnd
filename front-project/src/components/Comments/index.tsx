@@ -11,10 +11,11 @@ import { CommentType } from "../Post";
 type Props = {
   postId: number;
   onAddComment: (comment: CommentType) => void;
+  onAddReply: (comment: CommentType) => void;
   replyTarget: { parentCommentId: number; nickName: string } | null;
 };
 
-const Comment = ({ postId, onAddComment, replyTarget }: Props) => {
+const Comment = ({ postId, onAddComment, onAddReply, replyTarget }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
 
   console.log("댓글컴포 replyTarget", replyTarget);
@@ -59,8 +60,11 @@ const Comment = ({ postId, onAddComment, replyTarget }: Props) => {
         postReply.fulfilled.match(resultAction)
       ) {
         console.log("등록 성공: ", resultAction.payload);
-        onAddComment(resultAction.payload.content); // 부모 컴포넌트로 새 댓글/답글 전달
-        setComment(""); // 입력창 초기화
+
+        const newComment = resultAction.payload;
+
+        onAddComment(newComment); // 부모 컴포넌트로 새 댓글/답글 전달
+        setComment("");
       } else {
         console.error("등록 실패: ", resultAction);
       }
