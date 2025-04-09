@@ -9,6 +9,7 @@ import { useClickOutside } from "@/hooks/useClickOutside";
 import { RootState } from "@/store/store";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { format } from "date-fns";
+import ReportModal from "../../../components/ReportModal";
 
 interface Message {
   id: number;
@@ -58,6 +59,8 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
   const myId = useSelector((state: RootState) => state.user.user?.id);
   const [receiverNickName, setReceiverNickName] = useState("");
   const [input, setInput] = useState("");
+  // 신고하기
+  const [showReportModal, setShowReportModal] = useState(false);
 
   // 유저 가져오기(reducers)
   const parsedId = Number(
@@ -192,7 +195,14 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
             {/* ... 버튼 */}
             {showOptions && (
               <div className="ChatRoom_options_menu">
-                <div className="ChatRoom_option_item">신고하기</div>
+                <div
+                  className="ChatRoom_option_item"
+                  onClick={() => {
+                    setShowReportModal(true);
+                  }}
+                >
+                  신고하기
+                </div>
                 <div
                   className="ChatRoom_option_item"
                   onClick={() => handleDeleteMessage()}
@@ -296,6 +306,14 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
           </div>
         )}
       </div>
+      {/* 신고하기 */}
+      {showReportModal && receiverUser && (
+        <ReportModal
+          type="user"
+          targetId={receiverUser.id}
+          onClose={() => setShowReportModal(false)}
+        />
+      )}
     </ChatRoomWrapper>
   );
 };
