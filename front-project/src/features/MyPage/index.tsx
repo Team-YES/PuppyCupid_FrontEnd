@@ -17,6 +17,9 @@ import PersonForm from "../../components/PersonForm";
 import PostList from "../../components/PostList";
 import PuppyFormFix from "../../components/PuppyFormFix";
 
+// 쿠키 토큰 재발급 해보기
+import axiosInstance from "@/lib/axios";
+
 interface Puppy {
   name: string;
   breed: string;
@@ -64,9 +67,12 @@ const MyPage = () => {
   useEffect(() => {
     const fetchPuppyProfile = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/dogs/profile", {
-          withCredentials: true,
-        });
+        const response = await axiosInstance.get(
+          "http://localhost:5000/dogs/profile",
+          {
+            withCredentials: true,
+          }
+        );
         if (response.data.ok) {
           setPuppy(response.data.dog);
         } else {
@@ -115,13 +121,22 @@ const MyPage = () => {
     setHasMore(true);
     setData(null);
     try {
-      const response = await axios.get("http://localhost:5000/users/mypage", {
-        params: {
-          [`${type}Page`]: 1,
-          limit: 9,
-        },
-        withCredentials: true,
-      });
+      // const response = await axios.get("http://localhost:5000/users/mypage", {
+      //   params: {
+      //     [`${type}Page`]: 1,
+      //     limit: 9,
+      //   },
+      //   withCredentials: true,
+      // });
+      const response = await axiosInstance.get(
+        "http://localhost:5000/users/mypage",
+        {
+          params: {
+            [`${type}Page`]: 1,
+            limit: 9,
+          },
+        }
+      );
 
       if (response.data.ok) {
         const result = response.data[type];
@@ -151,11 +166,14 @@ const MyPage = () => {
   const fetchInitialData = async (type: string) => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        `http://localhost:5000/users/mypage?type=${type}&page=1`,
-        {
-          withCredentials: true,
-        }
+      // const response = await axios.get(
+      //   `http://localhost:5000/users/mypage?type=${type}&page=1`,
+      //   {
+      //     withCredentials: true,
+      //   }
+      // );
+      const response = await axiosInstance.get(
+        `http://localhost:5000/users/mypage?type=${type}&page=1`
       );
       if (response.data.ok) {
         const result = response.data[type];
@@ -174,13 +192,23 @@ const MyPage = () => {
     const nextPage = page + 1;
 
     try {
-      const response = await axios.get("http://localhost:5000/users/mypage", {
-        params: {
-          [`${selectedType}Page`]: nextPage,
-          limit: 9,
-        },
-        withCredentials: true,
-      });
+      // const response = await axios.get("http://localhost:5000/users/mypage", {
+      //   params: {
+      //     [`${selectedType}Page`]: nextPage,
+      //     limit: 9,
+      //   },
+      //   withCredentials: true,
+      // });
+
+      const response = await axiosInstance.get(
+        "http://localhost:5000/users/mypage",
+        {
+          params: {
+            [`${selectedType}Page`]: nextPage,
+            limit: 9,
+          },
+        }
+      );
 
       if (response.data.ok) {
         const result = response.data[selectedType];
@@ -220,6 +248,35 @@ const MyPage = () => {
       if (observer.current) observer.current.disconnect();
     };
   }, [data, loading, hasMore]);
+
+  // 처음 마이페이지 들어갔을 때 실행
+  useEffect(() => {
+    // 처음 페이지 로딩 시 게시물 데이터를 가져오기
+    fetchInitialData("posts");
+
+    // 페이지가 로드되면 observer 설정
+    const target = lastPostElementRef.current;
+    if (observer.current) observer.current.disconnect();
+
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          if (hasMore && !loading) {
+            fetchMoreData();
+          }
+        }
+      },
+      {
+        threshold: 1.0,
+      }
+    );
+
+    if (target) observer.current.observe(target);
+
+    return () => {
+      if (observer.current) observer.current.disconnect();
+    };
+  }, []);
 
   return (
     <MyPagePadding>

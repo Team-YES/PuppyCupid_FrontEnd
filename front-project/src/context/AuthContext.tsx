@@ -12,6 +12,8 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { AppDispatch } from "../store/store";
+// 쿠키 토큰 재발급 해보기 axiosInstance
+import axiosInstance from "@/lib/axios";
 
 type UserInfo = {
   id: number;
@@ -61,9 +63,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
 
       // 서버에 로그인 상태 확인 요청
-      const response = await axios.get("http://localhost:5000/auth/check", {
-        withCredentials: true, // 쿠키를 포함시켜서 요청
-      });
+      // const response = await axios.get("http://localhost:5000/auth/check", {
+      //   withCredentials: true, // 쿠키를 포함시켜서 요청
+      // });
+      const response = await axiosInstance.get("/auth/check");
 
       if (response.data.isLoggedIn) {
         setIsLoggedIn(true);
@@ -107,9 +110,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // 로그아웃 함수
   const logout = async () => {
     try {
-      await axios.get("http://localhost:5000/auth/logout", {
-        withCredentials: true,
-      });
+      await axiosInstance.get("/auth/logout");
       // Cookies.remove("access_token"); // 쿠키에서 토큰 삭제
       // Cookies.remove("eid_refresh_token"); // 쿠키에서 토큰 삭제
 
