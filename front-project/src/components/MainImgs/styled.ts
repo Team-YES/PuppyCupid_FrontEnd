@@ -71,7 +71,7 @@ export const MainImgsPadding = styled.div`
       transform: translateX(0%);
     }
     100% {
-      transform: translateX(100vw);
+      transform: translateX(120vw);
     }
   }
   .MainImgs_puppy {
@@ -79,14 +79,65 @@ export const MainImgsPadding = styled.div`
     position: relative;
     z-index: 10;
   }
-  .MainImgs_puppy img {
-    width: 100px;
-    animation: walkRight 13s linear infinite;
+
+  .MainImgs_puppy_walk {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     position: absolute;
     bottom: 20px;
-    left: -100px;
-    z-index: 1;
+    left: -250px;
+    animation: walkRight 13s linear infinite;
     pointer-events: none;
+    z-index: 1;
+  }
+  // 강아지 뒤에 말풍선
+  .MainImgs_AI_Wrap {
+    background-color: white;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: black;
+    font-size: 15px;
+    white-space: nowrap;
+    border: 1px solid black;
+    position: relative;
+    z-index: 1;
+    margin-right: 12px;
+  }
+
+  /* 테두리 꼬리 */
+  .MainImgs_AI_Wrap::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -11px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 6.6px solid transparent;
+    border-bottom: 6.6px solid transparent;
+    border-left: 11px solid black;
+    z-index: 0;
+  }
+
+  /* 말풍선 배경색 꼬리 (테두리 위에 올림) */
+  .MainImgs_AI_Wrap::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -9.6px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 10px solid white;
+    z-index: 1;
+  }
+
+  .MainImgs_puppy_walk img {
+    width: 100px;
   }
 
   /* .MainImgsWrapper {

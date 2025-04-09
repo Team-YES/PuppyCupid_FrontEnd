@@ -25,7 +25,6 @@ const formatGender = (gender: string) => {
 };
 
 const PuppyProfile = ({ puppyprofile = [] }: PuppyProfileProps) => {
-  console.log(puppyprofile, "????");
   return (
     <PuppyProfileWrapper>
       <div className="PuppyProfile_AllWrap">

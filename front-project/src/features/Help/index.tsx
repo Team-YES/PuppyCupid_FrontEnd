@@ -105,11 +105,6 @@ export default function ContactPage() {
 
   const isFormValid = formik.isValid;
 
-  console.log("dirty:", formik.dirty);
-  console.log("isValid:", formik.isValid);
-  console.log("values:", formik.values);
-  console.log("errors:", formik.errors);
-
   return (
     <HelpStyled>
       <div className="Help_formWrap">

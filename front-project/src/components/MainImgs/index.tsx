@@ -45,7 +45,10 @@ const MainImgs = ({ titles, images, paths }: MainImgsProps) => {
           ))}
         </div>
         <div className="MainImgs_puppy">
-          <img src="/hello_puppy.gif"></img>
+          <div className="MainImgs_puppy_walk">
+            <div className="MainImgs_AI_Wrap">MBTI 매칭 이용해보기</div>
+            <img src="/hello_puppy.gif"></img>
+          </div>
         </div>
       </MainImgsWrapper>
     </MainImgsPadding>
