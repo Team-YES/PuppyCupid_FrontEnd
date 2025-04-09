@@ -84,7 +84,7 @@ export default function ContactPage() {
 
       try {
         await axios.post(
-          "/api/contact",
+          "/inquiries/contact",
           {
             name: values.name,
             email: values.email,

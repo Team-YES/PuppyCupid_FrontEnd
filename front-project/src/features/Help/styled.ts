@@ -91,7 +91,7 @@ export const HelpStyled = styled.div`
   .Help_inputWrap input[name="phone1"],
   .Help_inputWrap input[name="phone2"],
   .Help_inputWrap input[name="phone3"] {
-    width: auto;
+    width: 100px;
     display: inline-block;
     margin: 0 4px;
     text-align: center;
@@ -114,6 +114,42 @@ export const HelpStyled = styled.div`
       color: #232323;
       margin-bottom: 6px;
       line-height: 1.5;
+    }
+  }
+  /* 반응형 */
+  @media screen and (max-width: 768px) {
+    .Help_formWrap {
+      padding: 0px 40px;
+    }
+
+    .Help_inputWrap input[name="phone1"],
+    .Help_inputWrap input[name="phone2"],
+    .Help_inputWrap input[name="phone3"] {
+      width: 28%;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .Help_formWrap {
+      padding: 0px 20px;
+    }
+
+    .Help_notice_box {
+      padding: 12px;
+    }
+
+    .Help_notice_list li {
+      font-size: 12px;
+    }
+
+    input,
+    select,
+    textarea {
+      font-size: 11px;
+    }
+
+    label {
+      font-size: 12px;
     }
   }
 `;
