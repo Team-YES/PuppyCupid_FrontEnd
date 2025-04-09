@@ -7,7 +7,7 @@ export const PersonFormStyle = styled.div`
   .PostList_grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 7px;
   }
   .PostList_post {
     position: relative;
