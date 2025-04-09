@@ -7,7 +7,7 @@ interface FooterProps {
 
 const Footer = ({ isNotMainPage }: FooterProps) => {
   return (
-    <FooterPadding>
+    <FooterPadding isNotMainPage={isNotMainPage}>
       <FooterWrapper>
         <div
           className={`footer_AllWrap ${isNotMainPage ? "payment_footer" : ""}`}
