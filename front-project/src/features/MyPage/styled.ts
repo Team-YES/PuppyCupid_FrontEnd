@@ -238,6 +238,10 @@ export const MyPageBottom = styled.div`
     cursor: pointer;
     transition: font-weight 0.1s ease;
     padding: 20px 10px;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
   .MyPage_board_item.selected {
@@ -246,14 +250,32 @@ export const MyPageBottom = styled.div`
     height: 100%;
     border-top: 1px solid ${({ theme }) => theme.colors.pointPurple};
   }
+  .MyPage_board_item i {
+    text-align: center;
+  }
   @media (max-width: 767px) {
     padding: 0px 15px 15px 15px;
+    .MyPage_board_item {
+      padding: 18px 5px;
+      text-align: center;
+      margin: 0px auto;
+    }
+    .MyPage_board_titles {
+      gap: 10px;
+      font-size: 15px;
+    }
   }
   @media (max-width: 480px) {
     padding: 0px 10px 15px 10px;
     .MyPage_board_titles {
       gap: 10px;
       font-size: 12px;
+    }
+
+    .MyPage_board_item {
+      padding: 13px 5px;
+      text-align: center;
+      margin: 0px auto;
     }
   }
 `;

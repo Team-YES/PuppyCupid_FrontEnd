@@ -16,6 +16,8 @@ export const FooterWrapper = styled.footer`
   .payment_footer {
     background-color: white;
     border: none;
+    border-top: 1px solid #ddd;
+    color: gray;
   }
   .footer_Wrap {
     padding-top: 50px;
@@ -60,9 +62,9 @@ export const FooterWrapper = styled.footer`
   }
 `;
 
-export const FooterPadding = styled.footer`
-  padding: 0px 120px;
-  @media (max-width: 1024px) {
-    padding: 0px 20px;
-  }
+export const FooterPadding = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isNotMainPage",
+})<{ isNotMainPage: boolean }>`
+  padding: ${(props) => (props.isNotMainPage ? "0" : null)};
+  background-color: ${(props) => (props.isNotMainPage ? "#f9f9f9" : "#fff")};
 `;

@@ -124,7 +124,6 @@ const MyPage = () => {
       });
 
       if (response.data.ok) {
-        console.log(response.data, "??");
         const result = response.data[type];
 
         setData(result.items);
@@ -173,7 +172,6 @@ const MyPage = () => {
   // 무한스크롤 추가
   const fetchMoreData = async () => {
     const nextPage = page + 1;
-    console.log("📄 다음 페이지 불러옴:", nextPage);
 
     try {
       const response = await axios.get("http://localhost:5000/users/mypage", {
@@ -186,7 +184,7 @@ const MyPage = () => {
 
       if (response.data.ok) {
         const result = response.data[selectedType];
-        console.log("📦 추가 데이터:", result);
+
         setData((prevData) =>
           prevData ? [...prevData, ...result.items] : result.items
         ); // ✅ 여기 수정!
@@ -206,9 +204,7 @@ const MyPage = () => {
     observer.current = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          // ✅ 조건을 여기서도 다시 체크!
           if (hasMore && !loading) {
-            console.log("감지됨!");
             fetchMoreData();
           }
         }
@@ -224,9 +220,7 @@ const MyPage = () => {
       if (observer.current) observer.current.disconnect();
     };
   }, [data, loading, hasMore]);
-  useEffect(() => {
-    console.log("📦 hasMore 상태 변경됨:", hasMore);
-  }, [hasMore]);
+
   return (
     <MyPagePadding>
       <MyPageStyled>
@@ -337,13 +331,10 @@ const MyPage = () => {
                 ref={lastPostElementRef}
                 style={{
                   height: "100px",
-                  background: "lightcoral", // 테스트용으로 색도 입혀보세요
                   textAlign: "center",
                   lineHeight: "100px",
                 }}
-              >
-                감지 타겟
-              </div>
+              ></div>
             )}
           </div>
           {/* 강아지 정보 모달 */}
