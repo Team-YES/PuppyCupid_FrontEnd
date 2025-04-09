@@ -65,6 +65,6 @@ export const FooterWrapper = styled.footer`
 export const FooterPadding = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== "isNotMainPage",
 })<{ isNotMainPage: boolean }>`
-  padding: ${(props) => (props.isNotMainPage ? "40px 0" : "80px 0")};
+  padding: ${(props) => (props.isNotMainPage ? "0" : null)};
   background-color: ${(props) => (props.isNotMainPage ? "#f9f9f9" : "#fff")};
 `;
