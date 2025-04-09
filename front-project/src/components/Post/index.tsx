@@ -32,10 +32,12 @@ type Props = {
 };
 
 export type CommentType = {
+  parentCommentId: number | null;
   id: number;
   content: string;
   created_at: string;
   user: {
+    dogImage: any;
     id: number;
     nickName: string;
   };

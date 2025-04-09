@@ -8,6 +8,7 @@ import {
   DetailPostIcon,
 } from "./styled";
 import { DateDiv, LikeCont } from "@/components/Post/styled";
+import ReplyComment from "@/components/ReplyComment";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,7 +43,7 @@ const DetailPost = ({
 }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  // console.log("상세 컴포", post);
+  console.log("상세 컴포", post);
   // console.log("로그인아이디:", loginUser);
 
   // 좋아요 상태값
@@ -61,7 +62,7 @@ const DetailPost = ({
   // 게시한 댓글 표시
   const [getComment, setGetComment] = useState<CommentType[]>([]);
 
-  console.log("getComment :", getComment);
+  console.log("상세컴포 댓글 :", getComment);
 
   const handleAddComment = (newComment: CommentType) => {
     setGetComment((v) => [newComment, ...v]);
@@ -74,9 +75,9 @@ const DetailPost = ({
 
   const { comments, postId } = useSelector((state: RootState) => state.comment);
 
-  const allComment = [...comments];
+  // const allComment = [...comments];
 
-  console.log("모든 댓글: ", allComment);
+  // console.log("모든 댓글: ", allComment);
 
   // 2. allComment -> getComment 반영
   useEffect(() => {
@@ -107,7 +108,29 @@ const DetailPost = ({
     dispatch(fetchMyDog());
   }, [dispatch]);
 
+  const dogId = useSelector((state: RootState) => state.dog.dog?.id);
   const dogImg = useSelector((state: RootState) => state.dog.dog?.image);
+
+  console.log("asdfs", dogId, dogImg);
+
+  // 게시글 강아지 이미지
+  const targetUserId = post.user.id; // 예: 네이버용사의 user.id
+
+  const userImage = getComment.find(
+    (comment) => comment.user.id === targetUserId
+  )?.user.dogImage;
+
+  console.log(userImage);
+
+  const imageSrc = userImage
+    ? `http://localhost:5000${userImage}`
+    : "/puppy_profile.png";
+
+  // '답글 달기' 클릭
+  const [replyTarget, setReplyTarget] = useState<{
+    parentCommentId: number;
+    nickName: string;
+  } | null>(null);
 
   // fontawesome 아이콘 리스트
   const MypageTitles = [
@@ -220,11 +243,12 @@ const DetailPost = ({
                 <div className="Detail_imgBox">
                   <img
                     className="Detail_img"
-                    src={
-                      dogImg
-                        ? `http://localhost:5000${dogImg}`
-                        : "/puppy_profile.png"
-                    }
+                    src={imageSrc}
+                    // src={
+                    //   dogImg
+                    //     ? `http://localhost:5000${dogImg}`
+                    //     : "/puppy_profile.png"
+                    // }
                   />
                 </div>
               </div>
@@ -247,8 +271,8 @@ const DetailPost = ({
                         <img
                           className="Detail_img"
                           src={
-                            dogImg
-                              ? `http://localhost:5000${dogImg}`
+                            c.user.dogImage
+                              ? `http://localhost:5000${c.user.dogImage}`
                               : "/puppy_profile.png"
                           }
                         />
@@ -259,7 +283,17 @@ const DetailPost = ({
                       <span className="Detail_pc">{c.content}</span>
                       <div className="Detail_day">
                         <DateDiv>{formatPostDate(c.created_at)}</DateDiv>
-                        <span className="Detail_span">답글 달기</span>
+                        <span
+                          className="Detail_span"
+                          onClick={() =>
+                            setReplyTarget({
+                              parentCommentId: c.id,
+                              nickName: c.user.nickName,
+                            })
+                          }
+                        >
+                          답글 달기
+                        </span>
                         <div
                           className="Detail_dayDiv"
                           onClick={() => setSelectedCommentId(c.id)}
@@ -297,6 +331,7 @@ const DetailPost = ({
                     </div>
                   </div>
                 ))}
+                <ReplyComment />
               </div>
             </div>
           </div>
@@ -333,7 +368,11 @@ const DetailPost = ({
             </div>
 
             {/* 댓글 입력창 */}
-            <Comment postId={post.id} onAddComment={handleAddComment} />
+            <Comment
+              postId={post.id}
+              onAddComment={handleAddComment}
+              replyTarget={replyTarget}
+            />
           </div>
         </Detail_RightContainer>
       </DetailPostBox>

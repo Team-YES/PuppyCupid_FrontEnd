@@ -1,53 +1,96 @@
 import { CommentStyled, CommentText, IconDiv, CommentPost } from "./styled";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { useDispatch, useSelector } from "react-redux";
-import { postComment } from "@/reducers/getCommentSlice";
+import { postComment, postReply } from "@/reducers/getCommentSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import { CommentType } from "../Post";
 
 type Props = {
   postId: number;
   onAddComment: (comment: CommentType) => void;
+  replyTarget: { parentCommentId: number; nickName: string } | null;
 };
 
-const Comment = ({ postId, onAddComment }: Props) => {
+const Comment = ({ postId, onAddComment, replyTarget }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
+
+  console.log("댓글컴포 replyTarget", replyTarget);
+
+  // 답글 유저 닉네임 가져오기
+  useEffect(() => {
+    if (replyTarget) {
+      setComment(`@${replyTarget.nickName} `);
+    }
+  }, [replyTarget]);
+
+  // 답글 등록
+  console.log("댓글 postId : ", postId);
 
   // 댓글 등록
   const [comment, setComment] = useState("");
 
-  // 댓글 게시
+  // 댓글 / 답글 게시
   const handleSubmit = async () => {
     if (!comment.trim()) return;
 
     try {
-      const resultAction = await dispatch(
-        postComment({ postId, content: comment })
-      );
-
-      if (postComment.fulfilled.match(resultAction)) {
-        console.log("댓글 등록 성공: ", resultAction.payload);
-
-        const newComment = resultAction.payload.content;
-
-        onAddComment(newComment);
-        setComment("");
+      let resultAction;
+      // 답글이면
+      if (replyTarget) {
+        resultAction = await dispatch(
+          postReply({
+            postId,
+            content: comment,
+            parentCommentId: replyTarget.parentCommentId,
+          })
+        );
       } else {
-        console.error("댓글 등록 실패: ", resultAction);
+        // 일반 댓글이면
+        resultAction = await dispatch(
+          postComment({ postId, content: comment })
+        );
       }
-      // const result = await dispatch(
-      //   postComment({ postId, content: comment })
-      // ).unwrap();
 
-      // console.log("댓글 등록 성공:", result);
-      // setComment("");
+      if (
+        postComment.fulfilled.match(resultAction) ||
+        postReply.fulfilled.match(resultAction)
+      ) {
+        console.log("등록 성공: ", resultAction.payload);
+        onAddComment(resultAction.payload.content); // 부모 컴포넌트로 새 댓글/답글 전달
+        setComment(""); // 입력창 초기화
+      } else {
+        console.error("등록 실패: ", resultAction);
+      }
     } catch (error) {
-      console.error("댓글 등록 실패:", error);
+      console.error("요청 실패:", error);
     }
   };
+
+  // const handleSubmit = async () => {
+  //   if (!comment.trim()) return;
+
+  //   try {
+  //     const resultAction = await dispatch(
+  //       postComment({ postId, content: comment })
+  //     );
+
+  //     if (postComment.fulfilled.match(resultAction)) {
+  //       console.log("댓글 등록 성공: ", resultAction.payload);
+
+  //       const newComment = resultAction.payload.content;
+
+  //       onAddComment(newComment);
+  //       setComment("");
+  //     } else {
+  //       console.error("댓글 등록 실패: ", resultAction);
+  //     }
+  //   } catch (error) {
+  //     console.error("댓글 등록 실패:", error);
+  //   }
+  // };
 
   // 이모지 열기
   const [showPicker, setShowPicker] = useState(false);
