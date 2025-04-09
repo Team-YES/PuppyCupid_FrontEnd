@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { WeatherWrapper, WeatherAlim, AllPostsWrap } from "./styled";
 import axios from "axios";
 import weatherMessages from "@/constants/weatherData";
@@ -52,6 +52,11 @@ const Board = () => {
   const data = useSelector((state: RootState) => state.posts.posts);
   const dataUser = useSelector((state: RootState) => state.posts.currentUser);
 
+  // 무한 스크롤
+  // const { posts: data, currentUser: dataUser, hasMore, loading } = useSelector(
+  //   (state: RootState) => state.posts
+  // );
+
   // 4. 위험 날씨 판단용 상수
   const dangerWeather: WeatherKey[] = [
     "Fog",
@@ -69,7 +74,7 @@ const Board = () => {
   console.log("상위컴포", posts);
   // console.log("로그인유저", loginUser);
 
-  // 5. 전체 게시글 요청
+  // 5. 전체 게시글 요청(무한스크롤 전)
   useEffect(() => {
     dispatch(fetchAllPosts());
   }, [dispatch]);
@@ -118,7 +123,7 @@ const Board = () => {
 
   // console.log(selectPostId);
 
-  // 게시글 클릭 시 주소 변경x -> 모달 띄우기
+  // 게시글 클릭 시 상세 모달 띄우기
   const handlePostClick = (postId: number) => {
     setSelectPostId(postId);
   };
@@ -133,6 +138,37 @@ const Board = () => {
 
   console.log("현재 선택된게시글", selectedPost);
   console.log("dataUser : ", dataUser);
+
+  // 10. 무한 스크롤
+  // const [page, setPage] = useState(1);
+  // const limit = 2; // 테스트는 1개씩
+  // const observerTargetRef = useRef<HTMLDivElement | null>(null);
+
+  // 첫 데이터 호출
+  // useEffect(() => {
+  //   dispatch(fetchPostsByPage({ page, limit }));
+  // }, [dispatch, page]);
+  // // IntersectionObserver 호출
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         console.log("보임 → 페이지 증가");
+  //         setPage((prev) => prev + 1);
+  //       }
+  //     },
+  //     {
+  //       threshold: 1.0,
+  //     }
+  //   );
+
+  //   const target = observerTargetRef.current;
+  //   if (target) observer.observe(target);
+
+  //   return () => {
+  //     if (target) observer.unobserve(target);
+  //   };
+  // }, []);
 
   return (
     <div>
@@ -173,6 +209,8 @@ const Board = () => {
             />
           </div>
         ))}
+        {/* 무한스크롤 감시 대상 (페이지 끝) */}
+        {/* <div ref={observerTargetRef} style={{ height: 1 }} /> */}
       </AllPostsWrap>
 
       {/* 상세 게시글 */}
