@@ -30,6 +30,10 @@ export const HelpStyled = styled.div`
       opacity: 0.5;
       cursor: not-allowed;
     }
+    h1 {
+      font-weight: bold;
+      padding-top: 35px;
+    }
   }
   /* 유효성 검사 메시지 */
   .Help_error {

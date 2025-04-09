@@ -218,7 +218,7 @@ const MyPage = () => {
 
         setData((prevData) =>
           prevData ? [...prevData, ...result.items] : result.items
-        ); // ✅ 여기 수정!
+        );
         setHasMore(result.hasMore);
         setPage(nextPage);
       }
