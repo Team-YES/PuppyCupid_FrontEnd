@@ -98,7 +98,7 @@ export const MainImgsPadding = styled.div`
     border-radius: 8px;
     font-weight: bold;
     color: black;
-    font-size: 15px;
+    font-size: 13px;
     white-space: nowrap;
     border: 1px solid black;
     position: relative;
