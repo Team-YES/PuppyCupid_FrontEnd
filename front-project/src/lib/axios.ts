@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
   },
 });
 
-// 응답 인터셉터 설정
+// ✅ 응답 인터셉터 설정
 axiosInstance.interceptors.response.use(
   (response) => response, // 정상 응답 그대로 통과
   async (error) => {
