@@ -40,12 +40,20 @@ const Comment = ({ postId, onAddComment, onAddReply, replyTarget }: Props) => {
 
     try {
       let resultAction;
+
+      // @닉네임 제거 로직
+      let cleanedComment = comment;
+      if (replyTarget) {
+        const nicknamePattern = new RegExp(`^@${replyTarget.nickName}\\s*`);
+        cleanedComment = comment.replace(nicknamePattern, " ");
+      }
+
       // 답글이면
       if (replyTarget) {
         resultAction = await dispatch(
           postReply({
             postId,
-            content: comment,
+            content: cleanedComment,
             parentCommentId: replyTarget.parentCommentId,
           })
         );
@@ -71,29 +79,6 @@ const Comment = ({ postId, onAddComment, onAddReply, replyTarget }: Props) => {
       console.error("요청 실패:", error);
     }
   };
-
-  // const handleSubmit = async () => {
-  //   if (!comment.trim()) return;
-
-  //   try {
-  //     const resultAction = await dispatch(
-  //       postComment({ postId, content: comment })
-  //     );
-
-  //     if (postComment.fulfilled.match(resultAction)) {
-  //       console.log("댓글 등록 성공: ", resultAction.payload);
-
-  //       const newComment = resultAction.payload.content;
-
-  //       onAddComment(newComment);
-  //       setComment("");
-  //     } else {
-  //       console.error("댓글 등록 실패: ", resultAction);
-  //     }
-  //   } catch (error) {
-  //     console.error("댓글 등록 실패:", error);
-  //   }
-  // };
 
   // 이모지 열기
   const [showPicker, setShowPicker] = useState(false);

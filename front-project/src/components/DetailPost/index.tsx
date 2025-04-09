@@ -83,7 +83,7 @@ const DetailPost = ({
 
   // 게시한 답글 표시
   const handleAddReply = (newComment: CommentType) => {
-    setGetComment((v) => [newComment, ...v]);
+    setGetComment((v) => [...v, newComment]);
   };
 
   // 1. 저장된 댓글 가져오기
@@ -285,6 +285,7 @@ const DetailPost = ({
                 {getComment
                   .filter((c) => c.parentCommentId === null) // 댓글만
                   .map((comment) => {
+                    // console.log("comment", comment);
                     const replies = getComment.filter(
                       (reply) => reply.parentCommentId === comment.id
                     );
@@ -379,6 +380,14 @@ const DetailPost = ({
                                   <div className="Post_nickName">
                                     {reply.user.nickName}
                                   </div>
+                                  <span
+                                    style={{
+                                      fontWeight: 400,
+                                      color: "rgb(0,55,107)",
+                                    }}
+                                  >
+                                    @{comment.user.nickName}
+                                  </span>
                                   <span className="Detail_pc">
                                     {reply.content}
                                   </span>
