@@ -23,6 +23,7 @@ export type Post = {
   user: {
     id: number;
     nickName: string;
+    dogImage: string;
   };
   images: { image_url: string; id: number }[];
 };
@@ -71,7 +72,7 @@ const Board = () => {
   const isAlert = weather ? dangerWeather.includes(weather) : false;
 
   // console.log("검색결과: ", searchResult);
-  console.log("상위컴포", posts);
+  // console.log("상위컴포", posts);
   // console.log("로그인유저", loginUser);
 
   // 5. 전체 게시글 요청(무한스크롤 전)

@@ -13,6 +13,7 @@ export type Post = {
   user: {
     id: number;
     nickName: string;
+    dogImage: string;
   };
   images: { image_url: string; id: number }[];
 };
