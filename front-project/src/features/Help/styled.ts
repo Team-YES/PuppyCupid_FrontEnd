@@ -15,6 +15,7 @@ export const HelpStyled = styled.div`
       color: black;
       padding: 8px 12px;
       margin-top: 50px;
+      margin-bottom: 50px;
       font-size: 14px;
       cursor: pointer;
       box-shadow: none;
@@ -72,7 +73,7 @@ export const HelpStyled = styled.div`
   textarea {
     border: none;
     border-bottom: 1px solid #ccc;
-    padding: 8px 4px;
+    padding: 15px 4px;
     outline: none;
     background: transparent;
     width: 100%;
