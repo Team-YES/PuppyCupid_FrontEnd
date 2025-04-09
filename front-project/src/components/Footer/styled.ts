@@ -62,10 +62,9 @@ export const FooterWrapper = styled.footer`
   }
 `;
 
-export const FooterPadding = styled.footer<{ isNotMainPage: boolean }>`
-  padding: ${({ isNotMainPage }) => (isNotMainPage ? "0px" : "0px 120px")};
-
-  @media (max-width: 1024px) {
-    padding: ${({ isNotMainPage }) => (isNotMainPage ? "0px" : "0px 20px")};
-  }
+export const FooterPadding = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isNotMainPage",
+})<{ isNotMainPage: boolean }>`
+  padding: ${(props) => (props.isNotMainPage ? "40px 0" : "80px 0")};
+  background-color: ${(props) => (props.isNotMainPage ? "#f9f9f9" : "#fff")};
 `;
