@@ -1,3 +1,4 @@
+import Head from "next/head";
 import "@/styles/globals.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { ThemeProvider } from "styled-components";
@@ -43,6 +44,15 @@ export default function App({ Component, pageProps }: AppProps) {
         <div className="app_wrapper">
           <ThemeProvider theme={theme}>
             <AuthProvider>
+              {/* 인터넷 상단 탭 */}
+              <Head>
+                <title>PUPPY CUPID</title>
+                <meta
+                  name="description"
+                  content="강아지 친구 만들기, 실시간 채팅, 동네 기반 커뮤니티까지! 반려견과 함께 소통하는 공간, PUPPY CUPID"
+                />
+              </Head>
+
               {!isLoginPage && !isAdminPage && !isChatPage && (
                 <Header isScrolled={isScrolled} setIsScrolled={setIsScrolled} />
               )}
