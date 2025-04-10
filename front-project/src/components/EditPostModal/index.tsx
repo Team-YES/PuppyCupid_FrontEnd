@@ -3,6 +3,7 @@ import { EditPostModalStyled, ModalBtn } from "./styled";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import ReportModal from "@/components/ReportModal";
 // import { deleteComment } from "@/reducers/getCommentSlice";
 // import { useDispatch } from "react-redux";
 // import { AppDispatch } from "@/store/store";
@@ -38,24 +39,27 @@ const EditPostModal = ({
   // 채팅하기 페이지 이동
   const [isSending, setIsSending] = useState(false);
 
+  // 신고하기
+  const [showReportModal, setShowReportModal] = useState(false);
+
   // console.log("writerId :", writerId);
   // console.log("commentId :", commentId);
 
-  // 내 게시물 판단
+  // 내 게시물/ 댓글 판단
   const isMine = writerId === loginUserId;
 
   // 내 댓글 판단
-  const isMineComment = writerId === loginUserId;
+  // const isMineComment = writerId === loginUserId;
 
-  console.log("댓글아이디", loginUserId, writerId);
+  console.log("댓글아이디", commentId);
 
   // 댓글 삭제 모드
   if (mode === "comment" && commentId) {
     return (
       <EditPostModalStyled>
-        {isMineComment ? (
+        {isMine ? (
           // 내 댓글일 경우: '삭제/취소'
-          <div className="EditModal_btnContainer">
+          <div className="EditModal_btnContainer" ref={pickerRef}>
             <div>
               <ModalBtn
                 $danger
@@ -73,13 +77,12 @@ const EditPostModal = ({
           </div>
         ) : (
           // 남의 댓글일 경우: '신고/취소'
-          <div className="EditModal_btnContainer">
+          <div className="EditModal_btnContainer" ref={pickerRef}>
             <div>
               <ModalBtn
                 $danger
                 onClick={() => {
-                  alert("신고 준비중");
-                  onClose();
+                  setShowReportModal(true);
                 }}
               >
                 신고하기
@@ -89,6 +92,14 @@ const EditPostModal = ({
               <ModalBtn onClick={onClose}>취소</ModalBtn>
             </div>
           </div>
+        )}
+        {/* 신고하기 */}
+        {showReportModal && commentId && (
+          <ReportModal
+            type="comment"
+            targetId={commentId}
+            onClose={() => setShowReportModal(false)}
+          />
         )}
       </EditPostModalStyled>
     );
@@ -171,8 +182,8 @@ const EditPostModal = ({
           </div>
         </div>
       ) : (
-        <div className="EditModal_btnContainer">
-          <div ref={pickerRef}>
+        <div className="EditModal_btnContainer" ref={pickerRef}>
+          <div>
             <ModalBtn
               onClick={() => {
                 if (writerId) {
@@ -188,10 +199,24 @@ const EditPostModal = ({
             <ModalBtn className="EditPostModal_m">팔로우</ModalBtn>
           </div>
           <div>
-            <ModalBtn className="EditPostModal_m" $danger>
+            <ModalBtn
+              className="EditPostModal_m"
+              $danger
+              onClick={() => {
+                setShowReportModal(true);
+              }}
+            >
               신고하기
             </ModalBtn>
           </div>
+          {/* 신고하기 */}
+          {showReportModal && postId && (
+            <ReportModal
+              type="post"
+              targetId={postId}
+              onClose={() => setShowReportModal(false)}
+            />
+          )}
         </div>
       )}
     </EditPostModalStyled>
