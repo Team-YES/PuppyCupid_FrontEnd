@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-
+import { useRouter } from "next/router";
+import axios from "axios";
 import {
   OtherPagePadding,
   OtherPageStyled,
@@ -43,8 +44,6 @@ interface UserData {
   puppy: Puppy;
 }
 const OtherPage = () => {
-  const [isPuppyModalVisible, setIsPuppyModalVisible] = useState(false);
-  const [isPersonModalVisible, setIsPersonModalVisible] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [puppy, setPuppy] = useState<Puppy | null>(null);
   const [data, setData] = useState<PostData[] | null>(null);
@@ -55,9 +54,9 @@ const OtherPage = () => {
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver | null>(null);
   const lastPostElementRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
   // 유저 아이디 가져오기
-  const userId = user?.id;
   useEffect(() => {
     handleFetchData("posts");
   }, []);
@@ -95,6 +94,8 @@ const OtherPage = () => {
   const updatePuppyData = (updatedPuppy: Puppy) => {
     setPuppy(updatedPuppy);
   };
+
+  const { id: userId } = router.query;
   // 게시물 데이터 요청 함수
   const handleFetchData = async (type: string) => {
     setSelectedType(type);
