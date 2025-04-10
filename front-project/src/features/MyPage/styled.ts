@@ -213,6 +213,7 @@ export const MyPageRight = styled.div`
     .MyPage_right_namebtns .MyPage_profile_btns {
       font-size: 15px;
       margin-bottom: 10px;
+      margin-top: 0px;
     }
     .MyPage_right_namebtns .MyPage_profile_nickname {
       font-size: 15px;

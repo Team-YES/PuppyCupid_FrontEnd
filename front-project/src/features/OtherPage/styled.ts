@@ -214,6 +214,7 @@ export const OtherPageRight = styled.div`
     .OtherPage_right_namebtns .OtherPage_profile_btns {
       font-size: 15px;
       margin-bottom: 10px;
+      margin-top: 0px;
     }
     .OtherPage_right_namebtns .OtherPage_profile_nickname {
       font-size: 15px;
