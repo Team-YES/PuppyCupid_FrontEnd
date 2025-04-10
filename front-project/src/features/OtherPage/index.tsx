@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import axios from "axios";
 
 import {
   OtherPagePadding,
@@ -12,10 +11,7 @@ import {
 } from "./styled";
 import Otherpostcount from "../../assets/Otherpostcount";
 import PuppyProfile from "../../assets/PuppyProfile";
-import PuppyForm from "../../components/PuppyForm";
-import PersonForm from "../../components/PersonForm";
 import PostList from "../../components/PostList";
-import PuppyFormFix from "../../components/PuppyFormFix";
 
 // 쿠키 토큰 재발급 해보기
 import axiosInstance from "@/lib/axios";
@@ -62,7 +58,6 @@ const OtherPage = () => {
 
   // 유저 아이디 가져오기
   const userId = user?.id;
-
   useEffect(() => {
     handleFetchData("posts");
   }, []);
@@ -96,20 +91,6 @@ const OtherPage = () => {
     { title: "게시물", icon: "fa-solid fa-border-all", type: "posts" },
   ];
 
-  const handlePuppyEditClick = () => {
-    setIsPuppyModalVisible(true);
-  };
-  const handlePersonEditClick = () => {
-    setIsPersonModalVisible(true);
-  };
-
-  const handleClosePuppyModal = () => {
-    setIsPuppyModalVisible(false);
-  };
-
-  const handleClosePersonModal = () => {
-    setIsPersonModalVisible(false);
-  };
   // 데이터 업데이트
   const updatePuppyData = (updatedPuppy: Puppy) => {
     setPuppy(updatedPuppy);
@@ -122,15 +103,8 @@ const OtherPage = () => {
     setHasMore(true);
     setData(null);
     try {
-      // const response = await axios.get("http://localhost:5000/users/mypage", {
-      //   params: {
-      //     [`${type}Page`]: 1,
-      //     limit: 9,
-      //   },
-      //   withCredentials: true,
-      // });
       const response = await axiosInstance.get(
-        "http://localhost:5000/users/mypage",
+        "http://localhost:5000/users/otherpage",
         {
           params: {
             [`${type}Page`]: 1,
@@ -150,31 +124,14 @@ const OtherPage = () => {
     }
     setLoading(false);
   };
-  // 왕관색 바꾸기
-  const getCrownClass = (role?: string) => {
-    switch (role) {
-      case "power_year":
-        return "crown-purple";
-      case "admin":
-        return "crown-red";
-      case "power_month":
-      default:
-        return "crown-gold";
-    }
-  };
 
   // 무한스크롤
   const fetchInitialData = async (type: string) => {
     try {
       setLoading(true);
-      // const response = await axios.get(
-      //   `http://localhost:5000/users/mypage?type=${type}&page=1`,
-      //   {
-      //     withCredentials: true,
-      //   }
-      // );
+
       const response = await axiosInstance.get(
-        `http://localhost:5000/users/mypage?type=${type}&page=1`
+        `http://localhost:5000/users/otherpage?type=${type}&page=1`
       );
       if (response.data.ok) {
         const result = response.data[type];
@@ -193,16 +150,8 @@ const OtherPage = () => {
     const nextPage = page + 1;
 
     try {
-      // const response = await axios.get("http://localhost:5000/users/mypage", {
-      //   params: {
-      //     [`${selectedType}Page`]: nextPage,
-      //     limit: 9,
-      //   },
-      //   withCredentials: true,
-      // });
-
       const response = await axiosInstance.get(
-        "http://localhost:5000/users/mypage",
+        "http://localhost:5000/users/otherpage",
         {
           params: {
             [`${selectedType}Page`]: nextPage,
@@ -224,6 +173,7 @@ const OtherPage = () => {
       console.error("❌ 더 많은 데이터를 불러오는 중 오류:", error);
     }
   };
+
   // 감지
   useEffect(() => {
     const target = lastPostElementRef.current;
@@ -280,11 +230,10 @@ const OtherPage = () => {
   }, []);
 
   // 게시물, 팔로우, 팔로워 axios
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axiosInstance.get("/users/mypage", {
+        const res = await axiosInstance.get("/users/otherpage", {
           params: {
             postsPage: 1,
             limit: 9,
@@ -338,18 +287,8 @@ const OtherPage = () => {
                 </div>
 
                 <div className="OtherPage_profile_editbtns">
-                  <div
-                    className="OtherPage_profile_btns"
-                    onClick={handlePersonEditClick}
-                  >
-                    팔로우
-                  </div>
-                  <div
-                    className="OtherPage_profile_btns"
-                    onClick={handlePuppyEditClick}
-                  >
-                    메시지 보내기
-                  </div>
+                  <div className="OtherPage_profile_btns">팔로우</div>
+                  <div className="OtherPage_profile_btns">메시지 보내기</div>
                 </div>
               </div>
               {/* 게시물 팔로워 팔로우 */}
@@ -378,6 +317,7 @@ const OtherPage = () => {
           {/* 하단 게시글, 좋아요, 알림 정보 */}
           <div>
             <PostList data={data ?? []} />
+            {/* 무한스크롤 감지 */}
             {hasMore && (
               <div
                 ref={lastPostElementRef}
@@ -387,29 +327,6 @@ const OtherPage = () => {
                   lineHeight: "100px",
                 }}
               ></div>
-            )}
-          </div>
-          {/* 강아지 정보 모달 */}
-          {isPuppyModalVisible && (
-            <div>
-              {puppy ? (
-                <PuppyFormFix
-                  puppy={puppy}
-                  closeModal={handleClosePuppyModal}
-                  updatePuppyData={updatePuppyData}
-                />
-              ) : (
-                <PuppyForm closeModal={handleClosePuppyModal} />
-              )}
-            </div>
-          )}
-
-          {/* 개인 정보 모달 */}
-          <div>
-            {isPersonModalVisible && (
-              <div>
-                <PersonForm closeModal={handleClosePersonModal} />
-              </div>
             )}
           </div>
         </OtherPageBottom>

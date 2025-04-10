@@ -426,6 +426,7 @@ const MyPage = () => {
           {/* 하단 게시글, 좋아요, 알림 정보 */}
           <div>
             <PostList data={data ?? []} />
+            {/* 무한스크롤 감지 */}
             {hasMore && (
               <div
                 ref={lastPostElementRef}
