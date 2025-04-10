@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-
+import { useRouter } from "next/router";
+import axios from "axios";
 import {
   OtherPagePadding,
   OtherPageStyled,
@@ -25,6 +26,7 @@ interface Puppy {
   gender: string;
   image: string;
   id: string;
+  dog_image: string;
 }
 interface PostData {
   id: number;
@@ -43,8 +45,6 @@ interface UserData {
   puppy: Puppy;
 }
 const OtherPage = () => {
-  const [isPuppyModalVisible, setIsPuppyModalVisible] = useState(false);
-  const [isPersonModalVisible, setIsPersonModalVisible] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [puppy, setPuppy] = useState<Puppy | null>(null);
   const [data, setData] = useState<PostData[] | null>(null);
@@ -55,31 +55,13 @@ const OtherPage = () => {
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver | null>(null);
   const lastPostElementRef = useRef<HTMLDivElement | null>(null);
-
+  const router = useRouter();
+  const [dogs, setDogs] = useState<Puppy[]>([]);
+  const [nickName, setNickName] = useState<string>("");
   // 유저 아이디 가져오기
-  const userId = user?.id;
   useEffect(() => {
+    if (!router.isReady || !otherUserId) return;
     handleFetchData("posts");
-  }, []);
-
-  // 강아지 프로필 데이터 불러오기
-  useEffect(() => {
-    const fetchPuppyProfile = async () => {
-      try {
-        const response = await axiosInstance.get(
-          "http://localhost:5000/dogs/profile"
-        );
-        if (response.data.ok) {
-          setPuppy(response.data.dog);
-        } else {
-          setPuppy(null);
-        }
-      } catch (error) {
-        console.error("강아지 데이터를 가져오는 중 오류 발생:", error);
-      }
-    };
-
-    fetchPuppyProfile();
   }, []);
 
   const titles = ["게시물", "팔로워", "팔로우"];
@@ -95,6 +77,8 @@ const OtherPage = () => {
   const updatePuppyData = (updatedPuppy: Puppy) => {
     setPuppy(updatedPuppy);
   };
+
+  const { id: otherUserId } = router.query;
   // 게시물 데이터 요청 함수
   const handleFetchData = async (type: string) => {
     setSelectedType(type);
@@ -104,7 +88,7 @@ const OtherPage = () => {
     setData(null);
     try {
       const response = await axiosInstance.get(
-        "http://localhost:5000/users/otherpage",
+        `http://localhost:5000/users/otherpage/${otherUserId}`,
         {
           params: {
             [`${type}Page`]: 1,
@@ -115,9 +99,11 @@ const OtherPage = () => {
 
       if (response.data.ok) {
         const result = response.data[type];
-
+        console.log(response.data.nickName, "닉네임???");
+        setNickName(response.data.nickName);
         setData(result.items);
         setHasMore(result.hasMore);
+        setDogs(response.data.dogs);
       }
     } catch (error) {
       console.error(`${type} 데이터를 가져오는 중 오류 발생:`, error);
@@ -131,7 +117,7 @@ const OtherPage = () => {
       setLoading(true);
 
       const response = await axiosInstance.get(
-        `http://localhost:5000/users/otherpage?type=${type}&page=1`
+        `http://localhost:5000/users/otherpage/${otherUserId}?type=${type}&page=1`
       );
       if (response.data.ok) {
         const result = response.data[type];
@@ -151,7 +137,7 @@ const OtherPage = () => {
 
     try {
       const response = await axiosInstance.get(
-        "http://localhost:5000/users/otherpage",
+        `http://localhost:5000/users/otherpage/${otherUserId}`,
         {
           params: {
             [`${selectedType}Page`]: nextPage,
@@ -202,6 +188,7 @@ const OtherPage = () => {
 
   // 처음 마이페이지 들어갔을 때 실행
   useEffect(() => {
+    if (!router.isReady || !otherUserId) return;
     // 처음 페이지 로딩 시 게시물 데이터를 가져오기
     fetchInitialData("posts");
 
@@ -231,18 +218,20 @@ const OtherPage = () => {
 
   // 게시물, 팔로우, 팔로워 axios
   useEffect(() => {
+    if (!router.isReady || !otherUserId) return;
     const fetchData = async () => {
       try {
-        const res = await axiosInstance.get("/users/otherpage", {
-          params: {
-            postsPage: 1,
-            limit: 9,
-            userId,
-          },
-        });
-
+        const res = await axiosInstance.get(
+          `http://localhost:5000/users/otherpage/${otherUserId}`,
+          {
+            params: {
+              postsPage: 1,
+              limit: 9,
+              otherUserId,
+            },
+          }
+        );
         const data = res.data;
-        console.log("받은 데이터:", res.data);
         if (data.ok) {
           setUserData({
             email: user?.email || "",
@@ -251,6 +240,10 @@ const OtherPage = () => {
             followingCount: data.followingCount || 0,
             puppy: data.dog,
           });
+
+          if (data.dogs && Array.isArray(data.dogs)) {
+            setDogs(data.dogs);
+          }
         } else {
           console.error("유저 정보 오류:", data.error);
         }
@@ -258,9 +251,8 @@ const OtherPage = () => {
         console.error("유저 페이지 데이터 가져오기 실패:", err);
       }
     };
-
     fetchData();
-  }, [userId]);
+  }, [otherUserId]);
 
   return (
     <OtherPagePadding>
@@ -270,8 +262,8 @@ const OtherPage = () => {
             <div className="OtherPage_left_profileImg">
               <img
                 src={
-                  puppy?.image
-                    ? `http://localhost:5000${puppy.image}`
+                  dogs.length > 0 && dogs[0].dog_image
+                    ? `http://localhost:5000${dogs[0].dog_image}`
                     : "/puppy_profile.png"
                 }
                 alt="profile img"
@@ -283,7 +275,7 @@ const OtherPage = () => {
               {/* 팔로우 메시지 버튼 */}
               <div className="OtherPage_right_namebtns">
                 <div className="OtherPage_profile_nickname">
-                  {user ? user.nickName || user.email : "Guest"}
+                  {nickName ? nickName : "Guest"}
                 </div>
 
                 <div className="OtherPage_profile_editbtns">
@@ -294,7 +286,7 @@ const OtherPage = () => {
               {/* 게시물 팔로워 팔로우 */}
               <Otherpostcount titles={titles} count={count}></Otherpostcount>
               {/* 강아지 정보 */}
-              <PuppyProfile puppyprofile={puppy ? [puppy] : []} />
+              <PuppyProfile puppyprofile={dogs ? dogs : []} />
             </div>
           </OtherPageRight>
         </div>

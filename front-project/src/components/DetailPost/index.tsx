@@ -91,6 +91,8 @@ const DetailPost = ({
   }, [dispatch, post.id]);
 
   const { comments, postId } = useSelector((state: RootState) => state.comment);
+  // 유저 정보 가져오기
+  const user = useSelector((state: RootState) => state.user);
 
   // const allComment = [...comments];
 
@@ -186,7 +188,13 @@ const DetailPost = ({
             <div className="Post_RightBox_userInfo">
               <div
                 className="Detail_imgBox"
-                onClick={() => router.push(`/otherpage/${post.user.id}`)}
+                onClick={() =>
+                  router.push(
+                    post.user.id === user.user?.id
+                      ? "/mypage"
+                      : `/otherpage/${post.user.id}`
+                  )
+                }
               >
                 <img
                   className="Detail_img"
@@ -239,7 +247,13 @@ const DetailPost = ({
               <div className="Detail_contImg">
                 <div
                   className="Detail_imgBox"
-                  onClick={() => router.push(`/otherpage/${post.user.id}`)}
+                  onClick={() =>
+                    router.push(
+                      post.user.id === user.user?.id
+                        ? "/mypage"
+                        : `/otherpage/${post.user.id}`
+                    )
+                  }
                 >
                   <img
                     className="Detail_img"
@@ -280,7 +294,11 @@ const DetailPost = ({
                             <div
                               className="Detail_imgBox"
                               onClick={() =>
-                                router.push(`/otherpage/${post.user.id}`)
+                                router.push(
+                                  post.user.id === user.user?.id
+                                    ? "/mypage"
+                                    : `/otherpage/${post.user.id}`
+                                )
                               }
                             >
                               <img
@@ -355,7 +373,11 @@ const DetailPost = ({
                                   <div
                                     className="Detail_imgBox"
                                     onClick={() =>
-                                      router.push(`/otherpage/${post.user.id}`)
+                                      router.push(
+                                        post.user.id === user.user?.id
+                                          ? "/mypage"
+                                          : `/otherpage/${post.user.id}`
+                                      )
                                     }
                                   >
                                     <img
