@@ -45,6 +45,16 @@ const EditPostModal = ({
   // console.log("writerId :", writerId);
   // console.log("commentId :", commentId);
 
+  useEffect(() => {
+    // 모달이 열리면 스크롤 막기
+    document.body.style.overflow = "hidden";
+
+    // 모달이 닫히면 원래대로 복구
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
   // 내 게시물/ 댓글 판단
   const isMine = writerId === loginUserId;
 
@@ -151,16 +161,6 @@ const EditPostModal = ({
       setIsSending(false);
     }
   };
-
-  useEffect(() => {
-    // 모달이 열리면 스크롤 막기
-    document.body.style.overflow = "hidden";
-
-    // 모달이 닫히면 원래대로 복구
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, []);
 
   return (
     <EditPostModalStyled>

@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { WeatherWrapper, WeatherAlim, AllPostsWrap } from "./styled";
+import {
+  BoardContainer,
+  WeatherWrapper,
+  WeatherAlim,
+  AllPostsWrap,
+  WritePost,
+} from "./styled";
 import axios from "axios";
 import weatherMessages from "@/constants/weatherData";
 import PostComp from "@/components/Post";
@@ -173,7 +179,7 @@ const Board = () => {
   // }, []);
 
   return (
-    <div>
+    <BoardContainer>
       {/* 날씨정보 */}
       <WeatherWrapper>
         {weatherInfo === null ? (
@@ -223,7 +229,13 @@ const Board = () => {
           onClose={handleCloseModal}
         />
       )}
-    </div>
+
+      {/* 게시글 작성 아이콘 */}
+
+      <WritePost onClick={() => router.push("/post_registration")}>
+        <i className="fa-solid fa-plus"></i>
+      </WritePost>
+    </BoardContainer>
   );
 };
 
