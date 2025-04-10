@@ -1,8 +1,6 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   PostStyled,
-  Title,
-  Img,
   PostIcon,
   PostContent,
   LeftContainer,
@@ -15,13 +13,9 @@ import type { Post } from "@/features/Board";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { useDispatch, useSelector } from "react-redux";
-import { AxiosGetLike, getLikeStatus } from "@/reducers/getLikeSlice";
 import { fetchMyDog } from "@/reducers/dogSlice";
 import { RootState, AppDispatch } from "@/store/store";
-import EditPostModal from "../EditPostModal";
-import Comment from "../Comments";
 import { format, differenceInDays, parseISO } from "date-fns";
-import { fetchComments } from "@/reducers/getCommentSlice";
 import { useRouter } from "next/router";
 
 type Props = {
@@ -48,29 +42,7 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
 
   // console.log("하위 컴포", post);
 
-  // 좋아요 상태값
-  // const [like, setLike] = useState(post.like_count);
-  // const [isLiked, setIsLiked] = useState(post.liked);
   const [animate, setAnimate] = useState(false);
-
-  // 수정, 삭제 모달
-  // const [showEdit, setShowEdit] = useState(false);
-
-  // 게시한 댓글 표시
-  // const [getComment, setGetComment] = useState<CommentType[]>([]);
-
-  // const handleAddComment = (newComment: CommentType) => {
-  //   setGetComment((v) => [newComment, ...v]);
-  // };
-
-  // 저장된 댓글 가져오기
-  // useEffect(() => {
-  //   dispatch(fetchComments(post.id));
-  // }, [dispatch, post.id]);
-
-  // const allComment = useSelector((state: RootState) => state.comment.comments);
-
-  // console.log("모든 댓글: ", allComment);
 
   // 좋아요 redux반영
   const postFromStore = useSelector((state: RootState) =>
@@ -79,20 +51,6 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
 
   const likeCount = postFromStore?.like_count ?? post.like_count;
   const isLiked = postFromStore?.liked ?? post.liked;
-
-  // const handleLikeClick = async () => {
-  //   const url = `http://localhost:5000/interactions/like/${post.id}`;
-  //   const result = await dispatch(AxiosGetLike(url));
-
-  //   console.log("좋아요 응답 : ", result.payload);
-
-  //   if (AxiosGetLike.fulfilled.match(result)) {
-  //     const { liked, likeCount } = result.payload;
-  //     setIsLiked(liked);
-  //     setLike(likeCount);
-  //     setAnimate(liked);
-  //   }
-  // };
 
   // 게시글 작성일 표시 함수(3일 이내면 n일 전, 그 이상은 M월 d일)
   const formatPostDate = (dateString: string) => {
@@ -165,11 +123,17 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
         <div className="Post_RightBox">
           {/* 작성자 정보 */}
           <div className="Post_RightBox_userInfo">
-            <Img
-              src={
-                dogImg ? `http://localhost:5000${dogImg}` : "/puppy_profile.png"
-              }
-            />
+            <div className="Post_ImgBox">
+              <img
+                className="Post_Img"
+                src={
+                  post.user.dogImage
+                    ? `http://localhost:5000${post.user.dogImage}`
+                    : "/puppy_profile.png"
+                }
+              />
+            </div>
+
             <div className="Post_user">
               <div className="Post_nickName">{post.user.nickName}</div>
               <div className="Post_category">

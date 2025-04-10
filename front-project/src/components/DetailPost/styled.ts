@@ -177,8 +177,10 @@ export const Detail_RightContainer = styled.div`
 
   .Post_icon {
     cursor: pointer;
-    font-size: 20px;
     color: #333;
+    font-size: 24px;
+    margin-right: 15px;
+    cursor: pointer;
   }
 
   .Post_content {
@@ -246,14 +248,6 @@ export const DetailLikeIcon = styled.i.withConfig({
   animation: ${(props) => (props.animate ? pop : "none")} 0.3s ease;
   transition: color 0.2s ease;
   font-size: 24px;
-  cursor: pointer;
-  margin-right: 15px;
-`;
-
-export const DetailPostIcon = styled.i`
-  font-size: 24px;
-  color: #333;
-  margin-right: 15px;
   cursor: pointer;
 `;
 

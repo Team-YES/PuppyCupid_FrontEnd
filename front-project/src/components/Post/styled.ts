@@ -20,16 +20,6 @@ export const PostStyled = styled.div`
   }
 `;
 
-export const Title = styled.div`
-  font-size: 23px;
-  font-weight: 700;
-`;
-
-export const Img = styled.img`
-  border-radius: 50%;
-  width: 50px;
-`;
-
 export const PostIcon = styled.i`
   font-size: 20px;
   color: #333;
@@ -157,6 +147,31 @@ export const RightContainer = styled.div`
   .Post_RightBox_userInfo {
     display: flex;
     align-items: center;
+  }
+
+  .Post_ImgBox {
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    border: 2px solid #9855f380;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    cursor: pointer;
+    width: 53px;
+  }
+
+  .Post_Img {
+    border: 1px #ddd solid;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 45px;
   }
 
   .Post_user {

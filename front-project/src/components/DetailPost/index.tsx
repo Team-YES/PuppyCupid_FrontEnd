@@ -5,7 +5,6 @@ import {
   Detail_LeftContainer,
   Detail_RightContainer,
   DetailLikeIcon,
-  DetailPostIcon,
   ReplyCommentDiv,
 } from "./styled";
 import { DateDiv, LikeCont } from "@/components/Post/styled";
@@ -20,12 +19,12 @@ import { updatePostLike } from "@/reducers/getAllPostsSlice";
 import { Navigation, Pagination } from "swiper/modules";
 import type { Post } from "@/features/Board";
 import type { CommentType } from "@/components/Post";
-import { fetchMyDog } from "@/reducers/dogSlice";
 import EditPostModal from "../EditPostModal";
 import Comment from "../Comments";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { formatPostDate } from "@/utils/formatDate";
 import { deleteComment } from "@/reducers/getCommentSlice";
+import KakaoShare from "@/components/KakaoShare";
 
 type Props = {
   post: Post;
@@ -121,29 +120,6 @@ const DetailPost = ({
     }
   };
 
-  // 강아지 이미지 가져오기
-  useEffect(() => {
-    dispatch(fetchMyDog());
-  }, [dispatch]);
-
-  const dogId = useSelector((state: RootState) => state.dog.dog?.id);
-  const dogImg = useSelector((state: RootState) => state.dog.dog?.image);
-
-  console.log("asdfs", dogId, dogImg);
-
-  // 게시글 강아지 이미지
-  // const targetUserId = post.user.id; // 예: 네이버용사의 user.id
-
-  // const userImage = getComment.find(
-  //   (comment) => comment.user.id === targetUserId
-  // )?.user.dogImage;
-
-  // console.log(userImage);
-
-  // const imageSrc = userImage
-  //   ? `http://localhost:5000${userImage}`
-  //   : "/puppy_profile.png";
-
   // '답글 달기' 클릭
   const [replyTarget, setReplyTarget] = useState<{
     parentCommentId: number;
@@ -212,8 +188,8 @@ const DetailPost = ({
                 <img
                   className="Detail_img"
                   src={
-                    dogImg
-                      ? `http://localhost:5000${dogImg}`
+                    post.user.dogImage
+                      ? `http://localhost:5000${post.user.dogImage}`
                       : "/puppy_profile.png"
                   }
                 />
@@ -263,8 +239,8 @@ const DetailPost = ({
                     className="Detail_img"
                     // src={imageSrc}
                     src={
-                      dogImg
-                        ? `http://localhost:5000${dogImg}`
+                      post.user.dogImage
+                        ? `http://localhost:5000${post.user.dogImage}`
                         : "/puppy_profile.png"
                     }
                   />
@@ -445,11 +421,18 @@ const DetailPost = ({
                   animate={animate}
                 />
               </div>
-              {MypageTitles.map((item, i) => (
-                <div key={i} className="Post_icon">
-                  <DetailPostIcon className={item.icon}></DetailPostIcon>
-                </div>
-              ))}
+              <div className="Post_icon">
+                <i className="fa-regular fa-comment"></i>
+              </div>
+              <KakaoShare
+                title={post.user.nickName}
+                description={post.content}
+                imageUrl={`http://localhost:5000${post.main_image_url}`}
+                url={typeof window !== "undefined" ? window.location.href : ""}
+              />
+              {/* <div className="Post_icon">
+                <i className="fa-solid fa-share-nodes"></i>
+              </div> */}
             </div>
 
             {/* 좋아요 수 + 날짜 */}
