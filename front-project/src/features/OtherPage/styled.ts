@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // 마이페이지 전체 패딩
-export const MyPagePadding = styled.div`
+export const OtherPagePadding = styled.div`
   padding: 0px 120px;
   @media (max-width: 1024px) {
     padding: 0px 20px;
@@ -9,7 +9,7 @@ export const MyPagePadding = styled.div`
 `;
 
 // 전체 감싼 부분
-export const MyPageStyled = styled.div`
+export const OtherPageStyled = styled.div`
   border: solid 1px rgb(220, 220, 220);
   border-radius: 12px;
   width: 100%;
@@ -19,30 +19,30 @@ export const MyPageStyled = styled.div`
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 
   /* 프로필 상단 부분 */
-  .MyPage_top_wrap {
+  .OtherPage_top_wrap {
     display: flex;
     justify-content: space-between;
     padding: 75px 30px;
   }
   @media (max-width: 767px) {
-    .MyPage_top_wrap {
+    .OtherPage_top_wrap {
       padding: 25px 10px 25px 10px;
     }
   }
   @media (max-width: 480px) {
-    .MyPage_top_wrap {
+    .OtherPage_top_wrap {
       display: block;
     }
   }
 `;
 
 // 마이페이지 왼쪽 위
-export const MyPageLeft = styled.div`
+export const OtherPageLeft = styled.div`
   width: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
-  .MyPage_left_profileImg {
+  .OtherPage_left_profileImg {
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -53,21 +53,21 @@ export const MyPageLeft = styled.div`
     border: 1px #ddd solid;
   }
 
-  .MyPage_left_profileImg img {
+  .OtherPage_left_profileImg img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
   @media (max-width: 767px) {
     width: 50%;
-    .MyPage_left_profileImg {
+    .OtherPage_left_profileImg {
       width: 160px;
       height: 160px;
     }
   }
   @media (max-width: 486px) {
     width: 100%;
-    .MyPage_left_profileImg {
+    .OtherPage_left_profileImg {
       width: 100px;
       height: 100px;
     }
@@ -75,16 +75,16 @@ export const MyPageLeft = styled.div`
 `;
 
 // 마이페이지 오른쪽 위
-export const MyPageRight = styled.div`
+export const OtherPageRight = styled.div`
   width: 60%;
-  .MyPage_right_namebtns {
+  .OtherPage_right_namebtns {
     display: flex;
     align-items: center;
-    .MyPage_profile_btns {
+    .OtherPage_profile_btns {
       all: unset;
       padding: 8px 20px;
       border-radius: 12px;
-      font-size: 15px;
+      font-size: 14px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -92,9 +92,9 @@ export const MyPageRight = styled.div`
       font-weight: bold;
       margin-right: 15px;
       background-color: rgb(224, 224, 224);
-      height: 20px;
+      height: 18px;
     }
-    .MyPage_profile_nickname {
+    .OtherPage_profile_nickname {
       font-weight: bold;
       margin-right: 15px;
       font-size: 23px;
@@ -106,7 +106,7 @@ export const MyPageRight = styled.div`
         font-size: 20px;
         color: ${(props) => props.theme.colors.pointPurple};
       }
-      .MyPage_crown_wrap {
+      .OtherPage_crown_wrap {
         position: relative;
         display: flex;
         .crown-gold {
@@ -121,7 +121,7 @@ export const MyPageRight = styled.div`
           color: crimson;
         }
       }
-      .MyPage_crownText {
+      .OtherPage_crownText {
         background-color: white;
         visibility: hidden;
         border: 1.5px solid #ddd;
@@ -162,55 +162,55 @@ export const MyPageRight = styled.div`
           z-index: 1;
         }
       }
-      .MyPage_crownText .MyPage_text-plan {
+      .OtherPage_crownText .OtherPage_text-plan {
         color: gray;
         font-weight: bold;
       }
 
-      .MyPage_crownText .MyPage_text-expired {
+      .OtherPage_crownText .OtherPage_text-expired {
         color: ${({ theme }) => theme.colors.pointPurple};
       }
     }
 
-    .MyPage_profile_nickname:hover .MyPage_crownText {
+    .OtherPage_profile_nickname:hover .OtherPage_crownText {
       visibility: visible;
       opacity: 1;
     }
   }
-  .MyPage_profile_editbtns {
+  .OtherPage_profile_editbtns {
     display: flex;
   }
   @media (max-width: 1024px) {
-    .MyPage_right_namebtns .MyPage_profile_btns {
+    .OtherPage_right_namebtns .OtherPage_profile_btns {
       font-size: 12px;
     }
   }
   @media (max-width: 767px) {
     width: 55%;
-    .MyPage_right_namebtns .MyPage_profile_btns {
+    .OtherPage_right_namebtns .OtherPage_profile_btns {
       font-size: 10px;
       margin-bottom: 10px;
       padding: 8px 10px;
       height: 20px;
     }
-    .MyPage_right_namebtns .MyPage_profile_nickname {
+    .OtherPage_right_namebtns .OtherPage_profile_nickname {
       margin-right: 20px;
       font-size: 18px;
     }
-    .MyPage_profile_editbtns {
+    .OtherPage_profile_editbtns {
       display: block;
     }
   }
-  @media (max-width: 486px) {
+  @media (max-width: 480px) {
     width: 100%;
-    .MyPage_right_namebtns {
+    .OtherPage_right_namebtns {
       display: block;
       text-align: center;
     }
-    .MyPage_right_namebtns .MyPage_profile_btns {
+    .OtherPage_right_namebtns .OtherPage_profile_btns {
       font-size: 15px;
     }
-    .MyPage_right_namebtns .MyPage_profile_nickname {
+    .OtherPage_right_namebtns .OtherPage_profile_nickname {
       font-size: 15px;
       width: 100%;
       padding: 20px 0px;
@@ -219,10 +219,10 @@ export const MyPageRight = styled.div`
   }
 `;
 // 마이페이지 하단 게시물 모음
-export const MyPageBottom = styled.div`
+export const OtherPageBottom = styled.div`
   padding: 0px 55px 15px 55px;
   /* 게시물 상단 메뉴 이름 */
-  .MyPage_board_titles {
+  .OtherPage_board_titles {
     display: flex;
     justify-content: center;
     padding: 0px;
@@ -231,49 +231,49 @@ export const MyPageBottom = styled.div`
     gap: 25px;
     color: gray;
   }
-  .MyPage_board_titles div i {
+  .OtherPage_board_titles div i {
     margin-right: 8px;
   }
   /* 클릭 시 css 효과 */
-  .MyPage_board_item {
+  .OtherPage_board_item {
     cursor: pointer;
     transition: font-weight 0.1s ease;
     padding: 20px 10px;
-    flex: 1;
+    flex: 0.3;
     align-items: center;
     justify-content: center;
     text-align: center;
   }
 
-  .MyPage_board_item.selected {
+  .OtherPage_board_item.selected {
     font-weight: bold;
     color: ${({ theme }) => theme.colors.pointPurple};
     height: 100%;
     border-top: 1px solid ${({ theme }) => theme.colors.pointPurple};
   }
-  .MyPage_board_item i {
+  .OtherPage_board_item i {
     text-align: center;
   }
   @media (max-width: 767px) {
     padding: 0px 15px 15px 15px;
-    .MyPage_board_item {
+    .OtherPage_board_item {
       padding: 18px 5px;
       text-align: center;
       margin: 0px auto;
     }
-    .MyPage_board_titles {
+    .OtherPage_board_titles {
       gap: 10px;
       font-size: 15px;
     }
   }
   @media (max-width: 480px) {
     padding: 0px 10px 15px 10px;
-    .MyPage_board_titles {
+    .OtherPage_board_titles {
       gap: 10px;
       font-size: 12px;
     }
 
-    .MyPage_board_item {
+    .OtherPage_board_item {
       padding: 13px 5px;
       text-align: center;
       margin: 0px auto;
