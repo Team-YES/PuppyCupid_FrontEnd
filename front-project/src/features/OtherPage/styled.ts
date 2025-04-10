@@ -187,18 +187,22 @@ export const OtherPageRight = styled.div`
   }
   @media (max-width: 767px) {
     width: 55%;
+    .OtherPage_right_namebtns {
+      align-items: start;
+      flex-direction: column;
+    }
+
     .OtherPage_right_namebtns .OtherPage_profile_btns {
       font-size: 10px;
-      margin-bottom: 10px;
-      padding: 8px 10px;
       height: 20px;
+      margin-top: 15px;
     }
     .OtherPage_right_namebtns .OtherPage_profile_nickname {
       margin-right: 20px;
       font-size: 18px;
     }
     .OtherPage_profile_editbtns {
-      display: block;
+      display: flex;
     }
   }
   @media (max-width: 480px) {
@@ -209,12 +213,16 @@ export const OtherPageRight = styled.div`
     }
     .OtherPage_right_namebtns .OtherPage_profile_btns {
       font-size: 15px;
+      margin-bottom: 10px;
     }
     .OtherPage_right_namebtns .OtherPage_profile_nickname {
       font-size: 15px;
       width: 100%;
       padding: 20px 0px;
       justify-content: center;
+    }
+    .OtherPage_profile_editbtns {
+      display: block;
     }
   }
 `;

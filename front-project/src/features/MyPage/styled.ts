@@ -187,18 +187,21 @@ export const MyPageRight = styled.div`
   }
   @media (max-width: 767px) {
     width: 55%;
+    .MyPage_right_namebtns {
+      align-items: start;
+      flex-direction: column;
+    }
     .MyPage_right_namebtns .MyPage_profile_btns {
       font-size: 10px;
-      margin-bottom: 10px;
-      padding: 8px 10px;
       height: 20px;
+      margin-top: 15px;
     }
     .MyPage_right_namebtns .MyPage_profile_nickname {
       margin-right: 20px;
       font-size: 18px;
     }
     .MyPage_profile_editbtns {
-      display: block;
+      display: flex;
     }
   }
   @media (max-width: 486px) {
@@ -209,12 +212,16 @@ export const MyPageRight = styled.div`
     }
     .MyPage_right_namebtns .MyPage_profile_btns {
       font-size: 15px;
+      margin-bottom: 10px;
     }
     .MyPage_right_namebtns .MyPage_profile_nickname {
       font-size: 15px;
       width: 100%;
       padding: 20px 0px;
       justify-content: center;
+    }
+    .MyPage_profile_editbtns {
+      display: block;
     }
   }
 `;
