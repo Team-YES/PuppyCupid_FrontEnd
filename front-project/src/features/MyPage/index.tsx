@@ -41,7 +41,7 @@ interface PostData {
 
 interface UserData {
   email: string;
-  postsCount: number;
+  postCount: number;
   followersCount: number;
   followingCount: number;
   puppy: Puppy;
@@ -59,6 +59,10 @@ const MyPage = () => {
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver | null>(null);
   const lastPostElementRef = useRef<HTMLDivElement | null>(null);
+
+  // 유저 아이디 가져오기
+  const userId = user?.id;
+
   useEffect(() => {
     handleFetchData("posts");
   }, []);
@@ -90,7 +94,9 @@ const MyPage = () => {
   }, []);
 
   const titles = ["게시물", "팔로워", "팔로우"];
-  const count = [10, 5, 20]; //(임시 : 서버에 요청해서 가져올 것)
+  const count = userData
+    ? [userData.postCount, userData.followersCount, userData.followingCount]
+    : [0, 0, 0];
 
   const MypageTitles = [
     { title: "작성한 게시물", icon: "fa-solid fa-border-all", type: "posts" },
@@ -280,6 +286,40 @@ const MyPage = () => {
       if (observer.current) observer.current.disconnect();
     };
   }, []);
+
+  // 게시물, 팔로우, 팔로워 axios
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axiosInstance.get("/users/mypage", {
+          params: {
+            postsPage: 1,
+            limit: 9,
+            userId,
+          },
+        });
+
+        const data = res.data;
+        console.log("받은 데이터:", res.data);
+        if (data.ok) {
+          setUserData({
+            email: user?.email || "",
+            postCount: data.postCount || 0,
+            followersCount: data.followerCount || 0,
+            followingCount: data.followingCount || 0,
+            puppy: data.dog,
+          });
+        } else {
+          console.error("유저 정보 오류:", data.error);
+        }
+      } catch (err) {
+        console.error("유저 페이지 데이터 가져오기 실패:", err);
+      }
+    };
+
+    fetchData();
+  }, [userId]);
 
   return (
     <MyPagePadding>
