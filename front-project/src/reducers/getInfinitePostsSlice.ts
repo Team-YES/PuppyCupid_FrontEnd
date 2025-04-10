@@ -77,11 +77,21 @@ const getAllPostsSlice = createSlice({
       })
       .addCase(fetchPostsByPage.fulfilled, (state, action) => {
         const { posts, currentUser, totalCount, hasMore } = action.payload;
-        state.posts.push(...posts);
+
+        // 중복 필터링
+        const uniquePosts = posts.filter(
+          (post: Post) =>
+            !state.posts.some((existing) => existing.id === post.id)
+        );
+
+        state.posts.push(...uniquePosts);
         state.currentUser = currentUser;
         state.totalCount = totalCount;
         state.hasMore = hasMore;
-        state.page += 1;
+        // state.page += 1;
+        if (hasMore) {
+          state.page += 1;
+        }
         state.loading = false;
       })
       .addCase(fetchPostsByPage.rejected, (state, action) => {

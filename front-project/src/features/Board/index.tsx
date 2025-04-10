@@ -15,17 +15,20 @@ import { fetchAllPosts } from "@/reducers/getAllPostsSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import DetailPost from "@/components/DetailPost";
 import { useRouter } from "next/router";
-import { fetchPostsByPage } from "@/reducers/getInfinitePostsSlice";
+import { fetchPostsByPage, resetPosts } from "@/reducers/getInfinitePostsSlice";
 
 // Props 타입 선언
 export type Post = {
+  // page:number;
+  // hasMore:boolean;
+  // totalCount:number;
   id: number;
   title: string;
   category: string;
   like_count: number;
   liked: boolean;
   content: string;
-  currentUser: number;
+  currentUser?: number;
   created_at: string;
   main_image_url: string;
   user: {
@@ -47,8 +50,9 @@ const Board = () => {
   // 2. 상태 정의
   // 전체게시물
   // const [posts, setPosts] = useState<Post[]>([]);
+
   // 현재 로그인한 유저
-  const [loginUser, setLoginUser] = useState<CurrentUser | null>(null);
+  // const [loginUser, setLoginUser] = useState<CurrentUser | null>(null);
   // 검색된 게시물
   const [searchResult, setSearchResult] = useState<Post[]>([]);
   // 날씨
@@ -58,7 +62,7 @@ const Board = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   // 3. 데이터 가져오기
-  const data = useSelector((state: RootState) => state.posts.posts);
+  // const data = useSelector((state: RootState) => state.posts.posts);
   // const dataUser = useSelector((state: RootState) => state.posts.currentUser);
 
   // 4. 위험 날씨 판단용 상수
@@ -83,15 +87,17 @@ const Board = () => {
   // }, [dispatch]);
 
   const { posts, currentUser, hasMore, loading, page } = useSelector(
-    (state: RootState) => state.posts
+    (state: RootState) => state.infinitePosts
   );
+  const loginUser = currentUser;
 
   // 무한스크롤
   const observer = useRef<IntersectionObserver | null>(null);
   const targetRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    dispatch(fetchPostsByPage({ page: 1, limit: 9 }));
+    dispatch(resetPosts());
+    dispatch(fetchPostsByPage({ page: posts.length, limit: 2 }));
   }, [dispatch]);
 
   useEffect(() => {
@@ -99,7 +105,7 @@ const Board = () => {
 
     observer.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && hasMore && !loading) {
-        dispatch(fetchPostsByPage({ page, limit: 9 }));
+        dispatch(fetchPostsByPage({ page, limit: 2 }));
       }
     });
 
@@ -113,6 +119,11 @@ const Board = () => {
   //   if (data.length > 0) setPosts(data);
   //   if (dataUser) setLoginUser(dataUser);
   // }, [data, dataUser]);
+
+  console.log(
+    "posts:",
+    posts.map((p) => p.id)
+  );
 
   // 7. 날씨 정보 요청
   useEffect(() => {
@@ -163,10 +174,15 @@ const Board = () => {
   };
 
   // 현재 선택된 게시글
-  const selectedPost = posts.find((p) => p.id === selectPostId);
+  // const selectedPost = posts.find((p) => p.id === selectPostId);
+  const selectedPost = selectPostId
+    ? posts.find((p) => p.id === selectPostId)
+    : null;
 
   console.log("현재 선택된게시글", selectedPost);
   console.log("상위컴포", posts);
+  console.log("hasMore", hasMore);
+  console.log("page", page);
 
   return (
     <BoardContainer>
@@ -197,7 +213,7 @@ const Board = () => {
       {/* 전체 게시글 */}
       <AllPostsWrap>
         {(searchResult.length > 0 ? searchResult : posts).map((post) => (
-          <div key={post.id} onClick={() => handlePostClick(post.id)}>
+          <div key={`post-${post.id}`} onClick={() => handlePostClick(post.id)}>
             <PostComp
               post={post}
               loginUser={loginUser?.id}

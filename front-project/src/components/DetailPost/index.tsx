@@ -17,7 +17,7 @@ import { fetchComments } from "@/reducers/getCommentSlice";
 import { AxiosGetLike } from "@/reducers/getLikeSlice";
 import { updatePostLike } from "@/reducers/getAllPostsSlice";
 import { Navigation, Pagination } from "swiper/modules";
-import type { Post } from "@/features/Board";
+import type { Post, CurrentUser } from "@/features/Board";
 import type { CommentType } from "@/components/Post";
 import EditPostModal from "../EditPostModal";
 import Comment from "../Comments";
@@ -32,6 +32,7 @@ type Props = {
   loginUser?: number;
   isDetailPage?: boolean;
   onClose: () => void;
+  // currentUser: number;
 };
 
 const DetailPost = ({

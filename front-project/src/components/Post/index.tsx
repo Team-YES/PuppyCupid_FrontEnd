@@ -24,6 +24,7 @@ type Props = {
   loginUser?: number;
   isDetailPage?: boolean;
   onClick?: () => void;
+  // currentUser: number;
 };
 
 export type CommentType = {
