@@ -184,7 +184,10 @@ const DetailPost = ({
           <div className="Post_RightBox">
             {/* 작성자 정보 */}
             <div className="Post_RightBox_userInfo">
-              <div className="Detail_imgBox">
+              <div
+                className="Detail_imgBox"
+                onClick={() => router.push(`/otherpage/${post.user.id}`)}
+              >
                 <img
                   className="Detail_img"
                   src={
@@ -234,7 +237,10 @@ const DetailPost = ({
           <div className="Detail_content">
             <div className="Detail_contBox">
               <div className="Detail_contImg">
-                <div className="Detail_imgBox">
+                <div
+                  className="Detail_imgBox"
+                  onClick={() => router.push(`/otherpage/${post.user.id}`)}
+                >
                   <img
                     className="Detail_img"
                     // src={imageSrc}
@@ -271,7 +277,12 @@ const DetailPost = ({
                         {/* 댓글 본문 */}
                         <div className="Detail_commenter">
                           <div className="Detail_contImg">
-                            <div className="Detail_imgBox">
+                            <div
+                              className="Detail_imgBox"
+                              onClick={() =>
+                                router.push(`/otherpage/${post.user.id}`)
+                              }
+                            >
                               <img
                                 className="Detail_img"
                                 src={
@@ -341,7 +352,12 @@ const DetailPost = ({
                                 style={{ marginLeft: "60px" }}
                               >
                                 <div className="Detail_contImg">
-                                  <div className="Detail_imgBox">
+                                  <div
+                                    className="Detail_imgBox"
+                                    onClick={() =>
+                                      router.push(`/otherpage/${post.user.id}`)
+                                    }
+                                  >
                                     <img
                                       className="Detail_img"
                                       src={
