@@ -221,7 +221,17 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
       <div className="ChatRoom_AllWrap">
         <div className="ChatRoom_otheruser_nametitle">
           <div className="ChatRoom_otheruser_nickname">
-            {receiverImage && <img src={receiverImage} alt="receiverImage" />}
+            {receiverImage && (
+              <img
+                src={receiverImage}
+                alt="receiverImage"
+                onClick={() => {
+                  if (receiverUser) {
+                    router.push(`/otherpage/${receiverUser.id}`);
+                  }
+                }}
+              />
+            )}
             <span>{receiverNickName}</span>
           </div>
           <div

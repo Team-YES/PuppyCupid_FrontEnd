@@ -99,8 +99,8 @@ const Header = ({
               CUPID
             </div>
           </Mid>
-          <RightMenu onClick={openNav} className={isNavOpen ? "open" : ""}>
-            <div className="header_right_wrap">
+          <RightMenu className={isNavOpen ? "open" : ""}>
+            <div className="header_right_wrap" onClick={openNav}>
               <span className="header_btn_line1"></span>
               <span className="header_btn_line2"></span>
               <span className="header_btn_line3"></span>

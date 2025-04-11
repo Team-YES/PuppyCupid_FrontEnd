@@ -108,7 +108,7 @@ export const Logo = styled.div`
   display: flex;
   justify-content: flex-start;
   .header_logoimg_wrap {
-    width: 80px;
+    width: 75px;
     overflow: hidden;
     /* &:hover {
       cursor: url("/cursor-hover1.png") 16 16, auto;
