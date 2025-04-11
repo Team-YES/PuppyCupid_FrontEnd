@@ -33,7 +33,7 @@ interface PostData {
   title: string;
   content: string;
   like_count: number;
-  comments: number;
+  commentCount: number;
   main_image_url: string;
 }
 

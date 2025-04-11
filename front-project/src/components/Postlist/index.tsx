@@ -6,7 +6,7 @@ interface PostData {
   title: string;
   content: string;
   like_count: number;
-  comments: number;
+  commentCount: number;
   main_image_url: string;
 }
 
@@ -15,6 +15,7 @@ interface PostListProps {
 }
 
 const PostList: React.FC<PostListProps> = ({ data }) => {
+  console.log(data, "data?");
   return (
     <PersonFormStyle>
       <div className="PostList_board_content">
@@ -40,7 +41,7 @@ const PostList: React.FC<PostListProps> = ({ data }) => {
                   </span>
                   <span>
                     <i className="fa-solid fa-comment"></i>
-                    {post.comments}
+                    {post.commentCount}
                   </span>
                 </p>
               </div>

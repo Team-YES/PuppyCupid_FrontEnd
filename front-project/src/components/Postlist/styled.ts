@@ -44,12 +44,15 @@ export const PersonFormStyle = styled.div`
     opacity: 1;
   }
   .PostList_post_info span {
-    margin-right: 30px;
+    margin-right: 10px;
+  }
+  .PostList_post_info span i {
+    margin: 0px 10px;
   }
 
-  .PostList_post_info span:last-child {
+  /* .PostList_post_info span:last-child {
     margin-right: 0;
-  }
+  } */
   @media (max-width: 480px) {
     .PostList_grid {
       gap: 3px;

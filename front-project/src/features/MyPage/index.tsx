@@ -35,7 +35,7 @@ interface PostData {
   title: string;
   content: string;
   like_count: number;
-  comments: number;
+  commentCount: number;
   main_image_url: string;
 }
 
@@ -175,12 +175,7 @@ const MyPage = () => {
   const fetchInitialData = async (type: string) => {
     try {
       setLoading(true);
-      // const response = await axios.get(
-      //   `http://localhost:5000/users/mypage?type=${type}&page=1`,
-      //   {
-      //     withCredentials: true,
-      //   }
-      // );
+
       const response = await axiosInstance.get(
         `http://localhost:5000/users/mypage?type=${type}&page=1`
       );
@@ -201,14 +196,6 @@ const MyPage = () => {
     const nextPage = page + 1;
 
     try {
-      // const response = await axios.get("http://localhost:5000/users/mypage", {
-      //   params: {
-      //     [`${selectedType}Page`]: nextPage,
-      //     limit: 9,
-      //   },
-      //   withCredentials: true,
-      // });
-
       const response = await axiosInstance.get(
         "http://localhost:5000/users/mypage",
         {
@@ -288,7 +275,6 @@ const MyPage = () => {
   }, []);
 
   // 게시물, 팔로우, 팔로워 axios
-
   useEffect(() => {
     const fetchData = async () => {
       try {
