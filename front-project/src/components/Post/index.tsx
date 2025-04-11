@@ -20,9 +20,11 @@ import { useRouter } from "next/router";
 
 type Props = {
   post: Post;
+  // currentUser: number;
   loginUser?: number;
   isDetailPage?: boolean;
   onClick?: () => void;
+  // currentUser: number;
 };
 
 export type CommentType = {

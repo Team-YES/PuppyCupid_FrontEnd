@@ -15,16 +15,20 @@ import { fetchAllPosts } from "@/reducers/getAllPostsSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import DetailPost from "@/components/DetailPost";
 import { useRouter } from "next/router";
+import { fetchPostsByPage, resetPosts } from "@/reducers/getInfinitePostsSlice";
 
 // Props 타입 선언
 export type Post = {
+  // page:number;
+  // hasMore:boolean;
+  // totalCount:number;
   id: number;
   title: string;
   category: string;
   like_count: number;
   liked: boolean;
   content: string;
-  currentUser: number;
+  currentUser?: number;
   created_at: string;
   main_image_url: string;
   user: {
@@ -45,9 +49,10 @@ const Board = () => {
 
   // 2. 상태 정의
   // 전체게시물
-  const [posts, setPosts] = useState<Post[]>([]);
+  // const [posts, setPosts] = useState<Post[]>([]);
+
   // 현재 로그인한 유저
-  const [loginUser, setLoginUser] = useState<CurrentUser | null>(null);
+  // const [loginUser, setLoginUser] = useState<CurrentUser | null>(null);
   // 검색된 게시물
   const [searchResult, setSearchResult] = useState<Post[]>([]);
   // 날씨
@@ -57,13 +62,8 @@ const Board = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   // 3. 데이터 가져오기
-  const data = useSelector((state: RootState) => state.posts.posts);
-  const dataUser = useSelector((state: RootState) => state.posts.currentUser);
-
-  // 무한 스크롤
-  // const { posts: data, currentUser: dataUser, hasMore, loading } = useSelector(
-  //   (state: RootState) => state.posts
-  // );
+  // const data = useSelector((state: RootState) => state.posts.posts);
+  // const dataUser = useSelector((state: RootState) => state.posts.currentUser);
 
   // 4. 위험 날씨 판단용 상수
   const dangerWeather: WeatherKey[] = [
@@ -79,19 +79,51 @@ const Board = () => {
   const isAlert = weather ? dangerWeather.includes(weather) : false;
 
   // console.log("검색결과: ", searchResult);
-  // console.log("상위컴포", posts);
   // console.log("로그인유저", loginUser);
 
   // 5. 전체 게시글 요청(무한스크롤 전)
+  // useEffect(() => {
+  //   dispatch(fetchAllPosts());
+  // }, [dispatch]);
+
+  const { posts, currentUser, hasMore, loading, page } = useSelector(
+    (state: RootState) => state.infinitePosts
+  );
+  const loginUser = currentUser;
+
+  // 무한스크롤
+  const observer = useRef<IntersectionObserver | null>(null);
+  const targetRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
-    dispatch(fetchAllPosts());
+    dispatch(resetPosts());
+    dispatch(fetchPostsByPage({ page: posts.length, limit: 2 }));
   }, [dispatch]);
 
-  // 6. Redux 데이터 -> 로컬 상태로 저장
   useEffect(() => {
-    if (data.length > 0) setPosts(data);
-    if (dataUser) setLoginUser(dataUser);
-  }, [data, dataUser]);
+    if (observer.current) observer.current.disconnect();
+
+    observer.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && hasMore && !loading) {
+        dispatch(fetchPostsByPage({ page, limit: 2 }));
+      }
+    });
+
+    if (targetRef.current) observer.current.observe(targetRef.current);
+
+    return () => observer.current?.disconnect();
+  }, [posts, hasMore, loading, dispatch]);
+
+  // 6. Redux 데이터 -> 로컬 상태로 저장
+  // useEffect(() => {
+  //   if (data.length > 0) setPosts(data);
+  //   if (dataUser) setLoginUser(dataUser);
+  // }, [data, dataUser]);
+
+  console.log(
+    "posts:",
+    posts.map((p) => p.id)
+  );
 
   // 7. 날씨 정보 요청
   useEffect(() => {
@@ -142,41 +174,15 @@ const Board = () => {
   };
 
   // 현재 선택된 게시글
-  const selectedPost = posts.find((p) => p.id === selectPostId);
+  // const selectedPost = posts.find((p) => p.id === selectPostId);
+  const selectedPost = selectPostId
+    ? posts.find((p) => p.id === selectPostId)
+    : null;
 
   console.log("현재 선택된게시글", selectedPost);
-  console.log("dataUser : ", dataUser);
-
-  // 10. 무한 스크롤
-  // const [page, setPage] = useState(1);
-  // const limit = 2; // 테스트는 1개씩
-  // const observerTargetRef = useRef<HTMLDivElement | null>(null);
-
-  // 첫 데이터 호출
-  // useEffect(() => {
-  //   dispatch(fetchPostsByPage({ page, limit }));
-  // }, [dispatch, page]);
-  // // IntersectionObserver 호출
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       if (entries[0].isIntersecting) {
-  //         console.log("보임 → 페이지 증가");
-  //         setPage((prev) => prev + 1);
-  //       }
-  //     },
-  //     {
-  //       threshold: 1.0,
-  //     }
-  //   );
-
-  //   const target = observerTargetRef.current;
-  //   if (target) observer.observe(target);
-
-  //   return () => {
-  //     if (target) observer.unobserve(target);
-  //   };
-  // }, []);
+  console.log("상위컴포", posts);
+  console.log("hasMore", hasMore);
+  console.log("page", page);
 
   return (
     <BoardContainer>
@@ -206,10 +212,9 @@ const Board = () => {
 
       {/* 전체 게시글 */}
       <AllPostsWrap>
-        {(searchResult.length > 0 ? searchResult : posts).map((post, i) => (
-          <div key={post.id} onClick={() => handlePostClick(post.id)}>
+        {(searchResult.length > 0 ? searchResult : posts).map((post) => (
+          <div key={`post-${post.id}`} onClick={() => handlePostClick(post.id)}>
             <PostComp
-              key={i}
               post={post}
               loginUser={loginUser?.id}
               isDetailPage={false}
@@ -217,8 +222,8 @@ const Board = () => {
             />
           </div>
         ))}
-        {/* 무한스크롤 감시 대상 (페이지 끝) */}
-        {/* <div ref={observerTargetRef} style={{ height: 1 }} /> */}
+        {/* 무한스크롤 감시 대상 */}
+        {hasMore && <div ref={targetRef} style={{ height: "1px" }} />}
       </AllPostsWrap>
 
       {/* 상세 게시글 */}
