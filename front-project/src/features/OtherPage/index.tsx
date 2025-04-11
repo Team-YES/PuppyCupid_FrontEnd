@@ -327,7 +327,12 @@ const OtherPage = () => {
                   {Number(otherUserId) !== user?.id && (
                     <div className="OtherPage_profile_editbtns">
                       <div
-                        className="OtherPage_profile_btns"
+                        className={`OtherPage_profile_btns ${
+                          getButtonText() === "맞팔로우" ||
+                          getButtonText() === "팔로우"
+                            ? "highlight"
+                            : ""
+                        }`}
                         onClick={handleToggleFollow}
                       >
                         {getButtonText()}

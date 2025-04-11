@@ -143,6 +143,7 @@ export const ChatRoomWrapper = styled.div`
       border-radius: 50%;
       margin-right: 10px;
       object-fit: cover;
+      cursor: pointer;
     }
     @media (max-width: 480px) {
       img {
