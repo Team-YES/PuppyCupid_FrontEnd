@@ -47,6 +47,7 @@ const initialState: InfinitePostsState = {
 export const fetchPostsByPage = createAsyncThunk(
   "posts/fetchPostsByPage",
   async ({ page, limit }: { page: number; limit: number }) => {
+    console.log("📦 API 요청 실행 - page:", page);
     const res = await axios.get("http://localhost:5000/posts", {
       params: { page, limit },
       withCredentials: true,
@@ -78,16 +79,6 @@ const getAllPostsSlice = createSlice({
       .addCase(fetchPostsByPage.fulfilled, (state, action) => {
         const { posts, currentUser, totalCount, hasMore } = action.payload;
 
-        console.log(
-          "🔥 받아온 post:",
-          posts.map((p: { id: any }) => p.id)
-        );
-        console.log(
-          "🔥 기존 post:",
-          state.posts.map((p) => p.id)
-        );
-        console.log("🔥 현재 page:", state.page);
-
         // 중복 필터링
         const uniquePosts = posts.filter(
           (post: Post) =>
@@ -99,8 +90,10 @@ const getAllPostsSlice = createSlice({
         state.totalCount = totalCount;
         state.hasMore = hasMore;
         // state.page += 1;
-        if (hasMore) {
+        if (hasMore && uniquePosts.length > 0) {
+          console.log("state.page", state.page);
           state.page += 1;
+          console.log("state.page2", state.page);
         }
         state.loading = false;
       })

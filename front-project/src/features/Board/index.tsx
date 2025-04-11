@@ -108,7 +108,7 @@ const Board = () => {
   //  2. 초기 게시물 한 번만 불러오기
   useEffect(() => {
     if (page === 1 && posts.length === 0) {
-      dispatch(fetchPostsByPage({ page: 1, limit: 2 }));
+      dispatch(fetchPostsByPage({ page, limit: 2 }));
     }
   }, [dispatch, page, posts.length]);
 
@@ -120,8 +120,9 @@ const Board = () => {
         entries[0].isIntersecting &&
         hasMore &&
         !loading &&
-        posts.length > 0 // ✅ 첫 렌더 감지 방지
+        posts.length > 0 // 첫 렌더 감지 방지
       ) {
+        // console.log("✅요청전 page", page);
         dispatch(fetchPostsByPage({ page, limit: 2 }));
       }
     });
