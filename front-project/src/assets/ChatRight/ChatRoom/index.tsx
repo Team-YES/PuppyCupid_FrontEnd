@@ -23,6 +23,7 @@ interface Message {
     id: number;
     nickName: string;
   };
+  system?: boolean;
 }
 type ChatRoomProps = {
   setOpenChat: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,6 +34,7 @@ const fetchMessages = async (receiverId: number) => {
   const res = await axios.get(`http://localhost:5000/messages/${receiverId}`, {
     withCredentials: true,
   });
+
   return res.data.messages;
 };
 
@@ -106,6 +108,7 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
         withCredentials: true,
       }
     );
+
     return res.data;
   };
 
@@ -236,33 +239,36 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
                 {showDateSeparator && (
                   <div className="ChatRoom_date_separator">{currentDate}</div>
                 )}
-
-                <div
-                  className={`ChatRoom_message_wrap ${
-                    isMyMessage ? "my" : "other"
-                  }`}
-                >
-                  <div>
-                    {!isMyMessage && (
-                      <div className="ChatRoom_sender_nickname">
-                        {msg.sender.nickName}
+                {typeof msg.system === "boolean" && msg.system ? (
+                  <div className="ChatRoom_system_message">{msg.content}</div>
+                ) : (
+                  <div
+                    className={`ChatRoom_message_wrap ${
+                      isMyMessage ? "my" : "other"
+                    }`}
+                  >
+                    <div>
+                      {!isMyMessage && (
+                        <div className="ChatRoom_sender_nickname">
+                          {msg.sender.nickName}
+                        </div>
+                      )}
+                      <div
+                        className={
+                          isSingleEmoji
+                            ? "ChatRoom_emoji_emessage"
+                            : "ChatRoom_text_emessage"
+                        }
+                      >
+                        {msg.content}
                       </div>
-                    )}
-                    <div
-                      className={
-                        isSingleEmoji
-                          ? "ChatRoom_emoji_emessage"
-                          : "ChatRoom_text_emessage"
-                      }
-                    >
-                      {msg.content}
+                    </div>
+                    <div className="ChatRoom_message_time">
+                      {isValidDate(msg.created_at) &&
+                        format(new Date(msg.created_at), "a h:mm")}
                     </div>
                   </div>
-                  <div className="ChatRoom_message_time">
-                    {isValidDate(msg.created_at) &&
-                      format(new Date(msg.created_at), "a h:mm")}
-                  </div>
-                </div>
+                )}
               </div>
             );
           })}
