@@ -71,12 +71,6 @@ const MyPage = () => {
   useEffect(() => {
     const fetchPuppyProfile = async () => {
       try {
-        // const response = await axiosInstance.get(
-        //   "http://localhost:5000/dogs/profile",
-        //   {
-        //     withCredentials: true,
-        //   }
-        // );
         const response = await axiosInstance.get(
           "http://localhost:5000/dogs/profile"
         );

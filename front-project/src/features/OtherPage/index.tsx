@@ -60,6 +60,11 @@ const OtherPage = () => {
   const [nickName, setNickName] = useState<string>("");
   const [isSending, setIsSending] = useState(false);
 
+  const [status, setStatus] = useState<{
+    isFollowing: boolean;
+    isFollowedBy: boolean;
+  } | null>(null);
+
   const { id: otherUserId } = router.query;
   // 유저 아이디 가져오기
   useEffect(() => {
@@ -112,27 +117,6 @@ const OtherPage = () => {
     }
     setLoading(false);
   };
-
-  // 무한스크롤
-  // const fetchInitialData = async (type: string) => {
-  //   if (!router.isReady || !otherUserId) return;
-  //   try {
-  //     setLoading(true);
-
-  //     const response = await axiosInstance.get(
-  //       `http://localhost:5000/users/otherpage/${otherUserId}?type=${type}&page=1`
-  //     );
-  //     if (response.data.ok) {
-  //       const result = response.data[type];
-  //       setData(result);
-  //       setHasMore(result.length > 0);
-  //     }
-  //   } catch (error) {
-  //     console.error("초기 데이터 불러오기 오류:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
 
   // 무한스크롤 추가
   const fetchMoreData = async () => {
@@ -190,36 +174,6 @@ const OtherPage = () => {
       if (observer.current) observer.current.disconnect();
     };
   }, [data, loading, hasMore, page]);
-
-  // 처음 마이페이지 들어갔을 때 실행
-  // useEffect(() => {
-  //   if (!router.isReady || !otherUserId) return;
-  //   // 처음 페이지 로딩 시 게시물 데이터를 가져오기
-  //   fetchInitialData("posts");
-
-  //   // 페이지가 로드되면 observer 설정
-  //   const target = lastPostElementRef.current;
-  //   if (observer.current) observer.current.disconnect();
-
-  //   observer.current = new IntersectionObserver(
-  //     (entries) => {
-  //       if (entries[0].isIntersecting) {
-  //         if (hasMore && !loading) {
-  //           fetchMoreData();
-  //         }
-  //       }
-  //     },
-  //     {
-  //       threshold: 1.0,
-  //     }
-  //   );
-
-  //   if (target) observer.current.observe(target);
-
-  //   return () => {
-  //     if (observer.current) observer.current.disconnect();
-  //   };
-  // }, []);
 
   // 게시물, 팔로우, 팔로워 axios
   useEffect(() => {
@@ -286,6 +240,73 @@ const OtherPage = () => {
     }
   };
 
+  // 팔로우 버튼
+  // 팔로우 상태 가져오기
+  const fetchFollowStatus = async (targetUserId: number) => {
+    try {
+      const res = await axiosInstance.get(
+        `http://localhost:5000/follows/status/${targetUserId}`
+      );
+      return res.data;
+    } catch (err) {
+      console.error("팔로우 상태 가져오기 실패:", err);
+      return { isFollowing: false, isFollowedBy: false };
+    }
+  };
+
+  // 팔로우 토글
+  const handleToggleFollow = async () => {
+    if (!otherUserId) return;
+
+    try {
+      if (status?.isFollowing) {
+        // 이미 팔로우 중이면 → 팔로우 취소 (DELETE)
+        await axiosInstance.delete(
+          `http://localhost:5000/follows/${otherUserId}`,
+          { withCredentials: true }
+        );
+      } else {
+        // 팔로우 안되어 있으면 → 팔로우 추가 (POST)
+        await axiosInstance.post(
+          `http://localhost:5000/follows/${otherUserId}`,
+          {},
+          { withCredentials: true }
+        );
+      }
+      // 상태 다시 불러오기
+      const updatedStatus = await fetchFollowStatus(Number(otherUserId));
+      console.log(updatedStatus, "???update");
+      setStatus(updatedStatus);
+    } catch (err) {
+      console.error("팔로우 토글 실패:", err);
+    }
+  };
+
+  // 초기 팔로우 상태 가져오기
+  useEffect(() => {
+    if (!router.isReady || !otherUserId || !user) return;
+
+    const getStatus = async () => {
+      const data = await fetchFollowStatus(Number(otherUserId));
+      setStatus(data);
+    };
+    getStatus();
+  }, [router.isReady, otherUserId, user]);
+
+  // 버튼 텍스트 처리
+  const getButtonText = () => {
+    if (!status) return "";
+    const { isFollowing, isFollowedBy } = status;
+    if (isFollowing && isFollowedBy) return "맞팔로우 중";
+    if (isFollowing) return "팔로우 취소";
+    if (isFollowedBy) return "맞팔로우";
+    return "팔로우";
+  };
+
+  useEffect(() => {
+    console.log("status 바뀜:", status);
+  }, [status]);
+
   return (
     <OtherPagePadding>
       <OtherPageStyled>
@@ -313,7 +334,12 @@ const OtherPage = () => {
                 <div className="OtherPage_profile_editbtns">
                   {Number(otherUserId) !== user?.id && (
                     <div className="OtherPage_profile_editbtns">
-                      <div className="OtherPage_profile_btns">팔로우</div>
+                      <div
+                        className="OtherPage_profile_btns"
+                        onClick={handleToggleFollow}
+                      >
+                        {getButtonText()}
+                      </div>
                       <div
                         className="OtherPage_profile_btns"
                         onClick={handleChatRequest}
