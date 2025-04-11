@@ -259,20 +259,12 @@ const OtherPage = () => {
     if (!otherUserId) return;
 
     try {
-      if (status?.isFollowing) {
-        // 이미 팔로우 중이면 → 팔로우 취소 (DELETE)
-        await axiosInstance.delete(
-          `http://localhost:5000/follows/${otherUserId}`,
-          { withCredentials: true }
-        );
-      } else {
-        // 팔로우 안되어 있으면 → 팔로우 추가 (POST)
-        await axiosInstance.post(
-          `http://localhost:5000/follows/${otherUserId}`,
-          {},
-          { withCredentials: true }
-        );
-      }
+      await axiosInstance.post(
+        `http://localhost:5000/follows/${otherUserId}`,
+        {},
+        { withCredentials: true }
+      );
+
       // 상태 다시 불러오기
       const updatedStatus = await fetchFollowStatus(Number(otherUserId));
       console.log(updatedStatus, "???update");
