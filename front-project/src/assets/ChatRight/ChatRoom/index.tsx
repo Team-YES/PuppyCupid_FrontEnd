@@ -23,6 +23,7 @@ interface Message {
     id: number;
     nickName: string;
   };
+  system?: boolean;
 }
 type ChatRoomProps = {
   setOpenChat: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,6 +34,7 @@ const fetchMessages = async (receiverId: number) => {
   const res = await axios.get(`http://localhost:5000/messages/${receiverId}`, {
     withCredentials: true,
   });
+
   return res.data.messages;
 };
 
@@ -106,6 +108,7 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
         withCredentials: true,
       }
     );
+
     return res.data;
   };
 
@@ -142,13 +145,32 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === "Enter" && !e.shiftKey) {
+  //     e.preventDefault();
+  //     if (input.trim()) {
+  //       mutation.mutate({ receiverId: parsedId, content: input });
+  //       setInput("");
+  //     }
+  //   }
+  // };
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      if (input.trim()) {
-        mutation.mutate({ receiverId: parsedId, content: input });
-        setInput("");
+      if (!input.trim()) return;
+
+      const latestMessage = messages[messages.length - 1];
+
+      console.log("latestMessage", latestMessage);
+      if (
+        latestMessage?.system === true &&
+        /채팅.*나갔습니다/.test(latestMessage.content)
+      ) {
+        alert("상대방이 채팅방을 나갔습니다. 메시지를 보낼 수 없습니다.");
+        return;
       }
+      mutation.mutate({ receiverId: parsedId, content: input });
+      setInput("");
     }
   };
 
@@ -161,11 +183,27 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
   useClickOutside(pickerRef, () => setShowPicker(false));
 
   // 하트 보내기
+  // const handleHeartClick = () => {
+  //   if (parsedId) {
+  //     const heartMessage = "💜";
+  //     mutation.mutate({ receiverId: parsedId, content: heartMessage });
+  //   }
+  // };
   const handleHeartClick = () => {
-    if (parsedId) {
-      const heartMessage = "💜";
-      mutation.mutate({ receiverId: parsedId, content: heartMessage });
+    if (!parsedId) return;
+
+    const latestMessage = messages[messages.length - 1];
+    console.log("latestMessage", latestMessage);
+    if (
+      latestMessage?.system &&
+      latestMessage.content.includes("채팅방을 나갔습니다")
+    ) {
+      alert("상대방이 채팅방을 나갔습니다. 메시지를 보낼 수 없습니다.");
+      return;
     }
+
+    const heartMessage = "💜";
+    mutation.mutate({ receiverId: parsedId, content: heartMessage });
   };
 
   // 시간 들어 있는지
@@ -236,33 +274,36 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
                 {showDateSeparator && (
                   <div className="ChatRoom_date_separator">{currentDate}</div>
                 )}
-
-                <div
-                  className={`ChatRoom_message_wrap ${
-                    isMyMessage ? "my" : "other"
-                  }`}
-                >
-                  <div>
-                    {!isMyMessage && (
-                      <div className="ChatRoom_sender_nickname">
-                        {msg.sender.nickName}
+                {typeof msg.system === "boolean" && msg.system ? (
+                  <div className="ChatRoom_system_message">{msg.content}</div>
+                ) : (
+                  <div
+                    className={`ChatRoom_message_wrap ${
+                      isMyMessage ? "my" : "other"
+                    }`}
+                  >
+                    <div>
+                      {!isMyMessage && (
+                        <div className="ChatRoom_sender_nickname">
+                          {msg.sender.nickName}
+                        </div>
+                      )}
+                      <div
+                        className={
+                          isSingleEmoji
+                            ? "ChatRoom_emoji_emessage"
+                            : "ChatRoom_text_emessage"
+                        }
+                      >
+                        {msg.content}
                       </div>
-                    )}
-                    <div
-                      className={
-                        isSingleEmoji
-                          ? "ChatRoom_emoji_emessage"
-                          : "ChatRoom_text_emessage"
-                      }
-                    >
-                      {msg.content}
+                    </div>
+                    <div className="ChatRoom_message_time">
+                      {isValidDate(msg.created_at) &&
+                        format(new Date(msg.created_at), "a h:mm")}
                     </div>
                   </div>
-                  <div className="ChatRoom_message_time">
-                    {isValidDate(msg.created_at) &&
-                      format(new Date(msg.created_at), "a h:mm")}
-                  </div>
-                </div>
+                )}
               </div>
             );
           })}

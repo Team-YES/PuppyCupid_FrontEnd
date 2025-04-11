@@ -229,4 +229,10 @@ export const ChatRoomWrapper = styled.div`
     background-color: ${({ theme }) => theme.colors.pointPurple};
     color: white;
   }
+
+  .ChatRoom_system_message {
+    text-align: center;
+    color: gray;
+    padding: 10px 0px;
+  }
 `;
