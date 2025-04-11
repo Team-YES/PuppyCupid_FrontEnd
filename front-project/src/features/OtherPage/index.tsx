@@ -58,11 +58,13 @@ const OtherPage = () => {
   const router = useRouter();
   const [dogs, setDogs] = useState<Puppy[]>([]);
   const [nickName, setNickName] = useState<string>("");
+
+  const { id: otherUserId } = router.query;
   // 유저 아이디 가져오기
   useEffect(() => {
     if (!router.isReady || !otherUserId) return;
     handleFetchData("posts");
-  }, []);
+  }, [router.isReady, otherUserId]);
 
   const titles = ["게시물", "팔로워", "팔로우"];
   const count = userData
@@ -78,9 +80,9 @@ const OtherPage = () => {
     setPuppy(updatedPuppy);
   };
 
-  const { id: otherUserId } = router.query;
   // 게시물 데이터 요청 함수
   const handleFetchData = async (type: string) => {
+    if (!router.isReady || !otherUserId) return;
     setSelectedType(type);
     setLoading(true);
     setPage(1);
@@ -99,7 +101,6 @@ const OtherPage = () => {
 
       if (response.data.ok) {
         const result = response.data[type];
-        console.log(response.data.nickName, "닉네임???");
         setNickName(response.data.nickName);
         setData(result.items);
         setHasMore(result.hasMore);
@@ -112,27 +113,29 @@ const OtherPage = () => {
   };
 
   // 무한스크롤
-  const fetchInitialData = async (type: string) => {
-    try {
-      setLoading(true);
+  // const fetchInitialData = async (type: string) => {
+  //   if (!router.isReady || !otherUserId) return;
+  //   try {
+  //     setLoading(true);
 
-      const response = await axiosInstance.get(
-        `http://localhost:5000/users/otherpage/${otherUserId}?type=${type}&page=1`
-      );
-      if (response.data.ok) {
-        const result = response.data[type];
-        setData(result);
-        setHasMore(result.length > 0);
-      }
-    } catch (error) {
-      console.error("초기 데이터 불러오기 오류:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     const response = await axiosInstance.get(
+  //       `http://localhost:5000/users/otherpage/${otherUserId}?type=${type}&page=1`
+  //     );
+  //     if (response.data.ok) {
+  //       const result = response.data[type];
+  //       setData(result);
+  //       setHasMore(result.length > 0);
+  //     }
+  //   } catch (error) {
+  //     console.error("초기 데이터 불러오기 오류:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   // 무한스크롤 추가
   const fetchMoreData = async () => {
+    if (!router.isReady || !otherUserId) return;
     const nextPage = page + 1;
 
     try {
@@ -162,6 +165,7 @@ const OtherPage = () => {
 
   // 감지
   useEffect(() => {
+    if (!router.isReady || !otherUserId) return;
     const target = lastPostElementRef.current;
 
     if (observer.current) observer.current.disconnect();
@@ -184,37 +188,37 @@ const OtherPage = () => {
     return () => {
       if (observer.current) observer.current.disconnect();
     };
-  }, [data, loading, hasMore]);
+  }, [data, loading, hasMore, page]);
 
   // 처음 마이페이지 들어갔을 때 실행
-  useEffect(() => {
-    if (!router.isReady || !otherUserId) return;
-    // 처음 페이지 로딩 시 게시물 데이터를 가져오기
-    fetchInitialData("posts");
+  // useEffect(() => {
+  //   if (!router.isReady || !otherUserId) return;
+  //   // 처음 페이지 로딩 시 게시물 데이터를 가져오기
+  //   fetchInitialData("posts");
 
-    // 페이지가 로드되면 observer 설정
-    const target = lastPostElementRef.current;
-    if (observer.current) observer.current.disconnect();
+  //   // 페이지가 로드되면 observer 설정
+  //   const target = lastPostElementRef.current;
+  //   if (observer.current) observer.current.disconnect();
 
-    observer.current = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          if (hasMore && !loading) {
-            fetchMoreData();
-          }
-        }
-      },
-      {
-        threshold: 1.0,
-      }
-    );
+  //   observer.current = new IntersectionObserver(
+  //     (entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         if (hasMore && !loading) {
+  //           fetchMoreData();
+  //         }
+  //       }
+  //     },
+  //     {
+  //       threshold: 1.0,
+  //     }
+  //   );
 
-    if (target) observer.current.observe(target);
+  //   if (target) observer.current.observe(target);
 
-    return () => {
-      if (observer.current) observer.current.disconnect();
-    };
-  }, []);
+  //   return () => {
+  //     if (observer.current) observer.current.disconnect();
+  //   };
+  // }, []);
 
   // 게시물, 팔로우, 팔로워 axios
   useEffect(() => {
