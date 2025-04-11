@@ -78,6 +78,16 @@ const getAllPostsSlice = createSlice({
       .addCase(fetchPostsByPage.fulfilled, (state, action) => {
         const { posts, currentUser, totalCount, hasMore } = action.payload;
 
+        console.log(
+          "🔥 받아온 post:",
+          posts.map((p: { id: any }) => p.id)
+        );
+        console.log(
+          "🔥 기존 post:",
+          state.posts.map((p) => p.id)
+        );
+        console.log("🔥 현재 page:", state.page);
+
         // 중복 필터링
         const uniquePosts = posts.filter(
           (post: Post) =>

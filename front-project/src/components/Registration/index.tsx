@@ -24,8 +24,8 @@ const Registration = () => {
 
   // 카테고리 선택 목록
   const option = [
-    { value: "walk", label: "산책메이트" },
     { value: "free", label: "자유게시판" },
+    { value: "walk", label: "반려견 용품추천" },
     { value: "adopt", label: "유기견 임시보호 / 입양" },
   ];
 

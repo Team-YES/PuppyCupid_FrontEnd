@@ -95,16 +95,33 @@ const Board = () => {
   const observer = useRef<IntersectionObserver | null>(null);
   const targetRef = useRef<HTMLDivElement | null>(null);
 
+  // useEffect(() => {
+  //   dispatch(resetPosts());
+  //   dispatch(fetchPostsByPage({ page: 1, limit: 2 }));
+  // }, [dispatch]);
+
+  // 게시판 진입 시 초기화
   useEffect(() => {
-    dispatch(resetPosts());
-    dispatch(fetchPostsByPage({ page: posts.length, limit: 2 }));
+    dispatch(resetPosts()); // 초기화 먼저
   }, [dispatch]);
+
+  //  2. 초기 게시물 한 번만 불러오기
+  useEffect(() => {
+    if (page === 1 && posts.length === 0) {
+      dispatch(fetchPostsByPage({ page: 1, limit: 2 }));
+    }
+  }, [dispatch, page, posts.length]);
 
   useEffect(() => {
     if (observer.current) observer.current.disconnect();
-
+    // IntersectionObserver는 반드시 렌더 완료 후에만 동작되도록
     observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasMore && !loading) {
+      if (
+        entries[0].isIntersecting &&
+        hasMore &&
+        !loading &&
+        posts.length > 0 // ✅ 첫 렌더 감지 방지
+      ) {
         dispatch(fetchPostsByPage({ page, limit: 2 }));
       }
     });
