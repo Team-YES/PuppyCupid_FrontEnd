@@ -58,6 +58,7 @@ const OtherPage = () => {
   const router = useRouter();
   const [dogs, setDogs] = useState<Puppy[]>([]);
   const [nickName, setNickName] = useState<string>("");
+  const [isSending, setIsSending] = useState(false);
 
   const { id: otherUserId } = router.query;
   // 유저 아이디 가져오기
@@ -131,7 +132,7 @@ const OtherPage = () => {
   //   } finally {
   //     setLoading(false);
   //   }
-  // };
+  // }
 
   // 무한스크롤 추가
   const fetchMoreData = async () => {
@@ -258,6 +259,33 @@ const OtherPage = () => {
     fetchData();
   }, [otherUserId]);
 
+  // 채팅하기로 이동 (메시지 보내기)
+  const handleChatRequest = async () => {
+    if (!otherUserId || isSending) return;
+    setIsSending(true);
+
+    try {
+      const res = await axiosInstance.post(
+        "http://localhost:5000/messages",
+        {
+          receiverId: Number(otherUserId),
+          content: "채팅 신청합니다!",
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      // 채팅방으로 이동
+      router.push(`/chat?receiverId=${otherUserId}`);
+    } catch (error) {
+      alert("채팅 요청에 실패했습니다.");
+      console.error(error);
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   return (
     <OtherPagePadding>
       <OtherPageStyled>
@@ -283,8 +311,17 @@ const OtherPage = () => {
                 </div>
 
                 <div className="OtherPage_profile_editbtns">
-                  <div className="OtherPage_profile_btns">팔로우</div>
-                  <div className="OtherPage_profile_btns">메시지 보내기</div>
+                  {Number(otherUserId) !== user?.id && (
+                    <div className="OtherPage_profile_editbtns">
+                      <div className="OtherPage_profile_btns">팔로우</div>
+                      <div
+                        className="OtherPage_profile_btns"
+                        onClick={handleChatRequest}
+                      >
+                        메시지 보내기
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
               {/* 게시물 팔로워 팔로우 */}
