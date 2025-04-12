@@ -36,6 +36,9 @@ const UsersModal = ({
   const modalRef = useRef<HTMLDivElement>(null);
   useClickOutside(modalRef, () => closeModal(false));
 
+  // 팔로워나 팔로우 모달 띄우기
+  const userList = modalType === "팔로워" ? followers : followings;
+
   return (
     <UsersModalStyle>
       <div className="UsersModal_wrap" ref={modalRef}>
@@ -50,10 +53,12 @@ const UsersModal = ({
           </div>
         </div>
         <div className="UsersModal_usersItem_Allwrap">
-          {(modalType === "팔로워" ? followers : followings).map(
-            (user, index) => (
-              <div className="UsersModal_usersItem">
-                <div key={index} className="UsersModal_usersWrap">
+          {userList.length === 0 ? (
+            <div className="UsersModal_emptyText">{modalType}가 없습니다.</div>
+          ) : (
+            userList.map((user, index) => (
+              <div className="UsersModal_usersItem" key={index}>
+                <div className="UsersModal_usersWrap">
                   <img
                     src={
                       user.dogImage
@@ -67,7 +72,7 @@ const UsersModal = ({
                 </div>
                 <div className="UsersModal_userNickname">{user.nickName}</div>
               </div>
-            )
+            ))
           )}
         </div>
       </div>

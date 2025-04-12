@@ -229,5 +229,11 @@ export const ChatRoomWrapper = styled.div`
     text-align: center;
     color: gray;
     padding: 10px 0px;
+    font-size: 15px;
+  }
+  @media (max-width: 480px) {
+    .ChatRoom_system_message {
+      font-size: 12px;
+    }
   }
 `;

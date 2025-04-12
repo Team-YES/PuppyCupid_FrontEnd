@@ -51,7 +51,7 @@ export const UsersModalStyle = styled.div`
     display: flex;
     flex-direction: column;
     /* width: 100%; */
-    max-width: 420px;
+    width: 420px;
     background-color: #f9f9f9;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -99,5 +99,74 @@ export const UsersModalStyle = styled.div`
   .UsersModal_wrap::-webkit-scrollbar-thumb {
     background-color: ${({ theme }) => theme.colors.mainPurple};
     border-radius: 50px;
+  }
+  .UsersModal_emptyText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: #999;
+    height: 80%;
+  }
+
+  /* 반응형 - 태블릿 (max-width: 767px) */
+  @media (max-width: 767px) {
+    .UsersModal_wrap {
+      width: 45%;
+      height: 60vh;
+    }
+
+    .UsersModal_modalTypebtn_wrap {
+      padding: 20px;
+    }
+
+    .UsersModal_userNickname {
+      font-size: 16px;
+    }
+
+    .UsersModal_usersWrap {
+      width: 20%;
+    }
+
+    .UsersModal_usersItem {
+      padding-bottom: 14px;
+    }
+
+    .UsersModal_emptyText {
+      font-size: 15px;
+    }
+  }
+
+  /* 반응형 - 모바일 (max-width: 480px) */
+  @media (max-width: 480px) {
+    .UsersModal_wrap {
+      width: 80%;
+      height: 55vh;
+    }
+
+    .UsersModal_modalTypebtn_wrap {
+      padding: 16px;
+    }
+
+    .UsersModalStyle_modalTypeTitle {
+      font-size: 16px;
+    }
+
+    .UsersModal_userNickname {
+      font-size: 15px;
+      padding-left: 10px;
+    }
+
+    .UsersModal_usersWrap {
+      width: 25%;
+    }
+
+    .UsersModal_usersItem {
+      padding-bottom: 12px;
+    }
+
+    .UsersModal_emptyText {
+      font-size: 14px;
+    }
   }
 `;
