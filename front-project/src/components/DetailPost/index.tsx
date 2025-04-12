@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { fetchComments } from "@/reducers/getCommentSlice";
 import { AxiosGetLike } from "@/reducers/getLikeSlice";
-import { updatePostLike } from "@/reducers/getAllPostsSlice";
+import { updatePostLike } from "@/reducers/getInfinitePostsSlice";
 import { Navigation, Pagination } from "swiper/modules";
 import type { Post, CurrentUser } from "@/features/Board";
 import type { CommentType } from "@/components/Post";

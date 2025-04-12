@@ -49,21 +49,21 @@ const AxiosgetPosts = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    updatePostLike(
-      state,
-      action: PayloadAction<{
-        postId: number;
-        liked: boolean;
-        likeCount: number;
-      }>
-    ) {
-      const { postId, liked, likeCount } = action.payload;
-      const post = state.posts.find((p) => p.id === postId);
-      if (post) {
-        post.liked = liked;
-        post.like_count = likeCount;
-      }
-    },
+    // updatePostLike(
+    //   state,
+    //   action: PayloadAction<{
+    //     postId: number;
+    //     liked: boolean;
+    //     likeCount: number;
+    //   }>
+    // ) {
+    //   const { postId, liked, likeCount } = action.payload;
+    //   const post = state.posts.find((p) => p.id === postId);
+    //   if (post) {
+    //     post.liked = liked;
+    //     post.like_count = likeCount;
+    //   }
+    // },
   },
   extraReducers: (builder) => {
     builder
@@ -84,4 +84,4 @@ const AxiosgetPosts = createSlice({
 });
 
 export default AxiosgetPosts.reducer;
-export const { updatePostLike } = AxiosgetPosts.actions;
+// export const { updatePostLike } = AxiosgetPosts.actions;

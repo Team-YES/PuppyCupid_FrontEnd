@@ -70,6 +70,21 @@ const getAllPostsSlice = createSlice({
       state.error = null;
       state.currentUser = null;
     },
+    updatePostLike: (
+      state,
+      action: PayloadAction<{
+        postId: number;
+        liked: boolean;
+        likeCount: number;
+      }>
+    ) => {
+      const { postId, liked, likeCount } = action.payload;
+      const post = state.posts.find((p) => p.id === postId);
+      if (post) {
+        post.liked = liked;
+        post.like_count = likeCount;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -106,3 +121,4 @@ const getAllPostsSlice = createSlice({
 
 export const { resetPosts } = getAllPostsSlice.actions;
 export default getAllPostsSlice.reducer;
+export const { updatePostLike } = getAllPostsSlice.actions;
