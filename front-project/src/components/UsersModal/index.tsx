@@ -1,6 +1,8 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { UsersModalStyle } from "./styled";
+import { useRouter } from "next/navigation";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 const defaultImage = "/puppy_profile.png";
 
@@ -23,10 +25,19 @@ const UsersModal = ({
   followings,
   modalType,
 }: UsersModalProps) => {
-  console.log(followers, "팔로워");
+  // 다른 사람 페이지로 이동
+  const router = useRouter();
+  const movePage = (id: number) => {
+    router.push(`/otherpage/${id}`);
+  };
+
+  //
+  const modalRef = useRef<HTMLDivElement>(null);
+  useClickOutside(modalRef, () => closeModal(false));
+
   return (
     <UsersModalStyle>
-      <div className="UsersModal_wrap">
+      <div className="UsersModal_wrap" ref={modalRef}>
         <div className="UsersModal_modalTypebtn_wrap">
           <div></div>
           <div className="UsersModalStyle_modalTypeTitle">{modalType}</div>
@@ -50,6 +61,7 @@ const UsersModal = ({
                     }
                     alt="userImg"
                     className="UsersModal_userImg"
+                    onClick={() => movePage(user.id)}
                   />
                 </div>
                 <div className="UsersModal_userNickname">{user.nickName}</div>
