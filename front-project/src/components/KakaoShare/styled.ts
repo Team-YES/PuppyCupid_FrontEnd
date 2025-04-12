@@ -6,4 +6,8 @@ export const KakaoShareStyle = styled.div`
   font-size: 24px;
   margin-right: 15px;
   cursor: pointer;
+
+  @media (max-width: 632px) {
+    font-size: 20px;
+  }
 `;

@@ -28,6 +28,7 @@ export type Post = {
   like_count: number;
   liked: boolean;
   content: string;
+  comment_count: number;
   currentUser?: number;
   created_at: string;
   main_image_url: string;

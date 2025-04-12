@@ -187,6 +187,13 @@ export const RightContainer = styled.div`
     font-size: 12px;
   }
 
+  .Post_comment {
+    position: absolute;
+    bottom: 8px;
+    color: rgb(115, 115, 115);
+    font-size: 14px;
+  }
+
   .Post_menu {
     margin-right: 10px;
     cursor: pointer;

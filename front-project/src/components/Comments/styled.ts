@@ -21,16 +21,25 @@ export const IconDiv = styled.div`
   border: none;
   padding: 15px;
 
+  @media (max-width: 632px) {
+    padding: 10px;
+  }
+
   i {
     font-size: 24px;
     cursor: pointer;
     color: #333;
+
+    @media (max-width: 632px) {
+      font-size: 20px;
+    }
   }
 `;
 
 export const CommentText = styled.textarea`
   border: none;
-  width: 389px;
+  /* width: 389px; */
+  width: 77%;
   height: 40px;
   padding: 10px;
   resize: none;
@@ -38,6 +47,10 @@ export const CommentText = styled.textarea`
 
   &:focus {
     outline-style: none;
+  }
+
+  @media (max-width: 400px) {
+    width: 73%;
   }
 `;
 
@@ -57,5 +70,9 @@ export const CommentPost = styled.button`
   &:disabled {
     color: #e3d5ff;
     cursor: default;
+  }
+
+  @media (max-width: 400px) {
+    margin-left: 0;
   }
 `;

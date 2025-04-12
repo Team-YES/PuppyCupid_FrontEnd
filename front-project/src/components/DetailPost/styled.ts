@@ -11,31 +11,63 @@ export const DetailPostStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .Detail_XMark {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    font-size: 26px;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  @media (max-width: 632px) {
+    font-size: 14px;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 13px;
+  }
+`;
+
+export const DetailContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  max-width: 1350px;
+  width: 100%;
+  height: 100%;
+  max-height: 90vh;
+  align-items: center;
 `;
 
 export const DetailPostBox = styled.div`
   display: flex;
   width: 100%;
-  height: 100%;
-  max-width: 1039px;
+  height: auto;
+  max-width: calc(100% - 64px - 64px);
   background-color: #f9f9f9;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-height: 90vh;
   overflow-y: auto;
+  /* aspect-ratio: 1 / 1; */
 
   @media (max-width: 632px) {
-    width: 95%;
-    height: auto;
+    /* width: 100%; */
+    height: 89%;
+    max-width: 77%;
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
   }
 `;
 
 export const Detail_LeftContainer = styled.div`
-  width: 50%;
+  width: 56%;
 
   @media (max-width: 632px) {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
   }
 
   .swiper-slide {
@@ -46,7 +78,7 @@ export const Detail_LeftContainer = styled.div`
     background-color: black;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
-    min-height: 463px;
+    min-height: 820px;
     overflow: hidden;
     flex-grow: 1;
     height: 100%;
@@ -54,8 +86,12 @@ export const Detail_LeftContainer = styled.div`
     @media (max-width: 632px) {
       border-top-right-radius: 4px;
       border-bottom-left-radius: 0px;
-      min-height: auto;
+      min-height: 307px;
       justify-content: center;
+    }
+
+    @media (max-width: 400px) {
+      min-height: 249px;
     }
   }
 
@@ -73,7 +109,7 @@ export const Detail_LeftContainer = styled.div`
 
     @media (max-width: 632px) {
       flex-basis: auto;
-      max-height: 400px;
+      max-height: 0;
       width: 100%;
     }
   }
@@ -89,14 +125,25 @@ export const Detail_RightContainer = styled.div`
   width: 50%;
   display: flex;
   flex-direction: column;
+  height: 90vh;
+  overflow: hidden;
+
+  @media (max-width: 632px) {
+    width: 100%;
+  }
 
   .Post_RightBox {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
     padding: 9px 16px;
     border-bottom: 1px solid rgb(239, 239, 239);
+
+    @media (max-width: 400px) {
+      padding: 9px 9px;
+    }
   }
 
   .Post_RightBox_userInfo {
@@ -133,6 +180,14 @@ export const Detail_RightContainer = styled.div`
     margin: 0 auto;
     cursor: pointer;
     width: 53px;
+
+    @media (max-width: 632px) {
+      width: 45px;
+    }
+
+    @media (max-width: 400px) {
+      width: 40px;
+    }
   }
 
   .Detail_img {
@@ -145,6 +200,14 @@ export const Detail_RightContainer = styled.div`
     justify-content: center;
     margin: 0 auto;
     width: 45px;
+
+    @media (max-width: 632px) {
+      width: 39px;
+    }
+
+    @media (max-width: 400px) {
+      width: 34px;
+    }
   }
 
   .Post_user {
@@ -173,6 +236,10 @@ export const Detail_RightContainer = styled.div`
     padding: 13px 15px;
     border-top: 1px solid rgb(239, 239, 239);
     gap: 5px;
+
+    @media (max-width: 400px) {
+      padding: 9px 12px;
+    }
   }
 
   .Post_icon {
@@ -181,15 +248,34 @@ export const Detail_RightContainer = styled.div`
     font-size: 24px;
     margin-right: 15px;
     cursor: pointer;
+
+    @media (max-width: 632px) {
+      font-size: 20px;
+      margin-right: 12px;
+    }
   }
 
   .Post_content {
     padding: 0 15px;
+
+    @media (max-width: 400px) {
+      padding: 0 12px;
+    }
   }
 
   .Detail_content {
     padding: 16px;
     flex: 1;
+    overflow-y: auto;
+
+    @media (max-width: 632px) {
+      max-height: 101px;
+    }
+
+    @media (max-width: 400px) {
+      /* max-height: 101px; */
+      padding: 11px 9px;
+    }
   }
 
   .Detail_contBox {
@@ -202,14 +288,33 @@ export const Detail_RightContainer = styled.div`
 
   .Detail_Info {
     padding-top: 5px;
+
+    @media (max-width: 632px) {
+      padding-top: 0;
+    }
   }
 
   .Detail_Info_box {
     padding: 0 16px 16px 0;
   }
 
+  .Detail_pcWrap {
+    display: flex;
+    align-items: center;
+  }
+
   .Detail_pc {
     line-height: 23px;
+    /* display: inline-block; */
+  }
+
+  @media (max-width: 632px) {
+    .Detail_pc.truncate {
+      max-width: 10ch;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   .Detail_day {
@@ -222,10 +327,6 @@ export const Detail_RightContainer = styled.div`
     font-size: 12px;
     margin: 0 0 2px 10px;
     cursor: pointer;
-  }
-
-  @media (max-width: 632px) {
-    width: 100%;
   }
 `;
 
@@ -249,6 +350,10 @@ export const DetailLikeIcon = styled.i.withConfig({
   transition: color 0.2s ease;
   font-size: 24px;
   cursor: pointer;
+
+  @media (max-width: 632px) {
+    font-size: 20px;
+  }
 `;
 
 export const ReplyCommentDiv = styled.div`

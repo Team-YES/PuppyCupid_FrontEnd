@@ -42,7 +42,7 @@ export type CommentType = {
 const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  // console.log("하위 컴포", post);
+  console.log("하위 컴포", post);
 
   const [animate, setAnimate] = useState(false);
 
@@ -174,6 +174,7 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
         <PostContent>
           <div className="Post_ClampText">{post.content}</div>
           <div className="Post_more">본문 더보기</div>
+          <div className="Post_comment">댓글 {post.comment_count}개</div>
         </PostContent>
 
         {/* 댓글 내용 */}
@@ -203,11 +204,17 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
                 animate={animate}
               />
             </div>
-            {MypageTitles.map((item, i) => (
+            {/* {MypageTitles.map((item, i) => (
               <div key={i} className="Post_icon">
                 <PostIcon className={item.icon}></PostIcon>
               </div>
-            ))}
+            ))} */}
+            <div className="Post_icon">
+              <PostIcon className="fa-regular fa-comment"></PostIcon>
+            </div>
+            <div className="Post_icon">
+              <PostIcon className="fa-solid fa-share-nodes"></PostIcon>
+            </div>
           </div>
 
           {/* 좋아요 수 + 날짜 */}

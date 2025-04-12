@@ -128,4 +128,9 @@ a {
 
 .swiper-pagination-bullet {
   background: rgb(255, 255, 255) !important;
+
+  @media (max-width: 632px) {
+    width: 6px !important;
+    height: 6px !important;
+  }
 }
