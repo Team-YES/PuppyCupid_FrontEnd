@@ -127,12 +127,6 @@ export const ChatRoomWrapper = styled.div`
     margin-right: 5px;
   }
 
-  /* .ChatRoom_profile_img {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    object-fit: cover;
-  } */
   .ChatRoom_otheruser_nickname {
     display: flex;
     align-items: center;
@@ -143,6 +137,7 @@ export const ChatRoomWrapper = styled.div`
       border-radius: 50%;
       margin-right: 10px;
       object-fit: cover;
+      cursor: pointer;
     }
     @media (max-width: 480px) {
       img {
@@ -234,5 +229,11 @@ export const ChatRoomWrapper = styled.div`
     text-align: center;
     color: gray;
     padding: 10px 0px;
+    font-size: 15px;
+  }
+  @media (max-width: 480px) {
+    .ChatRoom_system_message {
+      font-size: 12px;
+    }
   }
 `;

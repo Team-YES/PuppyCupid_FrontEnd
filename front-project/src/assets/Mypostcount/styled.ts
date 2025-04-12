@@ -31,10 +31,21 @@ export const MypostCountWrapper = styled.div`
     padding-left: 10px;
     padding-right: 5px;
   }
+  .MypostCount_count.cursor {
+    cursor: pointer;
+  }
   @media (max-width: 486px) {
     .MypostCount_AllWrap {
       justify-content: center;
       align-items: center;
     }
+  }
+
+  // 팔로우, 팔로워 목록 모달 토글
+  .UserModel_toggle_wrap {
+    display: block;
+  }
+  .UserModel_toggle_wrap.UserModel_toggle_show {
+    display: none;
   }
 `;

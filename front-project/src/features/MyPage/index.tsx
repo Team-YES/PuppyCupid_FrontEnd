@@ -45,6 +45,8 @@ interface UserData {
   followersCount: number;
   followingCount: number;
   puppy: Puppy;
+  followers: [];
+  followings: [];
 }
 const MyPage = () => {
   const [isPuppyModalVisible, setIsPuppyModalVisible] = useState(false);
@@ -124,13 +126,6 @@ const MyPage = () => {
     setHasMore(true);
     setData(null);
     try {
-      // const response = await axios.get("http://localhost:5000/users/mypage", {
-      //   params: {
-      //     [`${type}Page`]: 1,
-      //     limit: 9,
-      //   },
-      //   withCredentials: true,
-      // });
       const response = await axiosInstance.get(
         "http://localhost:5000/users/mypage",
         {
@@ -143,7 +138,6 @@ const MyPage = () => {
 
       if (response.data.ok) {
         const result = response.data[type];
-
         setData(result.items);
         setHasMore(result.hasMore);
       }
@@ -289,6 +283,8 @@ const MyPage = () => {
             followersCount: data.followerCount || 0,
             followingCount: data.followingCount || 0,
             puppy: data.dog,
+            followers: data.followers || [],
+            followings: data.followings || [],
           });
         } else {
           console.error("유저 정보 오류:", data.error);
@@ -381,7 +377,12 @@ const MyPage = () => {
                 </div>
               </div>
               {/* 게시물 팔로워 팔로우 */}
-              <Mypostcount titles={titles} count={count}></Mypostcount>
+              <Mypostcount
+                titles={titles}
+                count={count}
+                followers={userData?.followers || []}
+                followings={userData?.followings || []}
+              ></Mypostcount>
               {/* 강아지 정보 */}
               <PuppyProfile puppyprofile={puppy ? [puppy] : []} />
             </div>

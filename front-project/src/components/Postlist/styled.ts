@@ -50,9 +50,6 @@ export const PersonFormStyle = styled.div`
     margin: 0px 10px;
   }
 
-  /* .PostList_post_info span:last-child {
-    margin-right: 0;
-  } */
   @media (max-width: 480px) {
     .PostList_grid {
       gap: 3px;

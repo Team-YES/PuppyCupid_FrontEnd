@@ -226,7 +226,13 @@ export const OtherPageRight = styled.div`
       display: block;
     }
   }
+  // 맞팔로우 버튼색 바꾸기
+  .OtherPage_profile_btns.highlight {
+    background-color: ${({ theme }) => theme.colors.pointPurple};
+    color: white;
+  }
 `;
+
 // 마이페이지 하단 게시물 모음
 export const OtherPageBottom = styled.div`
   padding: 0px 55px 15px 55px;

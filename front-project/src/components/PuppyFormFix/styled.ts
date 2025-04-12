@@ -15,6 +15,7 @@ export const PuppyFormFixStyle = styled.div`
   .PuppyFormfix_closeBtn {
     display: flex;
     justify-content: flex-end;
+    cursor: pointer;
     i {
       font-size: 23px;
       color: black;

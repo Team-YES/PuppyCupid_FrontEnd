@@ -30,8 +30,8 @@ export const ReportModalStyle = styled.form`
       padding: 15px 0px;
       font-weight: bold;
       border-bottom: 1px solid #ddd;
-      height: 22%;
-      font-size: 18px;
+      height: 25%;
+      font-size: 16px;
     }
   }
   .error {
@@ -51,13 +51,15 @@ export const ReportModalStyle = styled.form`
     font-family: inherit;
   }
   button {
-    /* background-color: ${({ theme }) => theme.colors.pointPurple}; */
-    /* color: white; */
     border: none;
     width: 100%;
     cursor: pointer;
-    height: 20%;
+    height: 25%;
     font-size: 15px;
     border-top: 1px #ddd solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
   }
 `;
