@@ -7,6 +7,8 @@ import { mbtiOptions } from "@/constants/mbtiOptions";
 import { formLabels } from "@/constants/formLabels";
 import { PuppyFormFixStyle } from "./styled";
 
+// 내 강아지 프로필 수정 모달 (부모 컴포넌트 : MyPage)
+
 const defaultImage = "/puppy_profile.png";
 // 폼 상태 타입 정의
 interface FormValues {
@@ -70,10 +72,6 @@ const PuppyFormFix = ({
     enableReinitialize: true,
     validate,
     onSubmit: async (values) => {
-      // const personalityObject = values.puppyPersonality.reduce((acc, cur) => {
-      //   acc[cur] = true; // 선택된 성격을 키로 설정하고 true 값 부여
-      //   return acc;
-      // }, {} as Record<string, boolean>);
       try {
         const formData = new FormData();
         formData.append("name", values.puppyName);
