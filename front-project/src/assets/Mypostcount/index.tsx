@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MypostCountWrapper } from "./styled";
 import UsersModal from "../../components/UsersModal";
+
 interface MypostcountProps {
   titles: string[];
   count: number[];

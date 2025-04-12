@@ -29,9 +29,10 @@ const UsersModal = ({
   const router = useRouter();
   const movePage = (id: number) => {
     router.push(`/otherpage/${id}`);
+    closeModal(false);
   };
 
-  //
+  // 모달 바깥 누르면 닫기
   const modalRef = useRef<HTMLDivElement>(null);
   useClickOutside(modalRef, () => closeModal(false));
 

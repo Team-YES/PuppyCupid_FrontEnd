@@ -43,6 +43,8 @@ interface UserData {
   followersCount: number;
   followingCount: number;
   puppy: Puppy;
+  followers: [];
+  followings: [];
 }
 const OtherPage = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
@@ -198,6 +200,8 @@ const OtherPage = () => {
             followersCount: data.followerCount || 0,
             followingCount: data.followingCount || 0,
             puppy: data.dog,
+            followers: data.followers || [],
+            followings: data.followings || [],
           });
 
           if (data.dogs && Array.isArray(data.dogs)) {
@@ -348,7 +352,12 @@ const OtherPage = () => {
                 </div>
               </div>
               {/* 게시물 팔로워 팔로우 */}
-              <Otherpostcount titles={titles} count={count}></Otherpostcount>
+              <Otherpostcount
+                titles={titles}
+                count={count}
+                followers={userData?.followers || []}
+                followings={userData?.followings || []}
+              ></Otherpostcount>
               {/* 강아지 정보 */}
               <PuppyProfile puppyprofile={dogs ? dogs : []} />
             </div>
