@@ -25,31 +25,37 @@ export const UsersModalStyle = styled.div`
     display: flex;
   }
   .UsersModal_usersWrap {
-    width: 65px;
-    height: 65px;
+    width: 15%;
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
+    border: 2px solid #9855f380;
+    overflow: hidden;
     display: flex;
+    cursor: pointer;
     justify-content: center;
-    align-items: center;
-    position: relative;
     align-items: center;
   }
   .UsersModal_usersWrap img {
-    width: 100%;
+    width: 92%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
     display: flex;
+    align-items: center;
     justify-content: center;
+    border: 1px #ddd solid;
   }
 
   /* 폼 전체 스타일 */
   .UsersModal_wrap {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    max-width: 500px;
+    /* width: 100%; */
+    max-width: 420px;
     background-color: #f9f9f9;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 75vh;
+    height: 65vh;
     overflow-y: auto;
   }
   // 팔로우, 팔로워 타이틀, 닫기 버튼
@@ -72,9 +78,9 @@ export const UsersModalStyle = styled.div`
     padding: 20px;
   }
   .UsersModal_usersItem {
-    height: 18%;
     display: flex;
     align-items: center;
+    padding-bottom: 18px;
   }
 
   .UsersModal_userNickname {
@@ -87,7 +93,7 @@ export const UsersModalStyle = styled.div`
 
   // 오른쪽 스크롤바
   .UsersModal_wrap::-webkit-scrollbar {
-    width: 10px;
+    width: 13px;
   }
 
   .UsersModal_wrap::-webkit-scrollbar-thumb {

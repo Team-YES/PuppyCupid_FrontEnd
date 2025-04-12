@@ -38,26 +38,24 @@ const UsersModal = ({
           </div>
         </div>
         <div className="UsersModal_usersItem_Allwrap">
-          <div className="UsersModal_usersItem">
-            {(modalType === "팔로워" ? followers : followings).map(
-              (user, index) => (
-                <>
-                  <div key={index} className="UsersModal_usersWrap">
-                    <img
-                      src={
-                        user.dogImage
-                          ? `http://localhost:5000${user.dogImage}`
-                          : defaultImage
-                      }
-                      alt="userImg"
-                      className="UsersModal_userImg"
-                    />
-                  </div>
-                  <div className="UsersModal_userNickname">{user.nickName}</div>
-                </>
-              )
-            )}
-          </div>
+          {(modalType === "팔로워" ? followers : followings).map(
+            (user, index) => (
+              <div className="UsersModal_usersItem">
+                <div key={index} className="UsersModal_usersWrap">
+                  <img
+                    src={
+                      user.dogImage
+                        ? `http://localhost:5000${user.dogImage}`
+                        : defaultImage
+                    }
+                    alt="userImg"
+                    className="UsersModal_userImg"
+                  />
+                </div>
+                <div className="UsersModal_userNickname">{user.nickName}</div>
+              </div>
+            )
+          )}
         </div>
       </div>
     </UsersModalStyle>
