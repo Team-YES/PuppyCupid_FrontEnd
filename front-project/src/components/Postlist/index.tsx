@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { PersonFormStyle } from "./styled";
+import DetailPost from "@/components/DetailPost";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 interface PostData {
   id: number;
@@ -10,18 +13,42 @@ interface PostData {
   main_image_url: string;
 }
 
+// PostListProps 타입 수정
 interface PostListProps {
-  data: PostData[] | null;
+  data: any[] | null; // data의 타입을 any로 변경 (detailpage와 변수명이 달라서 any로 설정)
 }
 
 const PostList: React.FC<PostListProps> = ({ data }) => {
-  console.log(data, "data?");
+  console.log(data, "data?"); // 콘솔
+
+  const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
+
+  const posts = useSelector((state: RootState) => state.infinitePosts.posts);
+  const loginUser = useSelector(
+    (state: RootState) => state.infinitePosts.currentUser
+  );
+
+  // const selectedPost = selectedPostId
+  //   ? posts.find((post) => post.id === selectedPostId)
+  //   : null;
+  const selectedPost = selectedPostId
+    ? (data ?? []).find((post) => post.id === selectedPostId)
+    : null;
+
+  const handleCloseModal = () => {
+    setSelectedPostId(null);
+  };
+
   return (
     <PersonFormStyle>
       <div className="PostList_board_content">
         <div className="PostList_grid">
           {(data ?? []).map((post) => (
-            <div key={post.id} className="PostList_post">
+            <div
+              key={post.id}
+              className="PostList_post"
+              onClick={() => setSelectedPostId(post.id)}
+            >
               <img
                 src={
                   post.main_image_url
@@ -49,6 +76,14 @@ const PostList: React.FC<PostListProps> = ({ data }) => {
           ))}
         </div>
       </div>
+      {/* 상세 게시글 모달 */}
+      {selectedPost && (
+        <DetailPost
+          post={selectedPost}
+          loginUser={loginUser?.id}
+          onClose={handleCloseModal}
+        />
+      )}
     </PersonFormStyle>
   );
 };

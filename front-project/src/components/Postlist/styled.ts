@@ -39,6 +39,7 @@ export const PersonFormStyle = styled.div`
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease;
+    cursor: pointer;
   }
   .PostList_post:hover .PostList_post_info {
     opacity: 1;
