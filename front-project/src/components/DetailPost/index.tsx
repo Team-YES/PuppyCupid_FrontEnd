@@ -190,7 +190,7 @@ const DetailPost = ({
                   height: "auto",
                 }}
               >
-                {post.images.map((img, i) => (
+                {(post.images ?? []).map((img, i) => (
                   <SwiperSlide key={i}>
                     <div className="Post_SwiperBox">
                       <img
@@ -223,7 +223,7 @@ const DetailPost = ({
                   <img
                     className="Detail_img"
                     src={
-                      post.user.dogImage
+                      post.user?.dogImage
                         ? `http://localhost:5000${post.user.dogImage}`
                         : "/puppy_profile.png"
                     }
@@ -231,7 +231,7 @@ const DetailPost = ({
                 </div>
 
                 <div className="Post_user">
-                  <div className="Post_nickName">{post.user.nickName}</div>
+                  <div className="Post_nickName">{post.user?.nickName}</div>
                   <div className="Post_category">
                     {post.category === "walk"
                       ? "산책메이트"
@@ -283,7 +283,7 @@ const DetailPost = ({
                       className="Detail_img"
                       // src={imageSrc}
                       src={
-                        post.user.dogImage
+                        post.user?.dogImage
                           ? `http://localhost:5000${post.user.dogImage}`
                           : "/puppy_profile.png"
                       }
@@ -292,7 +292,7 @@ const DetailPost = ({
                 </div>
                 <div className="Detail_Info">
                   <div className="Detail_Info_box">
-                    <div className="Post_nickName">{post.user.nickName}</div>
+                    <div className="Post_nickName">{post.user?.nickName}</div>
                     <div className="Detail_pcWrap">
                       <div
                         className={`Detail_pc ${!isExpanded ? "truncate" : ""}`}
@@ -349,7 +349,7 @@ const DetailPost = ({
                                 <img
                                   className="Detail_img"
                                   src={
-                                    comment.user.dogImage
+                                    comment.user?.dogImage
                                       ? `http://localhost:5000${comment.user.dogImage}`
                                       : "/puppy_profile.png"
                                   }
@@ -432,7 +432,7 @@ const DetailPost = ({
                                       <img
                                         className="Detail_img"
                                         src={
-                                          reply.user.dogImage
+                                          reply.user?.dogImage
                                             ? `http://localhost:5000${reply.user.dogImage}`
                                             : "/puppy_profile.png"
                                         }
@@ -512,7 +512,7 @@ const DetailPost = ({
                   <i className="fa-regular fa-comment"></i>
                 </div>
                 <KakaoShare
-                  title={post.user.nickName}
+                  title={post.user?.nickName}
                   description={post.content}
                   imageUrl={`http://localhost:5000${post.main_image_url}`}
                   url={
