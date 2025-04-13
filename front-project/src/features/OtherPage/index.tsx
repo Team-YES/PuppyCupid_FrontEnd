@@ -271,8 +271,9 @@ const OtherPage = () => {
 
       // 상태 다시 불러오기
       const updatedStatus = await fetchFollowStatus(Number(otherUserId));
-      console.log(updatedStatus, "???update");
       setStatus(updatedStatus);
+
+      window.location.reload();
     } catch (err) {
       console.error("팔로우 토글 실패:", err);
     }

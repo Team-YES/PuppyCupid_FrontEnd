@@ -68,7 +68,7 @@ const PostList: React.FC<PostListProps> = ({ data }) => {
                   </span>
                   <span>
                     <i className="fa-solid fa-comment"></i>
-                    {post.commentCount}
+                    {post.comment_count}
                   </span>
                 </p>
               </div>

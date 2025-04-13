@@ -61,6 +61,8 @@ const MyPage = () => {
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver | null>(null);
   const lastPostElementRef = useRef<HTMLDivElement | null>(null);
+  const [dogs, setDogs] = useState<Puppy[]>([]);
+  const [nickName, setNickName] = useState<string>("");
 
   // 유저 아이디 가져오기
   const userId = user?.id;
@@ -138,8 +140,10 @@ const MyPage = () => {
 
       if (response.data.ok) {
         const result = response.data[type];
+        setNickName(response.data.nickName);
         setData(result.items);
         setHasMore(result.hasMore);
+        setDogs(response.data.dogs);
       }
     } catch (error) {
       console.error(`${type} 데이터를 가져오는 중 오류 발생:`, error);
@@ -286,6 +290,10 @@ const MyPage = () => {
             followers: data.followers || [],
             followings: data.followings || [],
           });
+
+          if (data.dogs && Array.isArray(data.dogs)) {
+            setDogs(data.dogs);
+          }
         } else {
           console.error("유저 정보 오류:", data.error);
         }
