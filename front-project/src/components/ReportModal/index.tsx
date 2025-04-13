@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { ReportModalStyle } from "./styled";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import axiosInstance from "@/lib/axios";
 
 type ReportType = "user" | "post" | "comment";
 
@@ -23,10 +24,13 @@ const ReportModal = ({ type, targetId, onClose }: ReportModalProps) => {
     },
     onSubmit: async (values, { resetForm }) => {
       try {
-        await axios.post(`http://localhost:5000/report/${type}/${targetId}`, {
-          targetId,
-          reason: values.reason,
-        });
+        await axiosInstance.post(
+          `http://localhost:5000/report/${type}/${targetId}`,
+          {
+            targetId,
+            reason: values.reason,
+          }
+        );
         alert("신고가 접수되었습니다.");
         resetForm();
         onClose(); // 모달 닫기
