@@ -69,7 +69,7 @@ const EditPostModal = ({
       <EditPostModalStyled>
         {isMine ? (
           // 내 댓글일 경우: '삭제/취소'
-          <div className="EditModal_btnContainer" ref={pickerRef}>
+          <div className="EditModal_btnContainer">
             <div>
               <ModalBtn
                 $danger
@@ -87,7 +87,7 @@ const EditPostModal = ({
           </div>
         ) : (
           // 남의 댓글일 경우: '신고/취소'
-          <div className="EditModal_btnContainer" ref={pickerRef}>
+          <div className="EditModal_btnContainer">
             <div>
               <ModalBtn
                 $danger
