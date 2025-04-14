@@ -206,6 +206,9 @@ const MyPage = () => {
         );
         setHasMore(result.hasMore);
         setPage(nextPage);
+        setNickName(response.data.nickName);
+        setData(result.items);
+        setDogs(response.data.dogs);
       }
     } catch (error) {
       console.error("❌ 더 많은 데이터를 불러오는 중 오류:", error);
