@@ -55,6 +55,10 @@ export const MatchesStyle = styled.div`
   .Matches_usersItem_Allwrap {
     height: 90%;
     padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
   }
 
   // 오른쪽 스크롤바

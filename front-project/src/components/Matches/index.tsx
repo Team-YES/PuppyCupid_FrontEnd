@@ -10,20 +10,25 @@ type MatchesProps = {
 };
 
 const Matches = ({ setMatches }: MatchesProps) => {
-  // 매칭 강아지
-  const [matchDog, setMatchDog] = useState<any>(null);
+  const [matchDog, setMatchDog] = useState<any>(null); // 매칭 강아지
+  const [noMatch, setNoMatch] = useState(false); // 매칭 실패 상태
+  const [error, setError] = useState(""); // 에러 메시지
 
   useEffect(() => {
     const fetchMatchDog = async () => {
       try {
         const res = await axiosInstance.get("/match");
         if (res.data.ok) {
-          setMatchDog(res.data.match);
-          console.log(res.data, "res.data?");
+          if (res.data.match) {
+            setMatchDog(res.data.match);
+          } else {
+            setNoMatch(true); // match가 null일 경우 처리
+          }
         } else {
-          console.error("매칭 실패:", res.data.error);
+          setError(res.data.error || "매칭에 실패했습니다.");
         }
       } catch (err) {
+        setError("서버 오류가 발생했습니다.");
         console.error("매칭 요청 중 오류 발생:", err);
       }
     };
@@ -54,12 +59,15 @@ const Matches = ({ setMatches }: MatchesProps) => {
             <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
+
         <div className="Matches_usersItem_Allwrap">
-          {matchDog ? (
+          {error ? (
+            <p className="error-text">{error}</p>
+          ) : matchDog ? (
             <div>
               <div>
                 <img
-                  src={`http://localhost.5000${matchDog.dogImage}`}
+                  src={`http://localhost:5000${matchDog.dogImage}`}
                   alt="matchdogImage"
                 />
               </div>
@@ -67,8 +75,10 @@ const Matches = ({ setMatches }: MatchesProps) => {
               <p>MBTI: {matchDog.mbti}</p>
               <p>성격: {matchDog.personality}</p>
             </div>
+          ) : noMatch ? (
+            <p>아쉽게도 현재 조건에 맞는 매칭이 없습니다.</p>
           ) : (
-            <p>추천 강아지를 찾는 중입니다...</p>
+            <p>매칭 중입니다...</p>
           )}
         </div>
       </div>
