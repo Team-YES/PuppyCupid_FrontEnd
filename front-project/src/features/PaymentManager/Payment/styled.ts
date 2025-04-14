@@ -174,7 +174,7 @@ export const PaymentMid = styled.div`
   }
   .Payment_midtext {
     font-size: 16px;
-    padding-bottom: 20px;
+    padding-bottom: 12px;
     color: rgb(88, 88, 88);
   }
   .Payment_midtext2 {

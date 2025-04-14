@@ -94,20 +94,24 @@ const PaymentPage = ({ tossClientKey }: PaymentProps) => {
             <div>
               <h2>💜 파워 유저 혜택</h2>
               <p className="Payment_midtext">
-                🏡 위치 기반으로 우리 아이와 가까운 친구들을 만날 수 있어요!{" "}
+                🐾 "MBTI + 실시간 위치 기반 매칭"으로 우리 아이와 성격도 잘 맞고
+                가까이에 있는 친구를 찾아드려요!
+              </p>
+              <p className="Payment_midtext">
+                🏡 위치 기반만으로도 우리 아이와 가까운 친구들을 만날 수 있어요!{" "}
+              </p>
+              <p className="Payment_midtext">
+                🐶 파워 유저권이 있어야만 매칭 기능을 사용할 수 있어요.
               </p>
               <p className="Payment_midtext">
                 🏞️ 산책 친구, 놀이 친구, 소중한 인연을 이어가세요!
               </p>
-              <p className="Payment_midtext">
-                🐶 파워 유저권을 이용하면 더 많은 댕댕이 친구들을 만날 수
-                있어요!
-              </p>
               <p className="Payment_midtext2">
-                무료 이용자는 최대 3번만 매칭 가능!🐾
+                🚫 무료 이용자는 매칭이 제공되지 않습니다.
               </p>
               <p className="Payment_midtext3">
-                우리 아이가 새로운 친구를 만나게 해주세요! 💕
+                지금 바로 파워 유저로 업그레이드하고 우리 아이에게 특별한 친구를
+                선물하세요! 💕
               </p>
             </div>
           </PaymentMid>
