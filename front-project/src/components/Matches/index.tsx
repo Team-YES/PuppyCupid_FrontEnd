@@ -15,25 +15,34 @@ const Matches = ({ setMatches }: MatchesProps) => {
   const [error, setError] = useState(""); // 에러 메시지
 
   useEffect(() => {
-    const fetchMatchDog = async () => {
-      try {
-        const res = await axiosInstance.get("/match");
-        if (res.data.ok) {
-          if (res.data.match) {
-            setMatchDog(res.data.match);
-          } else {
-            setNoMatch(true); // match가 null일 경우 처리
-          }
-        } else {
-          setError(res.data.error || "매칭에 실패했습니다.");
-        }
-      } catch (err) {
-        setError("서버 오류가 발생했습니다.");
-        console.error("매칭 요청 중 오류 발생:", err);
-      }
-    };
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
 
-    fetchMatchDog();
+          try {
+            const res = await axiosInstance.post("/match", {
+              latitude,
+              longitude,
+            });
+
+            if (res.data.ok) {
+              setMatchDog(res.data.match);
+            } else {
+              setError("매칭 실패: " + res.data.error);
+            }
+          } catch (err) {
+            setError("매칭 요청 중 오류 발생");
+          }
+        },
+        (error) => {
+          console.error("위치 정보를 가져오는 데 실패했습니다:", error);
+          setError("위치 정보를 허용해주세요.");
+        }
+      );
+    } else {
+      setError("브라우저가 위치 정보를 지원하지 않습니다.");
+    }
   }, []);
 
   // 채팅하기로 이동
