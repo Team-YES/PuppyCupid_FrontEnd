@@ -142,6 +142,8 @@ const MyPage = () => {
         const result = response.data[type];
         setData(result.items);
         setHasMore(result.hasMore);
+        setNickName(response.data.nickName);
+        setDogs(response.data.dogs);
       }
     } catch (error) {
       console.error(`${type} 데이터를 가져오는 중 오류 발생:`, error);
@@ -173,6 +175,8 @@ const MyPage = () => {
         const result = response.data[type];
         setData(result);
         setHasMore(result.length > 0);
+        setNickName(response.data.nickName);
+        setDogs(response.data.dogs);
       }
     } catch (error) {
       console.error("초기 데이터 불러오기 오류:", error);

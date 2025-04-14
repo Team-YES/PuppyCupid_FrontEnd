@@ -36,6 +36,7 @@ export type Post = {
     id: number;
     nickName: string;
     dogImage: string;
+    dogs?: { dog_image: string }[]; // dogs 배열을 추가
   };
   images: { image_url: string; id: number }[];
 };
