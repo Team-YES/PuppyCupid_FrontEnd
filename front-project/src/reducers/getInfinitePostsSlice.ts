@@ -8,7 +8,7 @@ interface Post {
   category: string;
   like_count: number;
   liked: boolean;
-  comment_count: number;
+  commentCount: number;
   main_image_url: string;
   created_at: string;
   user: {
