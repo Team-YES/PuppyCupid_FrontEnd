@@ -22,8 +22,10 @@ const Matches = ({ setMatches }: MatchesProps) => {
 
           try {
             const res = await axiosInstance.get("/match", {
-              latitude,
-              longitude,
+              params: {
+                latitude,
+                longitude,
+              },
             });
 
             if (res.data.ok) {
