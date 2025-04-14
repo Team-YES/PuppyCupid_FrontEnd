@@ -45,6 +45,7 @@ const DetailPost = ({
 }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
   console.log("상세 컴포", post);
+  console.log("이미지 찾기", post.user.dogs[0].dog_image);
 
   // console.log("로그인아이디:", loginUser);
 
@@ -226,6 +227,8 @@ const DetailPost = ({
                     src={
                       post.user?.dogImage
                         ? `http://localhost:5000${post.user.dogImage}`
+                        : post.user?.dogs?.[0]?.dog_image
+                        ? `http://localhost:5000${post.user.dogs[0].dog_image}`
                         : "/puppy_profile.png"
                     }
                   />
@@ -286,6 +289,8 @@ const DetailPost = ({
                       src={
                         post.user?.dogImage
                           ? `http://localhost:5000${post.user.dogImage}`
+                          : post.user?.dogs?.[0]?.dog_image
+                          ? `http://localhost:5000${post.user.dogs[0].dog_image}`
                           : "/puppy_profile.png"
                       }
                     />

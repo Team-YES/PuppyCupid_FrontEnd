@@ -140,10 +140,8 @@ const MyPage = () => {
 
       if (response.data.ok) {
         const result = response.data[type];
-        setNickName(response.data.nickName);
         setData(result.items);
         setHasMore(result.hasMore);
-        setDogs(response.data.dogs);
       }
     } catch (error) {
       console.error(`${type} 데이터를 가져오는 중 오류 발생:`, error);
@@ -207,7 +205,6 @@ const MyPage = () => {
         setHasMore(result.hasMore);
         setPage(nextPage);
         setNickName(response.data.nickName);
-        setData(result.items);
         setDogs(response.data.dogs);
       }
     } catch (error) {
