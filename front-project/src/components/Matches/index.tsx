@@ -21,7 +21,7 @@ const Matches = ({ setMatches }: MatchesProps) => {
           const { latitude, longitude } = position.coords;
 
           try {
-            const res = await axiosInstance.post("/match", {
+            const res = await axiosInstance.get("/match", {
               latitude,
               longitude,
             });
