@@ -19,7 +19,7 @@ interface PostListProps {
 }
 
 const PostList: React.FC<PostListProps> = ({ data }) => {
-  console.log(data, "data?"); // 콘솔
+  console.log(data, "PostList data?"); // 콘솔
 
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
 
@@ -68,7 +68,7 @@ const PostList: React.FC<PostListProps> = ({ data }) => {
                   </span>
                   <span>
                     <i className="fa-solid fa-comment"></i>
-                    {post.comment_count}
+                    {post.commentCount}
                   </span>
                 </p>
               </div>

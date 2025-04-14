@@ -28,7 +28,7 @@ export type Post = {
   like_count: number;
   liked: boolean;
   content: string;
-  comment_count: number;
+  commentCount: number;
   currentUser?: number;
   created_at: string;
   main_image_url: string;
@@ -36,6 +36,7 @@ export type Post = {
     id: number;
     nickName: string;
     dogImage: string;
+    dogs?: { dog_image: string }[]; // dogs 배열을 추가
   };
   images: { image_url: string; id: number }[];
 };

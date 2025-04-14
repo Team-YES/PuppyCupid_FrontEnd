@@ -226,6 +226,9 @@ const DetailPost = ({
                     src={
                       post.user?.dogImage
                         ? `http://localhost:5000${post.user.dogImage}`
+                        : post.user?.dogs?.length &&
+                          post.user.dogs[0]?.dog_image
+                        ? `http://localhost:5000${post.user.dogs[0].dog_image}`
                         : "/puppy_profile.png"
                     }
                   />
@@ -286,6 +289,8 @@ const DetailPost = ({
                       src={
                         post.user?.dogImage
                           ? `http://localhost:5000${post.user.dogImage}`
+                          : post.user?.dogs?.[0]?.dog_image
+                          ? `http://localhost:5000${post.user.dogs[0].dog_image}`
                           : "/puppy_profile.png"
                       }
                     />

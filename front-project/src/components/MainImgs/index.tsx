@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MainImgsPadding, MainImgsWrapper } from "./styled";
 import { useRouter } from "next/router";
+import Matches from "../../components/Matches";
 interface MainImgsProps {
   titles: string[];
   images: string[];
@@ -9,6 +10,7 @@ interface MainImgsProps {
 
 const MainImgs = ({ titles, images, paths }: MainImgsProps) => {
   const [isClicked, setIsClicked] = useState(false);
+  const [matches, setMatches] = useState(false);
   const router = useRouter();
 
   const handleMouseDown = () => {
@@ -21,6 +23,10 @@ const MainImgs = ({ titles, images, paths }: MainImgsProps) => {
 
   const handleCardClick = (path: string) => {
     router.push(path);
+  };
+
+  const handleMatchesModal = () => {
+    setMatches((prev) => !prev);
   };
 
   return (
@@ -44,12 +50,18 @@ const MainImgs = ({ titles, images, paths }: MainImgsProps) => {
             </div>
           ))}
         </div>
-        <div className="MainImgs_puppy">
+        <div
+          className="MainImgs_puppy"
+          onClick={() => {
+            handleMatchesModal();
+          }}
+        >
           <div className="MainImgs_puppy_walk">
             <div className="MainImgs_AI_Wrap">MBTI 매칭 이용해보기</div>
             <img src="/hello_puppy.gif"></img>
           </div>
         </div>
+        {matches && <Matches setMatches={setMatches} />}
       </MainImgsWrapper>
     </MainImgsPadding>
   );

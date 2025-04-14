@@ -91,6 +91,9 @@ export const MainImgsPadding = styled.div`
     pointer-events: none;
     z-index: 1;
   }
+  .MainImgs_puppy {
+    cursor: pointer;
+  }
   // 강아지 뒤에 말풍선
   .MainImgs_AI_Wrap {
     background-color: white;
@@ -104,6 +107,7 @@ export const MainImgsPadding = styled.div`
     position: relative;
     z-index: 1;
     margin-right: 12px;
+    cursor: pointer;
   }
 
   /* 테두리 꼬리 */
@@ -138,10 +142,6 @@ export const MainImgsPadding = styled.div`
 
   .MainImgs_puppy_walk img {
     width: 100px;
+    cursor: pointer;
   }
-
-  /* .MainImgsWrapper {
-    position: relative;
-    overflow: hidden;
-  } */
 `;
