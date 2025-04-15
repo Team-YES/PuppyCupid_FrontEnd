@@ -10,11 +10,18 @@ import {
   MyPageLeft,
   MyPageBottom,
 } from "./styled";
+// 게시물 카운트
 import Mypostcount from "../../assets/Mypostcount";
+// 강아지 프로필 부분
 import PuppyProfile from "../../assets/PuppyProfile";
+// 강아지 정보 등록
 import PuppyForm from "../../components/PuppyForm";
+// 내 정보 수정
 import PersonForm from "../../components/PersonForm";
+// 하단 게시물
 import PostList from "../../components/PostList";
+import AlertList from "../../components/AlertList";
+// 강아지 정보 수정
 import PuppyFormFix from "../../components/PuppyFormFix";
 
 // 쿠키 토큰 재발급 해보기
@@ -421,7 +428,11 @@ const MyPage = () => {
           </div>
           {/* 하단 게시글, 좋아요, 알림 정보 */}
           <div>
-            <PostList data={data ?? []} />
+            {selectedType === "notifications" ? (
+              <AlertList data={data ?? []} />
+            ) : (
+              <PostList data={data ?? []} />
+            )}
             {/* 무한스크롤 감지 */}
             {hasMore && (
               <div

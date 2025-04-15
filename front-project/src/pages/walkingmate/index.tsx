@@ -4,11 +4,11 @@ import BlacklistRoute from "@/components/BlacklistRoute";
 
 const WalkingMate = () => {
   return (
-    <PowerUserRoute>
-      <BlacklistRoute>
+    <BlacklistRoute>
+      <PowerUserRoute>
         <WalkingMatePage />
-      </BlacklistRoute>
-    </PowerUserRoute>
+      </PowerUserRoute>
+    </BlacklistRoute>
   );
 };
 
