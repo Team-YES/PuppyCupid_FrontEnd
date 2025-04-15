@@ -39,7 +39,7 @@ export const IconDiv = styled.div`
 export const CommentText = styled.textarea`
   border: none;
   /* width: 389px; */
-  width: 77%;
+  width: 75%;
   height: 40px;
   padding: 10px;
   resize: none;
@@ -48,7 +48,9 @@ export const CommentText = styled.textarea`
   &:focus {
     outline-style: none;
   }
-
+  @media (max-width: 1024px) {
+    width: 65%;
+  }
   @media (max-width: 400px) {
     width: 73%;
   }
@@ -62,6 +64,7 @@ export const CommentPost = styled.button`
   color: ${(props) => props.theme.colors.pointPurple};
   cursor: pointer;
   margin-left: 25px;
+  width: 100px;
 
   &:hover {
     color: #9755f3cb;
