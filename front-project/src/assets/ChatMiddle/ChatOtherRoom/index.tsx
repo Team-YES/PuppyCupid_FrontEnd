@@ -27,27 +27,32 @@ const ChatOtherRoom = ({ user, openChat, setOpenChat }: ChatOtherRoomProps) => {
   return (
     <ChatOtherRoomWrapper onClick={handleToggleClick}>
       <div className="ChatOtherRoom_chat-room-item">
-        <img
-          src={
-            user.dogImage
-              ? `http://localhost:5000${user.dogImage}`
-              : "/puppy_profile.png"
-          }
-          alt="dog"
-          className="ChatOtherRoom_dog-image"
-        />
-        <div className="ChatOtherRoom_chat-info">
-          <div className="top-row">
-            <span className="ChatOtherRoom_nickname">{user.nickName}</span>
-            <span className="ChatOtherRoom_time">
-              {new Date(user.lastMessageTime).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </span>
+        <div className="ChatOtherRoom_chat_imguser">
+          <img
+            src={
+              user.dogImage
+                ? `http://localhost:5000${user.dogImage}`
+                : "/puppy_profile.png"
+            }
+            alt="dog"
+            className="ChatOtherRoom_dog-image"
+          />
+          <div className="ChatOtherRoom_chat-info">
+            <div className="top-row">
+              <span className="ChatOtherRoom_nickname">{user.nickName}</span>
+              <span className="ChatOtherRoom_time">
+                {new Date(user.lastMessageTime).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
+            </div>
+            <div className="ChatOtherRoom_last-message">
+              <span>{user.lastMessage}</span>
+            </div>
           </div>
-          <div className="last-message">{user.lastMessage}</div>
         </div>
+        <span className="ChatOtherRoom_redDot"></span>
       </div>
     </ChatOtherRoomWrapper>
   );

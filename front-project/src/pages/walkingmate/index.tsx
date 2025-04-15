@@ -1,10 +1,14 @@
 import WalkingMatePage from "@/features/WalkingMate";
 import PowerUserRoute from "@/components/PowerUserRoute";
+import BlacklistRoute from "@/components/BlacklistRoute";
+
 const WalkingMate = () => {
   return (
-    <PowerUserRoute>
-      <WalkingMatePage />
-    </PowerUserRoute>
+    <BlacklistRoute>
+      <PowerUserRoute>
+        <WalkingMatePage />
+      </PowerUserRoute>
+    </BlacklistRoute>
   );
 };
 
