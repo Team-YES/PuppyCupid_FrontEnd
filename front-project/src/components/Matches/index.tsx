@@ -23,26 +23,30 @@ const Matches = ({ setMatches }: MatchesProps) => {
           try {
             const res = await axiosInstance.get("/match", {
               params: {
-                latitude,
-                longitude,
+                lat: latitude, // ✅ 여기도 백엔드와 맞춰야 함!
+                lng: longitude,
               },
             });
 
-            if (res.data.ok) {
+            if (res.data.ok && res.data.match) {
               setMatchDog(res.data.match);
             } else {
-              setError("매칭 실패: " + res.data.error);
+              setNoMatch(true); // ✅ 매칭 실패
+              setError("매칭 실패: " + (res.data.error || "알 수 없는 오류"));
             }
           } catch (err) {
+            setNoMatch(true); // ✅ 네트워크 에러 등도 실패 처리
             setError("매칭 요청 중 오류 발생");
           }
         },
         (error) => {
+          setNoMatch(true); // ✅ 위치 권한 거부 시 실패 처리
           console.error("위치 정보를 가져오는 데 실패했습니다:", error);
           setError("위치 정보를 허용해주세요.");
         }
       );
     } else {
+      setNoMatch(true); // ✅ 위치 기능 지원 안될 때도 실패 처리
       setError("브라우저가 위치 정보를 지원하지 않습니다.");
     }
   }, []);
