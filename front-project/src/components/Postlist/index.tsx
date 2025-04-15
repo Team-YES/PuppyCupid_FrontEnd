@@ -7,7 +7,7 @@ import { RootState } from "@/store/store";
 interface PostData {
   id: number;
   title: string;
-  content: string;
+  content: string | null;
   like_count: number;
   commentCount: number;
   main_image_url: string;
@@ -56,9 +56,9 @@ const PostList: React.FC<PostListProps> = ({ data }) => {
                     : "/puppy_profile.png"
                 }
                 alt={
-                  post.content.length > 10
+                  post.content?.length > 10
                     ? post.content.slice(0, 10) + "..."
-                    : post.content
+                    : post.content ?? "내용 없음"
                 }
               />
               <div className="PostList_post_info">
