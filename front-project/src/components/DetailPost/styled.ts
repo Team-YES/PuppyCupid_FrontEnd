@@ -126,8 +126,16 @@ export const Detail_LeftContainer = styled.div`
 
   .Post_swiperImg {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
+    height: auto;
+    max-height: 90vh;
     object-fit: cover;
+  }
+  @media (max-width: 632px) {
+    .Post_swiperImg {
+      min-height: 307px;
+      object-fit: contain;
+    }
   }
 `;
 
