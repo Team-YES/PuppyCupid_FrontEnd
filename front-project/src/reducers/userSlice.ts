@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type UserInfo = {
+export type UserInfo = {
   id: number;
   email: string;
   role: string;
@@ -11,7 +11,7 @@ type UserInfo = {
   power_expired_at: string | null;
 };
 
-type UserState = {
+export type UserState = {
   user: UserInfo | null;
   isLoggedIn: boolean;
 };
