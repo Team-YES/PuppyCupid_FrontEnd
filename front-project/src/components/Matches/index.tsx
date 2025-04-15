@@ -23,7 +23,7 @@ const Matches = ({ setMatches }: MatchesProps) => {
           try {
             const res = await axiosInstance.get("/match", {
               params: {
-                lat: latitude, // ✅ 여기도 백엔드와 맞춰야 함!
+                lat: latitude,
                 lng: longitude,
               },
             });
@@ -89,6 +89,7 @@ const Matches = ({ setMatches }: MatchesProps) => {
               <p>이름: {matchDog.name}</p>
               <p>MBTI: {matchDog.mbti}</p>
               <p>성격: {matchDog.personality}</p>
+              <button className="Matches_Chat_btn">채팅하기</button>
             </div>
           ) : noMatch ? (
             <p>아쉽게도 현재 조건에 맞는 매칭이 없습니다.</p>

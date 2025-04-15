@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { MainImgsPadding, MainImgsWrapper } from "./styled";
 import { useRouter } from "next/router";
 import Matches from "../../components/Matches";
+// 파워 유저만 이용 가능
+import PowerUserRoute from "@/components/PowerUserRoute";
+
 interface MainImgsProps {
   titles: string[];
   images: string[];
@@ -56,10 +59,13 @@ const MainImgs = ({ titles, images, paths }: MainImgsProps) => {
             handleMatchesModal();
           }}
         >
-          <div className="MainImgs_puppy_walk">
-            <div className="MainImgs_AI_Wrap">MBTI 매칭 이용해보기</div>
-            <img src="/hello_puppy.gif"></img>
-          </div>
+          {/* 파워 유저만 클릭 가능 */}
+          <PowerUserRoute>
+            <div className="MainImgs_puppy_walk">
+              <div className="MainImgs_AI_Wrap">MBTI 매칭 이용해보기</div>
+              <img src="/hello_puppy.gif"></img>
+            </div>
+          </PowerUserRoute>
         </div>
         {matches && <Matches setMatches={setMatches} />}
       </MainImgsWrapper>
