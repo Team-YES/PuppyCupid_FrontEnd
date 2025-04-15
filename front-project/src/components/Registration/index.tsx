@@ -98,7 +98,7 @@ const Registration = () => {
             alert("게시물 등록에 실패했습니다.");
           }
         } else {
-          console.error("예상치 못한 에러:", error);
+          console.error("로그인 외 에러:", error);
         }
       }
     },
