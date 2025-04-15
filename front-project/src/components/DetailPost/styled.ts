@@ -54,17 +54,27 @@ export const DetailPostBox = styled.div`
 
   @media (max-width: 632px) {
     /* width: 100%; */
-    height: 89%;
+    /* height: 89%; */
     max-width: 77%;
     display: block;
     border-radius: 10px;
-    overflow: hidden;
+    /* overflow: hidden; */
+    max-height: 80vh;
   }
 `;
 
 export const Detail_LeftContainer = styled.div`
-  width: 56%;
+  width: 53%;
+  display: flex;
+  align-items: center;
 
+  .Detail_LeftContainer_div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: black;
+  }
   @media (max-width: 632px) {
     width: 100%;
     /* height: 100%; */
@@ -78,7 +88,7 @@ export const Detail_LeftContainer = styled.div`
     background-color: black;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
-    min-height: 820px;
+    /* min-height: 820px; */
     overflow: hidden;
     flex-grow: 1;
     height: 100%;
@@ -128,10 +138,17 @@ export const Detail_RightContainer = styled.div`
   height: 90vh;
   overflow: hidden;
 
+  /* 반응형 별 상세 게시물 높이 수정 */
+  @media (max-width: 1024px) {
+    height: 73vh;
+  }
+  @media (max-width: 767px) {
+    height: 65vh;
+  }
   @media (max-width: 632px) {
     width: 100%;
+    height: auto;
   }
-
   .Post_RightBox {
     flex-shrink: 0;
     display: flex;

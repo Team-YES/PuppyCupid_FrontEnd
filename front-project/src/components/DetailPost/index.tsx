@@ -179,7 +179,7 @@ const DetailPost = ({
         <DetailPostBox ref={pickerRef}>
           {/* 왼쪽 : 이미지 슬라이더 영역 */}
           <Detail_LeftContainer>
-            <div>
+            <div className="Detail_LeftContainer_div">
               <Swiper
                 modules={[Navigation, Pagination]}
                 navigation
