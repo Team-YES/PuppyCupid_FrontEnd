@@ -1,6 +1,7 @@
 import React from "react";
 import { ChatOtherRoomWrapper } from "./styled";
 import { useRouter } from "next/router";
+import { markMessagesAsRead } from "@/utils/api";
 
 type ChatUser = {
   id: number;
@@ -8,6 +9,7 @@ type ChatUser = {
   dogImage: string | null;
   lastMessage: string;
   lastMessageTime: string;
+  unreadCount: number; // 읽지 않은 메시지 개수 추가
 };
 
 type ChatOtherRoomProps = {
@@ -18,10 +20,16 @@ type ChatOtherRoomProps = {
 
 const ChatOtherRoom = ({ user, openChat, setOpenChat }: ChatOtherRoomProps) => {
   const router = useRouter();
-
-  const handleToggleClick = () => {
-    setOpenChat(true);
-    router.push(`/chat?receiverId=${user.id}`);
+  const handleToggleClick = async () => {
+    try {
+      // 메시지 읽음 처리
+      await markMessagesAsRead(user.id);
+      // 채팅방 열기
+      setOpenChat(true);
+      router.push(`/chat?receiverId=${user.id}`);
+    } catch (error) {
+      console.error("메시지 읽음 처리 실패:", error);
+    }
   };
 
   return (
@@ -52,7 +60,9 @@ const ChatOtherRoom = ({ user, openChat, setOpenChat }: ChatOtherRoomProps) => {
             </div>
           </div>
         </div>
-        <span className="ChatOtherRoom_redDot"></span>
+        {user.unreadCount > 0 && (
+          <span className="ChatOtherRoom_redDot"></span> // unreadCount가 0보다 크면 빨간 점 표시
+        )}
       </div>
     </ChatOtherRoomWrapper>
   );

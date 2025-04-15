@@ -251,6 +251,7 @@ export const MyPageBottom = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
+    position: relative;
   }
 
   .MyPage_board_item.selected {
@@ -286,5 +287,14 @@ export const MyPageBottom = styled.div`
       text-align: center;
       margin: 0px auto;
     }
+  }
+  .MyPage_red-dot {
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 4px;
+    width: 7px;
+    height: 7px;
+    background-color: ${({ theme }) => theme.colors.accentPurple};
+    border-radius: 50%;
   }
 `;

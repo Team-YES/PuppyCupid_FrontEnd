@@ -413,6 +413,9 @@ const MyPage = () => {
               >
                 <i className={item.icon}></i>
                 {item.title}
+                {item.title === "알림 정보" && (
+                  <span className="MyPage_red-dot" />
+                )}
               </div>
             ))}
           </div>
