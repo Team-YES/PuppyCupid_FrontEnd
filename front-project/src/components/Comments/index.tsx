@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { postComment, postReply } from "@/reducers/getCommentSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import { CommentType } from "../Post";
+import { UserInfo } from "@/reducers/userSlice";
+import { checkBlacklistAndBlock } from "@/utils/isBlackListed";
 
 type Props = {
   postId: number;
@@ -39,6 +41,11 @@ const Comment = forwardRef<CommentRef, Props>(
         inputRef.current?.focus();
       },
     }));
+
+    // 로그인 한 유저 정보
+    const userInfo = useSelector(
+      (state: RootState) => state.user.user
+    ) as UserInfo | null;
 
     // 답글 유저 닉네임 가져오기
     useEffect(() => {
@@ -142,7 +149,13 @@ const Comment = forwardRef<CommentRef, Props>(
         />
 
         {/* 게시 버튼 */}
-        <CommentPost disabled={!comment.trim()} onClick={handleSubmit}>
+        <CommentPost
+          disabled={!comment.trim()}
+          onClick={() => {
+            if (checkBlacklistAndBlock(userInfo)) return;
+            handleSubmit();
+          }}
+        >
           게시
         </CommentPost>
       </CommentStyled>

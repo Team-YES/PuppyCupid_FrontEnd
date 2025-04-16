@@ -12,9 +12,16 @@ type KakaoShareProps = {
   description: string;
   imageUrl: string;
   url: string;
+  onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 };
 
-const KakaoShare = ({ title, description, imageUrl, url }: KakaoShareProps) => {
+const KakaoShare = ({
+  title,
+  description,
+  imageUrl,
+  url,
+  onClick,
+}: KakaoShareProps) => {
   const KAKAO_SDK_KEY = process.env.NEXT_PUBLIC_KAKAO_JS_KEY;
 
   useEffect(() => {
@@ -61,7 +68,7 @@ const KakaoShare = ({ title, description, imageUrl, url }: KakaoShareProps) => {
   };
 
   return (
-    <KakaoShareStyle>
+    <KakaoShareStyle onClick={onClick}>
       <i
         className="fa-solid fa-share-nodes"
         onClick={() => shareToKakao({ title, description, imageUrl, url })}
