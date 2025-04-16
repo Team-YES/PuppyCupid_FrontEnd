@@ -18,6 +18,18 @@ interface AlertListProps {
   data: any[] | null; // data의 타입을 any로 변경 (detailpage와 변수명이 달라서 any로 설정)
 }
 
+// 날짜
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffTime = now.getTime() - date.getTime();
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) return "오늘";
+  if (diffDays === 1) return "1일 전";
+  return `${diffDays}일 전`;
+};
+
 const AlertList: React.FC<AlertListProps> = ({ data }) => {
   console.log(data, "AlertList data?"); // 콘솔
 
@@ -32,7 +44,13 @@ const AlertList: React.FC<AlertListProps> = ({ data }) => {
         <div className="AlertList_grid">
           {(data ?? []).map((post) => (
             <div key={post.id} className="AlertList_post">
-              <div className="AlertList_post_info">{post.message}</div>
+              <div className="AlertList_post_dogImage">
+                <img src={`http://localhost:5000${post.dogImage}`} />
+              </div>
+              <div className="AlertList_post_info">
+                {post.message}
+                <span>{formatDate(post.createdAt)}</span>
+              </div>
             </div>
           ))}
         </div>
