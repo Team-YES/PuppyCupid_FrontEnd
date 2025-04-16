@@ -89,7 +89,7 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
     queryKey: ["messages", parsedId],
     queryFn: () => fetchMessages(parsedId),
     enabled: !!parsedId,
-    refetchInterval: 2000,
+    refetchInterval: 3000,
   });
 
   // 메시지 전송 mutation

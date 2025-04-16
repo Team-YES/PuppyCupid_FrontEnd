@@ -40,7 +40,7 @@ const ChatUsers = ({ openChat, setOpenChat }: ChatProps) => {
 
     fetchChatUsers();
 
-    const interval = setInterval(fetchChatUsers, 2000);
+    const interval = setInterval(fetchChatUsers, 3000);
 
     return () => clearInterval(interval); // 컴포넌트 언마운트 시 정리
   }, [dispatch]);
