@@ -6,6 +6,7 @@ type ChatUser = {
   dogImage: string | null;
   lastMessage: string;
   lastMessageTime: string;
+  unreadCount: number;
 };
 
 interface ChatUsersState {

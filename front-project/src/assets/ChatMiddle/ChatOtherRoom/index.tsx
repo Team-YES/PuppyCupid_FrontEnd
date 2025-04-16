@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ChatOtherRoomWrapper } from "./styled";
 import { useRouter } from "next/router";
 import { markMessagesAsRead } from "@/utils/api";
@@ -20,10 +20,18 @@ type ChatOtherRoomProps = {
 
 const ChatOtherRoom = ({ user, openChat, setOpenChat }: ChatOtherRoomProps) => {
   const router = useRouter();
+  const [localUser, setLocalUser] = useState(user);
+
   const handleToggleClick = async () => {
     try {
       // 메시지 읽음 처리
-      await markMessagesAsRead(user.id);
+      const result = await markMessagesAsRead(user.id);
+      if (result.ok) {
+        setLocalUser((prev) => ({
+          ...prev,
+          unreadCount: 0,
+        }));
+      }
       // 채팅방 열기
       setOpenChat(true);
       router.push(`/chat?receiverId=${user.id}`);
@@ -60,8 +68,8 @@ const ChatOtherRoom = ({ user, openChat, setOpenChat }: ChatOtherRoomProps) => {
             </div>
           </div>
         </div>
-        {user.unreadCount > 0 && (
-          <span className="ChatOtherRoom_redDot"></span> // unreadCount가 0보다 크면 빨간 점 표시
+        {localUser.unreadCount > 0 && (
+          <span className="ChatOtherRoom_redDot"></span>
         )}
       </div>
     </ChatOtherRoomWrapper>

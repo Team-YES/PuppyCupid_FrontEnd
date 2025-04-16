@@ -1,11 +1,14 @@
 import PrivateRoute from "@/components/PrivateRoute";
 import PostRegistrationPage from "@/features/PostRegistration";
+import BlacklistRoute from "@/components/BlacklistRoute";
 
 const PostRegistration = () => {
   return (
-    <PrivateRoute>
-      <PostRegistrationPage />
-    </PrivateRoute>
+    <BlacklistRoute>
+      <PrivateRoute>
+        <PostRegistrationPage />
+      </PrivateRoute>
+    </BlacklistRoute>
   );
 };
 

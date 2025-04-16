@@ -9,7 +9,6 @@ export const markMessagesAsRead = async (otherUserId: number) => {
         withCredentials: true,
       }
     );
-    console.log("Asdfasdfasdf", response.data);
     return response.data;
   } catch (error: any) {
     console.error("메시지 읽음 처리 실패:", {

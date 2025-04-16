@@ -1,10 +1,14 @@
 import PaymentFailPage from "@/features/PaymentManager/Fail";
 import PrivateRoute from "../../components/PrivateRoute";
+import BlacklistRoute from "@/components/BlacklistRoute";
+
 const PaymentFail = () => {
   return (
-    <PrivateRoute>
-      <PaymentFailPage />
-    </PrivateRoute>
+    <BlacklistRoute>
+      <PrivateRoute>
+        <PaymentFailPage />
+      </PrivateRoute>
+    </BlacklistRoute>
   );
 };
 

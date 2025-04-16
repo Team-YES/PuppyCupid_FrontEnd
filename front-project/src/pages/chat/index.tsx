@@ -1,10 +1,14 @@
 import ChatPage from "@/features/Chat";
 import PrivateRoute from "../../components/PrivateRoute";
+import BlacklistRoute from "@/components/BlacklistRoute";
+
 const Chat = () => {
   return (
-    <PrivateRoute>
-      <ChatPage />
-    </PrivateRoute>
+    <BlacklistRoute>
+      <PrivateRoute>
+        <ChatPage />
+      </PrivateRoute>
+    </BlacklistRoute>
   );
 };
 

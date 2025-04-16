@@ -5,6 +5,7 @@ import PrivateRoute from "../../components/PrivateRoute";
 import { useAuth } from "@/context/AuthContext";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import BlacklistRoute from "@/components/BlacklistRoute";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
@@ -33,9 +34,11 @@ const Payment = ({ tossClientKey }: { tossClientKey: string | null }) => {
   }, [user, router]);
 
   return (
-    <PrivateRoute>
-      <PaymentPage tossClientKey={tossClientKey} />
-    </PrivateRoute>
+    <BlacklistRoute>
+      <PrivateRoute>
+        <PaymentPage tossClientKey={tossClientKey} />
+      </PrivateRoute>
+    </BlacklistRoute>
   );
 };
 
