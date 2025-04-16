@@ -3,15 +3,20 @@ import axios from "axios";
 export const markMessagesAsRead = async (otherUserId: number) => {
   try {
     const response = await axios.patch(
-      `/api/messages/read/${otherUserId}`,
+      `http://localhost:5000/messages/read/${otherUserId}`,
       null,
       {
         withCredentials: true,
       }
     );
+    console.log("Asdfasdfasdf", response.data);
     return response.data;
-  } catch (error) {
-    console.error("메시지 읽음 처리 실패:", error);
+  } catch (error: any) {
+    console.error("메시지 읽음 처리 실패:", {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status,
+    });
     throw error;
   }
 };
