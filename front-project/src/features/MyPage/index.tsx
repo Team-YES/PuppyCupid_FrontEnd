@@ -71,6 +71,43 @@ const MyPage = () => {
   const [dogs, setDogs] = useState<Puppy[]>([]);
   const [nickName, setNickName] = useState<string>("");
 
+  // 알림 정보 읽음 처리
+  const [hasUnread, setHasUnread] = useState(true);
+
+  useEffect(() => {
+    // 초기 상태 로드: 로컬스토리지에서 알림 상태를 가져오고
+    const storedHasUnread = localStorage.getItem("hasUnread");
+
+    if (storedHasUnread !== null) {
+      setHasUnread(JSON.parse(storedHasUnread)); // 로컬스토리지에서 상태 설정
+    }
+
+    // 서버에서 알림 상태를 가져옵니다
+    const fetchNotificationStatus = async () => {
+      try {
+        const response = await axiosInstance.get(
+          "http://localhost:5000/notifications/status"
+        );
+        const newHasUnread = response.data.hasUnread; // 서버에서 받아온 상태
+        setHasUnread(newHasUnread); // 상태 업데이트
+        localStorage.setItem("hasUnread", JSON.stringify(newHasUnread)); // 로컬스토리지에 저장
+      } catch (error) {
+        console.error("알림 상태 가져오기 실패", error);
+      }
+    };
+
+    fetchNotificationStatus(); // 서버에서 알림 상태 가져오기
+  }, []); // 컴포넌트 마운트 시 한 번만 실행
+
+  const handleMarkAsRead = async () => {
+    try {
+      await axiosInstance.patch("http://localhost:5000/notifications/read");
+      setHasUnread(false); // 읽음 처리 후 빨간 점 사라짐
+      localStorage.setItem("hasUnread", JSON.stringify(false)); // 로컬스토리지에 상태 저장
+    } catch (error) {
+      console.error("알림 읽음 처리 실패", error);
+    }
+  };
   // 유저 아이디 가져오기
   const userId = user?.id;
 
@@ -416,11 +453,16 @@ const MyPage = () => {
                 className={`MyPage_board_item ${
                   selectedType === item.type ? "selected" : ""
                 }`}
-                onClick={() => handleFetchData(item.type)}
+                onClick={() => {
+                  handleFetchData(item.type);
+                  if (item.title === "알림 정보") {
+                    handleMarkAsRead();
+                  }
+                }}
               >
                 <i className={item.icon}></i>
                 {item.title}
-                {item.title === "알림 정보" && (
+                {item.title === "알림 정보" && hasUnread && (
                   <span className="MyPage_red-dot" />
                 )}
               </div>
