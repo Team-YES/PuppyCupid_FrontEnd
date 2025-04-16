@@ -1,4 +1,5 @@
 import { theme } from "antd";
+import { Color } from "antd/es/color-picker";
 import styled from "styled-components";
 
 export const MatchesStyle = styled.div`
@@ -12,6 +13,13 @@ export const MatchesStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  p {
+    margin: 5px;
+    font-size: 15px;
+    span {
+      font-weight: lighter;
+    }
+  }
   .MatchesStyle_closeBtn {
     display: flex;
     justify-content: flex-end;
@@ -53,7 +61,6 @@ export const MatchesStyle = styled.div`
     font-weight: bold;
   }
   .Matches_usersItem_Allwrap {
-    height: 90%;
     padding: 20px;
     display: flex;
     align-items: center;
@@ -70,7 +77,47 @@ export const MatchesStyle = styled.div`
     background-color: ${({ theme }) => theme.colors.mainPurple};
     border-radius: 50px;
   }
-
+  // 정보 전체
+  .Matches_userInfoWrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+  // 이미지 크기
+  .Matches_imgWrap {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    margin: 25px 0px 25px 0px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  // 버튼
+  button {
+    all: unset;
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.colors.pointPurple};
+    color: white;
+    font-size: 15px;
+    margin: 15px 0px 30px 0px;
+    font-weight: lighter;
+  }
+  button:hover {
+    background-color: ${({ theme }) => theme.colors.mainPurple};
+    color: black;
+  }
   /* 반응형 - 태블릿 (max-width: 767px) */
   @media (max-width: 767px) {
     .Matches_wrap {
