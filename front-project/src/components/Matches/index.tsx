@@ -166,7 +166,7 @@ const Matches = ({ setMatches }: MatchesProps) => {
                 MBTI: <span>{matchDog.mbti}</span>
               </p>
               <p>
-                성격: <span>{matchDog.personality}</span>
+                성격: <span>{JSON.parse(matchDog.personality).join(", ")}</span>
               </p>
               <p>
                 나이: <span>{matchDog.age}</span>
