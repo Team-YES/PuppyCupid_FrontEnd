@@ -82,7 +82,7 @@ const DetailPost = ({
     (state: RootState) => state.user.user
   ) as UserInfo | null;
 
-  console.log("userInfo", userInfo);
+  // console.log("userInfo", userInfo);
 
   const toggleReplyVisibility = (commentId: number) => {
     setOpenReplies((prev) => ({
@@ -316,6 +316,7 @@ const DetailPost = ({
                       >
                         {post.content}
                       </div>
+
                       {!isExpanded && (
                         <span
                           className="ShowMore"

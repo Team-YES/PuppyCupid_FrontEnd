@@ -24,7 +24,6 @@ type Props = {
   loginUser?: number;
   isDetailPage?: boolean;
   onClick?: () => void;
-  // currentUser: number;
 };
 
 export type CommentType = {
@@ -42,7 +41,7 @@ export type CommentType = {
 const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  console.log("하위 컴포", post);
+  // console.log("하위 컴포", post);
 
   const [animate, setAnimate] = useState(false);
 

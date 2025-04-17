@@ -55,6 +55,7 @@ const Board = () => {
 
   // 현재 로그인한 유저
   // const [loginUser, setLoginUser] = useState<CurrentUser | null>(null);
+
   // 검색된 게시물
   const [searchResult, setSearchResult] = useState<Post[]>([]);
   // 날씨
@@ -256,7 +257,6 @@ const Board = () => {
       )}
 
       {/* 게시글 작성 아이콘 */}
-
       <WritePost onClick={() => router.push("/post_registration")}>
         <i className="fa-solid fa-plus"></i>
       </WritePost>

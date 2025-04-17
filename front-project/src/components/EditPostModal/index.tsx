@@ -226,6 +226,64 @@ const EditPostModal = ({
           )}
         </div>
       )}
+      <div className="EditModal_btnContainer" ref={pickerRef}>
+        {isMine ? (
+          <>
+            <div>
+              <ModalBtn
+                onClick={() => {
+                  router.push(`/post_edit/${postId}`);
+                }}
+              >
+                수정하기
+              </ModalBtn>
+            </div>
+            <div className="EditPostModal_m">
+              <ModalBtn $danger onClick={handleDeletePost}>
+                삭제하기
+              </ModalBtn>
+            </div>
+          </>
+        ) : (
+          <>
+            <div>
+              <ModalBtn
+                onClick={() => {
+                  if (writerId) {
+                    handleChatRequest(writerId);
+                  }
+                }}
+              >
+                채팅하기
+              </ModalBtn>
+            </div>
+            <div>
+              {/* 팔로우 누르면 팔로우 취소 */}
+              <ModalBtn className="EditPostModal_m">팔로우</ModalBtn>
+            </div>
+            <div>
+              <ModalBtn
+                className="EditPostModal_m"
+                $danger
+                onClick={() => {
+                  setShowReportModal(true);
+                }}
+              >
+                신고하기
+              </ModalBtn>
+            </div>
+
+            {/* 신고하기 */}
+            {showReportModal && postId && (
+              <ReportModal
+                type="post"
+                targetId={postId}
+                onClose={() => setShowReportModal(false)}
+              />
+            )}
+          </>
+        )}
+      </div>
     </EditPostModalStyled>
   );
 };
