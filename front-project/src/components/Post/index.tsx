@@ -138,10 +138,10 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
             <div className="Post_user">
               <div className="Post_nickName">{post.user.nickName}</div>
               <div className="Post_category">
-                {post.category === "walk"
-                  ? "산책메이트"
-                  : post.category === "free"
+                {post.category === "free"
                   ? "자유게시판"
+                  : post.category === "supplies"
+                  ? "반려견 용품추천"
                   : "유기견 임시보호 / 입양"}
               </div>
             </div>
