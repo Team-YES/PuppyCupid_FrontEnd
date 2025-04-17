@@ -16,6 +16,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Scrollbar } from "swiper/modules";
+import { formatNumberWithComma } from "@/utils/formatNumberWithComma";
 
 const Registration = () => {
   // 사진 개수
@@ -28,11 +29,6 @@ const Registration = () => {
     { value: "supplies", label: "반려견 용품추천" },
     { value: "adopt", label: "유기견 임시보호 / 입양" },
   ];
-  // const option = [
-  //   { value: "walk", label: "산책메이트" },
-  //   { value: "free", label: "자유게시판" },
-  //   { value: "adopt", label: "유기견 임시보호 / 입양" },
-  // ];
 
   // Formik 설정
   const userFormik = useFormik({
@@ -58,7 +54,7 @@ const Registration = () => {
       if (!values.content?.trim()) {
         errors.content = "내용을 입력해주세요.";
       } else if (values.content.length > 1000) {
-        errors.content = "1000자 이하로 작성해주세요.";
+        errors.content = "1,000자 이하로 작성해주세요.";
       }
 
       return errors;
@@ -202,6 +198,11 @@ const Registration = () => {
             onChange={userFormik.handleChange}
             onBlur={userFormik.handleBlur}
           />
+
+          {/* 글자 수 세기 */}
+          <div className="Registration_writeCount">
+            {formatNumberWithComma(userFormik.values.content.length)}/1,000
+          </div>
         </div>
 
         {/* 에러 메시지 */}

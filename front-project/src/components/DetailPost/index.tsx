@@ -311,13 +311,9 @@ const DetailPost = ({
                   <div className="Detail_Info_box">
                     <div className="Post_nickName">{post.user?.nickName}</div>
                     <div className="Detail_pcWrap">
-                      <div
-                        className={`Detail_pc ${!isExpanded ? "truncate" : ""}`}
-                      >
-                        {post.content}
-                      </div>
+                      <div className="Detail_pc">{post.content}</div>
 
-                      {!isExpanded && (
+                      {/* {!isExpanded && (
                         <span
                           className="ShowMore"
                           onClick={() => setIsExpanded(true)}
@@ -330,7 +326,7 @@ const DetailPost = ({
                         >
                           더보기
                         </span>
-                      )}
+                      )} */}
                     </div>
 
                     <DateDiv>{formatPostDate(post.created_at)}</DateDiv>

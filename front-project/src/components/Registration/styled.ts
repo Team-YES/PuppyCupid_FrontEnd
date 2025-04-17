@@ -47,6 +47,15 @@ export const RegistrationStyled = styled.form`
     margin-top: 15px;
     position: relative;
   }
+
+  .Registration_writeCount {
+    text-align: right;
+    font-size: 13px;
+    color: #999;
+    position: absolute;
+    bottom: 7px;
+    right: 21px;
+  }
 `;
 
 export const ImageScrollContainer = styled.div`
