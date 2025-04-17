@@ -44,9 +44,6 @@ const DetailPost = ({
   onClose,
 }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
-  console.log("상세 컴포", post);
-
-  // console.log("로그인아이디:", loginUser);
 
   const commentRef = useRef<CommentRef>(null);
 

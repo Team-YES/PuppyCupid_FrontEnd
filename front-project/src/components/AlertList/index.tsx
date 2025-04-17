@@ -31,8 +31,6 @@ const formatDate = (dateString: string) => {
 };
 
 const AlertList: React.FC<AlertListProps> = ({ data }) => {
-  console.log(data, "AlertList data?"); // 콘솔
-
   const posts = useSelector((state: RootState) => state.infinitePosts.posts);
   const loginUser = useSelector(
     (state: RootState) => state.infinitePosts.currentUser

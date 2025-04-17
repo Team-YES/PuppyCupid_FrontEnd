@@ -161,7 +161,6 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
 
       const latestMessage = messages[messages.length - 1];
 
-      console.log("latestMessage", latestMessage);
       if (
         latestMessage?.system === true &&
         /채팅.*나갔습니다/.test(latestMessage.content)
@@ -193,7 +192,7 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
     if (!parsedId) return;
 
     const latestMessage = messages[messages.length - 1];
-    console.log("latestMessage", latestMessage);
+
     if (
       latestMessage?.system &&
       latestMessage.content.includes("채팅방을 나갔습니다")

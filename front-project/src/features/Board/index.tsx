@@ -83,11 +83,6 @@ const Board = () => {
   // console.log("검색결과: ", searchResult);
   // console.log("로그인유저", loginUser);
 
-  // 5. 전체 게시글 요청(무한스크롤 전)
-  // useEffect(() => {
-  //   dispatch(fetchAllPosts());
-  // }, [dispatch]);
-
   const { posts, currentUser, hasMore, loading, page } = useSelector(
     (state: RootState) => state.infinitePosts
   );

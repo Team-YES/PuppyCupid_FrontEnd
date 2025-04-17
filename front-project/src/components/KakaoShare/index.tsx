@@ -20,7 +20,6 @@ const KakaoShare = ({ title, description, imageUrl, url }: KakaoShareProps) => {
   useEffect(() => {
     if (window.Kakao && !window.Kakao.isInitialized()) {
       window.Kakao.init(KAKAO_SDK_KEY);
-      console.log("Kakao SDK 초기화 완료");
     }
   }, [KAKAO_SDK_KEY]);
 

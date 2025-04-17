@@ -327,7 +327,6 @@ const MyPage = () => {
         });
 
         const data = res.data;
-        console.log("받은 데이터:", res.data);
         if (data.ok) {
           setUserData({
             email: user?.email || "",

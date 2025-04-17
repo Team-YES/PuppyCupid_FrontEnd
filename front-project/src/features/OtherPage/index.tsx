@@ -300,10 +300,6 @@ const OtherPage = () => {
     return "팔로우";
   };
 
-  useEffect(() => {
-    console.log("status 바뀜:", status);
-  }, [status]);
-
   return (
     <OtherPagePadding>
       <OtherPageStyled>
