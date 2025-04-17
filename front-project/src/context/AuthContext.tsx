@@ -70,10 +70,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       if (response.data.isLoggedIn) {
         setIsLoggedIn(true);
-        // console.log(response.data.user, "로그인 유저 상태?");
-        // setUser(response.data.user);
-        // console.log(response.data.user, "response.data.user???");
-        // dispatch(setUser(response.data.user as UserInfo));
 
         const userData: UserInfo = {
           id: response.data.user.id,

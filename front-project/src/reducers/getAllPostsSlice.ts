@@ -40,7 +40,6 @@ export const fetchAllPosts = createAsyncThunk(
     const res = await axios.get("http://localhost:5000/posts", {
       withCredentials: true,
     });
-    console.log("getAllPostSlice", res.data);
     return res.data;
   }
 );

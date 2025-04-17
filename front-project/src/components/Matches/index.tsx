@@ -20,7 +20,6 @@ const Matches = ({ setMatches }: MatchesProps) => {
     // const isDevMode = process.env.NODE_ENV !== "production";
 
     // if (isDevMode) {
-    //   console.log("🌱 개발 모드: 임시 매칭 데이터 사용");
 
     //   const mockData = {
     //     id: 15,
@@ -71,21 +70,20 @@ const Matches = ({ setMatches }: MatchesProps) => {
                 lng: longitude,
               },
             });
-            console.log(res.data.match, "match???");
+
             if (res.data.ok && res.data.match) {
               setMatchDog(res.data.match);
             } else {
-              setNoMatch(true); // ✅ 매칭 실패
-              console.log(res.data.error);
+              setNoMatch(true); // 매칭 실패
               setError("매칭 실패: " + (res.data.error || "알 수 없는 오류"));
             }
           } catch (err) {
-            setNoMatch(true); // ✅ 네트워크 에러 등도 실패 처리
+            setNoMatch(true); // 네트워크 에러 등도 실패 처리
             setError("매칭 요청 중 오류 발생");
           }
         },
         (error) => {
-          setNoMatch(true); // ✅ 위치 권한 거부 시 실패 처리
+          setNoMatch(true); // 위치 권한 거부 시 실패 처리
           console.error("위치 정보를 가져오는 데 실패했습니다:", error);
           setError("위치 정보를 허용해주세요.");
         }

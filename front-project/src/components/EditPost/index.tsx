@@ -38,7 +38,6 @@ const EditPost = () => {
   const router = useRouter();
 
   const { id } = router.query;
-  // console.log(id);
 
   // 서버데이터 저장
   const [post, setPost] = useState<Post | null>(null);
@@ -51,13 +50,11 @@ const EditPost = () => {
       })
       .then((res) => {
         const postData = res.data;
-        console.log(postData);
+
         setPost(postData);
       })
       .catch((err) => console.error(err));
   }, []);
-
-  // console.log(post?.post.id);
 
   // 카테고리 표시
   const categoryMap: Record<string, string> = {

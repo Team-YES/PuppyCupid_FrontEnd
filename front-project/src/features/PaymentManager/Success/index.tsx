@@ -33,8 +33,6 @@ export default function SuccessPage() {
 
         const paymentData = response.data;
 
-        console.log("Toss 응답 상태:", paymentData.status);
-
         if (
           paymentData.status === "DONE" ||
           paymentData.status === "SUCCESS" ||

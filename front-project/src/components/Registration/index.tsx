@@ -89,7 +89,6 @@ const Registration = () => {
             withCredentials: true,
           }
         );
-        console.log("게시물 등록 성공 응답: ", res.data);
 
         alert("게시물을 등록하였습니다.");
         router.push("/board");
@@ -108,8 +107,6 @@ const Registration = () => {
       }
     },
   });
-  // console.log(userFormik.values);
-  // console.log(userFormik.touched.content);
 
   return (
     <RegistrationStyled onSubmit={userFormik.handleSubmit}>
