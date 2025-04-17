@@ -24,7 +24,6 @@ type Props = {
   loginUser?: number;
   isDetailPage?: boolean;
   onClick?: () => void;
-  // currentUser: number;
 };
 
 export type CommentType = {
@@ -42,7 +41,7 @@ export type CommentType = {
 const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  console.log("하위 컴포", post);
+  // console.log("하위 컴포", post);
 
   const [animate, setAnimate] = useState(false);
 
@@ -139,10 +138,10 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
             <div className="Post_user">
               <div className="Post_nickName">{post.user.nickName}</div>
               <div className="Post_category">
-                {post.category === "walk"
-                  ? "산책메이트"
-                  : post.category === "free"
+                {post.category === "free"
                   ? "자유게시판"
+                  : post.category === "supplies"
+                  ? "반려견 용품추천"
                   : "유기견 임시보호 / 입양"}
               </div>
             </div>

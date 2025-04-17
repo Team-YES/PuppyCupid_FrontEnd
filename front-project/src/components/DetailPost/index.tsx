@@ -26,6 +26,8 @@ import { useClickOutside } from "@/hooks/useClickOutside";
 import { formatPostDate } from "@/utils/formatDate";
 import { deleteComment } from "@/reducers/getCommentSlice";
 import KakaoShare from "@/components/KakaoShare";
+import { UserInfo } from "@/reducers/userSlice";
+import { checkBlacklistAndBlock } from "@/utils/isBlackListed";
 
 type Props = {
   post: Post;
@@ -72,6 +74,13 @@ const DetailPost = ({
     {}
   );
 
+  // 로그인 한 유저 정보
+  const userInfo = useSelector(
+    (state: RootState) => state.user.user
+  ) as UserInfo | null;
+
+  // console.log("userInfo", userInfo);
+
   const toggleReplyVisibility = (commentId: number) => {
     setOpenReplies((prev) => ({
       ...prev,
@@ -115,6 +124,8 @@ const DetailPost = ({
 
   // 좋아요 요청
   const handleLikeClick = async () => {
+    if (checkBlacklistAndBlock(userInfo)) return;
+
     const url = `http://localhost:5000/interactions/like/${post.id}`;
     const result = await dispatch(AxiosGetLike(url));
 
@@ -302,6 +313,7 @@ const DetailPost = ({
                       >
                         {post.content}
                       </div>
+
                       {!isExpanded && (
                         <span
                           className="ShowMore"
@@ -521,6 +533,9 @@ const DetailPost = ({
                   url={
                     typeof window !== "undefined" ? window.location.href : ""
                   }
+                  onClick={() => {
+                    if (checkBlacklistAndBlock(userInfo)) return;
+                  }}
                 />
                 {/* <div className="Post_icon">
                 <i className="fa-solid fa-share-nodes"></i>

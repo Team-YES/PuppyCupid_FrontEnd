@@ -24,11 +24,14 @@ const ReportModal = ({ type, targetId, onClose }: ReportModalProps) => {
     },
     onSubmit: async (values, { resetForm }) => {
       try {
-        await axiosInstance.post(
+        await axios.post(
           `http://localhost:5000/report/${type}/${targetId}`,
           {
             targetId,
             reason: values.reason,
+          },
+          {
+            withCredentials: true,
           }
         );
         alert("신고가 접수되었습니다.");

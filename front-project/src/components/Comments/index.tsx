@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { postComment, postReply } from "@/reducers/getCommentSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import { CommentType } from "../Post";
+import { UserInfo } from "@/reducers/userSlice";
+import { checkBlacklistAndBlock } from "@/utils/isBlackListed";
 
 type Props = {
   postId: number;
@@ -29,7 +31,7 @@ const Comment = forwardRef<CommentRef, Props>(
   ({ postId, onAddComment, onAddReply, replyTarget }, ref) => {
     const dispatch = useDispatch<AppDispatch>();
 
-    console.log("댓글컴포 replyTarget", replyTarget);
+    // console.log("댓글컴포 replyTarget", replyTarget);
 
     // 댓글 아이콘 누르면 input에 focus
     const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -40,6 +42,11 @@ const Comment = forwardRef<CommentRef, Props>(
       },
     }));
 
+    // 로그인 한 유저 정보
+    const userInfo = useSelector(
+      (state: RootState) => state.user.user
+    ) as UserInfo | null;
+
     // 답글 유저 닉네임 가져오기
     useEffect(() => {
       if (replyTarget) {
@@ -48,14 +55,14 @@ const Comment = forwardRef<CommentRef, Props>(
     }, [replyTarget]);
 
     // 답글 등록
-    console.log("댓글 postId : ", postId);
+    // console.log("댓글 postId : ", postId);
 
     // 댓글 등록
     const [comment, setComment] = useState("");
 
     // 댓글 / 답글 게시
     const handleSubmit = async () => {
-      console.log("replyTarget 확인", replyTarget);
+      // console.log("replyTarget 확인", replyTarget);
       if (!comment.trim()) return;
 
       try {
@@ -142,7 +149,13 @@ const Comment = forwardRef<CommentRef, Props>(
         />
 
         {/* 게시 버튼 */}
-        <CommentPost disabled={!comment.trim()} onClick={handleSubmit}>
+        <CommentPost
+          disabled={!comment.trim()}
+          onClick={() => {
+            if (checkBlacklistAndBlock(userInfo)) return;
+            handleSubmit();
+          }}
+        >
           게시
         </CommentPost>
       </CommentStyled>
