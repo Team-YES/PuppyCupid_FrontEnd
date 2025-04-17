@@ -34,7 +34,7 @@ const Search = ({ setSearchResult }: Props) => {
           params: { keyword },
           withCredentials: true,
         });
-        console.log("검색결과 : ", res.data);
+        // console.log("검색결과 : ", res.data);
         const { ok, posts } = res.data;
         setSearchResult(posts);
       } catch (error) {

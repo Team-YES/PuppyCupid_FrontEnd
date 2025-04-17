@@ -141,10 +141,10 @@ const Board = () => {
   //   if (dataUser) setLoginUser(dataUser);
   // }, [data, dataUser]);
 
-  console.log(
-    "posts:",
-    posts.map((p) => p.id)
-  );
+  // console.log(
+  //   "posts:",
+  //   posts.map((p) => p.id)
+  // );
 
   // 7. 날씨 정보 요청
   useEffect(() => {
@@ -200,10 +200,10 @@ const Board = () => {
     ? posts.find((p) => p.id === selectPostId)
     : null;
 
-  console.log("현재 선택된게시글", selectedPost);
-  console.log("상위컴포", posts);
-  console.log("hasMore", hasMore);
-  console.log("page", page);
+  // console.log("현재 선택된게시글", selectedPost);
+  // console.log("상위컴포", posts);
+  // console.log("hasMore", hasMore);
+  // console.log("page", page);
 
   return (
     <BoardContainer>

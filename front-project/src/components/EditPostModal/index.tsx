@@ -31,7 +31,7 @@ const EditPostModal = ({
 }: Props) => {
   const router = useRouter();
 
-  console.log("EditPostModal : ", postId, writerId, loginUserId);
+  // console.log("EditPostModal : ", postId, writerId, loginUserId);
 
   const pickerRef = useRef<HTMLDivElement>(null);
   useClickOutside(pickerRef, onClose);
@@ -61,7 +61,7 @@ const EditPostModal = ({
   // 내 댓글 판단
   // const isMineComment = writerId === loginUserId;
 
-  console.log("댓글아이디", commentId);
+  // console.log("댓글아이디", commentId);
 
   // 댓글 삭제 모드
   if (mode === "comment" && commentId) {

@@ -46,7 +46,7 @@ const DetailPost = ({
   onClose,
 }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
-  console.log("상세 컴포", post);
+  // console.log("상세 컴포", post);
 
   // console.log("로그인아이디:", loginUser);
 
@@ -98,7 +98,7 @@ const DetailPost = ({
     setGetComment((v) => [newComment, ...v]);
   };
 
-  console.log("상세컴포 댓글 :", getComment);
+  // console.log("상세컴포 댓글 :", getComment);
 
   // 게시한 답글 표시
   const handleAddReply = (newComment: CommentType) => {
@@ -132,7 +132,7 @@ const DetailPost = ({
     const url = `http://localhost:5000/interactions/like/${post.id}`;
     const result = await dispatch(AxiosGetLike(url));
 
-    console.log("좋아요 응답 : ", result.payload);
+    // console.log("좋아요 응답 : ", result.payload);
 
     if (AxiosGetLike.fulfilled.match(result)) {
       const { liked, likeCount } = result.payload;

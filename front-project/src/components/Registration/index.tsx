@@ -64,7 +64,7 @@ const Registration = () => {
       return errors;
     },
     onSubmit: async (values) => {
-      console.log(values);
+      // console.log(values);
       const formData = new FormData();
 
       values.images.forEach((img) => {
@@ -73,9 +73,9 @@ const Registration = () => {
       formData.append("category", values.category);
       formData.append("content", values.content);
 
-      for (const [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
+      // for (const [key, value] of formData.entries()) {
+      //   console.log(key, value);
+      // }
 
       // 게시글 등록 axios 요청(파일 업로드용 헤더, 인증 쿠키)
       try {
