@@ -14,6 +14,7 @@ import TextAreaComp from "../TextAreaComp";
 import InputComp from "../InputComp";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { formatNumberWithComma } from "@/utils/formatNumberWithComma";
 
 type Post = {
   post: {
@@ -127,78 +128,85 @@ const EditPost = () => {
   });
 
   return (
-    <RegistrationStyled onSubmit={userFormik.handleSubmit}>
-      {/* 이미지 보기 슬라이드 */}
-      <EditSwiperContainer>
-        <Swiper
-          modules={[Navigation]}
-          spaceBetween={12}
-          slidesPerView={4}
-          style={{ width: "100%", paddingRight: 22 }}
-          breakpoints={{
-            427: {
-              slidesPerView: 5,
-              spaceBetween: 12,
-            },
-          }}
-        >
-          {post?.post.images.map((img, i) => (
-            <SwiperSlide key={i}>
-              <ImageBox>
-                <PreviewImg
-                  src={`http://localhost:5000${img.image_url}`}
-                  alt={`이미지 미리보기${i + 1}`}
-                  style={{ width: "100%" }}
-                />
-              </ImageBox>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </EditSwiperContainer>
+    <div style={{ padding: 25 }}>
+      <RegistrationStyled onSubmit={userFormik.handleSubmit}>
+        {/* 이미지 보기 슬라이드 */}
+        <EditSwiperContainer>
+          <Swiper
+            modules={[Navigation]}
+            spaceBetween={12}
+            slidesPerView={4}
+            style={{ width: "100%", paddingRight: 22 }}
+            breakpoints={{
+              427: {
+                slidesPerView: 5,
+                spaceBetween: 12,
+              },
+            }}
+          >
+            {post?.post.images.map((img, i) => (
+              <SwiperSlide key={i}>
+                <ImageBox>
+                  <PreviewImg
+                    src={`http://localhost:5000${img.image_url}`}
+                    alt={`이미지 미리보기${i + 1}`}
+                    style={{ width: "100%" }}
+                  />
+                </ImageBox>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </EditSwiperContainer>
 
-      {/* 카테고리 & 본문 수정 */}
-      <div style={{ padding: 15 }}>
-        <div style={{ marginBottom: 29 }}>
-          <InputComp
-            name="category"
-            value={categoryMap[userFormik.values.category]}
-            readOnly
-          />
+        {/* 카테고리 & 본문 수정 */}
+        <div style={{ padding: 15 }}>
+          <div style={{ marginBottom: 29 }}>
+            <InputComp
+              name="category"
+              value={categoryMap[userFormik.values.category]}
+              readOnly
+            />
+          </div>
+          <div className="Registration_Textbox">
+            <TextAreaComp
+              name="content"
+              value={userFormik.values.content}
+              onChange={userFormik.handleChange}
+              onBlur={userFormik.handleBlur}
+            />
+
+            {/* 글자 수 세기 */}
+            <div className="Registration_writeCount">
+              {formatNumberWithComma(userFormik.values.content.length)}/1,000
+            </div>
+          </div>
+
+          {/* 에러 메시지 */}
+          {userFormik.touched.content && userFormik.errors.content && (
+            <ErrorMessage>{userFormik.errors.content}</ErrorMessage>
+          )}
         </div>
-        <div className="Registration_Textbox">
-          <TextAreaComp
-            name="content"
-            value={userFormik.values.content}
-            onChange={userFormik.handleChange}
-            onBlur={userFormik.handleBlur}
-          />
+
+        {/* 수정, 취소 버튼 */}
+        <div className="Registration_BtnBox">
+          <Button
+            variant={"default"}
+            onClick={() => {
+              const alarm = confirm("게시물 수정을 취소하시겠습니까?");
+              if (alarm) {
+                router.push("/board");
+              }
+            }}
+            type="button"
+          >
+            취소
+          </Button>
+          <Button type="submit" variant={"confirm"}>
+            수정
+          </Button>
         </div>
-
-        {/* 에러 메시지 */}
-        {userFormik.touched.content && userFormik.errors.content && (
-          <ErrorMessage>{userFormik.errors.content}</ErrorMessage>
-        )}
-      </div>
-
-      {/* 수정, 취소 버튼 */}
-      <div className="Registration_BtnBox">
-        <Button
-          variant={"default"}
-          onClick={() => {
-            const alarm = confirm("게시물 수정을 취소하시겠습니까?");
-            if (alarm) {
-              router.push("/board");
-            }
-          }}
-          type="button"
-        >
-          취소
-        </Button>
-        <Button type="submit" variant={"confirm"}>
-          수정
-        </Button>
-      </div>
-    </RegistrationStyled>
+      </RegistrationStyled>
+    </div>
   );
 };
 
