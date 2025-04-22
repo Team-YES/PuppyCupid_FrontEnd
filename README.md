@@ -101,6 +101,7 @@
 - **🛠️ Others**: OAuth (Kakao, Naver, Google), Formik, Yup, Figma, Notion
 
 ## 🗂️ DB 설계도
+<img width="700" alt="KakaoTalk_20250422_154005781" src="https://github.com/user-attachments/assets/0e210187-bbd8-4771-ac92-c3fc0c541789" />
 
 ## 🧾 API 명세서
 
