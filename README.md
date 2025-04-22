@@ -1,4 +1,6 @@
 # 🐶 소개팅 – GPS 기반 반려동물 친구 만들기 서비스
+![표지](https://github.com/user-attachments/assets/04d577d0-5b52-4a1a-91f0-7ac37c4302f4)
+
 
 ## 🚀 프로젝트 소개
 * 소개팅은 GPS 기반으로 주변 반려동물 친구를 찾아주고,
