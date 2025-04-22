@@ -208,16 +208,16 @@
 <table>
   <tr>
     <td align="center">
-      <strong>메인 페이지</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/9ee8d7db-5647-4c46-92b0-14316b3d3949" alt="main-page" width="280" height="250">
+      <strong>내 정보 페이지</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/0a20e780-7e39-409c-8cfe-3ca5064a79ca" alt="main-page" width="280" height="400">
     </td>
     <td align="center">
-      <strong>전체 게시물</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/c5e59416-c6ff-4fd0-89da-8b6b52652b44" alt="all-post" width="270" height="250">
+      <strong>게시물 상세보기</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/e4e35581-abc5-4665-9bc5-a9527a23c891" alt="all-post" width="270" height="400">
     </td>
     <td align="center">
-       <strong>상세 게시물</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/5ba43f33-d9b9-4332-a8fa-d55677fcdb21" width="280" height="250">
+       <strong>채팅하기</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/b9a92580-7204-48b8-ae39-f863ffcaefe7" width="280" height="400">
     </td>
   </tr>
 </table>
