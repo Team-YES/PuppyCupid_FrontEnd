@@ -37,11 +37,11 @@
     </td>
     <td>
       <h4>내 정보 보기</h4>
-      <img src="URL_TO_YOUR_GIF_4" alt="edit-profile" width="250">
+      <img src="https://github.com/user-attachments/assets/eac1e22f-47a2-47cf-932d-a5d0da0e766d" alt="edit-profile" width="250">
     </td>
      <td>
       <h4>산책 메이트 & AI 매칭</h4>
-      <img src="URL_TO_YOUR_GIF_4" alt="edit-profile" width="250">
+       <img width="250" alt="profile-page" src="https://github.com/user-attachments/assets/8b08b489-aa37-4d95-b706-2578f7e162ec" />
     </td>
   </tr>
 </table>
