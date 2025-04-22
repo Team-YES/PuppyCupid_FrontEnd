@@ -26,7 +26,7 @@
     </td>
     <td align="center">
       <strong>전체 게시물</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/5ba43f33-d9b9-4332-a8fa-d55677fcdb21" alt="report-post" width="280" height="250">
+      <img src="https://github.com/user-attachments/assets/c5e59416-c6ff-4fd0-89da-8b6b52652b44" alt="report-post" width="280" height="250">
     </td>
     <td align="center">
        <strong>상세 게시물</strong><br><br>
@@ -62,6 +62,7 @@
     </td>
   </tr>
 </table>
+
 
 ## 📌 목차
 
