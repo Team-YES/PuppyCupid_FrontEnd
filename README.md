@@ -20,31 +20,31 @@
 
 <table>
   <tr>
-    <td>
-      <h4>메인 페이지</h4>
-      <img src=https://github.com/user-attachments/assets/588ffa5c-e91c-4b75-b89e-2621323eb769 alt="real-time-chat" width="250">
+    <td align="center">
+      <strong>메인 페이지</strong><br>
+      <img src=https://github.com/user-attachments/assets/588ffa5c-e91c-4b75-b89e-2621323eb769 alt="real-time-chat" width="250" height="80%">
     </td>
-    <td>
-      <h4>전체 게시물</h4>
-      <img src="URL_TO_YOUR_GIF_2" alt="report-post" width="250">
+    <td align="center">
+      <strong>전체 게시물</strong><br>
+      <img src="URL_TO_YOUR_GIF_2" alt="report-post" width="250" height="80%">
     </td>
-        <td>
-      <h4>상세 게시물</h4>
-      <img src="URL_TO_YOUR_GIF_4" alt="edit-profile" width="250">
+    <td align="center">
+       <strong>상세 게시물</strong><br>
+      <img src="URL_TO_YOUR_GIF_4" alt="edit-profile" width="250" height="80%">
     </td>
   </tr>
   <tr>
-    <td>
-      <h4>채팅하기</h4>
-      <img src="https://github.com/user-attachments/assets/e6d3f330-0ae4-47d8-83cd-d55063b688ca" alt="leave-chat" width="250">
+    <td align="center">
+      <strong>채팅하기</strong><br>
+      <img src="https://github.com/user-attachments/assets/e6d3f330-0ae4-47d8-83cd-d55063b688ca" alt="leave-chat" width="250" height="80%">
     </td>
-    <td>
-      <h4>내 정보 보기</h4>
-      <img src="https://github.com/user-attachments/assets/eac1e22f-47a2-47cf-932d-a5d0da0e766d" alt="edit-profile" width="250">
+    <td align="center">
+      <strong>내 정보 보기</strong><br>
+      <img src="https://github.com/user-attachments/assets/eac1e22f-47a2-47cf-932d-a5d0da0e766d" alt="edit-profile" width="250" height="80%">
     </td>
-     <td>
-      <h4>산책 메이트 & AI 매칭</h4>
-       <img width="250" alt="profile-page" src="https://github.com/user-attachments/assets/8b08b489-aa37-4d95-b706-2578f7e162ec" />
+     <td align="center">
+      <strong>산책 메이트 & AI 매칭</strong><br>
+       <img width="250" alt="profile-page" src="https://github.com/user-attachments/assets/8b08b489-aa37-4d95-b706-2578f7e162ec" height="80%" />
     </td>
   </tr>
    <tr>
