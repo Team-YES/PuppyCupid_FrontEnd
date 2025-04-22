@@ -51,15 +51,15 @@
   </tr>
    <tr>
     <td align="center">
-      <h4>소셜 로그인</h4>
+      <strong>소셜 로그인</strong><br>
       <img src="" alt="leave-chat" width="250">
     </td>
     <td align="center">
-      <h4>신고하기 & 문의하기</h4>
+      <strong>신고하기 & 문의하기</strong><br>
       <img src="" alt="edit-profile" width="250">
     </td>
      <td align="center">
-      <h4>ADMIN</h4>
+      <strong>ADMIN</strong><br>
        <img width="250" alt="profile-page" src="" />
     </td>
   </tr>
@@ -202,7 +202,7 @@
 - 회원 정보, 신고 정보, 문의 정보를 확인할 수 있는 기능을 제공합니다.
 - 블랙리스트를 관리할 수 있는 기능을 제공합니다.
 
-## 📂 프로젝트 구조(수정필요)
+## 📂 프로젝트 구조
 
 ```markdown
 assets : 이미지 파일 집합
