@@ -53,8 +53,8 @@
       <img src="https://github.com/user-attachments/assets/6fb5ec66-3a87-4909-a2a3-7988230765a6" alt="leave-chat" width="280" height="250">
     </td>
     <td align="center">
-      <strong>신고하기 & 문의하기</strong><br><br>
-      <img src="" alt="edit-profile"width="280" height="250">
+      <strong>결제하기</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/ba7e4487-bb18-452a-8d83-d192a1830125" alt="edit-profile"width="280" height="250">
     </td>
      <td align="center">
       <strong>ADMIN</strong><br><br>
