@@ -12,8 +12,40 @@
 
 ## 🎥 서비스 미리보기
 
-* 아래는 **소개팅**의 주요 화면을 미리 볼 수 있는 GIF 이미지입니다.  
+* 아래는 **소개팅**의 주요 화면을 미리 볼 수 있는 이미지입니다.  
 각 페이지의 UI 및 기능을 확인해보세요!
+
+<table>
+  <tr>
+    <td>
+      <h4>메인 페이지</h4>
+      <img src=https://github.com/user-attachments/assets/588ffa5c-e91c-4b75-b89e-2621323eb769 alt="real-time-chat" width="250">
+    </td>
+    <td>
+      <h4>전체 게시물</h4>
+      <img src="URL_TO_YOUR_GIF_2" alt="report-post" width="250">
+    </td>
+        <td>
+      <h4>상세 게시물</h4>
+      <img src="URL_TO_YOUR_GIF_4" alt="edit-profile" width="250">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <h4>채팅하기</h4>
+      <img src="https://github.com/user-attachments/assets/e6d3f330-0ae4-47d8-83cd-d55063b688ca" alt="leave-chat" width="250">
+    </td>
+    <td>
+      <h4>내 정보 보기</h4>
+      <img src="URL_TO_YOUR_GIF_4" alt="edit-profile" width="250">
+    </td>
+     <td>
+      <h4>산책 메이트 & AI 매칭</h4>
+      <img src="URL_TO_YOUR_GIF_4" alt="edit-profile" width="250">
+    </td>
+  </tr>
+</table>
+
 
 ## 📌 목차
 
