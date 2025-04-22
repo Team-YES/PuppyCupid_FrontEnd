@@ -50,7 +50,7 @@
    <tr>
     <td align="center">
       <strong>소셜 로그인</strong><br><br>
-      <img src="" alt="leave-chat" width="280">
+      <img src="https://github.com/user-attachments/assets/b6287ced-0ae8-4255-b13a-972374881156" alt="leave-chat" width="280">
     </td>
     <td align="center">
       <strong>신고하기 & 문의하기</strong><br><br>
