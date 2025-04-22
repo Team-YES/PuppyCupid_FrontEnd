@@ -21,10 +21,10 @@
 ✔ **💛 소셜 로그인 및 좋아요 기능**
 
 ## ⚙️ 기술 스택  
-- **🛠️ Frontend**: HTML, CSS, Javascript  
-- **🛠️ Backend**: Next.js
-- **🛠️ Database**: MySQL  
-- **🛠️ Architecture**: JWT, OAuth (Kakao, Naver, Google)
+- **🛠️ Frontend**: Next.js, TypeScript, React Query, CSS, Javascript  
+- **🛠️ Backend**: Nest.js, TypeORM, MySQL, JWT, Socket.IO
+- **🛠️ DevOps**: AWS EC2, Nginx, PM2
+- **🛠️ Others**: OAuth (Kakao, Naver, Google), Formik, Yup, Figma, Notion
 
 ## 📌 기능 정의서
 - 📋 기능 정의서
