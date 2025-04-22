@@ -6,3 +6,28 @@
 ## 🎥 서비스 미리보기  
 아래는 **소개팅**의 주요 화면을 미리 볼 수 있는 GIF 이미지입니다.  
 각 페이지의 UI 및 기능을 확인해보세요! 
+
+## 📌 목차
+
+## :busts_in_silhouette: Developers
+
+## 🚀 프로젝트 소개  
+
+## 🎯 개발 동기  
+
+## 🗂️ DB 설계도
+
+## 🖥️ 주요 기능  
+✔ **💛 소셜 로그인 및 좋아요 기능**
+
+## ⚙️ 기술 스택  
+- **🛠️ Frontend**: HTML, CSS, Javascript  
+- **🛠️ Backend**: Next.js
+- **🛠️ Database**: MySQL  
+- **🛠️ Architecture**: JWT, OAuth (Kakao, Naver, Google)
+
+## 📌 기능 정의서
+- 📋 기능 정의서
+
+## 🏠 메인 페이지 ##
+## 🔑 로그인 페이지 ##
