@@ -58,7 +58,7 @@
 
 ## :busts_in_silhouette: Developers
 
-| FE. 김은주                          | FE. 최승연                                  | FE. 최유진                              |
+| FE. 김은주                          | FE. 최승연                                  | BE. 최유진                              |
 | ----------------------------------- | ------------------------------------------- | --------------------------------------- |
 | [ounjuu](https://github.com/ounjuu) | [werther901](https://github.com/werther901) | [yujeen02](https://github.com/yujeen02) |
 
