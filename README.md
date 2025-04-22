@@ -54,7 +54,7 @@
     </td>
     <td align="center">
       <strong>결제하기</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/ba7e4487-bb18-452a-8d83-d192a1830125" alt="edit-profile"width="280" height="250">
+      <img src="https://github.com/user-attachments/assets/c4f46d4d-906a-4c81-b165-a230cb200dd6" alt="edit-profile"width="280" height="250">
     </td>
      <td align="center">
       <strong>ADMIN</strong><br><br>
