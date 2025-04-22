@@ -1,7 +1,5 @@
 # 🐶 소개팅 – GPS 기반 반려동물 친구 만들기 서비스
 
-![표지](https://github.com/user-attachments/assets/04d577d0-5b52-4a1a-91f0-7ac37c4302f4)
-
 ## 🚀 프로젝트 소개
 
 - 소개팅은 GPS 기반으로 주변 반려동물 친구를 찾아주고,
@@ -23,44 +21,44 @@
 <table>
   <tr>
     <td align="center">
-      <strong>메인 페이지</strong><br>
-      <img src=https://github.com/user-attachments/assets/588ffa5c-e91c-4b75-b89e-2621323eb769 alt="real-time-chat" width="250" height="350">
+      <strong>메인 페이지</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/9ee8d7db-5647-4c46-92b0-14316b3d3949" alt="real-time-chat" width="280" height="250">
     </td>
     <td align="center">
-      <strong>전체 게시물</strong><br>
-      <img src="https://github.com/user-attachments/assets/5ba43f33-d9b9-4332-a8fa-d55677fcdb21" alt="report-post" width="250" height="350">
+      <strong>전체 게시물</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/5ba43f33-d9b9-4332-a8fa-d55677fcdb21" alt="report-post" width="280" height="250">
     </td>
     <td align="center">
-       <strong>상세 게시물</strong><br>
-      <img src="https://github.com/user-attachments/assets/5ba43f33-d9b9-4332-a8fa-d55677fcdb21" width="250" height="350">
+       <strong>상세 게시물</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/5ba43f33-d9b9-4332-a8fa-d55677fcdb21" width="280" height="250">
     </td>
   </tr>
   <tr>
     <td align="center">
-      <strong>채팅하기</strong><br>
-      <img src="https://github.com/user-attachments/assets/e6d3f330-0ae4-47d8-83cd-d55063b688ca" alt="leave-chat" width="250" height="250">
+      <strong>채팅하기</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/e6d3f330-0ae4-47d8-83cd-d55063b688ca" alt="leave-chat" width="280" height="250">
     </td>
     <td align="center">
-      <strong>내 정보 보기</strong><br>
-      <img src="https://github.com/user-attachments/assets/eac1e22f-47a2-47cf-932d-a5d0da0e766d" alt="edit-profile" width="250" height="250">
+      <strong>내 정보 보기</strong><br><br>
+      <img src="https://github.com/user-attachments/assets/40dff638-7287-48ee-b917-5939ed152b7b" alt="edit-profile" width="280" height="250">
     </td>
      <td align="center">
-      <strong>산책 메이트 & AI 매칭</strong><br>
-       <img width="250" alt="profile-page" src="https://github.com/user-attachments/assets/8b08b489-aa37-4d95-b706-2578f7e162ec" height="250"/>
+      <strong>산책 메이트 & AI 매칭</strong><br><br>
+       <img alt="profile-page" src="https://github.com/user-attachments/assets/8b08b489-aa37-4d95-b706-2578f7e162ec" width="280" height="250"/>
     </td>
   </tr>
    <tr>
     <td align="center">
-      <strong>소셜 로그인</strong><br>
-      <img src="" alt="leave-chat" width="250">
+      <strong>소셜 로그인</strong><br><br>
+      <img src="" alt="leave-chat" width="280">
     </td>
     <td align="center">
-      <strong>신고하기 & 문의하기</strong><br>
-      <img src="" alt="edit-profile" width="250">
+      <strong>신고하기 & 문의하기</strong><br><br>
+      <img src="" alt="edit-profile" width="280">
     </td>
      <td align="center">
-      <strong>ADMIN</strong><br>
-       <img width="250" alt="profile-page" src="" />
+      <strong>ADMIN</strong><br><br>
+       <img alt="profile-page" src="" width="280"/>
     </td>
   </tr>
 </table>
