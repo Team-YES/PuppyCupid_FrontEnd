@@ -40,7 +40,7 @@
     </td>
     <td align="center">
       <strong>내 정보 보기</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/621eb33f-cd39-4a8f-8f0a-66253df2b165" alt="edit-profile" width="280" height="250">
+      <img src="https://github.com/user-attachments/assets/6288bde7-1dcf-485b-9c98-f0d051e8786e" alt="edit-profile" width="280" height="250">
     </td>
      <td align="center">
       <strong>산책 메이트 & AI 매칭</strong><br><br>
