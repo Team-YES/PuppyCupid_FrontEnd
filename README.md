@@ -24,13 +24,6 @@
 ## 🖥️ 주요 기능  
 ✔ **💛 소셜 로그인 및 좋아요 기능**
 
-
-
-이름	역할
-김개발	프론트엔드 (UI/UX, 채팅, 친구 기능)
-이코딩	프론트엔드 (반려동물 관리, 마이페이지 등)
-박서버	백엔드 (API, DB, 인증, 배포 등)
-
 ## ⚙️ 기술 스택  
 - **🛠️ Frontend**: Next.js, TypeScript, React Query, CSS, Javascript  
 - **🛠️ Backend**: Nest.js, TypeORM, MySQL, JWT, Socket.IO
