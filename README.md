@@ -26,7 +26,7 @@
     </td>
     <td align="center">
       <strong>전체 게시물</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/c5e59416-c6ff-4fd0-89da-8b6b52652b44" alt="report-post" width="280" height="250">
+      <img src="https://github.com/user-attachments/assets/c5e59416-c6ff-4fd0-89da-8b6b52652b44" alt="report-post" width="270" height="250">
     </td>
     <td align="center">
        <strong>상세 게시물</strong><br><br>
@@ -50,18 +50,19 @@
    <tr>
     <td align="center">
       <strong>소셜 로그인</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/b6287ced-0ae8-4255-b13a-972374881156" alt="leave-chat" width="280">
+      <img src="https://github.com/user-attachments/assets/6fb5ec66-3a87-4909-a2a3-7988230765a6" alt="leave-chat" width="280" height="250">
     </td>
     <td align="center">
       <strong>신고하기 & 문의하기</strong><br><br>
-      <img src="" alt="edit-profile" width="280">
+      <img src="" alt="edit-profile"width="280" height="250">
     </td>
      <td align="center">
       <strong>ADMIN</strong><br><br>
-       <img alt="profile-page" src="" width="280"/>
+       <img alt="profile-page" src="https://github.com/user-attachments/assets/e39b6e99-70d3-4dcb-95d7-08ce80a132dc" width="280" height="250"/>
     </td>
   </tr>
 </table>
+
 
 
 ## 📌 목차
