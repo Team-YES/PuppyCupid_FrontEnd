@@ -28,11 +28,11 @@
     </td>
     <td align="center">
       <strong>전체 게시물</strong><br>
-      <img src="URL_TO_YOUR_GIF_2" alt="report-post" width="250" height="350">
+      <img src="https://github.com/user-attachments/assets/5ba43f33-d9b9-4332-a8fa-d55677fcdb21" alt="report-post" width="250" height="350">
     </td>
     <td align="center">
        <strong>상세 게시물</strong><br>
-      <img src="URL_TO_YOUR_GIF_4" alt="edit-profile" width="250" height="350">
+      <img src="https://github.com/user-attachments/assets/5ba43f33-d9b9-4332-a8fa-d55677fcdb21" width="250" height="350">
     </td>
   </tr>
   <tr>
