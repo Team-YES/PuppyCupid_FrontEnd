@@ -47,6 +47,20 @@
        <img width="250" alt="profile-page" src="https://github.com/user-attachments/assets/8b08b489-aa37-4d95-b706-2578f7e162ec" />
     </td>
   </tr>
+   <tr>
+    <td>
+      <h4>소셜 로그인</h4>
+      <img src="" alt="leave-chat" width="250">
+    </td>
+    <td>
+      <h4>신고하기 & 문의하기</h4>
+      <img src="" alt="edit-profile" width="250">
+    </td>
+     <td>
+      <h4>ADMIN</h4>
+       <img width="250" alt="profile-page" src="" />
+    </td>
+  </tr>
 </table>
 
 
