@@ -1,6 +1,6 @@
 import axios from "axios";
 import Router from "next/router";
-
+import Cookies from "js-cookie";
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL, // 환경변수 사용
   withCredentials: true,
@@ -32,9 +32,12 @@ axiosInstance.interceptors.response.use(
         // access_token이 재발급되었으니, 원래 요청 재시도
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        // 재발급 실패 → 로그인 페이지로 이동
-        // console.error("리프레시 토큰 검증 실패:", refreshError);
-        Router.push("/login");
+        const tempToken = Cookies.get("temp_access_token");
+        if (tempToken) {
+          Router.push("/phone");
+        } else {
+          Router.push("/login");
+        }
         return Promise.reject(refreshError);
       }
     }

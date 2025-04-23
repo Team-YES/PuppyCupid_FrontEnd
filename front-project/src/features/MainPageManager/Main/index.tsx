@@ -1,7 +1,9 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { MainStyled } from "./styled";
 import { clsx } from "clsx";
-import { useState } from "react";
-import { useRouter } from "next/router";
 
 import MainImgs from "../../../components/MainImgs";
 // 이벤트 팝업
@@ -32,7 +34,19 @@ const paths = [
   "/chat",
   "/mypage",
 ];
+
 const Main = () => {
+  const router = useRouter();
+  const { access_token, refresh_token } = router.query;
+
+  useEffect(() => {
+    if (typeof access_token === "string" && typeof refresh_token === "string") {
+      Cookies.set("access_token", access_token);
+      Cookies.set("refresh_token", refresh_token);
+      router.replace("/", undefined, { shallow: true });
+    }
+  }, [access_token, refresh_token]);
+
   return (
     <MainStyled className={clsx("main_wrap")}>
       <EventPopup />
