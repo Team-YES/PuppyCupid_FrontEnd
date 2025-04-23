@@ -2,12 +2,26 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { PhonePadding } from "./styled";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 const Phone = () => {
+  const [tempToken, setTempToken] = useState<string | null>(null);
   const [nicknameCheckPassed, setNicknameCheckPassed] = useState(false);
   const [nicknameCheckMessage, setNicknameCheckMessage] = useState("");
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("temp_access_token");
+
+    if (token) {
+      // 임시 토큰을 상태와 쿠키에 저장
+      setTempToken(token);
+      Cookies.set("temp_access_token", token, { expires: 10 / 1440 });
+    } else {
+      console.error("임시 토큰이 URL 파라미터에 없습니다.");
+    }
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -35,6 +49,13 @@ const Phone = () => {
       }
 
       try {
+        // 임시 토큰이 없으면 알림
+        if (!tempToken) {
+          alert("임시 토큰이 없습니다. 다시 시도해주세요.");
+          return;
+        }
+
+        // 전화번호 업데이트 요청
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/update-phone`,
           {
@@ -42,16 +63,13 @@ const Phone = () => {
             gender: values.gender,
             nickName: values.nickname,
           },
-          { withCredentials: true }
+          {
+            headers: {
+              Authorization: `Bearer ${tempToken}`, // 임시 토큰을 헤더에 포함
+            },
+            withCredentials: true,
+          }
         );
-
-        // 응답에서 임시 토큰 받기 (예: res.data.temp_access_token)
-        const tempToken = res.data.temp_access_token;
-
-        if (tempToken) {
-          // 임시 토큰을 쿠키에 저장
-          Cookies.set("temp_access_token", tempToken, { expires: 10 / 1440 });
-        }
 
         if (res.data.ok) {
           alert("추가 정보 등록 완료!");
