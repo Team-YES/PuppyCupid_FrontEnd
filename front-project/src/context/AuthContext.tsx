@@ -126,7 +126,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
       console.log("[4] access_token 실패 → temp_token 검사");
       // 2. access_token이 없거나 만료 → temp_access_token 검사
-      const tempRes = await axiosInstance.post("/auth/check-temp-token");
+      const tempRes = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/check-temp-token`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
       console.log("[5] temp_token 응답:", tempRes.data);
 
       if (tempRes.data.isLoggedIn) {
