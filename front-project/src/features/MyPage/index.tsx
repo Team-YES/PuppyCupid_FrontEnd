@@ -19,7 +19,7 @@ import PuppyForm from "../../components/PuppyForm";
 // 내 정보 수정
 import PersonForm from "../../components/PersonForm";
 // 하단 게시물
-import PostList from "../../components/PostList";
+import PostList from "../../components/Postlist";
 import AlertList from "../../components/AlertList";
 // 강아지 정보 수정
 import PuppyFormFix from "../../components/PuppyFormFix";
