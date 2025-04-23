@@ -12,7 +12,7 @@ import {
 } from "./styled";
 import Otherpostcount from "../../assets/Otherpostcount";
 import PuppyProfile from "../../assets/PuppyProfile";
-import PostList from "../../components/PostList";
+import PostList from "../../components/Postlist";
 
 // 쿠키 토큰 재발급 해보기
 import axiosInstance from "@/lib/axios";
