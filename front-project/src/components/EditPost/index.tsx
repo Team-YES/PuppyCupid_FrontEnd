@@ -88,7 +88,7 @@ const EditPost = () => {
       return errors;
     },
     onSubmit: async (values) => {
-      console.log(values);
+      // console.log(values);
       const formData = new FormData();
 
       post?.post.images.forEach((img) => {
