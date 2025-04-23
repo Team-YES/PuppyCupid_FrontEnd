@@ -1,5 +1,8 @@
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "js-cookie";
+
+const token = Cookies.get("accessToken");
 
 export type Post = {
   id: number;
@@ -39,6 +42,9 @@ export const fetchAllPosts = createAsyncThunk(
   async () => {
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
       withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return res.data;
   }

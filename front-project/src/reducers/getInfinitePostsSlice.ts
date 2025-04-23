@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 interface Post {
   id: number;
@@ -43,6 +44,8 @@ const initialState: InfinitePostsState = {
   currentUser: null,
 };
 
+const token = Cookies.get("accessToken");
+
 // 무한스크롤
 export const fetchPostsByPage = createAsyncThunk(
   "posts/fetchPostsByPage",
@@ -51,6 +54,9 @@ export const fetchPostsByPage = createAsyncThunk(
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
       params: { page, limit },
       withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     // console.log("무한스크롤slice:", res.data);
     return res.data;

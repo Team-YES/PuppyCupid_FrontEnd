@@ -86,11 +86,16 @@ const WalkingMate = () => {
         const { latitude, longitude } = pos.coords;
 
         try {
+          const token = Cookies.get("accessToken");
+
           const res = await axios.post(
             `${process.env.NEXT_PUBLIC_API_URL}/dogs/${dogId}/location`,
             { latitude, longitude },
             {
               withCredentials: true,
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
             }
           );
 

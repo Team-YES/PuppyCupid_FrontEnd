@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 interface Comment {
   id: number;
@@ -25,6 +26,8 @@ const initialState: CommentState = {
   postId: null,
 };
 
+const token = Cookies.get("accessToken");
+
 // 답글 등록
 export const postReply = createAsyncThunk(
   "comment/postReply",
@@ -47,7 +50,12 @@ export const postReply = createAsyncThunk(
           content,
           parentCommentId,
         },
-        { withCredentials: true }
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       console.log("답글등록slice: ", res.data);
       return res.data.content;
@@ -68,7 +76,12 @@ export const postComment = createAsyncThunk(
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/interactions/comment/${postId}`,
         { content },
-        { withCredentials: true }
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       // 성공여부 확인
@@ -101,7 +114,12 @@ export const fetchComments = createAsyncThunk(
   async (postId: number) => {
     const res = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/interactions/comment/${postId}`,
-      { withCredentials: true }
+      {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     // console.log("댓글 get: ", res.data);
     return res.data;
@@ -117,6 +135,9 @@ export const deleteComment = createAsyncThunk(
         `${process.env.NEXT_PUBLIC_API_URL}/interactions/comment/${commentId}`,
         {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       // console.log("삭제성공: ", commentId);

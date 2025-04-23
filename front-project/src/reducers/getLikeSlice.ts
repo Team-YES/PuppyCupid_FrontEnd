@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { RootState } from "../store/store";
+import Cookies from "js-cookie";
 
 interface LikeState {
   like: any;
@@ -14,6 +15,8 @@ const initialState: LikeState = {
   error: null,
 };
 
+const token = Cookies.get("accessToken");
+
 // 좋아요 요청
 export const AxiosGetLike = createAsyncThunk(
   "like/AxiosGetLike",
@@ -24,6 +27,9 @@ export const AxiosGetLike = createAsyncThunk(
         {},
         {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       // console.log(res.data);
