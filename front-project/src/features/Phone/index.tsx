@@ -17,7 +17,11 @@ const Phone = () => {
     if (token) {
       // 임시 토큰을 상태와 쿠키에 저장
       setTempToken(token);
-      Cookies.set("temp_access_token", token, { expires: 10 / 1440 });
+      Cookies.set("temp_access_token", token, {
+        expires: 10 / 1440,
+        path: "/",
+      });
+      console.log(Cookies.get("temp_access_token"));
     } else {
       console.error("임시 토큰이 URL 파라미터에 없습니다.");
     }
