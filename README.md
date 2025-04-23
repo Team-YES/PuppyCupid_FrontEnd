@@ -1,4 +1,5 @@
 # 🐶 소개팅 – GPS 기반 반려동물 친구 만들기 서비스
+![표지](https://github.com/user-attachments/assets/da5bd035-7759-4d7c-9223-14c81ce95aca)
 
 ## 🚀 프로젝트 소개
 
@@ -26,7 +27,7 @@
     </td>
     <td align="center">
       <strong>전체 게시물</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/c5e59416-c6ff-4fd0-89da-8b6b52652b44" alt="all-post" width="270" height="250">
+      <img src="https://github.com/user-attachments/assets/c5e59416-c6ff-4fd0-89da-8b6b52652b44" alt="all-post" width="280" height="250">
     </td>
     <td align="center">
        <strong>상세 게시물</strong><br><br>
