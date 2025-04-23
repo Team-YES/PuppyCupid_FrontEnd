@@ -176,9 +176,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // 로그아웃 함수
   const logout = async () => {
     try {
-      await axiosInstance.get("/auth/logout");
-      // Cookies.remove("access_token"); // 쿠키에서 토큰 삭제
-      // Cookies.remove("eid_refresh_token"); // 쿠키에서 토큰 삭제
+      // await axiosInstance.get("/auth/logout");
+      Cookies.remove("access_token"); // 쿠키에서 토큰 삭제
+      Cookies.remove("refresh_token"); // 쿠키에서 토큰 삭제
 
       setIsLoggedIn(false);
       setUser(null); // 추가중

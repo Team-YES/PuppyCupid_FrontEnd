@@ -84,6 +84,17 @@ const Phone = () => {
         );
 
         if (res.data.ok) {
+          const { access_token, refresh_token } = res.data;
+          // 쿠키에 토큰 저장
+          Cookies.set("access_token", access_token, { expires: 7, path: "/" });
+          Cookies.set("refresh_token", refresh_token, {
+            expires: 7,
+            path: "/",
+          });
+
+          // 임시 토큰 삭제
+          Cookies.remove("temp_access_token");
+
           alert("추가 정보 등록 완료!");
           window.location.href = "/";
         }
