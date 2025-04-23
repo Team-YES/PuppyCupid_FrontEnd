@@ -23,6 +23,10 @@ const Phone = () => {
     }
   }, []);
 
+  useEffect(() => {
+    console.log("현재 저장된 tempToken:", tempToken);
+  }, [tempToken]);
+
   const formik = useFormik({
     initialValues: {
       phone: "",
@@ -50,7 +54,7 @@ const Phone = () => {
 
       try {
         // 임시 토큰이 없으면 알림
-        if (!tempToken) {
+        if (!tempToken && !Cookies.get("temp_access_token")) {
           alert("임시 토큰이 없습니다. 다시 시도해주세요.");
           return;
         }
@@ -65,7 +69,9 @@ const Phone = () => {
           },
           {
             headers: {
-              Authorization: `Bearer ${tempToken}`, // 임시 토큰을 헤더에 포함
+              Authorization: `Bearer ${
+                tempToken || Cookies.get("temp_access_token")
+              }`,
             },
             withCredentials: true,
           }
