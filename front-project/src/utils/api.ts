@@ -3,7 +3,7 @@ import axios from "axios";
 export const markMessagesAsRead = async (otherUserId: number) => {
   try {
     const response = await axios.patch(
-      `http://localhost:5000/messages/read/${otherUserId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/messages/read/${otherUserId}`,
       null,
       {
         withCredentials: true,

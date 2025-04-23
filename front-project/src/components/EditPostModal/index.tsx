@@ -122,10 +122,11 @@ const EditPostModal = ({
     if (!confirmDelete) return;
 
     try {
-      const res = await axios.delete(`http://localhost:5000/posts/${postId}`, {
+      const baseURL = process.env.NEXT_PUBLIC_API_URL;
+      const res = await axios.delete(`${baseURL}/posts/${postId}`, {
         withCredentials: true,
       });
-      console.log("게시물 삭제 성공 응답: ", res.data);
+      // console.log("게시물 삭제 성공 응답: ", res.data);
       // res.data : true
 
       alert("게시물을 삭제하였습니다.");
@@ -142,8 +143,9 @@ const EditPostModal = ({
     setIsSending(true);
 
     try {
+      const baseURL = process.env.NEXT_PUBLIC_API_URL;
       const res = await axios.post(
-        "http://localhost:5000/messages",
+        `${baseURL}/messages`,
         {
           receiverId,
           content: "채팅 신청합니다!",

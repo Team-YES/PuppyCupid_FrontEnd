@@ -37,7 +37,7 @@ const initialState: PostsState = {
 export const fetchAllPosts = createAsyncThunk(
   "posts/fetchAllPosts",
   async () => {
-    const res = await axios.get("http://localhost:5000/posts", {
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
       withCredentials: true,
     });
     return res.data;

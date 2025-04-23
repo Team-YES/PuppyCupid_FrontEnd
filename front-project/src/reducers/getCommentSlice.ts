@@ -42,7 +42,7 @@ export const postReply = createAsyncThunk(
   ) => {
     try {
       const res = await axios.post(
-        `http://localhost:5000/interactions/comment/${postId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/interactions/comment/${postId}`,
         {
           content,
           parentCommentId,
@@ -66,7 +66,7 @@ export const postComment = createAsyncThunk(
   ) => {
     try {
       const res = await axios.post(
-        `http://localhost:5000/interactions/comment/${postId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/interactions/comment/${postId}`,
         { content },
         { withCredentials: true }
       );
@@ -100,10 +100,10 @@ export const fetchComments = createAsyncThunk(
   "comment/fetchComments",
   async (postId: number) => {
     const res = await axios.get(
-      `http://localhost:5000/interactions/comment/${postId}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/interactions/comment/${postId}`,
       { withCredentials: true }
     );
-    console.log("댓글 get: ", res.data);
+    // console.log("댓글 get: ", res.data);
     return res.data;
   }
 );
@@ -114,12 +114,12 @@ export const deleteComment = createAsyncThunk(
   async (commentId: number, { rejectWithValue }) => {
     try {
       await axios.delete(
-        `http://localhost:5000/interactions/comment/${commentId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/interactions/comment/${commentId}`,
         {
           withCredentials: true,
         }
       );
-      console.log("삭제성공: ", commentId);
+      // console.log("삭제성공: ", commentId);
       return commentId; // 삭제 성공 시 삭제된 댓글 ID 반환
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || "댓글 삭제 실패");

@@ -29,9 +29,10 @@ type ChatRoomProps = {
   setOpenChat: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-// 메시지 불러오기 (2초마다 갱신)
+// 메시지 불러오기 (3초마다 갱신)
 const fetchMessages = async (receiverId: number) => {
-  const res = await axios.get(`http://localhost:5000/messages/${receiverId}`, {
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const res = await axios.get(`${baseURL}/messages/${receiverId}`, {
     withCredentials: true,
   });
 
@@ -46,8 +47,9 @@ const sendMessage = async ({
   receiverId: number;
   content: string;
 }) => {
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const res = await axios.post(
-    `http://localhost:5000/messages`,
+    `${baseURL}/messages`,
     { receiverId, content },
     { withCredentials: true }
   );
@@ -58,7 +60,7 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { receiverId } = router.query;
-  const myId = useSelector((state: RootState) => state.user.user?.id);
+  const myId = useSelector((state: RootState) => state.user.user?.id ?? null);
   const [receiverNickName, setReceiverNickName] = useState("");
   const [input, setInput] = useState("");
   // 신고하기
@@ -70,8 +72,11 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
   );
   const chatUsers = useSelector((state: RootState) => state.chatUsers.users);
   const receiverUser = chatUsers.find((user) => user.id === parsedId);
+  // 주소
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
   const receiverImage = receiverUser?.dogImage
-    ? `http://localhost:5000${receiverUser.dogImage}`
+    ? `${baseURL}${receiverUser.dogImage}`
     : "/puppy_profile.png";
 
   // 이모티콘
@@ -102,13 +107,10 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
 
   // 메시지 삭제 axios
   const deleteMessage = async (otherUserId: number) => {
-    const res = await axios.delete(
-      `http://localhost:5000/messages/${otherUserId}`,
-      {
-        withCredentials: true,
-      }
-    );
-
+    const baseURL = process.env.NEXT_PUBLIC_API_URL;
+    const res = await axios.delete(`${baseURL}/messages/${otherUserId}`, {
+      withCredentials: true,
+    });
     return res.data;
   };
 

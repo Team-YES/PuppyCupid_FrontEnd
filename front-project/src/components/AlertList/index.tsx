@@ -43,7 +43,9 @@ const AlertList: React.FC<AlertListProps> = ({ data }) => {
           {(data ?? []).map((post) => (
             <div key={post.id} className="AlertList_post">
               <div className="AlertList_post_dogImage">
-                <img src={`http://localhost:5000${post.dogImage}`} />
+                <img
+                  src={`${process.env.NEXT_PUBLIC_API_URL}${post.dogImage}`}
+                />
               </div>
               <div className="AlertList_post_info">
                 {post.message}

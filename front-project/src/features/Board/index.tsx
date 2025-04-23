@@ -150,12 +150,15 @@ const Board = () => {
         // console.log("위도: ", lat, " 경도: ", lon);
 
         try {
-          const res = await axios.get("http://localhost:5000/weather", {
-            params: {
-              lat,
-              lon,
-            },
-          });
+          const res = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/weather`,
+            {
+              params: {
+                lat,
+                lon,
+              },
+            }
+          );
           // console.log("백엔드 응답:", res.data);
           setWeather(res.data.weather_main);
           setWeatherIcon(res.data.icon);

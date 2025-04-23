@@ -19,7 +19,7 @@ import PuppyForm from "../../components/PuppyForm";
 // 내 정보 수정
 import PersonForm from "../../components/PersonForm";
 // 하단 게시물
-import PostList from "../../components/Postlist";
+import PostList from "../../components/PostList";
 import AlertList from "../../components/AlertList";
 // 강아지 정보 수정
 import PuppyFormFix from "../../components/PuppyFormFix";
@@ -86,7 +86,7 @@ const MyPage = () => {
     const fetchNotificationStatus = async () => {
       try {
         const response = await axiosInstance.get(
-          "http://localhost:5000/notifications/status"
+          `${process.env.NEXT_PUBLIC_API_URL}/notifications/status`
         );
         const newHasUnread = response.data.hasUnread; // 서버에서 받아온 상태
         setHasUnread(newHasUnread); // 상태 업데이트
@@ -101,7 +101,9 @@ const MyPage = () => {
 
   const handleMarkAsRead = async () => {
     try {
-      await axiosInstance.patch("http://localhost:5000/notifications/read");
+      await axiosInstance.patch(
+        `${process.env.NEXT_PUBLIC_API_URL}/notifications/read`
+      );
       setHasUnread(false); // 읽음 처리 후 빨간 점 사라짐
       localStorage.setItem("hasUnread", JSON.stringify(false)); // 로컬스토리지에 상태 저장
     } catch (error) {
@@ -120,7 +122,7 @@ const MyPage = () => {
     const fetchPuppyProfile = async () => {
       try {
         const response = await axiosInstance.get(
-          "http://localhost:5000/dogs/profile"
+          `${process.env.NEXT_PUBLIC_API_URL}/dogs/profile`
         );
         if (response.data.ok) {
           setPuppy(response.data.dog);
@@ -173,7 +175,7 @@ const MyPage = () => {
     setData(null);
     try {
       const response = await axiosInstance.get(
-        "http://localhost:5000/users/mypage",
+        `${process.env.NEXT_PUBLIC_API_URL}/users/mypage`,
         {
           params: {
             [`${type}Page`]: 1,
@@ -213,7 +215,7 @@ const MyPage = () => {
       setLoading(true);
 
       const response = await axiosInstance.get(
-        `http://localhost:5000/users/mypage?type=${type}&page=1`
+        `${process.env.NEXT_PUBLIC_API_URL}/users/mypage?type=${type}&page=1`
       );
       if (response.data.ok) {
         const result = response.data[type];
@@ -235,7 +237,7 @@ const MyPage = () => {
 
     try {
       const response = await axiosInstance.get(
-        "http://localhost:5000/users/mypage",
+        `${process.env.NEXT_PUBLIC_API_URL}/users/mypage`,
         {
           params: {
             [`${selectedType}Page`]: nextPage,
@@ -361,7 +363,7 @@ const MyPage = () => {
               <img
                 src={
                   puppy?.image
-                    ? `http://localhost:5000${puppy.image}`
+                    ? `${process.env.NEXT_PUBLIC_API_URL}${puppy.image}`
                     : "/puppy_profile.png"
                 }
                 alt="profile img"

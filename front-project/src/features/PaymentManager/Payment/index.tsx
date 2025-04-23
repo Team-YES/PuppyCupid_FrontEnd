@@ -22,7 +22,7 @@ const PaymentPage = ({ tossClientKey }: PaymentProps) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/payments/create",
+        `${process.env.NEXT_PUBLIC_API_URL}/payments/create`,
         {
           amount,
           method: "card",

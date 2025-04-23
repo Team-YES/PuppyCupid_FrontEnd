@@ -45,8 +45,9 @@ const EditPost = () => {
 
   // 서버에 해당 게시물 데이터 요청
   useEffect(() => {
+    const baseURL = process.env.NEXT_PUBLIC_API_URL;
     axios
-      .get<Post>(`http://localhost:5000/posts/${id}`, {
+      .get<Post>(`${baseURL}/posts/${id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -102,17 +103,14 @@ const EditPost = () => {
 
       // 게시글 수정 요청
       try {
-        const res = await axios.post(
-          `http://localhost:5000/posts/${id}`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            withCredentials: true,
-          }
-        );
-        console.log("게시물 수정 성공 응답: ", res.data);
+        const baseURL = process.env.NEXT_PUBLIC_API_URL;
+        const res = await axios.post(`${baseURL}/posts/${id}`, formData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        });
+        // console.log("게시물 수정 성공 응답: ", res.data);
 
         const ok = confirm("게시물을 수정하시겠습니까?");
         if (ok) {
@@ -148,7 +146,7 @@ const EditPost = () => {
               <SwiperSlide key={i}>
                 <ImageBox>
                   <PreviewImg
-                    src={`http://localhost:5000${img.image_url}`}
+                    src={`${process.env.NEXT_PUBLIC_API_URL}${img.image_url}`}
                     alt={`이미지 미리보기${i + 1}`}
                     style={{ width: "100%" }}
                   />

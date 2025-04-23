@@ -10,7 +10,7 @@ import BlacklistRoute from "@/components/BlacklistRoute";
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const response = await axios.get(
-      "http://localhost:5000/payments/getTossClientKey"
+      `${process.env.NEXT_PUBLIC_API_URL}/payments/getTossClientKey`
     );
     const tossClientKey = response.data.tossClientKey;
     return { props: { tossClientKey } };

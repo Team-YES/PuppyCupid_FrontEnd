@@ -84,7 +84,7 @@ export default function ContactPage() {
 
       try {
         await axios.post(
-          "http://localhost:5000/inquiries/contact",
+          `${process.env.NEXT_PUBLIC_API_URL}/inquiries/contact`,
           {
             name: values.name,
             email: values.email,

@@ -61,11 +61,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         dispatch(logoutUser()); // 추가중
         return;
       }
-
-      // 서버에 로그인 상태 확인 요청
-      // const response = await axios.get("http://localhost:5000/auth/check", {
-      //   withCredentials: true, // 쿠키를 포함시켜서 요청
-      // });
       const response = await axiosInstance.get("/auth/check");
 
       if (response.data.isLoggedIn) {

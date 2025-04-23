@@ -109,7 +109,7 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
                 <div className="Post_SwiperBox">
                   <img
                     className="Post_swiperImg"
-                    src={`http://localhost:5000${img.image_url}`}
+                    src={`${process.env.NEXT_PUBLIC_API_URL}${img.image_url}`}
                     alt={`post_image${img.id}`}
                   />
                 </div>
@@ -129,7 +129,7 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
                 className="Post_Img"
                 src={
                   post.user.dogImage
-                    ? `http://localhost:5000${post.user.dogImage}`
+                    ? `${process.env.NEXT_PUBLIC_API_URL}${post.user.dogImage}`
                     : "/puppy_profile.png"
                 }
               />

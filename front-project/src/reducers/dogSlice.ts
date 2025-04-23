@@ -28,9 +28,12 @@ const initialState: DogState = {
 };
 
 export const fetchMyDog = createAsyncThunk("dog/fetchMyDog", async () => {
-  const res = await axios.get("http://localhost:5000/dogs/profile", {
-    withCredentials: true,
-  });
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/dogs/profile`,
+    {
+      withCredentials: true,
+    }
+  );
   return res.data;
 });
 

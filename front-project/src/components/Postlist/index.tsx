@@ -52,7 +52,7 @@ const PostList: React.FC<PostListProps> = ({ data }) => {
               <img
                 src={
                   post.main_image_url
-                    ? `http://localhost:5000${post.main_image_url}`
+                    ? `${process.env.NEXT_PUBLIC_API_URL}${post.main_image_url}`
                     : "/puppy_profile.png"
                 }
                 alt={

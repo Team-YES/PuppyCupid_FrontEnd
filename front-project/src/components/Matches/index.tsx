@@ -98,8 +98,9 @@ const Matches = ({ setMatches }: MatchesProps) => {
   // const router = useRouter();
   const handleChatRequest = async (receiverId: number | undefined) => {
     try {
+      const baseURL = process.env.NEXT_PUBLIC_API_URL;
       const res = await axios.post(
-        "http://localhost:5000/messages",
+        `${baseURL}/messages`,
         {
           receiverId,
           content: "산책 메이트 신청합니다!",
@@ -153,7 +154,7 @@ const Matches = ({ setMatches }: MatchesProps) => {
             <div className="Matches_userInfoWrap">
               <div className="Matches_imgWrap">
                 <img
-                  src={`http://localhost:5000${matchDog.dog_image}`}
+                  src={`${process.env.NEXT_PUBLIC_API_URL}${matchDog.dog_image}`}
                   alt="matchdogImage"
                 />
               </div>

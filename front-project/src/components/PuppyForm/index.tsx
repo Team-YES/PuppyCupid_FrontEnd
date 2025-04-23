@@ -75,7 +75,7 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
           formData.append("image", values.puppyImage);
         }
         const response = await axios.post(
-          "http://localhost:5000/dogs/register",
+          `${process.env.NEXT_PUBLIC_API_URL}/dogs/register`,
           formData,
           {
             headers: {

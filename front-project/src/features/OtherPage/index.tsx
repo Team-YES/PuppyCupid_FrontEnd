@@ -12,7 +12,7 @@ import {
 } from "./styled";
 import Otherpostcount from "../../assets/Otherpostcount";
 import PuppyProfile from "../../assets/PuppyProfile";
-import PostList from "../../components/Postlist";
+import PostList from "../../components/PostList";
 
 // 쿠키 토큰 재발급 해보기
 import axiosInstance from "@/lib/axios";
@@ -98,7 +98,7 @@ const OtherPage = () => {
     setData(null);
     try {
       const response = await axiosInstance.get(
-        `http://localhost:5000/users/otherpage/${otherUserId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/otherpage/${otherUserId}`,
         {
           params: {
             [`${type}Page`]: 1,
@@ -127,7 +127,7 @@ const OtherPage = () => {
 
     try {
       const response = await axiosInstance.get(
-        `http://localhost:5000/users/otherpage/${otherUserId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/otherpage/${otherUserId}`,
         {
           params: {
             [`${selectedType}Page`]: nextPage,
@@ -183,7 +183,7 @@ const OtherPage = () => {
     const fetchData = async () => {
       try {
         const res = await axiosInstance.get(
-          `http://localhost:5000/users/otherpage/${otherUserId}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/users/otherpage/${otherUserId}`,
           {
             params: {
               postsPage: 1,
@@ -224,7 +224,7 @@ const OtherPage = () => {
 
     try {
       const res = await axiosInstance.post(
-        "http://localhost:5000/messages",
+        `${process.env.NEXT_PUBLIC_API_URL}/messages`,
         {
           receiverId: Number(otherUserId),
           content: "채팅 신청합니다!",
@@ -249,7 +249,7 @@ const OtherPage = () => {
   const fetchFollowStatus = async (targetUserId: number) => {
     try {
       const res = await axiosInstance.get(
-        `http://localhost:5000/follows/status/${targetUserId}`
+        `${process.env.NEXT_PUBLIC_API_URL}/follows/status/${targetUserId}`
       );
       return res.data;
     } catch (err) {
@@ -264,7 +264,7 @@ const OtherPage = () => {
 
     try {
       await axiosInstance.post(
-        `http://localhost:5000/follows/${otherUserId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/follows/${otherUserId}`,
         {},
         { withCredentials: true }
       );
@@ -309,7 +309,7 @@ const OtherPage = () => {
               <img
                 src={
                   dogs.length > 0 && dogs[0].dog_image
-                    ? `http://localhost:5000${dogs[0].dog_image}`
+                    ? `${process.env.NEXT_PUBLIC_API_URL}${dogs[0].dog_image}`
                     : "/puppy_profile.png"
                 }
                 alt="profile img"

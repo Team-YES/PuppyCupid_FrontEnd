@@ -40,11 +40,14 @@ export default function SuccessPage() {
           (process.env.NODE_ENV === "development" &&
             paymentData.status === "IN_PROGRESS")
         ) {
-          await axios.post("http://localhost:5000/payments/success", {
-            orderId: parsedOrderId,
-            amount: parsedAmount,
-            paymentKey: parsedPaymentKey,
-          });
+          await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/payments/success`,
+            {
+              orderId: parsedOrderId,
+              amount: parsedAmount,
+              paymentKey: parsedPaymentKey,
+            }
+          );
           setStatusChecked(true);
         }
       } catch (err) {

@@ -62,7 +62,7 @@ const UsersModal = ({
                   <img
                     src={
                       user.dogImage
-                        ? `http://localhost:5000${user.dogImage}`
+                        ? `${process.env.NEXT_PUBLIC_API_URL}${user.dogImage}`
                         : defaultImage
                     }
                     alt="userImg"

@@ -129,7 +129,8 @@ const DetailPost = ({
   const handleLikeClick = async () => {
     if (checkBlacklistAndBlock(userInfo)) return;
 
-    const url = `http://localhost:5000/interactions/like/${post.id}`;
+    const baseURL = process.env.NEXT_PUBLIC_API_URL;
+    const url = `${baseURL}/interactions/like/${post.id}`;
     const result = await dispatch(AxiosGetLike(url));
 
     // console.log("좋아요 응답 : ", result.payload);
@@ -207,7 +208,7 @@ const DetailPost = ({
                     <div className="Post_SwiperBox">
                       <img
                         className="Post_swiperImg"
-                        src={`http://localhost:5000${img.image_url}`}
+                        src={`${process.env.NEXT_PUBLIC_API_URL}${img.image_url}`}
                         alt={`post_image${img.id}`}
                       />
                     </div>
@@ -236,10 +237,10 @@ const DetailPost = ({
                     className="Detail_img"
                     src={
                       post.user?.dogImage
-                        ? `http://localhost:5000${post.user.dogImage}`
+                        ? `${process.env.NEXT_PUBLIC_API_URL}${post.user.dogImage}`
                         : post.user?.dogs?.length &&
                           post.user.dogs[0]?.dog_image
-                        ? `http://localhost:5000${post.user.dogs[0].dog_image}`
+                        ? `${process.env.NEXT_PUBLIC_API_URL}${post.user.dogs[0].dog_image}`
                         : "/puppy_profile.png"
                     }
                   />
@@ -299,9 +300,9 @@ const DetailPost = ({
                       // src={imageSrc}
                       src={
                         post.user?.dogImage
-                          ? `http://localhost:5000${post.user.dogImage}`
+                          ? `${process.env.NEXT_PUBLIC_API_URL}${post.user.dogImage}`
                           : post.user?.dogs?.[0]?.dog_image
-                          ? `http://localhost:5000${post.user.dogs[0].dog_image}`
+                          ? `${process.env.NEXT_PUBLIC_API_URL}${post.user.dogs[0].dog_image}`
                           : "/puppy_profile.png"
                       }
                     />
@@ -364,7 +365,7 @@ const DetailPost = ({
                                   className="Detail_img"
                                   src={
                                     comment.user?.dogImage
-                                      ? `http://localhost:5000${comment.user.dogImage}`
+                                      ? `${process.env.NEXT_PUBLIC_API_URL}${comment.user.dogImage}`
                                       : "/puppy_profile.png"
                                   }
                                 />
@@ -447,7 +448,7 @@ const DetailPost = ({
                                         className="Detail_img"
                                         src={
                                           reply.user?.dogImage
-                                            ? `http://localhost:5000${reply.user.dogImage}`
+                                            ? `${process.env.NEXT_PUBLIC_API_URL}${reply.user.dogImage}`
                                             : "/puppy_profile.png"
                                         }
                                       />
@@ -528,7 +529,7 @@ const DetailPost = ({
                 <KakaoShare
                   title={post.user?.nickName}
                   description={post.content}
-                  imageUrl={`http://localhost:5000${post.main_image_url}`}
+                  imageUrl={`${process.env.NEXT_PUBLIC_API_URL}${post.main_image_url}`}
                   url={
                     typeof window !== "undefined" ? window.location.href : ""
                   }

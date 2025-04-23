@@ -37,8 +37,9 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
     validationSchema,
     onSubmit: async (values) => {
       try {
+        const baseURL = process.env.NEXT_PUBLIC_API_URL;
         await axios.put(
-          "http://localhost:5000/users/update",
+          `${baseURL}/users/update`,
           {
             nickname: values.personNickName,
             phone: values.personPhone,
@@ -58,7 +59,8 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/users/info", {
+        const baseURL = process.env.NEXT_PUBLIC_API_URL;
+        const response = await axios.get(`${baseURL}/users/info`, {
           withCredentials: true,
         });
 
@@ -102,7 +104,8 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
     }
 
     try {
-      const res = await axios.get("http://localhost:5000/users/nickName", {
+      const baseURL = process.env.NEXT_PUBLIC_API_URL;
+      const res = await axios.get(`${baseURL}/users/nickName`, {
         params: { nickName: formik.values.personNickName },
         withCredentials: true,
       });
@@ -140,13 +143,14 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
 
     try {
       // 유저 ID 가져오기
-      const res = await axios.get("http://localhost:5000/users/info", {
+      const baseURL = process.env.NEXT_PUBLIC_API_URL;
+      const res = await axios.get(`${baseURL}/users/info`, {
         withCredentials: true,
       });
       const userId = res.data.user.id;
 
       // 회원탈퇴 요청
-      await axios.delete(`http://localhost:5000/users/${userId}`, {
+      await axios.delete(`${baseURL}/users/${userId}`, {
         withCredentials: true,
       });
 

@@ -48,11 +48,11 @@ export const fetchPostsByPage = createAsyncThunk(
   "posts/fetchPostsByPage",
   async ({ page, limit }: { page: number; limit: number }) => {
     console.log("📦 API 요청 실행 - page:", page);
-    const res = await axios.get("http://localhost:5000/posts", {
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
       params: { page, limit },
       withCredentials: true,
     });
-    console.log("무한스크롤slice:", res.data);
+    // console.log("무한스크롤slice:", res.data);
     return res.data;
   }
 );

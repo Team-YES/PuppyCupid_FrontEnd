@@ -35,7 +35,7 @@ const Phone = () => {
 
       try {
         const res = await axios.post(
-          "http://localhost:5000/auth/update-phone",
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/update-phone`,
           {
             phone: values.phone,
             gender: values.gender,
@@ -73,10 +73,13 @@ const Phone = () => {
     }
 
     try {
-      const res = await axios.get("http://localhost:5000/auth/nickName", {
-        params: { nickName: formik.values.nickname },
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/nickName`,
+        {
+          params: { nickName: formik.values.nickname },
+          withCredentials: true,
+        }
+      );
 
       if (res.data.ok) {
         setNicknameCheckPassed(true);

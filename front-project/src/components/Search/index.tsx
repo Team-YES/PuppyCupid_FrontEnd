@@ -30,10 +30,13 @@ const Search = ({ setSearchResult }: Props) => {
     // 글자 수가 2이상일 때 검색 요청
     if (keyword.trim().length >= 2) {
       try {
-        const res = await axios.get(`http://localhost:5000/posts/search`, {
-          params: { keyword },
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/posts/search`,
+          {
+            params: { keyword },
+            withCredentials: true,
+          }
+        );
         // console.log("검색결과 : ", res.data);
         const { ok, posts } = res.data;
         setSearchResult(posts);

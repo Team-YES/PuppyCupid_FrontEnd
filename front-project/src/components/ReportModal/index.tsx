@@ -25,7 +25,7 @@ const ReportModal = ({ type, targetId, onClose }: ReportModalProps) => {
     onSubmit: async (values, { resetForm }) => {
       try {
         await axios.post(
-          `http://localhost:5000/report/${type}/${targetId}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/report/${type}/${targetId}`,
           {
             targetId,
             reason: values.reason,

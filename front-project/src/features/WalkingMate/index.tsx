@@ -39,7 +39,7 @@ const WalkingMate = () => {
   const handleChat = async (receiverId: number | undefined) => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/messages",
+        `${process.env.NEXT_PUBLIC_API_URL}/messages`,
         {
           receiverId,
           content: "산책 메이트 신청합니다!",
@@ -81,7 +81,7 @@ const WalkingMate = () => {
 
         try {
           const res = await axios.post(
-            `http://localhost:5000/dogs/${dogId}/location`,
+            `${process.env.NEXT_PUBLIC_API_URL}/dogs/${dogId}/location`,
             { latitude, longitude },
             {
               withCredentials: true,
@@ -136,7 +136,7 @@ const WalkingMate = () => {
                     <div className="WalkingMate_card-face WalkingMate_card-front">
                       <div className="WalkingMate_card-img-wrap">
                         <img
-                          src={`http://localhost:5000${dog.image}`}
+                          src={`${process.env.NEXT_PUBLIC_API_URL}${dog.image}`}
                           alt={`${dog.name}의 이미지`}
                         />
                       </div>

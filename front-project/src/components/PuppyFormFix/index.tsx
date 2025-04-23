@@ -32,7 +32,9 @@ const PuppyFormFix = ({
 }) => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(
-    puppy?.image ? `http://localhost:5000${puppy.image}` : defaultImage
+    puppy?.image
+      ? `${process.env.NEXT_PUBLIC_API_URL}${puppy.image}`
+      : defaultImage
   );
 
   // 폼 변경 시 버튼 활성화
@@ -86,7 +88,7 @@ const PuppyFormFix = ({
         }
 
         const response = await axios.post(
-          `http://localhost:5000/dogs/update/${puppy.id}`, // 기존 강아지 ID 사용
+          `${process.env.NEXT_PUBLIC_API_URL}/dogs/update/${puppy.id}`, // 기존 강아지 ID 사용
           formData,
           {
             headers: {
@@ -95,6 +97,7 @@ const PuppyFormFix = ({
             withCredentials: true,
           }
         );
+
         alert("강아지 정보가 수정되었습니다!");
         updatePuppyData(response.data);
         closeModal();
