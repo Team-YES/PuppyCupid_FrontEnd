@@ -50,18 +50,61 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   // 서버에서 로그인 상태를 확인하는 함수
+  // const checkLogin = async () => {
+  //   try {
+  //     const token = Cookies.get("access_token");
+  //     const tempToken = Cookies.get("temp_access_token"); // 쿠키에서 토큰을 가져옵니다.
+  //     if (!token && tempToken) {
+  //       router.push("/phone");
+  //       setIsLoggedIn(false);
+  //       setUser(null);
+  //       dispatch(logoutUser()); // 추가중
+  //       return;
+  //     }
+  //     const response = await axiosInstance.get("/auth/check");
+
+  //     if (response.data.isLoggedIn) {
+  //       setIsLoggedIn(true);
+
+  //       const userData: UserInfo = {
+  //         id: response.data.user.id,
+  //         email: response.data.user.email,
+  //         role: response.data.user.role ?? "user",
+  //         phoneNumber:
+  //           response.data.user.phoneNumber ?? response.data.user.phone ?? null, // 서버에선 `phone`, Redux에선 `phoneNumber`
+  //         nickName: response.data.user.nickName ?? null,
+  //         gender: response.data.user.gender ?? null,
+  //         isPhoneVerified: response.data.user.isPhoneVerified ?? false,
+  //         power_expired_at: response.data.user.power_expired_at ?? null,
+  //       };
+  //       setUser(userData);
+  //       dispatch(setReduxUser(userData));
+  //       if (
+  //         !userData.phoneNumber &&
+  //         userData.phoneNumber !== undefined &&
+  //         router.pathname !== "/phone"
+  //       ) {
+  //         router.push("/phone");
+  //       }
+  //     } else {
+  //       setIsLoggedIn(false);
+  //       setUser(null);
+  //       dispatch(logoutUser());
+  //     }
+  //   } catch (error) {
+  //     setIsLoggedIn(false);
+  //     setUser(null);
+  //     dispatch(logoutUser());
+  //   }
+  // };
   const checkLogin = async () => {
     try {
-      const token = Cookies.get("access_token");
-      const tempToken = Cookies.get("temp_access_token"); // 쿠키에서 토큰을 가져옵니다.
-      if (!token && tempToken) {
-        router.push("/phone");
-        setIsLoggedIn(false);
-        setUser(null);
-        dispatch(logoutUser()); // 추가중
-        return;
-      }
-      const response = await axiosInstance.get("/auth/check");
+      // 서버에 요청을 보내서 로그인 상태를 확인
+      const response = await axiosInstance.post(
+        "/auth/check-temp-token",
+        {},
+        { withCredentials: true }
+      );
 
       if (response.data.isLoggedIn) {
         setIsLoggedIn(true);
@@ -71,14 +114,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           email: response.data.user.email,
           role: response.data.user.role ?? "user",
           phoneNumber:
-            response.data.user.phoneNumber ?? response.data.user.phone ?? null, // 서버에선 `phone`, Redux에선 `phoneNumber`
+            response.data.user.phoneNumber ?? response.data.user.phone ?? null,
           nickName: response.data.user.nickName ?? null,
           gender: response.data.user.gender ?? null,
           isPhoneVerified: response.data.user.isPhoneVerified ?? false,
           power_expired_at: response.data.user.power_expired_at ?? null,
         };
+
         setUser(userData);
         dispatch(setReduxUser(userData));
+
         if (
           !userData.phoneNumber &&
           userData.phoneNumber !== undefined &&
