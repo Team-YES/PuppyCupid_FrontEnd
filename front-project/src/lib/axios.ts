@@ -2,7 +2,7 @@ import axios from "axios";
 import Router from "next/router";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: process.env.NEXT_PUBLIC_API_URL, // 환경변수 사용
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -18,10 +18,10 @@ axiosInstance.interceptors.response.use(
     // access_token 만료로 401 에러가 발생하고, 아직 재시도 안한 경우
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-
+      const baseURL = process.env.NEXT_PUBLIC_API_URL;
       try {
         // refresh_token이 쿠키에 있으므로 자동으로 포함됨
-        await axios.get("http://localhost:5000/auth/refresh", {
+        await axios.get(`${baseURL}/auth/refresh`, {
           withCredentials: true,
         });
 
