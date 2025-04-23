@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { PhonePadding } from "./styled";
 import axios from "axios";
 import { useState } from "react";
+import Cookies from "js-cookie";
 
 const Phone = () => {
   const [nicknameCheckPassed, setNicknameCheckPassed] = useState(false);
@@ -43,6 +44,14 @@ const Phone = () => {
           },
           { withCredentials: true }
         );
+
+        // 응답에서 임시 토큰 받기 (예: res.data.temp_access_token)
+        const tempToken = res.data.temp_access_token;
+
+        if (tempToken) {
+          // 임시 토큰을 쿠키에 저장
+          Cookies.set("temp_access_token", tempToken, { expires: 10 / 1440 });
+        }
 
         if (res.data.ok) {
           alert("추가 정보 등록 완료!");
