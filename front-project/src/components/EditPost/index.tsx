@@ -15,6 +15,7 @@ import InputComp from "../InputComp";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { formatNumberWithComma } from "@/utils/formatNumberWithComma";
+import Cookies from "js-cookie";
 
 type Post = {
   post: {
@@ -46,9 +47,14 @@ const EditPost = () => {
   // 서버에 해당 게시물 데이터 요청
   useEffect(() => {
     const baseURL = process.env.NEXT_PUBLIC_API_URL;
+    const token = Cookies.get("accessToken");
+
     axios
       .get<Post>(`${baseURL}/posts/${id}`, {
         withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((res) => {
         const postData = res.data;
@@ -104,9 +110,12 @@ const EditPost = () => {
       // 게시글 수정 요청
       try {
         const baseURL = process.env.NEXT_PUBLIC_API_URL;
+        const token = Cookies.get("accessToken");
+
         const res = await axios.post(`${baseURL}/posts/${id}`, formData, {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
         });
