@@ -100,9 +100,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const checkLogin = async () => {
     try {
       // 1. 먼저 access_token으로 로그인 상태 확인
+      console.log("[1] access_token 검사 시작");
       const response = await axiosInstance.get("/auth/check");
+      console.log("[2] access_token 응답:", response.data);
 
       if (response.data.isLoggedIn) {
+        console.log("[3] access_token 유효");
         setIsLoggedIn(true);
 
         const userData: UserInfo = {
@@ -121,11 +124,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         dispatch(setReduxUser(userData));
         return;
       }
-
+      console.log("[4] access_token 실패 → temp_token 검사");
       // 2. access_token이 없거나 만료 → temp_access_token 검사
       const tempRes = await axiosInstance.post("/auth/check-temp-token");
+      console.log("[5] temp_token 응답:", tempRes.data);
 
       if (tempRes.data.isLoggedIn) {
+        console.log("[6] temp_token 유효, /phone으로 이동");
+
         const tempUser: UserInfo = {
           id: tempRes.data.user.id,
           email: tempRes.data.user.email,
@@ -148,12 +154,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         return;
       }
-
+      console.log("[7] 둘 다 실패 → 로그아웃 처리");
       // 3. 둘 다 실패한 경우
       setIsLoggedIn(false);
       setUser(null);
       dispatch(logoutUser());
     } catch (error) {
+      console.error("[에러 발생]", error);
       setIsLoggedIn(false);
       setUser(null);
       dispatch(logoutUser());

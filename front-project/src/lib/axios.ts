@@ -16,7 +16,11 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
 
     // access_token 만료로 401 에러가 발생하고, 아직 재시도 안한 경우
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url.includes("/check-temp-token")
+    ) {
       originalRequest._retry = true;
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
       try {
