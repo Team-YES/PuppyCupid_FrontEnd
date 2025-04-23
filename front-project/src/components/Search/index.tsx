@@ -7,6 +7,7 @@ import {
 } from "./styled";
 import axios from "axios";
 import { Post } from "@/features/Board";
+import Cookies from "js-cookie";
 
 type Props = {
   setSearchResult: (posts: Post[]) => void;
@@ -30,11 +31,16 @@ const Search = ({ setSearchResult }: Props) => {
     // 글자 수가 2이상일 때 검색 요청
     if (keyword.trim().length >= 2) {
       try {
+        const token = Cookies.get("accessToken");
+
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/posts/search`,
           {
             params: { keyword },
             withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
         // console.log("검색결과 : ", res.data);

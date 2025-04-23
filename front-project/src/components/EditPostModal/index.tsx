@@ -150,6 +150,8 @@ const EditPostModal = ({
 
     try {
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
+      const token = Cookies.get("accessToken");
+
       const res = await axios.post(
         `${baseURL}/messages`,
         {
@@ -158,6 +160,9 @@ const EditPostModal = ({
         },
         {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

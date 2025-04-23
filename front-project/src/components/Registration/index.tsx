@@ -17,6 +17,7 @@ import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Scrollbar } from "swiper/modules";
 import { formatNumberWithComma } from "@/utils/formatNumberWithComma";
+import Cookies from "js-cookie";
 
 const Registration = () => {
   // 사진 개수
@@ -75,12 +76,15 @@ const Registration = () => {
 
       // 게시글 등록 axios 요청(파일 업로드용 헤더, 인증 쿠키)
       try {
+        const token = Cookies.get("accessToken");
+
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/posts/form`,
           formData,
           {
             headers: {
               "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
             },
             withCredentials: true,
           }

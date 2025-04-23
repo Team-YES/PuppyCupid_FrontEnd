@@ -3,6 +3,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { PersonFormStyle } from "./styled";
+import Cookies from "js-cookie";
 
 interface FormValues {
   personNickName: string;
@@ -38,13 +39,20 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
     onSubmit: async (values) => {
       try {
         const baseURL = process.env.NEXT_PUBLIC_API_URL;
+        const token = Cookies.get("accessToken");
+
         await axios.put(
           `${baseURL}/users/update`,
           {
             nickname: values.personNickName,
             phone: values.personPhone,
           },
-          { withCredentials: true }
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         alert("정보가 수정되었습니다.");
         closeModal();
@@ -60,8 +68,13 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
     const fetchUserInfo = async () => {
       try {
         const baseURL = process.env.NEXT_PUBLIC_API_URL;
+        const token = Cookies.get("accessToken");
+
         const response = await axios.get(`${baseURL}/users/info`, {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         formik.setValues({
@@ -105,9 +118,14 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
 
     try {
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
+      const token = Cookies.get("accessToken");
+
       const res = await axios.get(`${baseURL}/users/nickName`, {
         params: { nickName: formik.values.personNickName },
         withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (res.data.ok) {
@@ -144,14 +162,22 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
     try {
       // 유저 ID 가져오기
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
+      const token = Cookies.get("accessToken");
+
       const res = await axios.get(`${baseURL}/users/info`, {
         withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       const userId = res.data.user.id;
 
       // 회원탈퇴 요청
       await axios.delete(`${baseURL}/users/${userId}`, {
         withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       alert("회원탈퇴가 완료되었습니다.");

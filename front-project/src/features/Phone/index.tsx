@@ -106,11 +106,16 @@ const Phone = () => {
     }
 
     try {
+      const token = Cookies.get("accessToken");
+
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/nickName`,
         {
           params: { nickName: formik.values.nickname },
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

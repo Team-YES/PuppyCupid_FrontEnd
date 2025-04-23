@@ -6,6 +6,7 @@ import { personalities } from "@/constants/personalities";
 import { mbtiOptions } from "@/constants/mbtiOptions";
 import { formLabels } from "@/constants/formLabels";
 import { PuppyFormFixStyle } from "./styled";
+import Cookies from "js-cookie";
 
 // 내 강아지 프로필 수정 모달 (부모 컴포넌트 : MyPage)
 
@@ -75,6 +76,8 @@ const PuppyFormFix = ({
     validate,
     onSubmit: async (values) => {
       try {
+        const token = Cookies.get("accessToken");
+
         const formData = new FormData();
         formData.append("name", values.puppyName);
         formData.append("age", values.puppyAge);
@@ -93,6 +96,7 @@ const PuppyFormFix = ({
           {
             headers: {
               "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
             },
             withCredentials: true,
           }

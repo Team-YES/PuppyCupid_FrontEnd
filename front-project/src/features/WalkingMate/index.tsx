@@ -5,6 +5,7 @@ import axios from "axios";
 import { WalkingMateStyled, WalkingMateCard } from "./styled";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { fetchMyDog } from "@/reducers/dogSlice";
+import Cookies from "js-cookie";
 
 interface Dog {
   id: number;
@@ -38,6 +39,8 @@ const WalkingMate = () => {
   // 채팅하기 이동
   const handleChat = async (receiverId: number | undefined) => {
     try {
+      const token = Cookies.get("accessToken");
+
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/messages`,
         {
@@ -46,6 +49,9 @@ const WalkingMate = () => {
         },
         {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       window.location.href = `/chat?receiverId=${receiverId}`;
