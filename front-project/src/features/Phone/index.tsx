@@ -17,15 +17,15 @@ const Phone = () => {
     if (token) {
       // 임시 토큰을 상태와 쿠키에 저장
       setTempToken(token);
-      Cookies.set("temp_access_token", token, { expires: 10 / 1440 });
+      Cookies.set("temp_access_token", token, {
+        expires: 10 / 1440,
+        path: "/",
+      });
+      console.log(Cookies.get("temp_access_token"));
     } else {
       console.error("임시 토큰이 URL 파라미터에 없습니다.");
     }
   }, []);
-
-  useEffect(() => {
-    console.log("현재 저장된 tempToken:", tempToken);
-  }, [tempToken]);
 
   const formik = useFormik({
     initialValues: {
@@ -58,6 +58,12 @@ const Phone = () => {
           alert("임시 토큰이 없습니다. 다시 시도해주세요.");
           return;
         }
+
+        console.log("현재 tempToken 상태:", tempToken);
+        console.log(
+          "현재 쿠키의 temp_access_token:",
+          Cookies.get("temp_access_token")
+        );
 
         // 전화번호 업데이트 요청
         const res = await axios.post(
@@ -106,12 +112,15 @@ const Phone = () => {
     }
 
     try {
-      const token = Cookies.get("accessToken");
+      const token = tempToken || Cookies.get("temp_access_token");
 
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/nickName`,
         {
           params: { nickName: formik.values.nickname },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
