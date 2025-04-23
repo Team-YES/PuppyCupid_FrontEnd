@@ -23,43 +23,43 @@
   <tr>
     <td align="center">
       <strong>메인 페이지</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/9ee8d7db-5647-4c46-92b0-14316b3d3949" alt="mainpage" width="280" height="250">
+      <img src="https://github.com/user-attachments/assets/9ee8d7db-5647-4c46-92b0-14316b3d3949" alt="mainpage" width="270" height="250">
     </td>
     <td align="center">
       <strong>전체 게시물</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/c5e59416-c6ff-4fd0-89da-8b6b52652b44" alt="all-post" width="280" height="250">
+      <img src="https://github.com/user-attachments/assets/c5e59416-c6ff-4fd0-89da-8b6b52652b44" alt="all-post" width="270" height="250">
     </td>
     <td align="center">
        <strong>상세 게시물</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/5ba43f33-d9b9-4332-a8fa-d55677fcdb21" alt="post" width="280" height="250">
+      <img src="https://github.com/user-attachments/assets/5ba43f33-d9b9-4332-a8fa-d55677fcdb21" alt="post" width="270" height="250">
     </td>
   </tr>
   <tr>
     <td align="center">
       <strong>채팅하기</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/e6d3f330-0ae4-47d8-83cd-d55063b688ca" alt="chat" width="280" height="250">
+      <img src="https://github.com/user-attachments/assets/e6d3f330-0ae4-47d8-83cd-d55063b688ca" alt="chat" width="270" height="250">
     </td>
     <td align="center">
       <strong>내 정보 보기</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/6288bde7-1dcf-485b-9c98-f0d051e8786e" alt="my-profile" width="280" height="250">
+      <img src="https://github.com/user-attachments/assets/6288bde7-1dcf-485b-9c98-f0d051e8786e" alt="my-profile" width="270" height="250">
     </td>
      <td align="center">
       <strong>산책 메이트 & AI 매칭</strong><br><br>
-       <img alt="ai-page" src="https://github.com/user-attachments/assets/8b08b489-aa37-4d95-b706-2578f7e162ec" width="280" height="250"/>
+       <img alt="ai-page" src="https://github.com/user-attachments/assets/8b08b489-aa37-4d95-b706-2578f7e162ec" width="270" height="250"/>
     </td>
   </tr>
    <tr>
     <td align="center">
       <strong>소셜 로그인</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/6fb5ec66-3a87-4909-a2a3-7988230765a6" alt="login" width="280" height="250">
+      <img src="https://github.com/user-attachments/assets/6fb5ec66-3a87-4909-a2a3-7988230765a6" alt="login" width="270" height="250">
     </td>
     <td align="center">
       <strong>결제하기</strong><br><br>
-      <img src="https://github.com/user-attachments/assets/c4f46d4d-906a-4c81-b165-a230cb200dd6" alt="pay-page" width="280" height="250">
+      <img src="https://github.com/user-attachments/assets/c4f46d4d-906a-4c81-b165-a230cb200dd6" alt="pay-page" width="270" height="250">
     </td>
      <td align="center">
       <strong>ADMIN</strong><br><br>
-       <img alt="admin-page" src="https://github.com/user-attachments/assets/e39b6e99-70d3-4dcb-95d7-08ce80a132dc" width="280" height="250"/>
+       <img alt="admin-page" src="https://github.com/user-attachments/assets/e39b6e99-70d3-4dcb-95d7-08ce80a132dc" width="270" height="250"/>
     </td>
   </tr>
 </table>
