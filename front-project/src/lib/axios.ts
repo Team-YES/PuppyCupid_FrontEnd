@@ -1,11 +1,15 @@
 import axios from "axios";
 import Router from "next/router";
 import Cookies from "js-cookie";
+
+const token = Cookies.get("accessToken");
+
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL, // 환경변수 사용
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
   },
 });
 
@@ -27,6 +31,9 @@ axiosInstance.interceptors.response.use(
         // refresh_token이 쿠키에 있으므로 자동으로 포함됨
         await axios.get(`${baseURL}/auth/refresh`, {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         // access_token이 재발급되었으니, 원래 요청 재시도

@@ -4,6 +4,7 @@ import axios from "axios";
 import { ReportModalStyle } from "./styled";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import axiosInstance from "@/lib/axios";
+import Cookies from "js-cookie";
 
 type ReportType = "user" | "post" | "comment";
 
@@ -24,6 +25,8 @@ const ReportModal = ({ type, targetId, onClose }: ReportModalProps) => {
     },
     onSubmit: async (values, { resetForm }) => {
       try {
+        const token = Cookies.get("accessToken");
+
         await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/report/${type}/${targetId}`,
           {
@@ -32,6 +35,9 @@ const ReportModal = ({ type, targetId, onClose }: ReportModalProps) => {
           },
           {
             withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
         alert("신고가 접수되었습니다.");

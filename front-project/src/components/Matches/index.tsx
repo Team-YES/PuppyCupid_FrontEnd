@@ -4,6 +4,7 @@ import { MatchesStyle } from "./styled";
 import { useRouter } from "next/navigation";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import axiosInstance from "@/lib/axios";
+import Cookies from "js-cookie";
 
 type MatchesProps = {
   setMatches: React.Dispatch<React.SetStateAction<boolean>>;
@@ -99,6 +100,8 @@ const Matches = ({ setMatches }: MatchesProps) => {
   const handleChatRequest = async (receiverId: number | undefined) => {
     try {
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
+      const token = Cookies.get("accessToken");
+
       const res = await axios.post(
         `${baseURL}/messages`,
         {
@@ -107,6 +110,9 @@ const Matches = ({ setMatches }: MatchesProps) => {
         },
         {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       window.location.href = `/chat?receiverId=${receiverId}`;

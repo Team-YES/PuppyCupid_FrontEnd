@@ -7,6 +7,7 @@ import ReportModal from "@/components/ReportModal";
 // import { deleteComment } from "@/reducers/getCommentSlice";
 // import { useDispatch } from "react-redux";
 // import { AppDispatch } from "@/store/store";
+import Cookies from "js-cookie";
 
 type Mode = "post" | "comment" | "other";
 
@@ -123,8 +124,13 @@ const EditPostModal = ({
 
     try {
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
+      const token = Cookies.get("accessToken");
+
       const res = await axios.delete(`${baseURL}/posts/${postId}`, {
         withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       // console.log("게시물 삭제 성공 응답: ", res.data);
       // res.data : true
@@ -144,6 +150,8 @@ const EditPostModal = ({
 
     try {
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
+      const token = Cookies.get("accessToken");
+
       const res = await axios.post(
         `${baseURL}/messages`,
         {
@@ -152,6 +160,9 @@ const EditPostModal = ({
         },
         {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

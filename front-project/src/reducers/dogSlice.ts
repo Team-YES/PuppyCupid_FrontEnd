@@ -2,6 +2,9 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "js-cookie";
+
+const token = Cookies.get("accessToken");
 
 export interface Dog {
   id: number;
@@ -32,6 +35,9 @@ export const fetchMyDog = createAsyncThunk("dog/fetchMyDog", async () => {
     `${process.env.NEXT_PUBLIC_API_URL}/dogs/profile`,
     {
       withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
   return res.data;

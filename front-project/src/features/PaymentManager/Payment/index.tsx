@@ -9,6 +9,7 @@ import {
   PaymentMid,
 } from "@/features/PaymentManager/Payment/styled";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 interface PaymentProps {
   tossClientKey: string | null;
@@ -21,6 +22,8 @@ const PaymentPage = ({ tossClientKey }: PaymentProps) => {
     }
 
     try {
+      const token = Cookies.get("accessToken");
+
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/payments/create`,
         {
@@ -29,6 +32,9 @@ const PaymentPage = ({ tossClientKey }: PaymentProps) => {
         },
         {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

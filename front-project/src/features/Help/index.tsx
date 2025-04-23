@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { HelpStyled } from "./styled";
+import Cookies from "js-cookie";
 
 export default function ContactPage() {
   const formik = useFormik({
@@ -83,6 +84,8 @@ export default function ContactPage() {
       }
 
       try {
+        const token = Cookies.get("accessToken");
+
         await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/inquiries/contact`,
           {
@@ -92,7 +95,12 @@ export default function ContactPage() {
             type: values.type,
             content,
           },
-          { withCredentials: true }
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         alert("문의가 성공적으로 제출되었습니다.");
         formik.resetForm();

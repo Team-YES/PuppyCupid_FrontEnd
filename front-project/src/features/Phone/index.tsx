@@ -133,6 +133,9 @@ const Phone = () => {
             Authorization: `Bearer ${token}`,
           },
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

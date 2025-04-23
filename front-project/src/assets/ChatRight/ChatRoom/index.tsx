@@ -10,6 +10,7 @@ import { RootState } from "@/store/store";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { format } from "date-fns";
 import ReportModal from "../../../components/ReportModal";
+import Cookies from "js-cookie";
 
 interface Message {
   id: number;
@@ -32,8 +33,13 @@ type ChatRoomProps = {
 // 메시지 불러오기 (3초마다 갱신)
 const fetchMessages = async (receiverId: number) => {
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const token = Cookies.get("accessToken");
+
   const res = await axios.get(`${baseURL}/messages/${receiverId}`, {
     withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   return res.data.messages;
@@ -48,10 +54,17 @@ const sendMessage = async ({
   content: string;
 }) => {
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
+  const token = Cookies.get("accessToken");
+
   const res = await axios.post(
     `${baseURL}/messages`,
     { receiverId, content },
-    { withCredentials: true }
+    {
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
   return res.data;
 };
@@ -108,8 +121,13 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
   // 메시지 삭제 axios
   const deleteMessage = async (otherUserId: number) => {
     const baseURL = process.env.NEXT_PUBLIC_API_URL;
+    const token = Cookies.get("accessToken");
+
     const res = await axios.delete(`${baseURL}/messages/${otherUserId}`, {
       withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     return res.data;
   };
