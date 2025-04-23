@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         // 재발급 실패 → 로그인 페이지로 이동
-        console.error("리프레시 토큰 검증 실패:", refreshError);
+        // console.error("리프레시 토큰 검증 실패:", refreshError);
         Router.push("/login");
         return Promise.reject(refreshError);
       }
