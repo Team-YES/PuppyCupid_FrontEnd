@@ -15,7 +15,7 @@ type ChatProps = {
 const ChatLeft = ({ openChat, setOpenChat }: ChatProps) => {
   const router = useRouter();
   const dog = useSelector((state: RootState) => state.dog.dog);
-  const baseURL = "http://localhost:5000";
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const dogImage = dog?.image ? `${baseURL}${dog.image}` : "/puppy_profile.png";
   const dispatch = useAppDispatch();
   const chatUsers = useSelector((state: RootState) => state.chatUsers.users);

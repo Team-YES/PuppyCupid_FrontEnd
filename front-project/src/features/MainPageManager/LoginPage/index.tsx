@@ -31,8 +31,12 @@ const LoginPage = () => {
   //   return () => window.removeEventListener("resize", check);
   // }, []);
 
+  // const handleSocialLogin = (provider: "google" | "kakao" | "naver") => {
+  //   window.location.href = `http://localhost:5000/auth/${provider}`;
+  // };
   const handleSocialLogin = (provider: "google" | "kakao" | "naver") => {
-    window.location.href = `http://localhost:5000/auth/${provider}`;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    window.location.href = `${apiUrl}/auth/${provider}`;
   };
 
   return (

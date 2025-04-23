@@ -84,7 +84,7 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
   const optionsWrapperRef = useRef<HTMLDivElement>(null);
   useClickOutside(optionsWrapperRef, () => setShowOptions(false));
 
-  // 메시지 불러오기 (2초마다 polling)
+  // 메시지 불러오기 (3초마다 polling)
   const { data: messages = [] } = useQuery<Message[]>({
     queryKey: ["messages", parsedId],
     queryFn: () => fetchMessages(parsedId),
