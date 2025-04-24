@@ -26,7 +26,7 @@ const AdminLogin = ({ onClose }: AdminLoginProps) => {
 
     setErrorMessage(""); // 에러 초기화
 
-    console.log("관리자 로그인 정보: ", id, password);
+    // console.log("관리자 로그인 정보: ", id, password);
 
     try {
       const res = await axios.post(
@@ -40,10 +40,10 @@ const AdminLogin = ({ onClose }: AdminLoginProps) => {
         }
       );
 
-      console.log("응답:", res.status, res.data);
+      // console.log("응답:", res.status, res.data);
 
       if (res.data.ok) {
-        console.log("관리자 로그인 성공", res.data);
+        // console.log("관리자 로그인 성공", res.data);
 
         const { access_token, refresh_token } = res.data;
 
