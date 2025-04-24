@@ -22,7 +22,7 @@ const PaymentPage = ({ tossClientKey }: PaymentProps) => {
     }
 
     try {
-      const token = Cookies.get("accessToken");
+      const token = Cookies.get("access_token");
 
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/payments/create`,
@@ -47,8 +47,8 @@ const PaymentPage = ({ tossClientKey }: PaymentProps) => {
         amount: amount,
         orderId: orderId,
         orderName: `${amount}원 결제`,
-        successUrl: `http://localhost:3000/payment/success?orderId=${orderId}&amount=${amount}`,
-        failUrl: `http://localhost:3000/payment/fail?orderId=${orderId}&amount=${amount}`,
+        successUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success?orderId=${orderId}&amount=${amount}`,
+        failUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/payment/fail?orderId=${orderId}&amount=${amount}`,
       });
     } catch (error) {
       console.error("결제 요청 중 오류:", error);
