@@ -42,19 +42,10 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
         const baseURL = process.env.NEXT_PUBLIC_API_URL;
         const token = Cookies.get("access_token");
 
-        await axios.put(
-          `${baseURL}/users/update`,
-          {
-            nickname: values.personNickName,
-            phone: values.personPhone,
-          },
-          {
-            withCredentials: true,
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        await axiosInstance.put("/users/update", {
+          nickname: values.personNickName,
+          phone: values.personPhone,
+        });
         alert("정보가 수정되었습니다.");
         closeModal();
         window.location.reload();
@@ -71,12 +62,7 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
         const baseURL = process.env.NEXT_PUBLIC_API_URL;
         const token = Cookies.get("access_token");
 
-        const response = await axios.get(`${baseURL}/users/info`, {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axiosInstance.get("/users/info");
 
         formik.setValues({
           personNickName: response.data.user.nickName || "",
@@ -121,12 +107,8 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
       const token = Cookies.get("access_token");
 
-      const res = await axios.get(`${baseURL}/users/nickName`, {
+      const res = await axiosInstance.get("/users/nickName", {
         params: { nickName: formik.values.personNickName },
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       });
 
       if (res.data.ok) {

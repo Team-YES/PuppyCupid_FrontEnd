@@ -16,49 +16,6 @@ const Matches = ({ setMatches }: MatchesProps) => {
   const [error, setError] = useState(""); // 에러 메시지
 
   useEffect(() => {
-    // 테스트 (콘솔 지워야함)
-    // 💡 실제 위치 정보 사용하지 않고 임시 데이터로 바로 테스트하고 싶을 때
-    // const isDevMode = process.env.NODE_ENV !== "production";
-
-    // if (isDevMode) {
-
-    //   const mockData = {
-    //     id: 15,
-    //     name: "뇽뇽이",
-    //     age: 13,
-    //     gender: "male_neutered",
-    //     breed: "랄라",
-    //     mbti: "ESFP",
-    //     personality: '["활발함", "사교적임"]',
-    //     dog_image:
-    //       "/uploads/dogsImage/872476bf-60a0-40ed-bc65-97331dbccbf5.gif",
-    //     latitude: 37.5483,
-    //     longitude: 126.942,
-    //     created_at: "2025-04-08T06:13:41.955Z",
-    //     updated_at: "2025-04-15T23:59:39.000Z",
-    //     user: {
-    //       id: 9,
-    //       email: "jss1555@hanmail.net",
-    //       nickName: "네이버뇽",
-    //     },
-    //   };
-    //   // 문자열로 온 personality 값을 파싱하여 배열로 변환
-    //   let personalityArr;
-    //   try {
-    //     personalityArr = JSON.parse(mockData.personality);
-    //   } catch (error) {
-    //     console.error("JSON 파싱 오류:", error);
-    //     personalityArr = []; // 실패 시 빈 배열로 처리
-    //   }
-
-    //   // mockData의 personality를 배열로 수정
-    //   mockData.personality = personalityArr;
-
-    //   setMatchDog(mockData);
-    //   return;
-    // }
-    // 테스트 여기까지 (지워야함)
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -102,7 +59,7 @@ const Matches = ({ setMatches }: MatchesProps) => {
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
       const token = Cookies.get("access_token");
 
-      const res = await axios.post(
+      const res = await axiosInstance.post(
         `${baseURL}/messages`,
         {
           receiverId,
@@ -110,9 +67,6 @@ const Matches = ({ setMatches }: MatchesProps) => {
         },
         {
           withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }
       );
       window.location.href = `/chat?receiverId=${receiverId}`;
