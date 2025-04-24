@@ -1,5 +1,5 @@
 // src/components/PowerUserRoute.tsx
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../context/AuthContext";
 import Loading from "./Loading";
@@ -12,36 +12,29 @@ const PowerUserRoute = ({ children }: PowerUserRouteProps) => {
   const { isLoggedIn, user, checkLogin } = useAuth();
   const router = useRouter();
   const [checkingAuth, setCheckingAuth] = useState(true);
+  const hasRedirected = useRef(false);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setCheckingAuth(false);
-  //     if (!isLoggedIn) {
-  //       alert("로그인이 필요합니다.");
-  //       router.push("/login");
-  //     } else if (
-  //       user?.role !== "power_month" &&
-  //       user?.role !== "power_year" &&
-  //       user?.role !== "admin"
-  //     ) {
-  //       alert("이 페이지는 파워 유저만 접근할 수 있습니다.");
-  //       router.push("/");
-  //     }
-  //   }, 500);
-  //   return () => clearTimeout(timer);
-  // }, [isLoggedIn, user, router]);
-
-  // if (checkingAuth) return <Loading />;
-  // ver2
   //   useEffect(() => {
-  //     const checkAuthStatus = async () => {
-  //       await checkLogin(); // 로그인 상태를 먼저 확인
-  //       setCheckingAuth(false); // 상태 확인 후 로딩 종료
+  //     const checkAuth = async () => {
+  //       const token = Cookies.get("access_token");
 
-  //       if (!isLoggedIn) {
+  //       if (!token) {
   //         alert("로그인이 필요합니다.");
   //         router.push("/login");
-  //       } else if (
+  //         return;
+  //       }
+
+  //       await checkLogin(); // 토큰이 있으므로 사용자 상태 불러오기
+  //       setCheckingAuth(false); // 확인 완료 후 로딩 종료
+  //     };
+
+  //     checkAuth();
+  //   }, [checkLogin, router]);
+
+  //   // 2. 사용자 role 체크
+  //   useEffect(() => {
+  //     if (!checkingAuth) {
+  //       if (
   //         user?.role !== "power_month" &&
   //         user?.role !== "power_year" &&
   //         user?.role !== "admin"
@@ -49,43 +42,45 @@ const PowerUserRoute = ({ children }: PowerUserRouteProps) => {
   //         alert("이 페이지는 파워 유저만 접근할 수 있습니다.");
   //         router.push("/");
   //       }
-  //     };
-
-  //     checkAuthStatus();
-  //   }, [isLoggedIn, user, router]);
+  //     }
+  //   }, [checkingAuth, user, router]);
 
   //   if (checkingAuth) return <Loading />;
-
   //   return <>{children}</>;
   // };
-  // 1. 먼저 access_token 쿠키 확인
+  // 쿠키 확인 + 로그인 체크
   useEffect(() => {
     const checkAuth = async () => {
       const token = Cookies.get("access_token");
-
       if (!token) {
-        alert("로그인이 필요합니다.");
-        router.push("/login");
+        if (!hasRedirected.current) {
+          hasRedirected.current = true;
+          alert("로그인이 필요합니다.");
+          router.push("/login");
+        }
         return;
       }
 
-      await checkLogin(); // 토큰이 있으므로 사용자 상태 불러오기
-      setCheckingAuth(false); // 확인 완료 후 로딩 종료
+      await checkLogin();
+      setCheckingAuth(false);
     };
 
     checkAuth();
   }, [checkLogin, router]);
 
-  // 2. 사용자 role 체크
+  // role 확인
   useEffect(() => {
-    if (!checkingAuth) {
+    if (!checkingAuth && user) {
       if (
-        user?.role !== "power_month" &&
-        user?.role !== "power_year" &&
-        user?.role !== "admin"
+        user.role !== "power_month" &&
+        user.role !== "power_year" &&
+        user.role !== "admin"
       ) {
-        alert("이 페이지는 파워 유저만 접근할 수 있습니다.");
-        router.push("/");
+        if (!hasRedirected.current) {
+          hasRedirected.current = true;
+          alert("이 페이지는 파워 유저만 접근할 수 있습니다.");
+          router.push("/");
+        }
       }
     }
   }, [checkingAuth, user, router]);
