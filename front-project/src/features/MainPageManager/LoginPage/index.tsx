@@ -66,13 +66,13 @@ const LoginPage = () => {
         const { accessToken, refreshToken } = response.data;
 
         // 토큰을 쿠키에 저장 (js-cookie 사용)
-        Cookies.set("accessToken", accessToken, {
+        Cookies.set("access_token", accessToken, {
           expires: 1 / 24, // 1시간
           path: "/",
           sameSite: "Strict",
         });
 
-        Cookies.set("refreshToken", refreshToken, {
+        Cookies.set("refresh_token", refreshToken, {
           expires: 7,
           path: "/",
           sameSite: "Strict",
