@@ -7,17 +7,21 @@ import {
   Line,
   Text,
 } from "./styled";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 // 소셜로그인 버튼 type
 export interface ButtonProps {
   $bgColor: string;
   color?: string;
   $border: string;
-  $iconURL: string;
+  $iconURL?: string;
   size?: string;
 }
 
 const LoginPage = () => {
+  const router = useRouter();
+
   const [isMobile, setIsMobile] = useState(false);
 
   // PC, 모바일 반응형 이미지
@@ -37,6 +41,52 @@ const LoginPage = () => {
   const handleSocialLogin = (provider: "google" | "kakao" | "naver") => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     window.location.href = `${apiUrl}/auth/${provider}`;
+  };
+
+  const ready = () => {
+    alert("준비중 입니다.");
+  };
+
+  // 테스트용 로그인
+  const handleTestLogin = async () => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    try {
+      const response = await axios.post(
+        `${apiUrl}/auth/adminLogin`,
+        {
+          email: "teamYES@teamYes.com", // ← 여기에 임의 이메일
+          password: "teamYESsuperUser", // ← 여기에 임의 비밀번호
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (response.data.ok) {
+        const { accessToken, refreshToken } = response.data;
+
+        // 토큰을 쿠키에 저장 (js-cookie 사용)
+        Cookies.set("accessToken", accessToken, {
+          expires: 1 / 24, // 1시간
+          path: "/",
+          sameSite: "Strict",
+        });
+
+        Cookies.set("refreshToken", refreshToken, {
+          expires: 7,
+          path: "/",
+          sameSite: "Strict",
+        });
+
+        alert("테스트 로그인 성공");
+        router.push("/");
+      } else {
+        alert("로그인 실패: " + response.data.message);
+      }
+    } catch (error: any) {
+      console.error("테스트 로그인 실패:", error);
+      alert("테스트 로그인 중 오류 발생");
+    }
   };
 
   return (
@@ -101,9 +151,20 @@ const LoginPage = () => {
             $border="thin solid #888"
             $iconURL="/google-logo.png"
             size="19px"
-            onClick={() => handleSocialLogin("google")}
+            onClick={() => ready()}
           >
             구글로 시작하기
+          </SocialLoginBtn>
+          <SocialLoginBtn
+            $bgColor="#ccb6fd"
+            color="#fff"
+            $border="thin solid #fff"
+            size="19px"
+            onClick={() => {
+              handleTestLogin();
+            }}
+          >
+            테스트 로그인
           </SocialLoginBtn>
         </div>
       </div>
