@@ -18,6 +18,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Scrollbar } from "swiper/modules";
 import { formatNumberWithComma } from "@/utils/formatNumberWithComma";
 import Cookies from "js-cookie";
+import axiosInstance from "@/lib/axios";
 
 const Registration = () => {
   // 사진 개수
@@ -78,17 +79,11 @@ const Registration = () => {
       try {
         const token = Cookies.get("access_token");
 
-        const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/posts/form`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${token}`,
-            },
-            withCredentials: true,
-          }
-        );
+        const res = await axiosInstance.post("/posts/form", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data", // 파일 업로드를 위한 헤더
+          },
+        });
 
         alert("게시물을 등록하였습니다.");
         router.push("/board");
