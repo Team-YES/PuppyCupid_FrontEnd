@@ -104,9 +104,9 @@ const EditPost = () => {
       formData.append("category", values.category);
       formData.append("content", values.content);
 
-      for (const [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
+      // for (const [key, value] of formData.entries()) {
+      //   console.log(key, value);
+      // }
 
       // 게시글 수정 요청
       try {

@@ -21,7 +21,7 @@ const Phone = () => {
         expires: 10 / 1440,
         path: "/",
       });
-      console.log(Cookies.get("temp_access_token"));
+      // console.log(Cookies.get("temp_access_token"));
     } else {
       console.error("임시 토큰이 URL 파라미터에 없습니다.");
     }
@@ -59,11 +59,11 @@ const Phone = () => {
           return;
         }
 
-        console.log("현재 tempToken 상태:", tempToken);
-        console.log(
-          "현재 쿠키의 temp_access_token:",
-          Cookies.get("temp_access_token")
-        );
+        // console.log("현재 tempToken 상태:", tempToken);
+        // console.log(
+        //   "현재 쿠키의 temp_access_token:",
+        //   Cookies.get("temp_access_token")
+        // );
 
         // 전화번호 업데이트 요청
         const res = await axios.post(
