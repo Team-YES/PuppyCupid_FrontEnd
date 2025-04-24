@@ -77,7 +77,11 @@ const LoginPage = () => {
 
         alert("테스트 로그인 성공");
         // console.log("로그인 성공", response.data);
-        router.push("/");
+        router.push("/").then(() => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 100);
+        });
       } else {
         // console.log("로그인 실패: ", response.data);
         alert("로그인 실패: " + response.data.message);
