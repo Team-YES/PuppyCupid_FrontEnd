@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -37,15 +37,23 @@ const paths = [
 
 const Main = () => {
   const router = useRouter();
-  const { access_token, refresh_token } = router.query;
+  const [isTokenProcessed, setIsTokenProcessed] = useState(false);
 
   useEffect(() => {
-    if (typeof access_token === "string" && typeof refresh_token === "string") {
-      Cookies.set("access_token", access_token);
-      Cookies.set("refresh_token", refresh_token);
-      router.replace("/", undefined, { shallow: true });
+    if (router.isReady && !isTokenProcessed) {
+      const { access_token, refresh_token } = router.query;
+
+      if (
+        typeof access_token === "string" &&
+        typeof refresh_token === "string"
+      ) {
+        Cookies.set("access_token", access_token);
+        Cookies.set("refresh_token", refresh_token);
+        setIsTokenProcessed(true);
+        router.replace("/", undefined, { shallow: true });
+      }
     }
-  }, [access_token, refresh_token]);
+  }, [router.isReady, router.query, isTokenProcessed]);
 
   return (
     <MainStyled className={clsx("main_wrap")}>

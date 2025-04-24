@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const checkLogin = async () => {
     try {
       const token = Cookies.get("access_token");
-      const tempToken = Cookies.get("temp_access_token"); // 쿠키에서 토큰을 가져옵니다.
+      const tempToken = Cookies.get("temp_access_token");
       if (!token && tempToken) {
         router.push("/phone");
         setIsLoggedIn(false);
