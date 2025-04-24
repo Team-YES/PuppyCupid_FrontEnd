@@ -42,7 +42,6 @@ export const LoginPageStyled = styled.div`
     padding: 24px;
     border: 1px solid #ddd;
     border-radius: 12px;
-    margin-bottom: 90px;
   }
 
   .Loginpage_content {
@@ -71,6 +70,14 @@ export const LoginPageStyled = styled.div`
 
   .Loginpage_google_login {
     box-shadow: 1px 1px 1px grey;
+  }
+
+  .LoginPage_admin_login {
+    cursor: pointer;
+    font-size: 12px;
+    color: #ddd;
+    margin-top: 10px;
+    margin-bottom: 90px;
   }
 `;
 

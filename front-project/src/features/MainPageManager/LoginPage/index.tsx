@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios, { AxiosError } from "axios";
 import {
   LoginPageStyled,
@@ -9,6 +9,8 @@ import {
 } from "./styled";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import AdminLogin from "@/components/AdminLogin";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 // 소셜로그인 버튼 type
 export interface ButtonProps {
@@ -22,22 +24,13 @@ export interface ButtonProps {
 const LoginPage = () => {
   const router = useRouter();
 
+  // 외부 클릭 시 창닫기
+  // const [showPicker, setShowPicker] = useState(false);
+  // const pickerRef = useRef<HTMLDivElement>(null);
+  // useClickOutside(pickerRef, () => setShowPicker(false));
+
   const [isMobile, setIsMobile] = useState(false);
 
-  // PC, 모바일 반응형 이미지
-  // useEffect(() => {
-  //   const check = () => {
-  //     setIsMobile(window.innerWidth <= 632);
-  //   };
-  //   check(); // 초기 체크
-  //   window.addEventListener("resize", check);
-  //   // 컴포넌트가 언마운트 될 때 이벤트 리스너 제거
-  //   return () => window.removeEventListener("resize", check);
-  // }, []);
-
-  // const handleSocialLogin = (provider: "google" | "kakao" | "naver") => {
-  //   window.location.href = `http://localhost:5000/auth/${provider}`;
-  // };
   const handleSocialLogin = (provider: "google" | "kakao" | "naver") => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     window.location.href = `${apiUrl}/auth/${provider}`;
@@ -165,6 +158,10 @@ const LoginPage = () => {
           </SocialLoginBtn>
         </div>
       </div>
+      <div className="LoginPage_admin_login">관리자 로그인</div>
+
+      {/* 관리자 로그인 모달 */}
+      <AdminLogin />
     </LoginPageStyled>
   );
 };
