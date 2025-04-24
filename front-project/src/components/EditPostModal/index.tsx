@@ -196,7 +196,14 @@ const EditPostModal = ({
             </div>
             <div>
               {/* 팔로우 누르면 팔로우 취소 */}
-              <ModalBtn className="EditPostModal_m">팔로우</ModalBtn>
+              <ModalBtn
+                className="EditPostModal_m"
+                onClick={() => {
+                  router.push(`/otherpage/${writerId}`);
+                }}
+              >
+                팔로우
+              </ModalBtn>
             </div>
             <div>
               <ModalBtn
