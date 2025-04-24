@@ -58,7 +58,7 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
   useEffect(() => {
     // 쿠키에서 직접 access_token을 확인
     const accessToken = Cookies.get("access_token");
-
+    console.log(accessToken, "accesstoken 시간 차가 있나?");
     // access_token이 있으면 로그인 상태로 간주
     if (accessToken) {
       setCheckingAuth(false); // 로딩 종료
