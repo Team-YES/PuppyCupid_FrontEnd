@@ -226,12 +226,6 @@
 ## 📂 프로젝트 구조
 
 ```markdown
-assets : 이미지 파일 집합
-components : 재사용 가능한 컴포넌트 집합
-template : 페이지를 만들 수 있도록 컴포넌트/레이아웃 주입
-pages : 유저가 보는 실제 콘텐츠
-style : 공통 스타일드 컴포넌트, reset.css, 프로젝트 컬러 상수화
-
 project-root
 ├─📂public
 └─📂src
