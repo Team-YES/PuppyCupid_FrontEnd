@@ -98,12 +98,6 @@ const LoginPage = () => {
       <div>
         <a href="/" className="Loginpage_logo">
           <h1 className="Loginpage_logo_container">
-            {/* <img
-              src={
-                isMobile ? "./people_walking_dog.jpg" : "./logopractice2.png"
-              }
-              alt="logo"
-            /> */}
             <img src="./people_walking_dog.jpg" alt="logo" />
           </h1>
         </a>
