@@ -184,7 +184,7 @@
 - 실시간으로 메시지를 주고받을 수 있는 기능을 제공합니다.
 - 채팅방을 신고할 수 있는 기능을 제공합니다.
 - 채팅 삭제 기능을 제공합니다.
-- 반반응형 디자인에 따라 다른 UI를 제공합니다.
+- 반응형 디자인에 따라 다른 UI를 제공합니다.
 
 ### ❓ 문의하기
 
@@ -235,98 +235,98 @@ style : 공통 스타일드 컴포넌트, reset.css, 프로젝트 컬러 상수�
 project-root
 ├─📂public
 └─📂src
-├─📂assets
-│ ├─📂ChatLeft
-│ ├─📂ChatMiddle
-│ ├─📂ChatRight
-│ ├─📂Mypostcount
-│ ├─📂Otherpostcount
-│ ├─📂PuppyProfile
-│ └─📂RightMenubar
-├─📂components
-│ ├─📂AlertList
-│ ├─📂Comments
-│ ├─📂DetailPost
-│ ├─📂EditPost
-│ ├─📂EditPostModal
-│ ├─📂EventPopup
-│ ├─📂Footer
-│ ├─📂Header
-│ ├─📂InputComp
-│ ├─📂KakaoShare
-│ ├─📂Loading
-│ ├─📂MainImgs
-│ ├─📂Matches
-│ ├─📂PersonForm
-│ ├─📂Post
-│ ├─📂Postlist
-│ ├─📂PuppyForm
-│ ├─📂PuppyFormFix
-│ ├─📂Registration
-│ ├─📂ReplyComment
-│ ├─📂ReportModal
-│ ├─📂Search
-│ ├─📂SelectBox
-│ ├─📂TextAreaComp
-│ ├─📂UsersModal
-│ ├─ BlacklistRoute.tsx
-│ ├─ PowerUserRoute.tsx
-│ └─ PrivateRoute.tsx
-├─📂constants
-│ ├─ formLabels.ts
-│ ├─ mbtiOptions.ts
-│ ├─ personalities.ts
-│ └─ weatherData.ts
-├─📂context
-│ └─ AuthContext.tsx
-├─📂features
-│ ├─📂Board
-│ ├─📂Chat
-│ ├─📂Help
-│ ├─📂MainPageManager
-│ ├─📂MyPage
-│ ├─📂OtherPage
-│ ├─📂PaymentManager
-│ ├─📂Phone
-│ ├─📂PostRegistration
-│ └─📂fonts
-├─📂hooks
-│ ├─ useAppDispatch.ts
-│ ├─ useClickOutside.ts
-│ └─ useMyDog.ts
-├─📂lib
-│ └─ axios.ts
-├─📂pages
-│ ├─📂api
-│ ├─📂board
-│ ├─📂chat
-│ ├─📂help
-│ ├─📂login
-│ ├─📂mypage
-│ ├─📂otherpage
-│ ├─📂payment
-│ ├─📂phone
-│ ├─📂post_edit
-│ ├─📂post_registration
-│ ├─📂walkingmate
-│ ├─ app.tsx
-│ ├─ document.tsx
-│ └─ index.tsx
-├─📂reducers
-│ ├─ dogSlice.ts
-│ ├─ getAllPostsSlice.ts
-│ ├─ getChatUsersSlice.ts
-│ ├─ getCommentSlice.ts
-│ ├─ getInfinitePostsSlice.ts
-│ ├─ getLikeSlice.ts
-│ └─ userSlice.ts
-├─📂store
-├─📂styles
-├─📂utils
-│ ├─ api.ts
-│ ├─ formatDate.ts
-│ ├─ formatNumberWithComma.ts
-│ ├─ getCookie.ts
-│ ├─ isBlackListed.ts
-└─── setCookie.ts
+  ├─📂assets
+    │ ├─📂ChatLeft
+    │ ├─📂ChatMiddle
+    │ ├─📂ChatRight
+    │ ├─📂Mypostcount
+    │ ├─📂Otherpostcount
+    │ ├─📂PuppyProfile
+    │ └─📂RightMenubar
+  ├─📂components
+    │ ├─📂AlertList
+    │ ├─📂Comments
+    │ ├─📂DetailPost
+    │ ├─📂EditPost
+    │ ├─📂EditPostModal
+    │ ├─📂EventPopup
+    │ ├─📂Footer
+    │ ├─📂Header
+    │ ├─📂InputComp
+    │ ├─📂KakaoShare
+    │ ├─📂Loading
+    │ ├─📂MainImgs
+    │ ├─📂Matches
+    │ ├─📂PersonForm
+    │ ├─📂Post
+    │ ├─📂Postlist
+    │ ├─📂PuppyForm
+    │ ├─📂PuppyFormFix
+    │ ├─📂Registration
+    │ ├─📂ReplyComment
+    │ ├─📂ReportModal
+    │ ├─📂Search
+    │ ├─📂SelectBox
+    │ ├─📂TextAreaComp
+    │ ├─📂UsersModal
+    │ ├─ BlacklistRoute.tsx
+    │ ├─ PowerUserRoute.tsx
+    │ └─ PrivateRoute.tsx
+  ├─📂constants
+    │ ├─ formLabels.ts
+    │ ├─ mbtiOptions.ts
+    │ ├─ personalities.ts
+    │ └─ weatherData.ts
+  ├─📂context
+    │ └─ AuthContext.tsx
+  ├─📂features
+    │ ├─📂Board
+    │ ├─📂Chat
+    │ ├─📂Help
+    │ ├─📂MainPageManager
+    │ ├─📂MyPage
+    │ ├─📂OtherPage
+    │ ├─📂PaymentManager
+    │ ├─📂Phone
+    │ ├─📂PostRegistration
+    │ └─📂fonts
+  ├─📂hooks
+    │ ├─ useAppDispatch.ts
+    │ ├─ useClickOutside.ts
+    │ └─ useMyDog.ts
+  ├─📂lib
+    │ └─ axios.ts
+  ├─📂pages
+    │ ├─📂api
+    │ ├─📂board
+    │ ├─📂chat
+    │ ├─📂help
+    │ ├─📂login
+    │ ├─📂mypage
+    │ ├─📂otherpage
+    │ ├─📂payment
+    │ ├─📂phone
+    │ ├─📂post_edit
+    │ ├─📂post_registration
+    │ ├─📂walkingmate
+    │ ├─ app.tsx
+    │ ├─ document.tsx
+    │ └─ index.tsx
+  ├─📂reducers
+    │ ├─ dogSlice.ts
+    │ ├─ getAllPostsSlice.ts
+    │ ├─ getChatUsersSlice.ts
+    │ ├─ getCommentSlice.ts
+    │ ├─ getInfinitePostsSlice.ts
+    │ ├─ getLikeSlice.ts
+    │ └─ userSlice.ts
+  ├─📂store
+  ├─📂styles
+  ├─📂utils
+    │ ├─ api.ts
+    │ ├─ formatDate.ts
+    │ ├─ formatNumberWithComma.ts
+    │ ├─ getCookie.ts
+    │ ├─ isBlackListed.ts
+    └─── setCookie.ts
 ```
