@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { PaymentSuccessPadding } from "@/features/PaymentManager/Success/styled";
 import { useEffect, useState } from "react";
+import axiosInstance from "@/lib/axios";
 
 export default function SuccessPage() {
   const router = useRouter();
@@ -47,7 +48,7 @@ export default function SuccessPage() {
           paymentData.status === "IN_PROGRESS"
         ) {
           console.log("결제 완료됨:", paymentData.status);
-          await axios.post(
+          await axiosInstance.post(
             `${process.env.NEXT_PUBLIC_API_URL}/payments/success`,
             {
               orderId: parsedOrderId,
