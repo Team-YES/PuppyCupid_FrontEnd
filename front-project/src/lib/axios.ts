@@ -2,15 +2,21 @@ import axios from "axios";
 import Router from "next/router";
 import Cookies from "js-cookie";
 
-const token = Cookies.get("accessToken");
-
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL, // 환경변수 사용
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
   },
+});
+
+// 요청 인터셉터에서 `access_token`을 동적으로 추가
+axiosInstance.interceptors.request.use((config) => {
+  const token = Cookies.get("access_token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 // ✅ 응답 인터셉터 설정
@@ -28,15 +34,26 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
       try {
-        // refresh_token이 쿠키에 있으므로 자동으로 포함됨
-        await axios.get(`${baseURL}/auth/refresh`, {
+        const refreshToken = Cookies.get("refresh_token");
+
+        if (!refreshToken) {
+          Router.push("/login");
+          return Promise.reject(error);
+        }
+
+        // refresh_token을 서버로 보내서 access_token을 갱신
+        const response = await axios.get(`${baseURL}/auth/refresh`, {
           withCredentials: true,
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${refreshToken}`, // refresh_token을 Authorization 헤더에 포함시켜서 요청
           },
         });
 
-        // access_token이 재발급되었으니, 원래 요청 재시도
+        // 새로 발급받은 access_token을 쿠키에 저장
+        const newAccessToken = response.data.access_token;
+        Cookies.set("access_token", newAccessToken);
+
+        // 원래 요청을 재시도
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         const tempToken = Cookies.get("temp_access_token");
