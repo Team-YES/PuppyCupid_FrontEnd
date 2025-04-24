@@ -124,7 +124,7 @@ const EditPostModal = ({
 
     try {
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
-      const token = Cookies.get("accessToken");
+      const token = Cookies.get("access_token");
 
       const res = await axios.delete(`${baseURL}/posts/${postId}`, {
         withCredentials: true,
@@ -150,7 +150,7 @@ const EditPostModal = ({
 
     try {
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
-      const token = Cookies.get("accessToken");
+      const token = Cookies.get("access_token");
 
       const res = await axios.post(
         `${baseURL}/messages`,

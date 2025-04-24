@@ -64,7 +64,7 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const token = Cookies.get("accessToken");
+        const token = Cookies.get("access_token");
 
         const formData = new FormData();
         formData.append("name", values.puppyName);

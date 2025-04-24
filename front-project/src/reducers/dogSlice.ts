@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const token = Cookies.get("accessToken");
+const token = Cookies.get("access_token");
 
 export interface Dog {
   id: number;

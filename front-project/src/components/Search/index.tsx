@@ -31,7 +31,7 @@ const Search = ({ setSearchResult }: Props) => {
     // 글자 수가 2이상일 때 검색 요청
     if (keyword.trim().length >= 2) {
       try {
-        const token = Cookies.get("accessToken");
+        const token = Cookies.get("access_token");
 
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API_URL}/posts/search`,

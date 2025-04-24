@@ -15,7 +15,7 @@ const initialState: LikeState = {
   error: null,
 };
 
-const token = Cookies.get("accessToken");
+const token = Cookies.get("access_token");
 
 // 좋아요 요청
 export const AxiosGetLike = createAsyncThunk(

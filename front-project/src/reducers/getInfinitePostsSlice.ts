@@ -44,7 +44,7 @@ const initialState: InfinitePostsState = {
   currentUser: null,
 };
 
-const token = Cookies.get("accessToken");
+const token = Cookies.get("access_token");
 
 // 무한스크롤
 export const fetchPostsByPage = createAsyncThunk(

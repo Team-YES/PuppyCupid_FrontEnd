@@ -76,7 +76,7 @@ const Registration = () => {
 
       // 게시글 등록 axios 요청(파일 업로드용 헤더, 인증 쿠키)
       try {
-        const token = Cookies.get("accessToken");
+        const token = Cookies.get("access_token");
 
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/posts/form`,

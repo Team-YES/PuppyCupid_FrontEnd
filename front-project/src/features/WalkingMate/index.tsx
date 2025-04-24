@@ -39,7 +39,7 @@ const WalkingMate = () => {
   // 채팅하기 이동
   const handleChat = async (receiverId: number | undefined) => {
     try {
-      const token = Cookies.get("accessToken");
+      const token = Cookies.get("access_token");
 
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/messages`,
@@ -86,7 +86,7 @@ const WalkingMate = () => {
         const { latitude, longitude } = pos.coords;
 
         try {
-          const token = Cookies.get("accessToken");
+          const token = Cookies.get("access_token");
 
           const res = await axios.post(
             `${process.env.NEXT_PUBLIC_API_URL}/dogs/${dogId}/location`,

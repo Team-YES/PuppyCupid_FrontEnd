@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const token = Cookies.get("accessToken");
+const token = Cookies.get("access_token");
 
 export const markMessagesAsRead = async (otherUserId: number) => {
   try {

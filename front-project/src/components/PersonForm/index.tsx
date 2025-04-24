@@ -39,7 +39,7 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
     onSubmit: async (values) => {
       try {
         const baseURL = process.env.NEXT_PUBLIC_API_URL;
-        const token = Cookies.get("accessToken");
+        const token = Cookies.get("access_token");
 
         await axios.put(
           `${baseURL}/users/update`,
@@ -68,7 +68,7 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
     const fetchUserInfo = async () => {
       try {
         const baseURL = process.env.NEXT_PUBLIC_API_URL;
-        const token = Cookies.get("accessToken");
+        const token = Cookies.get("access_token");
 
         const response = await axios.get(`${baseURL}/users/info`, {
           withCredentials: true,
@@ -118,7 +118,7 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
 
     try {
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
-      const token = Cookies.get("accessToken");
+      const token = Cookies.get("access_token");
 
       const res = await axios.get(`${baseURL}/users/nickName`, {
         params: { nickName: formik.values.personNickName },
@@ -162,7 +162,7 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
     try {
       // 유저 ID 가져오기
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
-      const token = Cookies.get("accessToken");
+      const token = Cookies.get("access_token");
 
       const res = await axios.get(`${baseURL}/users/info`, {
         withCredentials: true,

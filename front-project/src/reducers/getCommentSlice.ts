@@ -26,7 +26,7 @@ const initialState: CommentState = {
   postId: null,
 };
 
-const token = Cookies.get("accessToken");
+const token = Cookies.get("access_token");
 
 // 답글 등록
 export const postReply = createAsyncThunk(

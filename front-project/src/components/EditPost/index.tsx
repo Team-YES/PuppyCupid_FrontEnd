@@ -47,7 +47,7 @@ const EditPost = () => {
   // 서버에 해당 게시물 데이터 요청
   useEffect(() => {
     const baseURL = process.env.NEXT_PUBLIC_API_URL;
-    const token = Cookies.get("accessToken");
+    const token = Cookies.get("access_token");
 
     axios
       .get<Post>(`${baseURL}/posts/${id}`, {
@@ -110,7 +110,7 @@ const EditPost = () => {
       // 게시글 수정 요청
       try {
         const baseURL = process.env.NEXT_PUBLIC_API_URL;
-        const token = Cookies.get("accessToken");
+        const token = Cookies.get("access_token");
 
         const res = await axios.post(`${baseURL}/posts/${id}`, formData, {
           headers: {

@@ -25,7 +25,7 @@ const ReportModal = ({ type, targetId, onClose }: ReportModalProps) => {
     },
     onSubmit: async (values, { resetForm }) => {
       try {
-        const token = Cookies.get("accessToken");
+        const token = Cookies.get("access_token");
 
         await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/report/${type}/${targetId}`,

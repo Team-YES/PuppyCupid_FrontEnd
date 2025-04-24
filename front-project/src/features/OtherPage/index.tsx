@@ -224,7 +224,7 @@ const OtherPage = () => {
     setIsSending(true);
 
     try {
-      const token = Cookies.get("accessToken");
+      const token = Cookies.get("access_token");
 
       const res = await axiosInstance.post(
         `${process.env.NEXT_PUBLIC_API_URL}/messages`,
@@ -269,7 +269,7 @@ const OtherPage = () => {
     if (!otherUserId) return;
 
     try {
-      const token = Cookies.get("accessToken");
+      const token = Cookies.get("access_token");
 
       await axiosInstance.post(
         `${process.env.NEXT_PUBLIC_API_URL}/follows/${otherUserId}`,

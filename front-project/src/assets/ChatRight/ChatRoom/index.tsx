@@ -33,7 +33,7 @@ type ChatRoomProps = {
 // 메시지 불러오기 (3초마다 갱신)
 const fetchMessages = async (receiverId: number) => {
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
-  const token = Cookies.get("accessToken");
+  const token = Cookies.get("access_token");
 
   const res = await axios.get(`${baseURL}/messages/${receiverId}`, {
     withCredentials: true,
@@ -54,7 +54,7 @@ const sendMessage = async ({
   content: string;
 }) => {
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
-  const token = Cookies.get("accessToken");
+  const token = Cookies.get("access_token");
 
   const res = await axios.post(
     `${baseURL}/messages`,
@@ -121,7 +121,7 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
   // 메시지 삭제 axios
   const deleteMessage = async (otherUserId: number) => {
     const baseURL = process.env.NEXT_PUBLIC_API_URL;
-    const token = Cookies.get("accessToken");
+    const token = Cookies.get("access_token");
 
     const res = await axios.delete(`${baseURL}/messages/${otherUserId}`, {
       withCredentials: true,

@@ -84,7 +84,7 @@ export default function ContactPage() {
       }
 
       try {
-        const token = Cookies.get("accessToken");
+        const token = Cookies.get("access_token");
 
         await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/inquiries/contact`,
