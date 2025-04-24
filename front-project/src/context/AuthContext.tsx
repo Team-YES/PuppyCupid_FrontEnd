@@ -12,7 +12,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { AppDispatch } from "../store/store";
-// 쿠키 토큰 재발급 해보기 axiosInstance
+
 import axiosInstance from "@/lib/axios";
 
 type UserInfo = {
@@ -55,10 +55,47 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const token = Cookies.get("access_token");
       const tempToken = Cookies.get("temp_access_token");
       if (!token && tempToken) {
-        router.push("/phone");
+        try {
+          const tempResponse = await axios.post(
+            "/auth/check-temp-token",
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${tempToken}`,
+              },
+            }
+          );
+
+          if (tempResponse.data.isLoggedIn) {
+            const userData: UserInfo = {
+              id: tempResponse.data.user.id,
+              email: tempResponse.data.user.email,
+              role: tempResponse.data.user.role ?? "user",
+              phoneNumber:
+                tempResponse.data.user.phoneNumber ??
+                tempResponse.data.user.phone ??
+                null,
+              nickName: tempResponse.data.user.nickName ?? null,
+              gender: tempResponse.data.user.gender ?? null,
+              isPhoneVerified: tempResponse.data.user.isPhoneVerified ?? false,
+              power_expired_at: tempResponse.data.user.power_expired_at ?? null,
+            };
+
+            setUser(userData);
+            dispatch(setReduxUser(userData));
+            setIsLoggedIn(false); // 전화번호 인증 전 단계니까 false로 유지
+            if (router.pathname !== "/phone") {
+              router.push("/phone");
+            }
+            return;
+          }
+        } catch (err) {
+          console.error("임시 토큰 유효성 실패", err);
+        }
+
         setIsLoggedIn(false);
         setUser(null);
-        dispatch(logoutUser()); // 추가중
+        dispatch(logoutUser());
         return;
       }
       const response = await axiosInstance.get("/auth/check");
