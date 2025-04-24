@@ -49,7 +49,7 @@ const BlacklistRoute = ({ children }: BlacklistRouteProps) => {
     };
 
     checkAuthStatus();
-  }, [isLoggedIn, user, checkLogin, router]);
+  }, [isLoggedIn, user, router]);
 
   if (checkingAuth) return <Loading />;
   return <>{children}</>;

@@ -52,7 +52,7 @@ const PowerUserRoute = ({ children }: PowerUserRouteProps) => {
     };
 
     checkAuthStatus();
-  }, [isLoggedIn, user, checkLogin, router]);
+  }, [isLoggedIn, user, router]);
 
   if (checkingAuth) return <Loading />;
 
