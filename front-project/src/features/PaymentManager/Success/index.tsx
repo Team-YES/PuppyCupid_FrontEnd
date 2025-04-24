@@ -16,10 +16,17 @@ export default function SuccessPage() {
     typeof paymentKey === "string" ? paymentKey : paymentKey?.[0];
 
   useEffect(() => {
+    console.log("쿼리 파라미터:", {
+      parsedOrderId,
+      parsedAmount,
+      parsedPaymentKey,
+    });
+
     const checkPaymentStatus = async () => {
       if (!parsedOrderId || !parsedAmount || !parsedPaymentKey) return;
 
       try {
+        console.log("결제 상태 확인 요청 중...");
         const response = await axios.get(
           `https://api.tosspayments.com/v1/payments/${parsedPaymentKey}`,
           {
@@ -32,6 +39,7 @@ export default function SuccessPage() {
         );
 
         const paymentData = response.data;
+        console.log("결제 상태 응답:", paymentData);
 
         if (
           paymentData.status === "DONE" ||
@@ -41,6 +49,7 @@ export default function SuccessPage() {
           //     paymentData.status === "IN_PROGRESS")
           //
         ) {
+          console.log("결제 완료됨:", paymentData.status);
           await axios.post(
             `${process.env.NEXT_PUBLIC_API_URL}/payments/success`,
             {
