@@ -90,17 +90,21 @@ export const SocialLoginBtn = styled.button<ButtonProps>`
   color: ${({ color }) => color};
   border: ${({ $border }) => $border};
 
-  &::before {
-    content: "";
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    margin-left: 10px;
-    background: ${({ $iconURL }) => `url(${$iconURL}) no-repeat center`};
-    background-size: ${({ size }) => `${size}`};
-    top: 8px;
-    left: 2px;
-  }
+  ${({ $iconURL, size }) =>
+    $iconURL &&
+    `
+    &::before {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      margin-left: 10px;
+      background: url(${$iconURL}) no-repeat center;
+      background-size: ${size || "contain"};
+      top: 8px;
+      left: 2px;
+    }
+  `}
 `;
 
 export const DividerText = styled.div`
