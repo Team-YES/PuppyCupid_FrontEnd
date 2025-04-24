@@ -52,7 +52,7 @@ const LoginPage = () => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     try {
       const response = await axios.post(
-        `${apiUrl}/auth/adminLogin`,
+        `${apiUrl}/auth/login`,
         {
           email: "teamYES@teamYes.com", // ← 여기에 임의 이메일
           password: "teamYESsuperUser", // ← 여기에 임의 비밀번호
