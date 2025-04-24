@@ -63,6 +63,7 @@ const LoginPage = () => {
       );
 
       if (response.data.ok) {
+        console.log(response.data);
         const { access_token, refresh_token } = response.data;
 
         // 토큰을 쿠키에 저장 (js-cookie 사용)
@@ -82,7 +83,7 @@ const LoginPage = () => {
         console.log("로그인 성공", response.data);
         router.push("/");
       } else {
-        alert("로그인 실패: " + response.data);
+        alert("로그인 실패: " + response.data.message);
       }
     } catch (error: any) {
       console.error("테스트 로그인 실패:", error);
