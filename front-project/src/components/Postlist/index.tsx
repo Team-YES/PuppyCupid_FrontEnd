@@ -19,7 +19,7 @@ interface PostListProps {
 }
 
 const PostList: React.FC<PostListProps> = ({ data }) => {
-  console.log(data, "PostList data?"); // 콘솔
+  // console.log(data, "PostList data?"); // 콘솔
 
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
 

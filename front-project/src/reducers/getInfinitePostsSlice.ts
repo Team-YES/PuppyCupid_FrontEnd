@@ -50,7 +50,7 @@ const token = Cookies.get("access_token");
 export const fetchPostsByPage = createAsyncThunk(
   "posts/fetchPostsByPage",
   async ({ page, limit }: { page: number; limit: number }) => {
-    console.log("📦 API 요청 실행 - page:", page);
+    // console.log("📦 API 요청 실행 - page:", page);
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
       params: { page, limit },
       withCredentials: true,
@@ -112,9 +112,9 @@ const getAllPostsSlice = createSlice({
         state.hasMore = hasMore;
         // state.page += 1;
         if (hasMore && uniquePosts.length > 0) {
-          console.log("state.page", state.page);
+          // console.log("state.page", state.page);
           state.page += 1;
-          console.log("state.page2", state.page);
+          // console.log("state.page2", state.page);
         }
         state.loading = false;
       })
