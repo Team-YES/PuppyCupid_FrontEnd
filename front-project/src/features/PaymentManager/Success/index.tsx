@@ -35,10 +35,11 @@ export default function SuccessPage() {
 
         if (
           paymentData.status === "DONE" ||
-          paymentData.status === "SUCCESS" ||
+          paymentData.status === "SUCCESS"
           // 배포시 삭제
-          (process.env.NODE_ENV === "development" &&
-            paymentData.status === "IN_PROGRESS")
+          //   (process.env.NODE_ENV === "development" &&
+          //     paymentData.status === "IN_PROGRESS")
+          //
         ) {
           await axios.post(
             `${process.env.NEXT_PUBLIC_API_URL}/payments/success`,

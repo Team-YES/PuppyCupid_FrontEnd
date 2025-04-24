@@ -50,7 +50,9 @@ const Main = () => {
         Cookies.set("access_token", access_token);
         Cookies.set("refresh_token", refresh_token);
         setIsTokenProcessed(true);
-        router.replace("/", undefined, { shallow: true });
+        router.replace("/").then(() => {
+          window.location.reload();
+        });
       }
     }
   }, [router.isReady, router.query, isTokenProcessed]);
