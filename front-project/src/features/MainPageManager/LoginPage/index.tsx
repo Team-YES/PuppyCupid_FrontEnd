@@ -29,6 +29,9 @@ const LoginPage = () => {
   // const pickerRef = useRef<HTMLDivElement>(null);
   // useClickOutside(pickerRef, () => setShowPicker(false));
 
+  // 창 열고 닫기
+  const [showModal, setShowModal] = useState(false);
+
   const [isMobile, setIsMobile] = useState(false);
 
   const handleSocialLogin = (provider: "google" | "kakao" | "naver") => {
@@ -158,10 +161,17 @@ const LoginPage = () => {
           </SocialLoginBtn>
         </div>
       </div>
-      <div className="LoginPage_admin_login">관리자 로그인</div>
+      <div
+        className="LoginPage_admin_login"
+        onClick={() => {
+          setShowModal(true);
+        }}
+      >
+        관리자 로그인
+      </div>
 
       {/* 관리자 로그인 모달 */}
-      <AdminLogin />
+      {showModal && <AdminLogin onClose={() => setShowModal(false)} />}
     </LoginPageStyled>
   );
 };

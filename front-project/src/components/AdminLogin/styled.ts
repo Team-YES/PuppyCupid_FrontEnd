@@ -11,6 +11,7 @@ export const AdminLoginStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 20px;
 
   .AdminLogin_X {
     position: fixed;
@@ -40,6 +41,7 @@ export const AdminLoginStyled = styled.div`
     font-weight: 700;
     text-align: center;
     margin-bottom: 10px;
+    color: #333;
   }
 
   .AdminLogin_input {
@@ -49,5 +51,27 @@ export const AdminLoginStyled = styled.div`
     margin-bottom: 10px;
     padding: 5px;
     font-size: 15px;
+
+    &:focus {
+      outline: 2px solid #9855f3;
+    }
+  }
+
+  .AdminLogin_submit {
+    width: 100%;
+
+    button {
+      cursor: pointer;
+      width: 100%;
+      font-weight: 700;
+      background-color: #ccb6fd;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+
+      &:hover {
+        background-color: #9855f3;
+      }
+    }
   }
 `;
