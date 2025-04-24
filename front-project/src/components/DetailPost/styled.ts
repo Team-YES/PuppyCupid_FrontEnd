@@ -330,6 +330,7 @@ export const Detail_RightContainer = styled.div`
 
   .Detail_pc {
     line-height: 23px;
+    white-space: pre-line;
     /* display: inline-block; */
   }
 

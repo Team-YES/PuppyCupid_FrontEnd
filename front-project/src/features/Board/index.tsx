@@ -45,6 +45,7 @@ export type CurrentUser = {
   id: number;
 };
 
+// 전체 게시판
 const Board = () => {
   // 1. 타입 선언
   type WeatherKey = keyof typeof weatherMessages;

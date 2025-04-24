@@ -48,6 +48,7 @@ export const PostContent = styled.div`
     text-overflow: ellipsis;
     line-height: 23px;
     max-height: 46px;
+    white-space: pre-line;
   }
 
   .Post_more {
