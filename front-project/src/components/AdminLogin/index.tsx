@@ -16,7 +16,16 @@ const AdminLogin = ({ onClose }: AdminLoginProps) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleLogin = async () => {
+    if (!id || !password) {
+      setErrorMessage("아이디 또는 비밀번호를 잘못 입력하였습니다.");
+      return;
+    }
+
+    setErrorMessage(""); // 에러 초기화
+
     console.log("관리자 로그인 정보: ", id, password);
 
     try {
@@ -95,6 +104,16 @@ const AdminLogin = ({ onClose }: AdminLoginProps) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
+        {/* 오류메시지 */}
+        {errorMessage && (
+          <div
+            className="AdminLogin_error"
+            style={{ color: "red", marginBottom: "10px", fontWeight: "bold" }}
+          >
+            {errorMessage}
+          </div>
+        )}
 
         <div className="AdminLogin_submit">
           <button onClick={handleLogin}>로그인</button>

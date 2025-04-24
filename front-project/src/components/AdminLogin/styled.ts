@@ -74,4 +74,14 @@ export const AdminLoginStyled = styled.div`
       }
     }
   }
+
+  .AdminLogin_error {
+    color: red;
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    height: 27px;
+  }
 `;
