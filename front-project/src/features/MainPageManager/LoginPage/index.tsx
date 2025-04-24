@@ -63,25 +63,26 @@ const LoginPage = () => {
       );
 
       if (response.data.ok) {
-        const { accessToken, refreshToken } = response.data;
+        const { access_token, refresh_token } = response.data;
 
         // 토큰을 쿠키에 저장 (js-cookie 사용)
-        Cookies.set("access_token", accessToken, {
+        Cookies.set("access_token", access_token, {
           expires: 1 / 24, // 1시간
           path: "/",
           sameSite: "Strict",
         });
 
-        Cookies.set("refresh_token", refreshToken, {
+        Cookies.set("refresh_token", refresh_token, {
           expires: 7,
           path: "/",
           sameSite: "Strict",
         });
 
         alert("테스트 로그인 성공");
+        console.log("로그인 성공", response.data);
         router.push("/");
       } else {
-        alert("로그인 실패: " + response.data.message);
+        alert("로그인 실패: " + response.data);
       }
     } catch (error: any) {
       console.error("테스트 로그인 실패:", error);
