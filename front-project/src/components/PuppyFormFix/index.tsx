@@ -7,6 +7,7 @@ import { mbtiOptions } from "@/constants/mbtiOptions";
 import { formLabels } from "@/constants/formLabels";
 import { PuppyFormFixStyle } from "./styled";
 import Cookies from "js-cookie";
+import axiosInstance from "@/lib/axios";
 
 // 내 강아지 프로필 수정 모달 (부모 컴포넌트 : MyPage)
 
@@ -90,15 +91,13 @@ const PuppyFormFix = ({
           formData.append("image", selectedImage);
         }
 
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/dogs/update/${puppy.id}`, // 기존 강아지 ID 사용
+        const response = await axiosInstance.post(
+          `/dogs/update/${puppy.id}`,
           formData,
           {
             headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data", // 파일 업로드를 위한 헤더
             },
-            withCredentials: true,
           }
         );
 

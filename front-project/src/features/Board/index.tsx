@@ -16,7 +16,7 @@ import { AppDispatch, RootState } from "@/store/store";
 import DetailPost from "@/components/DetailPost";
 import { useRouter } from "next/router";
 import { fetchPostsByPage, resetPosts } from "@/reducers/getInfinitePostsSlice";
-
+import axiosInstance from "@/lib/axios";
 // Props 타입 선언
 export type Post = {
   // page:number;
@@ -150,15 +150,12 @@ const Board = () => {
         // console.log("위도: ", lat, " 경도: ", lon);
 
         try {
-          const res = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/weather`,
-            {
-              params: {
-                lat,
-                lon,
-              },
-            }
-          );
+          const res = await axiosInstance.get("/weather", {
+            params: {
+              lat,
+              lon,
+            },
+          });
           // console.log("백엔드 응답:", res.data);
           setWeather(res.data.weather_main);
           setWeatherIcon(res.data.icon);

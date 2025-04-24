@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { HelpStyled } from "./styled";
 import Cookies from "js-cookie";
+import axiosInstance from "@/lib/axios";
 
 export default function ContactPage() {
   const formik = useFormik({
@@ -86,22 +87,30 @@ export default function ContactPage() {
       try {
         const token = Cookies.get("access_token");
 
-        await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/inquiries/contact`,
-          {
-            name: values.name,
-            email: values.email,
-            phone,
-            type: values.type,
-            content,
-          },
-          {
-            withCredentials: true,
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        // await axios.post(
+        //   `${process.env.NEXT_PUBLIC_API_URL}/inquiries/contact`,
+        //   {
+        //     name: values.name,
+        //     email: values.email,
+        //     phone,
+        //     type: values.type,
+        //     content,
+        //   },
+        //   {
+        //     withCredentials: true,
+        //     headers: {
+        //       Authorization: `Bearer ${token}`,
+        //     },
+        //   }
+        // );
+
+        const res = await axiosInstance.post("/inquiries/contact", {
+          name: values.name,
+          email: values.email,
+          phone,
+          type: values.type,
+          content,
+        });
         alert("문의가 성공적으로 제출되었습니다.");
         formik.resetForm();
       } catch (error) {

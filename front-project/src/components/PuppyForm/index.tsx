@@ -7,6 +7,7 @@ import { mbtiOptions } from "@/constants/mbtiOptions";
 import { formLabels } from "@/constants/formLabels";
 import { PuppyFormStyle } from "./styled";
 import Cookies from "js-cookie";
+import axiosInstance from "@/lib/axios";
 
 const defaultImage = "/puppy_profile.png";
 // 폼 상태 타입 정의
@@ -77,17 +78,12 @@ const PuppyForm = ({ closeModal }: PuppyFormProps) => {
         if (values.puppyImage && values.puppyImage instanceof File) {
           formData.append("image", values.puppyImage);
         }
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/dogs/register`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${token}`,
-            },
-            withCredentials: true,
-          }
-        );
+
+        const response = await axiosInstance.post("/dogs/register", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data", // 파일 업로드를 위한 헤더
+          },
+        });
 
         alert("강아지 등록이 완료되었습니다!");
         closeModal();

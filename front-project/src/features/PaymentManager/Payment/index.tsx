@@ -10,6 +10,7 @@ import {
 } from "@/features/PaymentManager/Payment/styled";
 import axios from "axios";
 import Cookies from "js-cookie";
+import axiosInstance from "@/lib/axios";
 
 interface PaymentProps {
   tossClientKey: string | null;
@@ -24,20 +25,24 @@ const PaymentPage = ({ tossClientKey }: PaymentProps) => {
     try {
       const token = Cookies.get("access_token");
 
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/payments/create`,
-        {
-          amount,
-          method: "card",
-        },
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // const res = await axios.post(
+      //   `${process.env.NEXT_PUBLIC_API_URL}/payments/create`,
+      //   {
+      //     amount,
+      //     method: "card",
+      //   },
+      //   {
+      //     withCredentials: true,
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   }
+      // );
 
+      const res = await axiosInstance.post("/payments/create", {
+        amount,
+        method: "card",
+      });
       const { orderId } = res.data;
 
       // 2. Toss 결제 요청

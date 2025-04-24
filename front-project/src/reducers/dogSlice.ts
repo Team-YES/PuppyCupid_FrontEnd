@@ -1,8 +1,7 @@
-// dogSlice.ts
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "js-cookie";
+import axiosInstance from "@/lib/axios";
 
 const token = Cookies.get("access_token");
 
@@ -31,15 +30,7 @@ const initialState: DogState = {
 };
 
 export const fetchMyDog = createAsyncThunk("dog/fetchMyDog", async () => {
-  const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/dogs/profile`,
-    {
-      withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const res = await axiosInstance.get("/dogs/profile");
   return res.data;
 });
 
