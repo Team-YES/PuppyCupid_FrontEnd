@@ -11,6 +11,7 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { format } from "date-fns";
 import ReportModal from "../../../components/ReportModal";
 import Cookies from "js-cookie";
+import axiosInstance from "@/lib/axios";
 
 interface Message {
   id: number;
@@ -35,11 +36,14 @@ const fetchMessages = async (receiverId: number) => {
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const token = Cookies.get("access_token");
 
-  const res = await axios.get(`${baseURL}/messages/${receiverId}`, {
+  // const res = await axios.get(`${baseURL}/messages/${receiverId}`, {
+  //   withCredentials: true,
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  // });
+  const res = await axiosInstance.get(`${baseURL}/messages/${receiverId}`, {
     withCredentials: true,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   });
 
   return res.data.messages;
@@ -56,16 +60,10 @@ const sendMessage = async ({
   const baseURL = process.env.NEXT_PUBLIC_API_URL;
   const token = Cookies.get("access_token");
 
-  const res = await axios.post(
-    `${baseURL}/messages`,
-    { receiverId, content },
-    {
-      withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const res = await axiosInstance.post(`${baseURL}/messages`, {
+    receiverId,
+    content,
+  });
   return res.data;
 };
 
@@ -123,12 +121,9 @@ const ChatRoom = ({ setOpenChat }: ChatRoomProps) => {
     const baseURL = process.env.NEXT_PUBLIC_API_URL;
     const token = Cookies.get("access_token");
 
-    const res = await axios.delete(`${baseURL}/messages/${otherUserId}`, {
-      withCredentials: true,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axiosInstance.delete(
+      `${baseURL}/messages/${otherUserId}`
+    );
     return res.data;
   };
 

@@ -16,6 +16,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { formatNumberWithComma } from "@/utils/formatNumberWithComma";
 import Cookies from "js-cookie";
+import axiosInstance from "@/lib/axios";
 
 type Post = {
   post: {
@@ -112,13 +113,15 @@ const EditPost = () => {
         const baseURL = process.env.NEXT_PUBLIC_API_URL;
         const token = Cookies.get("access_token");
 
-        const res = await axios.post(`${baseURL}/posts/${id}`, formData, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
-        });
+        const res = await axiosInstance.post(
+          `${baseURL}/posts/${id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         // console.log("게시물 수정 성공 응답: ", res.data);
 
         const ok = confirm("게시물을 수정하시겠습니까?");
