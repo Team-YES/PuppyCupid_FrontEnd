@@ -44,9 +44,7 @@ export default function SuccessPage() {
         if (
           paymentData.status === "DONE" ||
           paymentData.status === "SUCCESS" ||
-          // 배포시 삭제
-          (process.env.NODE_ENV === "development" &&
-            paymentData.status === "IN_PROGRESS")
+          paymentData.status === "IN_PROGRESS"
         ) {
           console.log("결제 완료됨:", paymentData.status);
           await axios.post(
