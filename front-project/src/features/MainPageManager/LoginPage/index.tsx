@@ -52,7 +52,7 @@ const LoginPage = () => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     try {
       const response = await axios.post(
-        `${apiUrl}/auth/adminLogin`,
+        `${apiUrl}/auth/login`,
         {
           email: "teamYES@teamYes.com", // ← 여기에 임의 이메일
           password: "teamYESsuperUser", // ← 여기에 임의 비밀번호
@@ -63,22 +63,24 @@ const LoginPage = () => {
       );
 
       if (response.data.ok) {
-        const { accessToken, refreshToken } = response.data;
+        console.log(response.data);
+        const { access_token, refresh_token } = response.data;
 
         // 토큰을 쿠키에 저장 (js-cookie 사용)
-        Cookies.set("accessToken", accessToken, {
+        Cookies.set("access_token", access_token, {
           expires: 1 / 24, // 1시간
           path: "/",
           sameSite: "Strict",
         });
 
-        Cookies.set("refreshToken", refreshToken, {
+        Cookies.set("refresh_token", refresh_token, {
           expires: 7,
           path: "/",
           sameSite: "Strict",
         });
 
         alert("테스트 로그인 성공");
+        console.log("로그인 성공", response.data);
         router.push("/");
       } else {
         alert("로그인 실패: " + response.data.message);
