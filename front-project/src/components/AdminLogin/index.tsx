@@ -53,7 +53,11 @@ const AdminLogin = ({ onClose }: AdminLoginProps) => {
 
         alert("관리자 로그인 성공!");
 
-        router.push("/");
+        router.push("/").then(() => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 100);
+        });
       } else {
         alert("관리자 로그인 실패");
         console.log("관리자 로그인 실패", res.data);

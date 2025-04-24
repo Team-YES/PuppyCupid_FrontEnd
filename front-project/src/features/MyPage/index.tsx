@@ -27,6 +27,9 @@ import PuppyFormFix from "../../components/PuppyFormFix";
 // 쿠키 토큰 재발급 해보기
 import axiosInstance from "@/lib/axios";
 
+// 유저 닉네임 불러오기
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+
 interface Puppy {
   name: string;
   breed: string;
@@ -69,7 +72,13 @@ const MyPage = () => {
   const observer = useRef<IntersectionObserver | null>(null);
   const lastPostElementRef = useRef<HTMLDivElement | null>(null);
   const [dogs, setDogs] = useState<Puppy[]>([]);
-  const [nickName, setNickName] = useState<string>("");
+  const [nickName, setNickName] = useState(user?.nickName || "Guest");
+
+  useEffect(() => {
+    if (user && user.nickName && user.nickName !== nickName) {
+      setNickName(user.nickName);
+    }
+  }, [user, nickName]);
 
   // 알림 정보 읽음 처리
   const [hasUnread, setHasUnread] = useState(true);
@@ -375,7 +384,8 @@ const MyPage = () => {
               {/* 이메일 프로필 편집 버튼 */}
               <div className="MyPage_right_namebtns">
                 <div className="MyPage_profile_nickname">
-                  {user ? user.nickName || user.email : "Guest"}
+                  {/* {user ? user.nickName || user.email : "Guest"} */}
+                  {nickName || "Guest"}
 
                   {/* 왕관 */}
                   {(user?.role === "power_month" ||

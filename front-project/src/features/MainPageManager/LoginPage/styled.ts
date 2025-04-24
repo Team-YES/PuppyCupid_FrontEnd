@@ -68,9 +68,9 @@ export const LoginPageStyled = styled.div`
     font-weight: 700;
   }
 
-  .Loginpage_google_login {
+  /* .Loginpage_google_login {
     box-shadow: 1px 1px 1px grey;
-  }
+  } */
 
   .LoginPage_admin_login {
     cursor: pointer;
