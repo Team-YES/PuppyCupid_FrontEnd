@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL, // 환경변수 사용
   withCredentials: true,
   headers: {
-    "Content-Type": "application/json",
+    Authorization: `Bearer ${Cookies.get("access_token")}`,
   },
 });
 
@@ -14,7 +14,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use((config) => {
   const token = Cookies.get("access_token");
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers["Authorization"] = `Bearer ${token}`;
   }
   return config;
 });
@@ -52,7 +52,7 @@ axiosInstance.interceptors.response.use(
         // 새로 발급받은 access_token을 쿠키에 저장
         const newAccessToken = response.data.access_token;
         Cookies.set("access_token", newAccessToken);
-
+        originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
         // 원래 요청을 재시도
         return axiosInstance(originalRequest);
       } catch (refreshError) {

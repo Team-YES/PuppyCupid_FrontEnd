@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { PersonFormStyle } from "./styled";
 import Cookies from "js-cookie";
+import axiosInstance from "@/lib/axios";
 
 interface FormValues {
   personNickName: string;
@@ -164,21 +165,11 @@ const PersonForm = ({ closeModal }: { closeModal: () => void }) => {
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
       const token = Cookies.get("access_token");
 
-      const res = await axios.get(`${baseURL}/users/info`, {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axiosInstance.get(`${baseURL}/users/info`);
       const userId = res.data.user.id;
 
       // 회원탈퇴 요청
-      await axios.delete(`${baseURL}/users/${userId}`, {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axiosInstance.delete(`${baseURL}/users/${userId}`);
 
       alert("회원탈퇴가 완료되었습니다.");
       // 로그아웃 후 리다이렉트 등 추가

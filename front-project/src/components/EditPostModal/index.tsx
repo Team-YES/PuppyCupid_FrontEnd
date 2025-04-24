@@ -8,6 +8,7 @@ import ReportModal from "@/components/ReportModal";
 // import { useDispatch } from "react-redux";
 // import { AppDispatch } from "@/store/store";
 import Cookies from "js-cookie";
+import axiosInstance from "@/lib/axios";
 
 type Mode = "post" | "comment" | "other";
 
@@ -126,12 +127,7 @@ const EditPostModal = ({
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
       const token = Cookies.get("access_token");
 
-      const res = await axios.delete(`${baseURL}/posts/${postId}`, {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axiosInstance.delete(`/posts/${postId}`);
       // console.log("게시물 삭제 성공 응답: ", res.data);
       // res.data : true
 
@@ -149,22 +145,12 @@ const EditPostModal = ({
     setIsSending(true);
 
     try {
+      // axiosInstance를 사용하여 요청 보냄
       const baseURL = process.env.NEXT_PUBLIC_API_URL;
-      const token = Cookies.get("access_token");
-
-      const res = await axios.post(
-        `${baseURL}/messages`,
-        {
-          receiverId,
-          content: "채팅 신청합니다!",
-        },
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axiosInstance.post(`${baseURL}/messages`, {
+        receiverId,
+        content: "채팅 신청합니다!",
+      });
 
       window.location.href = `/chat?userId=${receiverId}`;
     } catch (error: any) {
