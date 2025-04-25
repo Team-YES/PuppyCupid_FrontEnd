@@ -15,8 +15,8 @@ import { Navigation, Pagination } from "swiper/modules";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMyDog } from "@/reducers/dogSlice";
 import { RootState, AppDispatch } from "@/store/store";
-import { format, differenceInDays, parseISO } from "date-fns";
 import { useRouter } from "next/router";
+import { formatPostDate } from "@/utils/formatDate";
 
 type Props = {
   post: Post;
@@ -39,6 +39,7 @@ export type CommentType = {
 };
 
 const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
+  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
   // console.log("하위 컴포", post);
@@ -53,33 +54,12 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
   const likeCount = postFromStore?.like_count ?? post.like_count;
   const isLiked = postFromStore?.liked ?? post.liked;
 
-  // 게시글 작성일 표시 함수(3일 이내면 n일 전, 그 이상은 M월 d일)
-  const formatPostDate = (dateString: string) => {
-    const now = new Date();
-    const date = parseISO(dateString);
-    const diffDays = differenceInDays(now, date);
-
-    if (diffDays <= 3) {
-      return `${diffDays === 0 ? "오늘" : `${diffDays}일 전`}`;
-    } else {
-      return format(date, "M월 d일");
-    }
-  };
-
   // 강아지 이미지 가져오기
   useEffect(() => {
     dispatch(fetchMyDog());
   }, [dispatch]);
 
   const dogImg = useSelector((state: RootState) => state.dog.dog?.image);
-
-  // fontawesome 아이콘 리스트
-  const MypageTitles = [
-    { icon: "fa-regular fa-comment" },
-    { icon: "fa-solid fa-share-nodes" },
-  ];
-
-  const router = useRouter();
 
   return (
     <PostStyled
@@ -203,11 +183,6 @@ const PostList = ({ post, loginUser, isDetailPage, onClick }: Props) => {
                 animate={animate}
               />
             </div>
-            {/* {MypageTitles.map((item, i) => (
-              <div key={i} className="Post_icon">
-                <PostIcon className={item.icon}></PostIcon>
-              </div>
-            ))} */}
             <div className="Post_icon">
               <PostIcon className="fa-regular fa-comment"></PostIcon>
             </div>

@@ -46,7 +46,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <AuthProvider>
               {/* 인터넷 상단 탭 */}
               <Head>
-                <link rel="icon" href="/icon.png" />
+                <link rel="icon" href="/icon2.png" />
                 <title>PUPPY CUPID</title>
                 <meta
                   name="description"
