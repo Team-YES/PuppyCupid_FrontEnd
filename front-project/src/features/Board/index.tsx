@@ -70,6 +70,7 @@ const Board = () => {
   // const dataUser = useSelector((state: RootState) => state.posts.currentUser);
 
   // 4. 위험 날씨 판단용 상수
+
   const dangerWeather: WeatherKey[] = [
     "Fog",
     "Smoke",
@@ -180,7 +181,7 @@ const Board = () => {
 
   // console.log(selectPostId);
 
-  // 게시글 클릭 시 상세 모달 띄우기
+  /** 게시글 클릭 시 상세 모달 띄우기 */
   const handlePostClick = (postId: number) => {
     setSelectPostId(postId);
   };
