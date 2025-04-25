@@ -87,23 +87,6 @@ export default function ContactPage() {
       try {
         const token = Cookies.get("access_token");
 
-        // await axios.post(
-        //   `${process.env.NEXT_PUBLIC_API_URL}/inquiries/contact`,
-        //   {
-        //     name: values.name,
-        //     email: values.email,
-        //     phone,
-        //     type: values.type,
-        //     content,
-        //   },
-        //   {
-        //     withCredentials: true,
-        //     headers: {
-        //       Authorization: `Bearer ${token}`,
-        //     },
-        //   }
-        // );
-
         const res = await axiosInstance.post("/inquiries/contact", {
           name: values.name,
           email: values.email,

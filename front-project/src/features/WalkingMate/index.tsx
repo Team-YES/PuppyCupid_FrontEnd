@@ -42,20 +42,6 @@ const WalkingMate = () => {
     try {
       const token = Cookies.get("access_token");
 
-      // const res = await axios.post(
-      //   `${process.env.NEXT_PUBLIC_API_URL}/messages`,
-      //   {
-      //     receiverId,
-      //     content: "산책 메이트 신청합니다!",
-      //   },
-      //   {
-      //     withCredentials: true,
-      //     headers: {
-      //       Authorization: `Bearer ${token}`,
-      //     },
-      //   }
-      // );
-
       const res = await axiosInstance.post("/messages", {
         receiverId,
         content: "산책 메이트 신청합니다!",

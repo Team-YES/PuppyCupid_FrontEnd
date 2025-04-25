@@ -14,33 +14,6 @@ const BlacklistRoute = ({ children }: BlacklistRouteProps) => {
   const [checkingAuth, setCheckingAuth] = useState(true);
   const hasRedirected = useRef(false);
 
-  //   useEffect(() => {
-  //     const checkAuth = async () => {
-  //       const token = Cookies.get("access_token");
-
-  //       if (!token) {
-  //         alert("로그인이 필요합니다.");
-  //         router.push("/login");
-  //         return;
-  //       }
-
-  //       await checkLogin(); // 쿠키가 있으니 실제 유저 정보 확인
-  //       setCheckingAuth(false);
-  //     };
-
-  //     checkAuth();
-  //   }, [checkLogin, router]);
-
-  //   useEffect(() => {
-  //     if (!checkingAuth && user?.role === "blacklist") {
-  //       alert("접근이 제한된 사용자입니다.");
-  //       router.push("/");
-  //     }
-  //   }, [checkingAuth, user, router]);
-
-  //   if (checkingAuth) return <Loading />;
-  //   return <>{children}</>;
-  // };
   useEffect(() => {
     const checkAuth = async () => {
       const token = Cookies.get("access_token");

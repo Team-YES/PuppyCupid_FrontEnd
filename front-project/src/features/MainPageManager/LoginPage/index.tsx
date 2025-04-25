@@ -24,11 +24,6 @@ export interface ButtonProps {
 const LoginPage = () => {
   const router = useRouter();
 
-  // 외부 클릭 시 창닫기
-  // const [showPicker, setShowPicker] = useState(false);
-  // const pickerRef = useRef<HTMLDivElement>(null);
-  // useClickOutside(pickerRef, () => setShowPicker(false));
-
   // 창 열고 닫기
   const [showModal, setShowModal] = useState(false);
 
