@@ -11,6 +11,7 @@ export const EditPostModalStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 
   .EditModal_btnContainer {
     display: flex;
