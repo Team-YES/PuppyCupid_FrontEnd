@@ -53,8 +53,8 @@ const PaymentPage = ({ tossClientKey }: PaymentProps) => {
         orderId: orderId,
         orderName: `${amount}원 결제`,
 
-        successUrl: `http://43.201.114.228/payment/success`,
-        failUrl: `http://43.201.114.228/payment/fail`,
+        successUrl: `http://52.79.135.142/payment/success`,
+        failUrl: `http://52.79.135.142/payment/fail`,
       });
     } catch (error) {
       console.error("결제 요청 중 오류:", error);
