@@ -9,6 +9,7 @@
 ### 프로젝트 실행
 
 ```
+npm install
 npm run dev
 ```
 
