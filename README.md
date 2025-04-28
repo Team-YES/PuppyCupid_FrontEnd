@@ -229,6 +229,9 @@ npm run dev
   </tr>
 </table>
 
+👉 **관리자 페이지 레포지토리**: [PuppyCupid_admin-project](https://github.com/Team-YES/PuppyCupid_Admin) <br>
+👉 **백엔드 레포지토리**: [PuppyCupid_back-project](https://github.com/Team-YES/PuppyCupid_BackEnd) <br><br>
+
 ## 📂 프로젝트 구조
 
 ```markdown
