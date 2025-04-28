@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (!token && tempToken) {
         try {
           const tempResponse = await axios.post(
-            "/auth/check-temp-token",
+            `${process.env.NEXT_PUBLIC_API_URL}/auth/check-temp-token`,
             {},
             {
               headers: {
