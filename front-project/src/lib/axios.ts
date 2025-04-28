@@ -19,7 +19,7 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-// ✅ 응답 인터셉터 설정
+// 응답 인터셉터 설정
 axiosInstance.interceptors.response.use(
   (response) => response, // 정상 응답 그대로 통과
   async (error) => {
@@ -51,12 +51,29 @@ axiosInstance.interceptors.response.use(
 
         // 새로 발급받은 access_token을 쿠키에 저장
         const newAccessToken = response.data.access_token;
-        Cookies.set("access_token", newAccessToken);
+
+        if (!newAccessToken) {
+          Cookies.remove("access_token");
+          Cookies.remove("refresh_token");
+          Router.push("/login");
+          return Promise.reject(error);
+        }
+
+        Cookies.set("access_token", newAccessToken, {
+          expires: 1 / 24,
+          path: "/",
+          sameSite: "Strict",
+        });
+
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
         // 원래 요청을 재시도
         return axiosInstance(originalRequest);
       } catch (refreshError) {
+        Cookies.remove("access_token");
+        Cookies.remove("refresh_token");
+
         const tempToken = Cookies.get("temp_access_token");
+
         if (tempToken) {
           Router.push("/phone");
         } else {
