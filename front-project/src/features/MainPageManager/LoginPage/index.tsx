@@ -122,7 +122,7 @@ const LoginPage = () => {
             $border="none"
             $iconURL="/btnG_naver_login_icon.png"
             size="30px"
-            onClick={() => handleSocialLogin("naver")}
+            onClick={() => ready()}
           >
             네이버로 시작하기
           </SocialLoginBtn>
@@ -143,7 +143,8 @@ const LoginPage = () => {
             $border="thin solid #888"
             $iconURL="/google-logo.png"
             size="19px"
-            onClick={() => ready()}
+            // onClick={() => ready()}
+            onClick={() => handleSocialLogin("google")}
           >
             구글로 시작하기
           </SocialLoginBtn>
