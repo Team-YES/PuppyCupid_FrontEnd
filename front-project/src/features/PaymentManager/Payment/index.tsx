@@ -53,8 +53,8 @@ const PaymentPage = ({ tossClientKey }: PaymentProps) => {
         orderId: orderId,
         orderName: `${amount}원 결제`,
 
-        successUrl: `${process.env.NEXT_PUBLIC_API_URL}/payment/success`,
-        failUrl: `${process.env.NEXT_PUBLIC_API_URL}/payment/fail`,
+        successUrl: `https://puppycupid.co.kr/payment/success`,
+        failUrl: `https://puppycupid.co.kr/payment/fail`,
       });
     } catch (error) {
       console.error("결제 요청 중 오류:", error);
