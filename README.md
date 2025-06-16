@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/49470fc1-6bad-439d-9242-d23d64c2570c)# 🐶 소개팅 – AI 및 GPS 기반 반려동물 친구 만들기 서비스
+# 🐶 소개팅 – AI 및 GPS 기반 반려동물 친구 만들기 서비스
 ![표지](https://github.com/user-attachments/assets/da5bd035-7759-4d7c-9223-14c81ce95aca)
 
 ## 🚀 프로젝트 소개
